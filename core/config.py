@@ -1,0 +1,6 @@
+# Confidence thresholds
+MIN_STT_CONFIDENCE = 0.6
+MIN_TRANSLATION_CONFIDENCE = 0.7
+
+# Latency budget (ms)
+MAX_PIPELINE_LATENCY_MS = 2000
