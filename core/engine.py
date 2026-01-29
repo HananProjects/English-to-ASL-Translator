@@ -1,16 +1,20 @@
 import time
 from core.types import TranslationResult
 from core.config import MIN_STT_CONFIDENCE
+from typing import Optional
 
 # These imports WILL FAIL until partners implement them — that is OK
-from core.english_to_asl.stt import speech_to_text
+try:
+    from core.english_to_asl.stt import speech_to_text
+except ImportError:
+    speech_to_text = None
 from core.english_to_asl.text_normalizer import normalize_text
 from core.english_to_asl.grammar_mapper import map_grammar
 from core.english_to_asl.asl_tokenizer import tokenize_asl
 
 
-def english_to_asl(audio: bytes | None = None,
-                   text: str | None = None) -> TranslationResult:
+def english_to_asl(audio: Optional[bytes] = None,
+                   text: Optional[str] = None) -> TranslationResult:
     """
     Main English → ASL pipeline entry point.
     Accepts either raw audio OR text.
@@ -19,13 +23,14 @@ def english_to_asl(audio: bytes | None = None,
 
     start_time = time.time()
 
-    if audio is None and text is None:
-        return TranslationResult(
-            asl_tokens=[],
-            confidence=0.0,
-            latency_ms=0,
-            error="NO_INPUT"
-        )
+    if audio is not None:
+        if speech_to_text is None:
+            return TranslationResult(
+                asl_tokens=[],
+                confidence=0.0,
+                latency_ms=elapsed_ms(start_time),
+                error="STT_NOT_IMPLEMENTED"
+            )
 
     # Step 1: Speech to Text (if audio)
     if audio is not None:
