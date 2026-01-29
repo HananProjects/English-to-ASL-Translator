@@ -4,10 +4,14 @@ from core.config import MIN_STT_CONFIDENCE
 from typing import Optional
 
 # These imports WILL FAIL until partners implement them — that is OK
-try:
-    from core.english_to_asl.stt import speech_to_text
-except ImportError:
-    speech_to_text = None
+_stt_backend = None
+
+def _get_stt_backend():
+    global _stt_backend
+    if _stt_backend is None:
+        from core.english_to_asl.stt_vosk import VoskSTT
+        _stt_backend = VoskSTT()
+    return _stt_backend
 from core.english_to_asl.text_normalizer import normalize_text
 from core.english_to_asl.grammar_mapper import map_grammar
 from core.english_to_asl.asl_tokenizer import tokenize_asl
@@ -24,18 +28,20 @@ def english_to_asl(audio: Optional[bytes] = None,
     start_time = time.time()
 
     if audio is not None:
-        if speech_to_text is None:
+        try:
+            stt = _get_stt_backend()
+        except Exception:
             return TranslationResult(
                 asl_tokens=[],
                 confidence=0.0,
                 latency_ms=elapsed_ms(start_time),
-                error="STT_NOT_IMPLEMENTED"
+                error="STT_NOT_AVAILABLE"
             )
 
     # Step 1: Speech to Text (if audio)
     if audio is not None:
-        text, stt_conf = speech_to_text(audio)
-
+        stt = _get_stt_backend()
+        text, stt_conf = stt.speech_to_text(audio)
         if stt_conf < MIN_STT_CONFIDENCE:
             return TranslationResult(
                 asl_tokens=[],
