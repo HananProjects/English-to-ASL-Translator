@@ -1,7 +1,8 @@
 from core.engine import english_to_asl
 from core.mic_utils import record_audio
-from PySide6.QtCore import QThread
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QThread, Qt, QTimer
+from core.sequencing.sign_sequencer import sequence_signs
+from ui.animation.animation_stub import AnimationStub
 from ui.worker import TranslationWorker
 from PySide6.QtWidgets import (
     QWidget,
@@ -20,7 +21,7 @@ class MainWindow(QWidget):
         self.showFullScreen()
 
         self.setWindowTitle("English → ASL Translator")
-        self.setMinimumSize(800, 480)  # Pi touchscreen friendly
+        self.setMinimumSize(800, 480)
 
         layout = QVBoxLayout()
 
@@ -42,13 +43,19 @@ class MainWindow(QWidget):
         layout.setSpacing(30)
         self.setLayout(layout)
 
+        # Animation stub
+        self.anim = AnimationStub()
+
+        self.anim_timer = QTimer(self)
+        self.anim_timer.timeout.connect(self.anim.update)
+        self.anim_timer.start(50)
+
     def on_record_clicked(self):
         self.status_label.setText("Status: Recording...")
         self.tokens_label.setText("ASL Output:")
 
         self.thread = QThread()
         self.worker = TranslationWorker()
-
         self.worker.moveToThread(self.thread)
 
         self.thread.started.connect(self.worker.run)
@@ -62,18 +69,21 @@ class MainWindow(QWidget):
         self.thread.start()
 
     def on_translation_finished(self, data):
-        tokens = " ".join(data["tokens"])
+        tokens = data["tokens"]
 
-        self.tokens_label.setText(f"ASL Output: {tokens}")
+        self.tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
         self.status_label.setText(
             f"Confidence: {data['confidence']:.2f} | "
             f"Latency: {data['latency']} ms"
         )
 
+        # Sequencing → animation stub
+        sequence = sequence_signs(tokens)
+        self.anim.play(sequence)
+
     def on_translation_error(self, message):
         self.status_label.setText(f"Error: {message}")
 
     def keyPressEvent(self, event):
-        # Press ESC to exit kiosk mode
         if event.key() == Qt.Key_Escape:
             self.close()
