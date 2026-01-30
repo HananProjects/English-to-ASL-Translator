@@ -1,3 +1,7 @@
+from core.engine import english_to_asl
+from core.mic_utils import record_audio
+from PySide6.QtCore import QThread
+from ui.worker import TranslationWorker
 from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -32,6 +36,32 @@ class MainWindow(QWidget):
         self.setLayout(layout)
 
     def on_record_clicked(self):
-        # Placeholder for now
-        self.status_label.setText("Status: Recording (stub)")
-        self.tokens_label.setText("ASL Output: YOU GO WHERE")
+        self.status_label.setText("Status: Recording...")
+        self.tokens_label.setText("ASL Output:")
+
+        self.thread = QThread()
+        self.worker = TranslationWorker()
+
+        self.worker.moveToThread(self.thread)
+
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.on_translation_finished)
+        self.worker.error.connect(self.on_translation_error)
+
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+
+        self.thread.start()
+
+    def on_translation_finished(self, data):
+        tokens = " ".join(data["tokens"])
+
+        self.tokens_label.setText(f"ASL Output: {tokens}")
+        self.status_label.setText(
+            f"Confidence: {data['confidence']:.2f} | "
+            f"Latency: {data['latency']} ms"
+        )
+
+    def on_translation_error(self, message):
+        self.status_label.setText(f"Error: {message}")
