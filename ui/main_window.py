@@ -2,6 +2,7 @@ from core.engine import english_to_asl
 from core.mic_utils import record_audio
 from PySide6.QtCore import QThread, Qt, QTimer
 from core.sequencing.sign_sequencer import sequence_signs
+from ui.widgets.animation_view import ASLAnimationView
 from ui.animation.animation_stub import AnimationStub
 from ui.worker import TranslationWorker
 from PySide6.QtWidgets import (
@@ -25,6 +26,9 @@ class MainWindow(QWidget):
 
         layout = QVBoxLayout()
 
+        self.animation_view = ASLAnimationView()
+        layout.addWidget(self.animation_view)
+
         self.status_label = QLabel("Status: Idle")
         self.status_label.setStyleSheet("font-size: 18px;")
 
@@ -42,13 +46,6 @@ class MainWindow(QWidget):
         layout.setContentsMargins(40, 40, 40, 40)
         layout.setSpacing(30)
         self.setLayout(layout)
-
-        # Animation stub
-        self.anim = AnimationStub()
-
-        self.anim_timer = QTimer(self)
-        self.anim_timer.timeout.connect(self.anim.update)
-        self.anim_timer.start(50)
 
     def on_record_clicked(self):
         self.status_label.setText("Status: Recording...")
@@ -79,7 +76,7 @@ class MainWindow(QWidget):
 
         # Sequencing → animation stub
         sequence = sequence_signs(tokens)
-        self.anim.play(sequence)
+        self.animation_view.play(sequence)
 
     def on_translation_error(self, message):
         self.status_label.setText(f"Error: {message}")
