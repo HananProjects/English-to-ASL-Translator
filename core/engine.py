@@ -2,6 +2,7 @@ import time
 from core.types import TranslationResult
 from core.config import MIN_STT_CONFIDENCE
 from typing import Optional
+from core.confidence import compute_confidence
 
 # These imports WILL FAIL until partners implement them — that is OK
 _stt_backend = None
@@ -16,9 +17,8 @@ from core.english_to_asl.text_normalizer import normalize_text
 from core.english_to_asl.grammar_mapper import map_grammar
 from core.english_to_asl.asl_tokenizer import tokenize_asl
 
-
 def english_to_asl(audio: Optional[bytes] = None,
-                   text: Optional[str] = None) -> TranslationResult:
+                   text: Optional[str] = None):
     """
     Main English → ASL pipeline entry point.
     Accepts either raw audio OR text.
@@ -52,6 +52,7 @@ def english_to_asl(audio: Optional[bytes] = None,
 
     # Step 2: Normalize text
     normalized_text = normalize_text(text)
+    input_token_count = len(normalized_text.split())
 
     # Step 3: Map grammar
     grammar_tokens = map_grammar(normalized_text)
@@ -59,11 +60,17 @@ def english_to_asl(audio: Optional[bytes] = None,
     # Step 4: ASL tokenization
     asl_tokens = tokenize_asl(grammar_tokens)
 
+    confidence = compute_confidence(
+    stt_confidence=stt_conf if audio is not None else None,
+    input_tokens=input_token_count,
+    output_tokens=len(asl_tokens),
+    )
+
     latency = elapsed_ms(start_time)
 
     return TranslationResult(
         asl_tokens=asl_tokens,
-        confidence=1.0,  # placeholder until confidence logic is added
+        confidence=confidence,
         latency_ms=latency
     )
 
