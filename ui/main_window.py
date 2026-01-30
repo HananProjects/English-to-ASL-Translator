@@ -1,6 +1,5 @@
 from core.engine import english_to_asl
 from core.mic_utils import record_audio
-from ui.widgets.animation_view import ASLAnimationView
 from PySide6.QtCore import QThread
 from PySide6.QtCore import Qt
 from ui.worker import TranslationWorker
@@ -25,9 +24,6 @@ class MainWindow(QWidget):
 
         layout = QVBoxLayout()
 
-        self.animation_view = ASLAnimationView()
-        layout.addWidget(self.animation_view)
-
         self.status_label = QLabel("Status: Idle")
         self.status_label.setStyleSheet("font-size: 18px;")
 
@@ -41,7 +37,7 @@ class MainWindow(QWidget):
         layout.addWidget(self.status_label)
         layout.addWidget(self.tokens_label)
         layout.addWidget(self.record_button)
-        
+
         layout.setContentsMargins(40, 40, 40, 40)
         layout.setSpacing(30)
         self.setLayout(layout)
