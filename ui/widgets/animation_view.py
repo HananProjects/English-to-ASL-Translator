@@ -63,6 +63,26 @@ class ASLAnimationView(QWidget):
 
             self._line(painter, p("shoulder_right"), p("elbow_right"))
             self._line(painter, p("elbow_right"), p("hand_right"))
+
+            # ---- Hand fingertip debug dots ----
+            def draw_point(name, r=8):
+                pt = p(name)
+                if pt:
+                    painter.drawEllipse(pt[0] - r//2, pt[1] - r//2, r, r)
+
+            # LEFT HAND
+            draw_point("left_thumb_tip")
+            draw_point("left_index_tip")
+            draw_point("left_middle_tip")
+            draw_point("left_ring_tip")
+            draw_point("left_pinky_tip")
+
+            # RIGHT HAND
+            draw_point("right_thumb_tip")
+            draw_point("right_index_tip")
+            draw_point("right_middle_tip")
+            draw_point("right_ring_tip")
+            draw_point("right_pinky_tip")
         finally:
             painter.end()
 
@@ -114,6 +134,9 @@ class ASLAnimationView(QWidget):
         self.live_pose = pose
         self.update()
         print("LIVE POSE KEYS:", pose.keys())
+
+        if any("thumb" in k for k in pose.keys()):
+            print("HAND LANDMARKS PRESENT")
 
     def enable_live_mode(self, enabled: bool):
         if enabled:

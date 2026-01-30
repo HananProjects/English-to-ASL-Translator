@@ -29,18 +29,17 @@ class CameraWorker(QObject):
 
             print("POSE DETECTED")
 
-            pose_dict = mediapipe_to_pose_dict(pose_landmarks)
+            pose = mediapipe_to_pose_dict(pose_landmarks)
 
-            # --- Hands ---
             hand_landmarks_list = mp_hands.process_frame(frame)
+
             if hand_landmarks_list:
                 for i, hand_landmarks in enumerate(hand_landmarks_list):
-                    prefix = "left_hand" if i == 0 else "right_hand"
+                    prefix = "left" if i == 0 else "right"
                     hand_dict = mediapipe_hand_to_dict(hand_landmarks, prefix)
-                    pose_dict.update(hand_dict)
+                    pose.update(hand_dict)
 
-            # --- Emit once per frame ---
-            self.pose_ready.emit(pose_dict)
+            self.pose_ready.emit(pose)
 
         cap.release()
         print("Camera thread exiting cleanly")
