@@ -4,6 +4,7 @@ from PySide6.QtCore import QThread, Qt, QTimer
 from core.sequencing.sign_sequencer import sequence_signs
 from ui.widgets.animation_view import ASLAnimationView
 from ui.animation.animation_stub import AnimationStub
+from ui.worker_camera import CameraWorker
 from ui.worker import TranslationWorker
 from PySide6.QtWidgets import (
     QWidget,
@@ -47,6 +48,16 @@ class MainWindow(QWidget):
         layout.setSpacing(30)
         self.setLayout(layout)
 
+        self.camera_thread = QThread(self)
+        self.camera_worker = CameraWorker()
+
+        self.camera_worker.moveToThread(self.camera_thread)
+
+        self.camera_thread.started.connect(self.camera_worker.run)
+        self.camera_worker.pose_ready.connect(self.animation_view.set_live_pose)
+
+        self.camera_thread.start()
+
     def on_record_clicked(self):
         self.status_label.setText("Status: Recording...")
         self.tokens_label.setText("ASL Output:")
@@ -84,3 +95,10 @@ class MainWindow(QWidget):
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             self.close()
+
+    def closeEvent(self, event):
+        if hasattr(self, "camera_thread"):
+            self.camera_thread.requestInterruption()
+            self.camera_thread.quit()
+            self.camera_thread.wait()
+        event.accept()

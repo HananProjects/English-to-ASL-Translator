@@ -14,12 +14,8 @@ class ASLAnimationView(QWidget):
 
         self.sequence: List[SignEvent] = []
         self.start_time = None
-        self.current_pose = POSES["REST"]
 
-        self.prev_pose = POSES["REST"]
-        self.target_pose = POSES["REST"]
-        self.pose_start_time = None
-        self.pose_duration = 0.3  # seconds (tweakable)
+        self.live_pose = None
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update)
@@ -29,11 +25,8 @@ class ASLAnimationView(QWidget):
         self.clip_start_time = None
         self.clip_frame_index = 0
 
-    def interpolate_pose(self, pose_a, pose_b, t):        
-        """
-        Linearly interpolate between two poses.
-        t in [0,1]
-        """
+    @staticmethod
+    def interpolate_pose(pose_a, pose_b, t):
         result = {}
         for joint in pose_a:
             x0, y0 = pose_a[joint]
@@ -55,26 +48,28 @@ class ASLAnimationView(QWidget):
             pen = QPen(Qt.black, 4)
             painter.setPen(pen)
 
-            pose = self._get_active_pose()
-            if not pose:
-                return
-
             w, h = self.width(), self.height()
-
+            pose = self.live_pose if self.live_pose else self._get_active_pose()
             def p(name):
+                if name not in pose:
+                    return None
                 x, y = pose[name]
                 return int(x * w), int(y * h)
 
-            self._line(painter, p("head"), p("shoulder"))
-            self._line(painter, p("shoulder"), p("elbow_left"))
+            self._line(painter, p("head"), p("torso"))
+
+            self._line(painter, p("shoulder_left"), p("elbow_left"))
             self._line(painter, p("elbow_left"), p("hand_left"))
-            self._line(painter, p("shoulder"), p("elbow_right"))
+
+            self._line(painter, p("shoulder_right"), p("elbow_right"))
             self._line(painter, p("elbow_right"), p("hand_right"))
-            self._line(painter, p("shoulder"), p("torso"))
         finally:
             painter.end()
 
     def _get_active_pose(self):
+        if self.live_pose:
+            return self.live_pose
+
         if not self.sequence or self.start_time is None:
             return POSES["REST"]
 
@@ -112,3 +107,7 @@ class ASLAnimationView(QWidget):
 
     def _line(self, painter, a, b):
         painter.drawLine(a[0], a[1], b[0], b[1])
+
+    def set_live_pose(self, pose: dict):
+        self.live_pose = pose
+        self.update()
