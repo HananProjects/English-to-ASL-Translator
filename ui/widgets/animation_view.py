@@ -5,6 +5,7 @@ from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QPainter, QPen
 from core.sequencing.sign_sequencer import SignEvent
 from ui.animation.poses.basic_poses import POSES
+from ui.animation.clip_loader import load_clip
 
 
 class ASLAnimationView(QWidget):
@@ -23,6 +24,10 @@ class ASLAnimationView(QWidget):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update)
         self.timer.start(30)
+
+        self.clip = None
+        self.clip_start_time = None
+        self.clip_frame_index = 0
 
     def interpolate_pose(self, pose_a, pose_b, t):        
         """
@@ -77,27 +82,32 @@ class ASLAnimationView(QWidget):
 
         for e in self.sequence:
             if e.start <= elapsed < e.start + e.duration:
-                target = POSES.get(e.sign, POSES["REST"])
 
-                if self.target_pose != target:
-                    self.prev_pose = self.current_pose
-                    self.target_pose = target
-                    self.pose_start_time = time.time()
+                # Load clip once per sign
+                if self.clip is None or self.clip["sign"] != e.sign:
+                    clip_data = load_clip(e.sign)
+                    if clip_data is None:
+                        return POSES.get(e.sign, POSES["REST"])
 
-                # interpolation factor
-                t = min(
-                    (time.time() - self.pose_start_time) / self.pose_duration,
-                    1.0
-                )
+                    self.clip = {
+                        "sign": e.sign,
+                        "frames": clip_data["frames"],
+                        "fps": clip_data["fps"]
+                    }
+                    self.clip_start_time = time.time()
+                    self.clip_frame_index = 0
 
-                self.current_pose = self.interpolate_pose(
-                    self.prev_pose,
-                    self.target_pose,
-                    t
-                )
+                # Advance frames
+                frame_time = 1.0 / self.clip["fps"]
+                frame_count = len(self.clip["frames"])
+                elapsed_clip = time.time() - self.clip_start_time
 
-                return self.current_pose
+                index = int(elapsed_clip / frame_time)
+                index = min(index, frame_count - 1)
 
+                return self.clip["frames"][index]
+
+        self.clip = None
         return POSES["REST"]
 
     def _line(self, painter, a, b):
