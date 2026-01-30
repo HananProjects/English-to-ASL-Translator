@@ -1,5 +1,6 @@
 from core.engine import english_to_asl
 from core.mic_utils import record_audio
+from ui.widgets.animation_view import ASLAnimationView
 from PySide6.QtCore import QThread
 from ui.worker import TranslationWorker
 from PySide6.QtWidgets import (
@@ -18,6 +19,9 @@ class MainWindow(QWidget):
         self.setMinimumSize(800, 480)  # Pi touchscreen friendly
 
         layout = QVBoxLayout()
+
+        self.animation_view = ASLAnimationView()
+        layout.addWidget(self.animation_view)
 
         self.status_label = QLabel("Status: Idle")
         self.status_label.setStyleSheet("font-size: 18px;")
