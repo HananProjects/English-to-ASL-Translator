@@ -2,6 +2,7 @@ from core.engine import english_to_asl
 from core.mic_utils import record_audio
 from ui.widgets.animation_view import ASLAnimationView
 from PySide6.QtCore import QThread
+from PySide6.QtCore import Qt
 from ui.worker import TranslationWorker
 from PySide6.QtWidgets import (
     QWidget,
@@ -14,6 +15,10 @@ from PySide6.QtWidgets import (
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
+
+        # Fullscreen kiosk mode
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.showFullScreen()
 
         self.setWindowTitle("English → ASL Translator")
         self.setMinimumSize(800, 480)  # Pi touchscreen friendly
@@ -36,7 +41,9 @@ class MainWindow(QWidget):
         layout.addWidget(self.status_label)
         layout.addWidget(self.tokens_label)
         layout.addWidget(self.record_button)
-
+        
+        layout.setContentsMargins(40, 40, 40, 40)
+        layout.setSpacing(30)
         self.setLayout(layout)
 
     def on_record_clicked(self):
@@ -69,3 +76,8 @@ class MainWindow(QWidget):
 
     def on_translation_error(self, message):
         self.status_label.setText(f"Error: {message}")
+
+    def keyPressEvent(self, event):
+        # Press ESC to exit kiosk mode
+        if event.key() == Qt.Key_Escape:
+            self.close()
