@@ -106,8 +106,17 @@ class ASLAnimationView(QWidget):
         return POSES["REST"]
 
     def _line(self, painter, a, b):
+        if a is None or b is None:
+            return
         painter.drawLine(a[0], a[1], b[0], b[1])
 
     def set_live_pose(self, pose: dict):
         self.live_pose = pose
         self.update()
+        print("LIVE POSE KEYS:", pose.keys())
+
+    def enable_live_mode(self, enabled: bool):
+        if enabled:
+            self.sequence = []
+            self.clip = None
+            self.start_time = None
