@@ -83,6 +83,19 @@ class ASLAnimationView(QWidget):
             draw_point("right_middle_tip")
             draw_point("right_ring_tip")
             draw_point("right_pinky_tip")
+
+            def draw_finger(prefix, name):
+                self._line(painter, p(f"{prefix}_{name}_mcp"), p(f"{prefix}_{name}_pip"))
+                self._line(painter, p(f"{prefix}_{name}_pip"), p(f"{prefix}_{name}_dip"))
+                self._line(painter, p(f"{prefix}_{name}_dip"), p(f"{prefix}_{name}_tip"))
+
+            # LEFT HAND
+            for finger in ["thumb", "index", "middle", "ring", "pinky"]:
+                draw_finger("left", finger)
+
+            # RIGHT HAND
+            for finger in ["thumb", "index", "middle", "ring", "pinky"]:
+                draw_finger("right", finger)
         finally:
             painter.end()
 
