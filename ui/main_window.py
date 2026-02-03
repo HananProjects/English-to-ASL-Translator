@@ -57,6 +57,7 @@ class MainWindow(QWidget):
         self.camera_worker.pose_ready.connect(self.animation_view.set_live_pose)
 
         self.camera_thread.start()
+        self.test_animation()
 
     def on_record_clicked(self):
         self.status_label.setText("Status: Recording...")
@@ -102,3 +103,8 @@ class MainWindow(QWidget):
             self.camera_thread.quit()
             self.camera_thread.wait()
         event.accept()
+
+    def test_animation(self):
+        tokens = ["YOU", "GO", "WHERE"]
+        events = sequence_signs(tokens)
+        self.animation_view.play(events)

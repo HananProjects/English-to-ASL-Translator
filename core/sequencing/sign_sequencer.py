@@ -1,5 +1,5 @@
 from typing import List, Dict
-from core.english_to_asl.dictionary import asl_dictionary
+from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
 
 class SignEvent:
@@ -31,22 +31,24 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
     current_time = 0.0
 
     for token in tokens:
-        sign_def = asl_dictionary.get(token)
+        sign_def = ASL_SIGNS.get(token)
 
         if not sign_def:
-            print(f"[WARN] No ASL sign for token: {token}")
+            print(f"[WARN] No ASL sign metadata for token: {token}")
             continue
 
         duration = sign_def.get("duration", DEFAULT_SIGN_DURATION)
 
-        event = SignEvent(
-            token=token,
-            clip=sign_def["clip"],
-            start=current_time,
-            duration=duration
+        events.append(
+            SignEvent(
+                token=token,
+                clip=sign_def["clip"],
+                start=current_time,
+                duration=duration
+            )
         )
 
-        events.append(event)
         current_time += duration
+
 
     return events

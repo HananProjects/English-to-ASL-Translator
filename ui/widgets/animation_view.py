@@ -63,6 +63,7 @@ class ASLAnimationView(QWidget):
 
             self._line(painter, p("shoulder_right"), p("elbow_right"))
             self._line(painter, p("elbow_right"), p("hand_right"))
+
         finally:
             painter.end()
 
@@ -79,16 +80,18 @@ class ASLAnimationView(QWidget):
             if e.start <= elapsed < e.start + e.duration:
 
                 # Load clip once per sign
-                if self.clip is None or self.clip["sign"] != e.sign:
-                    clip_data = load_clip(e.sign)
+                if self.clip is None or self.clip["clip"] != e.clip:
+                    clip_data = load_clip(e.clip)
+
                     if clip_data is None:
-                        return POSES.get(e.sign, POSES["REST"])
+                        return POSES["REST"]
 
                     self.clip = {
-                        "sign": e.sign,
+                        "clip": e.clip,
                         "frames": clip_data["frames"],
                         "fps": clip_data["fps"]
                     }
+
                     self.clip_start_time = time.time()
                     self.clip_frame_index = 0
 
@@ -106,7 +109,10 @@ class ASLAnimationView(QWidget):
         return POSES["REST"]
 
     def _line(self, painter, a, b):
+        if a is None or b is None:
+            return
         painter.drawLine(a[0], a[1], b[0], b[1])
+
 
     def set_live_pose(self, pose: dict):
         self.live_pose = pose
