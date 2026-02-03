@@ -16,6 +16,7 @@ class ASLAnimationView(QWidget):
         self.start_time = None
 
         self.live_pose = None
+        self.use_live_pose = True
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update)
@@ -49,7 +50,11 @@ class ASLAnimationView(QWidget):
             painter.setPen(pen)
 
             w, h = self.width(), self.height()
-            pose = self.live_pose if self.live_pose else self._get_active_pose()
+            pose = (
+                self.live_pose
+                if self.use_live_pose and self.live_pose
+                else self._get_active_pose()
+            )   
             print("POSE KEYS:", pose.keys())
             def p(name):
                 if name not in pose:
@@ -78,9 +83,6 @@ class ASLAnimationView(QWidget):
             painter.end()
 
     def _get_active_pose(self):
-        if self.live_pose:
-            return self.live_pose
-
         if not self.sequence or self.start_time is None:
             return POSES["REST"]
 
@@ -125,6 +127,15 @@ class ASLAnimationView(QWidget):
 
 
     def set_live_pose(self, pose: dict):
+        if not self.use_live_pose:
+            return  # 🔒 ignore camera during ASL playback
+
         self.live_pose = pose
         self.update()
 
+    def disable_live_pose(self):
+        self.use_live_pose = False
+        self.live_pose = None   
+
+    def enable_live_pose(self):
+        self.use_live_pose = True

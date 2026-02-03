@@ -127,4 +127,11 @@ class MainWindow(QWidget):
         self.status_label.setText("Status: Live Speech")
 
         sequence = sequence_signs(tokens)
+        self.animation_view.disable_live_pose()
         self.animation_view.play(sequence)
+        duration_ms = int(sum(e.duration for e in sequence) * 1000)
+
+        QTimer.singleShot(
+            duration_ms,
+            self.animation_view.enable_live_pose
+        )
