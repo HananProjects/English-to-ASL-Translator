@@ -1,7 +1,6 @@
 from typing import List, Dict
 from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
-
 class SignEvent:
     """
     Represents a single ASL sign scheduled in time.
@@ -52,3 +51,4 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
 
 
     return events
+

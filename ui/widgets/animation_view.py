@@ -50,13 +50,23 @@ class ASLAnimationView(QWidget):
 
             w, h = self.width(), self.height()
             pose = self.live_pose if self.live_pose else self._get_active_pose()
+            print("POSE KEYS:", pose.keys())
             def p(name):
                 if name not in pose:
                     return None
                 x, y = pose[name]
                 return int(x * w), int(y * h)
-
-            self._line(painter, p("head"), p("torso"))
+            
+            head = p("head")
+            if head:
+                painter.setPen(QPen(Qt.black, 3))
+                painter.setBrush(Qt.white)
+                painter.drawEllipse(
+                    head[0] - 12,
+                    head[1] - 12,
+                    24,
+                    24
+                )
 
             self._line(painter, p("shoulder_left"), p("elbow_left"))
             self._line(painter, p("elbow_left"), p("hand_left"))
@@ -117,3 +127,4 @@ class ASLAnimationView(QWidget):
     def set_live_pose(self, pose: dict):
         self.live_pose = pose
         self.update()
+
