@@ -8,6 +8,14 @@ ASL_SIGNS = {
         "clip": "you",
         "duration": 0.6,
     },
+    "HOW": {
+        "clip": "how",
+        "duration": 0.7,
+    },
+    "ARE": {
+        "clip": "are",
+        "duration": 0.6,
+    },
     "ME": {
         "clip": "me",
         "duration": 0.6,

@@ -7,3 +7,4 @@ class TranslationResult:
     confidence: float
     latency_ms: int
     error: Optional[str] = None
+    source_text: str = ""
