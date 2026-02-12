@@ -1,7 +1,8 @@
 from core.engine import english_to_asl
 from core.mic_utils import record_audio
 from core.audio.vosk_listener import VoskListener
-from PySide6.QtCore import QThread, Qt, QTimer
+import threading
+from PySide6.QtCore import QThread, Qt, QTimer, Signal
 from core.sequencing.sign_sequencer import sequence_signs
 from ui.widgets.animation_view import ASLAnimationView
 from ui.animation.animation_stub import AnimationStub
@@ -16,6 +17,8 @@ from PySide6.QtWidgets import (
 
 
 class MainWindow(QWidget):
+    speech_text_received = Signal(str)
+
     def __init__(self):
         super().__init__()
 
@@ -48,6 +51,7 @@ class MainWindow(QWidget):
         layout.setContentsMargins(40, 40, 40, 40)
         layout.setSpacing(30)
         self.setLayout(layout)
+        self.speech_text_received.connect(self.on_speech)
 
         self.camera_thread = QThread(self)
         self.camera_worker = CameraWorker()
@@ -60,11 +64,8 @@ class MainWindow(QWidget):
         self.camera_thread.start()
         self.test_animation()
 
-        self.vosk = VoskListener(
-            model_path="models/vosk-en",
-            on_text=self.on_speech
-        )
-        self.vosk.start()
+        self.vosk = None
+        QTimer.singleShot(0, self._start_vosk_async)
 
     def on_record_clicked(self):
         self.status_label.setText("Status: Recording...")
@@ -105,6 +106,9 @@ class MainWindow(QWidget):
             self.close()
 
     def closeEvent(self, event):
+        if getattr(self, "vosk", None) is not None:
+            self.vosk.stop()
+
         if hasattr(self, "camera_thread"):
             self.camera_thread.requestInterruption()
             self.camera_thread.quit()
@@ -136,3 +140,14 @@ class MainWindow(QWidget):
             duration_ms,
             self.animation_view.enable_live_pose
         )
+
+    def _start_vosk_async(self):
+        threading.Thread(target=self._init_vosk_listener, daemon=True).start()
+
+    def _init_vosk_listener(self):
+        listener = VoskListener(
+            model_path="models/vosk-en",
+            on_text=self.speech_text_received.emit
+        )
+        listener.start()
+        self.vosk = listener

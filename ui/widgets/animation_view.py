@@ -9,6 +9,16 @@ from ui.animation.clip_loader import load_clip
 
 
 class ASLAnimationView(QWidget):
+    HAND_VISUAL_SCALE = 0.75
+    HAND_CONNECTIONS = (
+        (0, 1), (1, 2), (2, 3), (3, 4),
+        (0, 5), (5, 6), (6, 7), (7, 8),
+        (5, 9), (9, 10), (10, 11), (11, 12),
+        (9, 13), (13, 14), (14, 15), (15, 16),
+        (13, 17), (17, 18), (18, 19), (19, 20),
+        (0, 17),
+    )
+
     def __init__(self):
         super().__init__()
 
@@ -55,11 +65,13 @@ class ASLAnimationView(QWidget):
                 if self.use_live_pose and self.live_pose
                 else self._get_active_pose()
             )   
-            print("POSE KEYS:", pose.keys())
+
             def p(name):
                 if name not in pose:
                     return None
                 x, y = pose[name]
+                x = max(0.0, min(1.0, float(x)))
+                y = max(0.0, min(1.0, float(y)))
                 return int(x * w), int(y * h)
             
             head = p("head")
@@ -75,9 +87,16 @@ class ASLAnimationView(QWidget):
 
             self._line(painter, p("shoulder_left"), p("elbow_left"))
             self._line(painter, p("elbow_left"), p("hand_left"))
-
             self._line(painter, p("shoulder_right"), p("elbow_right"))
             self._line(painter, p("elbow_right"), p("hand_right"))
+
+            self._draw_full_hand(painter, p, "left")
+            self._draw_full_hand(painter, p, "right")
+
+            self._dot(painter, p("left_thumb_tip"))
+            self._dot(painter, p("left_index_tip"))
+            self._dot(painter, p("right_thumb_tip"))
+            self._dot(painter, p("right_index_tip"))
 
         finally:
             painter.end()
@@ -128,7 +147,7 @@ class ASLAnimationView(QWidget):
 
     def set_live_pose(self, pose: dict):
         if not self.use_live_pose:
-            return  # 🔒 ignore camera during ASL playback
+            return  # ignore camera during ASL playback
 
         self.live_pose = pose
         self.update()
@@ -139,3 +158,31 @@ class ASLAnimationView(QWidget):
 
     def enable_live_pose(self):
         self.use_live_pose = True
+
+    def _dot(self, painter, pt, radius=3):
+        if pt is None:
+            return
+        painter.drawEllipse(pt[0] - radius, pt[1] - radius, radius * 2, radius * 2)
+
+    def _draw_full_hand(self, painter, p, side: str):
+        prefix = f"{side}_hand_"
+        wrist = p("hand_left" if side == "left" else "hand_right")
+        if wrist is None:
+            return
+
+        def hp(idx):
+            pt = p(f"{prefix}{idx}")
+            if pt is None:
+                return None
+            sx = wrist[0] + (pt[0] - wrist[0]) * self.HAND_VISUAL_SCALE
+            sy = wrist[1] + (pt[1] - wrist[1]) * self.HAND_VISUAL_SCALE
+            return int(sx), int(sy)
+
+        hand0 = hp(0)
+        self._line(painter, wrist, hand0)
+
+        for a, b in self.HAND_CONNECTIONS:
+            self._line(painter, hp(a), hp(b))
+
+        for idx in range(21):
+            self._dot(painter, hp(idx), radius=2)
