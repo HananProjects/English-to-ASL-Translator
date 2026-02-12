@@ -16,6 +16,7 @@ class ASLAnimationView(QWidget):
         self.start_time = None
 
         self.live_pose = None
+        self.use_live_pose = True
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update)
@@ -49,27 +50,39 @@ class ASLAnimationView(QWidget):
             painter.setPen(pen)
 
             w, h = self.width(), self.height()
-            pose = self.live_pose if self.live_pose else self._get_active_pose()
+            pose = (
+                self.live_pose
+                if self.use_live_pose and self.live_pose
+                else self._get_active_pose()
+            )   
+            print("POSE KEYS:", pose.keys())
             def p(name):
                 if name not in pose:
                     return None
                 x, y = pose[name]
                 return int(x * w), int(y * h)
-
-            self._line(painter, p("head"), p("torso"))
+            
+            head = p("head")
+            if head:
+                painter.setPen(QPen(Qt.black, 3))
+                painter.setBrush(Qt.white)
+                painter.drawEllipse(
+                    head[0] - 12,
+                    head[1] - 12,
+                    24,
+                    24
+                )
 
             self._line(painter, p("shoulder_left"), p("elbow_left"))
             self._line(painter, p("elbow_left"), p("hand_left"))
 
             self._line(painter, p("shoulder_right"), p("elbow_right"))
             self._line(painter, p("elbow_right"), p("hand_right"))
+
         finally:
             painter.end()
 
     def _get_active_pose(self):
-        if self.live_pose:
-            return self.live_pose
-
         if not self.sequence or self.start_time is None:
             return POSES["REST"]
 
@@ -79,16 +92,18 @@ class ASLAnimationView(QWidget):
             if e.start <= elapsed < e.start + e.duration:
 
                 # Load clip once per sign
-                if self.clip is None or self.clip["sign"] != e.sign:
-                    clip_data = load_clip(e.sign)
+                if self.clip is None or self.clip["clip"] != e.clip:
+                    clip_data = load_clip(e.clip)
+
                     if clip_data is None:
-                        return POSES.get(e.sign, POSES["REST"])
+                        return POSES["REST"]
 
                     self.clip = {
-                        "sign": e.sign,
+                        "clip": e.clip,
                         "frames": clip_data["frames"],
                         "fps": clip_data["fps"]
                     }
+
                     self.clip_start_time = time.time()
                     self.clip_frame_index = 0
 
@@ -106,8 +121,21 @@ class ASLAnimationView(QWidget):
         return POSES["REST"]
 
     def _line(self, painter, a, b):
+        if a is None or b is None:
+            return
         painter.drawLine(a[0], a[1], b[0], b[1])
 
+
     def set_live_pose(self, pose: dict):
+        if not self.use_live_pose:
+            return  # 🔒 ignore camera during ASL playback
+
         self.live_pose = pose
         self.update()
+
+    def disable_live_pose(self):
+        self.use_live_pose = False
+        self.live_pose = None   
+
+    def enable_live_pose(self):
+        self.use_live_pose = True

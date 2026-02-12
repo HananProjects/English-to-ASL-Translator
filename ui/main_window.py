@@ -1,5 +1,6 @@
 from core.engine import english_to_asl
 from core.mic_utils import record_audio
+from core.audio.vosk_listener import VoskListener
 from PySide6.QtCore import QThread, Qt, QTimer
 from core.sequencing.sign_sequencer import sequence_signs
 from ui.widgets.animation_view import ASLAnimationView
@@ -57,6 +58,13 @@ class MainWindow(QWidget):
         self.camera_worker.pose_ready.connect(self.animation_view.set_live_pose)
 
         self.camera_thread.start()
+        self.test_animation()
+
+        self.vosk = VoskListener(
+            model_path="models/vosk-en",
+            on_text=self.on_speech
+        )
+        self.vosk.start()
 
     def on_record_clicked(self):
         self.status_label.setText("Status: Recording...")
@@ -102,3 +110,29 @@ class MainWindow(QWidget):
             self.camera_thread.quit()
             self.camera_thread.wait()
         event.accept()
+
+    def test_animation(self):
+        tokens = ["YOU", "GO", "WHERE"]
+        events = sequence_signs(tokens)
+        self.animation_view.play(events)
+
+    def on_speech(self, text: str):
+        # 
+        print("🗣️", text)
+
+        tokens = text.upper().split()
+        if not tokens:
+            return
+
+        self.tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
+        self.status_label.setText("Status: Live Speech")
+
+        sequence = sequence_signs(tokens)
+        self.animation_view.disable_live_pose()
+        self.animation_view.play(sequence)
+        duration_ms = int(sum(e.duration for e in sequence) * 1000)
+
+        QTimer.singleShot(
+            duration_ms,
+            self.animation_view.enable_live_pose
+        )
