@@ -10,6 +10,8 @@ from ui.animation.clip_loader import load_clip
 
 class ASLAnimationView(QWidget):
     HAND_VISUAL_SCALE = 0.75
+    PLAYBACK_SPEED = 0.75
+    PLAYBACK_SMOOTHING_ALPHA = 0.35
     HAND_CONNECTIONS = (
         (0, 1), (1, 2), (2, 3), (3, 4),
         (0, 5), (5, 6), (6, 7), (7, 8),
@@ -30,17 +32,19 @@ class ASLAnimationView(QWidget):
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update)
-        self.timer.start(30)
+        self.timer.start(16)
 
         self.clip = None
         self.clip_start_time = None
         self.clip_frame_index = 0
+        self.smoothed_pose = None
 
     @staticmethod
     def interpolate_pose(pose_a, pose_b, t):
         result = {}
-        for joint in pose_a:
-            x0, y0 = pose_a[joint]
+        joints = set(pose_a.keys()) | set(pose_b.keys())
+        for joint in joints:
+            x0, y0 = pose_a.get(joint, pose_b.get(joint))
             x1, y1 = pose_b.get(joint, (x0, y0))
             result[joint] = (
                 x0 + (x1 - x0) * t,
@@ -51,6 +55,7 @@ class ASLAnimationView(QWidget):
     def play(self, sequence: List[SignEvent]):
         self.sequence = sequence
         self.start_time = time.time()
+        self.smoothed_pose = None
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -127,16 +132,22 @@ class ASLAnimationView(QWidget):
                     self.clip_frame_index = 0
 
                 # Advance frames
-                frame_time = 1.0 / self.clip["fps"]
                 frame_count = len(self.clip["frames"])
                 elapsed_clip = time.time() - self.clip_start_time
 
-                index = int(elapsed_clip / frame_time)
-                index = min(index, frame_count - 1)
+                frame_pos = elapsed_clip * self.clip["fps"] * self.PLAYBACK_SPEED
+                base_index = int(frame_pos)
+                base_index = min(base_index, frame_count - 1)
+                next_index = min(base_index + 1, frame_count - 1)
+                frac = max(0.0, min(1.0, frame_pos - base_index))
 
-                return self.clip["frames"][index]
+                base_pose = self.clip["frames"][base_index]
+                next_pose = self.clip["frames"][next_index]
+                target_pose = self.interpolate_pose(base_pose, next_pose, frac)
+                return self._smooth_playback_pose(target_pose)
 
         self.clip = None
+        self.smoothed_pose = None
         return POSES["REST"]
 
     def _line(self, painter, a, b):
@@ -158,6 +169,17 @@ class ASLAnimationView(QWidget):
 
     def enable_live_pose(self):
         self.use_live_pose = True
+
+    def _smooth_playback_pose(self, pose: dict):
+        if self.smoothed_pose is None:
+            self.smoothed_pose = pose
+            return pose
+        self.smoothed_pose = self.interpolate_pose(
+            self.smoothed_pose,
+            pose,
+            self.PLAYBACK_SMOOTHING_ALPHA
+        )
+        return self.smoothed_pose
 
     def _dot(self, painter, pt, radius=3):
         if pt is None:
