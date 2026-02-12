@@ -117,6 +117,7 @@ class MainWindow(QWidget):
         self.animation_view.play(events)
 
     def on_speech(self, text: str):
+        # 
         print("🗣️", text)
 
         tokens = text.upper().split()
