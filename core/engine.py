@@ -35,7 +35,8 @@ def english_to_asl(audio: Optional[bytes] = None,
                 asl_tokens=[],
                 confidence=0.0,
                 latency_ms=elapsed_ms(start_time),
-                error="STT_NOT_AVAILABLE"
+                error="STT_NOT_AVAILABLE",
+                source_text=""
             )
 
     # Step 1: Speech to Text (if audio)
@@ -47,7 +48,8 @@ def english_to_asl(audio: Optional[bytes] = None,
                 asl_tokens=[],
                 confidence=stt_conf,
                 latency_ms=elapsed_ms(start_time),
-                error="LOW_STT_CONFIDENCE"
+                error="LOW_STT_CONFIDENCE",
+                source_text=text or ""
             )
 
     # Step 2: Normalize text
@@ -71,7 +73,8 @@ def english_to_asl(audio: Optional[bytes] = None,
     return TranslationResult(
         asl_tokens=asl_tokens,
         confidence=confidence,
-        latency_ms=latency
+        latency_ms=latency,
+        source_text=text or ""
     )
 
 

@@ -1,16 +1,20 @@
 import json
 import queue
 import threading
+
 import sounddevice as sd
-from vosk import Model, KaldiRecognizer
+from vosk import KaldiRecognizer, Model
+
+from core.mic_utils import resolve_input_device_with_rate
 
 
 class VoskListener:
-    def __init__(self, model_path, on_text):
+    def __init__(self, model_path, on_text, input_device=None):
         self.model = Model(model_path)
-        self.recognizer = KaldiRecognizer(self.model, 16000)
+        self.recognizer = None
         self.audio_queue = queue.Queue()
         self.on_text = on_text
+        self.input_device = input_device
         self.running = False
 
     def _callback(self, indata, frames, time, status):
@@ -26,14 +30,18 @@ class VoskListener:
         self.running = False
 
     def _run(self):
+        device, sample_rate = resolve_input_device_with_rate(self.input_device)
+        self.recognizer = KaldiRecognizer(self.model, sample_rate)
+
         with sd.RawInputStream(
-            samplerate=16000,
+            samplerate=sample_rate,
             blocksize=8000,
             dtype="int16",
             channels=1,
             callback=self._callback,
+            device=device,
         ):
-            print("🎤 Vosk listening...")
+            print(f"Vosk listening at {sample_rate} Hz...")
             while self.running:
                 data = self.audio_queue.get()
                 if self.recognizer.AcceptWaveform(data):
