@@ -9,7 +9,7 @@ from ui.animation.clip_loader import load_clip
 
 
 class ASLAnimationView(QWidget):
-    HAND_VISUAL_SCALE = 0.65
+    HAND_VISUAL_SCALE = 0.78
     PLAYBACK_SPEED = 0.75
     PLAYBACK_SMOOTHING_ALPHA = 0.35
     HAND_CHAINS = (
@@ -28,10 +28,7 @@ class ASLAnimationView(QWidget):
     )
     BODY_COLOR = QColor(210, 10, 20)
     JOINT_COLOR = QColor(245, 245, 245)
-    POSE_MIN_X = -0.35
-    POSE_MAX_X = 1.35
-    POSE_MIN_Y = -0.20
-    POSE_MAX_Y = 1.20
+
     def __init__(self):
         super().__init__()
         self.setAutoFillBackground(False)
@@ -75,11 +72,6 @@ class ASLAnimationView(QWidget):
             painter.setRenderHint(QPainter.Antialiasing)
 
             w, h = self.width(), self.height()
-            stage_w = min(int(w * 0.62), int(h * 1.10))
-            stage_h = int(stage_w * 1.05)
-            stage_x = (w - stage_w) // 2
-            stage_y = (h - stage_h) // 2
-
             pose = (
                 self.live_pose
                 if self.use_live_pose and self.live_pose
@@ -90,16 +82,14 @@ class ASLAnimationView(QWidget):
                 if name not in pose:
                     return None
                 x, y = pose[name]
-                x = max(self.POSE_MIN_X, min(self.POSE_MAX_X, float(x)))
-                y = max(self.POSE_MIN_Y, min(self.POSE_MAX_Y, float(y)))
-                nx = (x - self.POSE_MIN_X) / (self.POSE_MAX_X - self.POSE_MIN_X)
-                ny = (y - self.POSE_MIN_Y) / (self.POSE_MAX_Y - self.POSE_MIN_Y)
+                x = max(0.0, min(1.0, float(x)))
+                y = max(0.0, min(1.0, float(y)))
                 return (
-                    int(stage_x + nx * stage_w),
-                    int(stage_y + ny * stage_h),
+                    int((0.04 + x * 0.92) * w),
+                    int((0.02 + y * 0.94) * h),
                 )
 
-            painter.setPen(QPen(self.BODY_COLOR, 5, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            painter.setPen(QPen(self.BODY_COLOR, 6, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             head = p("head")
             if head:
                 self._draw_face(painter, head, w, h)
@@ -110,11 +100,22 @@ class ASLAnimationView(QWidget):
             elbow_r = p("elbow_right")
             wrist_l = p("hand_left")
             wrist_r = p("hand_right")
+            shoulder_l, shoulder_r = self._naturalize_shoulders(
+                head,
+                shoulder_l,
+                shoulder_r,
+                h,
+            )
 
-            self._draw_torso(painter, shoulder_l, shoulder_r, h)
-            self._line(painter, shoulder_l, elbow_l)
+            torso_shoulder_l, torso_shoulder_r = self._draw_torso(
+                painter, shoulder_l, shoulder_r, h
+            )
+            arm_start_l = torso_shoulder_l if torso_shoulder_l is not None else shoulder_l
+            arm_start_r = torso_shoulder_r if torso_shoulder_r is not None else shoulder_r
+
+            self._line(painter, arm_start_l, elbow_l)
             self._line(painter, elbow_l, wrist_l)
-            self._line(painter, shoulder_r, elbow_r)
+            self._line(painter, arm_start_r, elbow_r)
             self._line(painter, elbow_r, wrist_r)
 
             self._draw_full_hand(painter, p, "left")
@@ -219,27 +220,27 @@ class ASLAnimationView(QWidget):
 
         hand0 = hp(0)
         if hand0:
-            painter.setPen(QPen(self.BODY_COLOR, 4, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            painter.setPen(QPen(self.BODY_COLOR, 6, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             self._line(painter, wrist, hand0)
 
         for i, chain in enumerate(self.HAND_CHAINS):
-            painter.setPen(QPen(self.FINGER_COLORS[i], 3, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            painter.setPen(QPen(self.FINGER_COLORS[i], 5, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             for j in range(len(chain) - 1):
                 self._line(painter, hp(chain[j]), hp(chain[j + 1]))
 
         painter.setPen(QPen(self.JOINT_COLOR, 1))
         painter.setBrush(self.JOINT_COLOR)
         for idx in range(21):
-            self._dot(painter, hp(idx), radius=2)
+            self._dot(painter, hp(idx), radius=4)
 
     def _draw_torso(self, painter, shoulder_l, shoulder_r, h):
         if shoulder_l is None or shoulder_r is None:
-            return
+            return None, None
         cx = (shoulder_l[0] + shoulder_r[0]) // 2
         shoulder_span = shoulder_r[0] - shoulder_l[0]
         torso_span = int(shoulder_span * 0.55)
         top_y = int((shoulder_l[1] + shoulder_r[1]) / 2) + 4
-        body_height = int(h * 0.16)
+        body_height = int(h * 0.22)
         top_l = (cx - torso_span // 2, top_y)
         top_r = (cx + torso_span // 2, top_y)
         hip_l = (cx - int(torso_span * 0.42), top_y + body_height)
@@ -248,6 +249,7 @@ class ASLAnimationView(QWidget):
         self._line(painter, top_l, hip_l)
         self._line(painter, top_r, hip_r)
         self._line(painter, hip_l, hip_r)
+        return top_l, top_r
 
     def _draw_face(self, painter, head, w, h):
         rw = max(26, int(w * 0.03))
@@ -266,3 +268,13 @@ class ASLAnimationView(QWidget):
         painter.drawLine(cx - eye_dx - eye_w, brow_y, cx - eye_dx + eye_w, brow_y - 4)
         painter.drawLine(cx + eye_dx - eye_w, brow_y - 4, cx + eye_dx + eye_w, brow_y)
         painter.drawArc(cx - int(rw * 0.45), mouth_y - 8, int(rw * 0.9), 20, 200 * 16, 140 * 16)
+
+    def _naturalize_shoulders(self, head, shoulder_l, shoulder_r, h):
+        if head is None or shoulder_l is None or shoulder_r is None:
+            return shoulder_l, shoulder_r
+
+        # Pull shoulder line upward toward a natural head-neck distance.
+        target_y = head[1] + int(h * 0.12)
+        ly = int(shoulder_l[1] * 0.45 + target_y * 0.55)
+        ry = int(shoulder_r[1] * 0.45 + target_y * 0.55)
+        return (shoulder_l[0], ly), (shoulder_r[0], ry)

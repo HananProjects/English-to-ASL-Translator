@@ -28,9 +28,8 @@ class MainWindow(QWidget):
         layout = QVBoxLayout()
 
         self.animation_view = ASLAnimationView()
-        self.animation_view.setMinimumHeight(380)
-        self.animation_view.setMaximumHeight(520)
-        layout.addWidget(self.animation_view)
+        self.animation_view.setMinimumHeight(620)
+        layout.addWidget(self.animation_view, 5)
 
         self.status_label = QLabel("Status: Idle")
         self.status_label.setStyleSheet("font-size: 18px;")
@@ -47,8 +46,8 @@ class MainWindow(QWidget):
         layout.addWidget(self.tokens_label)
         layout.addWidget(self.record_button)
 
-        layout.setContentsMargins(40, 40, 40, 40)
-        layout.setSpacing(30)
+        layout.setContentsMargins(24, 16, 24, 16)
+        layout.setSpacing(12)
         self.setLayout(layout)
 
         self.speech_text_received.connect(self.on_speech)
