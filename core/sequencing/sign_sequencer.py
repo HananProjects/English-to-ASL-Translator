@@ -24,6 +24,7 @@ class SignEvent:
 # Base duration per sign (seconds)
 DEFAULT_SIGN_DURATION = 0.7
 _DURATION_CACHE: Dict[str, float] = {}
+_VARIANT_INDEX: Dict[str, int] = {}
 
 
 def _clip_duration_seconds(clip_name: str) -> float | None:
@@ -49,6 +50,16 @@ def _clip_duration_seconds(clip_name: str) -> float | None:
     except Exception:
         return None
 
+
+def _select_clip_name(token: str, sign_def: Dict) -> str | None:
+    clips = sign_def.get("clips")
+    if isinstance(clips, list) and clips:
+        idx = _VARIANT_INDEX.get(token, 0)
+        clip_name = clips[idx % len(clips)]
+        _VARIANT_INDEX[token] = idx + 1
+        return clip_name
+    return sign_def.get("clip")
+
 def sequence_signs(tokens: List[str]) -> List[SignEvent]:
     """
     Convert ASL tokens into a time-ordered sign sequence.
@@ -63,7 +74,10 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
             print(f"[WARN] No ASL sign metadata for token: {token}")
             continue
 
-        clip_name = sign_def["clip"]
+        clip_name = _select_clip_name(token, sign_def)
+        if not clip_name:
+            print(f"[WARN] No clip name configured for token: {token}")
+            continue
         duration = _clip_duration_seconds(clip_name)
         if duration is None:
             duration = sign_def.get("duration", DEFAULT_SIGN_DURATION)

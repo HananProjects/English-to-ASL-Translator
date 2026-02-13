@@ -5,7 +5,7 @@ ASL_SIGNS = {
         "duration": 0.6,
     },
     "YOU": {
-        "clip": "you",
+        "clips": ["you", "you_v2", "you_v3"],
         "duration": 0.6,
     },
     "HOW": {
