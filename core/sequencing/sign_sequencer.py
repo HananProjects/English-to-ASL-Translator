@@ -1,3 +1,5 @@
+import json
+from pathlib import Path
 from typing import List, Dict
 from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
@@ -21,6 +23,31 @@ class SignEvent:
 
 # Base duration per sign (seconds)
 DEFAULT_SIGN_DURATION = 0.7
+_DURATION_CACHE: Dict[str, float] = {}
+
+
+def _clip_duration_seconds(clip_name: str) -> float | None:
+    if clip_name in _DURATION_CACHE:
+        return _DURATION_CACHE[clip_name]
+
+    repo_root = Path(__file__).resolve().parents[2]
+    clip_path = repo_root / "ui" / "animation" / "clips" / f"{clip_name}.json"
+    if not clip_path.exists():
+        return None
+
+    try:
+        with open(clip_path, "r", encoding="utf-8") as f:
+            clip_data = json.load(f)
+        fps = float(clip_data.get("fps", 0))
+        frames = clip_data.get("frames", [])
+        frame_count = len(frames) if isinstance(frames, list) else 0
+        if fps <= 0 or frame_count <= 0:
+            return None
+        duration = frame_count / fps
+        _DURATION_CACHE[clip_name] = duration
+        return duration
+    except Exception:
+        return None
 
 def sequence_signs(tokens: List[str]) -> List[SignEvent]:
     """
@@ -36,12 +63,15 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
             print(f"[WARN] No ASL sign metadata for token: {token}")
             continue
 
-        duration = sign_def.get("duration", DEFAULT_SIGN_DURATION)
+        clip_name = sign_def["clip"]
+        duration = _clip_duration_seconds(clip_name)
+        if duration is None:
+            duration = sign_def.get("duration", DEFAULT_SIGN_DURATION)
 
         events.append(
             SignEvent(
                 token=token,
-                clip=sign_def["clip"],
+                clip=clip_name,
                 start=current_time,
                 duration=duration
             )

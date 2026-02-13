@@ -20,14 +20,9 @@ def map_grammar(text: str) -> list[str]:
     time_words = [w for w in words if w in TIME_WORDS]
     words = [w for w in words if w not in TIME_WORDS]
 
-    # Handle WH-questions (WH word goes last)
-    wh_words = [w for w in words if w in WH_WORDS]
-    words = [w for w in words if w not in WH_WORDS]
-
-    # Reassemble sentence
+    # Reassemble sentence (preserve remaining word order)
     asl_order = []
     asl_order.extend(time_words)
     asl_order.extend(words)
-    asl_order.extend(wh_words)
 
     return asl_order

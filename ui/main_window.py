@@ -97,7 +97,10 @@ class MainWindow(QWidget):
             return
 
         sequence = sequence_signs(tokens)
+        self.animation_view.disable_live_pose()
         self.animation_view.play(sequence)
+        duration_ms = int(sum(e.duration for e in sequence) * 1000)
+        QTimer.singleShot(duration_ms, self.animation_view.enable_live_pose)
         self._start_vosk_async()
 
     def on_translation_error(self, message):
