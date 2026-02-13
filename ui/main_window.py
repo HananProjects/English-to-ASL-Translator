@@ -21,15 +21,15 @@ class MainWindow(QWidget):
         self.worker = None
         self.vosk_init_in_progress = False
 
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.showFullScreen()
-
         self.setWindowTitle("English to ASL Translator")
-        self.setMinimumSize(800, 480)
+        self.setMinimumSize(1000, 700)
+        self.resize(1280, 820)
 
         layout = QVBoxLayout()
 
         self.animation_view = ASLAnimationView()
+        self.animation_view.setMinimumHeight(380)
+        self.animation_view.setMaximumHeight(520)
         layout.addWidget(self.animation_view)
 
         self.status_label = QLabel("Status: Idle")
