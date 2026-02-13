@@ -9,7 +9,7 @@ ASL_SIGNS = {
         "duration": 0.6,
     },
     "HOW": {
-        "clip": "how",
+        "clips": ["how", "how_2", "how_3"],
         "duration": 0.7,
     },
     "ARE": {
@@ -25,7 +25,7 @@ ASL_SIGNS = {
         "duration": 0.8,
     },
     "GO": {
-        "clip": "go",
+        "clips": ["go_1", "go_2", "go_3"],
         "duration": 0.7,
     },
     "WHERE": {
