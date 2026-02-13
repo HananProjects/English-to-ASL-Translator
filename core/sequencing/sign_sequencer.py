@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Optional
 from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
 class SignEvent:
@@ -27,7 +27,7 @@ _DURATION_CACHE: Dict[str, float] = {}
 _VARIANT_INDEX: Dict[str, int] = {}
 
 
-def _clip_duration_seconds(clip_name: str) -> float | None:
+def _clip_duration_seconds(clip_name: str) -> Optional[float]:
     if clip_name in _DURATION_CACHE:
         return _DURATION_CACHE[clip_name]
 
@@ -51,7 +51,7 @@ def _clip_duration_seconds(clip_name: str) -> float | None:
         return None
 
 
-def _select_clip_name(token: str, sign_def: Dict) -> str | None:
+def _select_clip_name(token: str, sign_def: Dict) -> Optional[str]:
     clips = sign_def.get("clips")
     if isinstance(clips, list) and clips:
         idx = _VARIANT_INDEX.get(token, 0)
@@ -95,4 +95,3 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
 
 
     return events
-
