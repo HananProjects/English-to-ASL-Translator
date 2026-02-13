@@ -162,7 +162,7 @@ class MainWindow(QWidget):
     def _run_record_job(self):
         try:
             print("[Record] capture start")
-            audio = record_audio(duration_sec=3.0)
+            audio = record_audio(duration_sec=4.0)
             print(f"[Record] captured bytes={len(audio)}")
             result = english_to_asl(audio=audio)
             print(
