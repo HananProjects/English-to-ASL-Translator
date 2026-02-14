@@ -1,0 +1,36 @@
+# Canonical ASL label set for model training.
+# Current repository coverage is a subset; extend this file to full 100 labels.
+BROTHER
+DRINK
+EAT
+FAMILY
+FINISH
+FORGET
+GIVE
+GO
+HELLO
+HELP
+HOW
+LATER
+LIKE
+MAN
+ME
+MOTHER
+NEED
+NO
+NOW
+PLAY
+SCHOOL
+THANK_YOU
+TIME
+WAIT
+WANT
+WATER
+WHAT
+WHERE
+WHO
+WOMAN
+WORK
+YEAR
+YES
+YOU

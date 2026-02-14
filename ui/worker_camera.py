@@ -8,11 +8,13 @@ try:
 except Exception:
     mp = None
 from PySide6.QtCore import QObject, Signal, QThread
+from PySide6.QtGui import QImage
 from core.asl_to_english.recognizer import SignStreamRecognizer
 
 
 class CameraWorker(QObject):
     pose_ready = Signal(dict)
+    frame_ready = Signal(object)
     token_ready = Signal(str, float)
     sequence_ready = Signal(list)
 
@@ -46,6 +48,16 @@ class CameraWorker(QObject):
                 continue
 
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            h, w, c = rgb.shape
+            bytes_per_line = c * w
+            frame_image = QImage(
+                rgb.data,
+                w,
+                h,
+                bytes_per_line,
+                QImage.Format_RGB888
+            ).copy()
+            self.frame_ready.emit(frame_image)
             result = mp_holistic.process(rgb)
 
             # Extract all landmark groups safely

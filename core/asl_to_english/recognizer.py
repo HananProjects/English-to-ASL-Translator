@@ -179,10 +179,10 @@ class SignStreamRecognizer:
     def __init__(
         self,
         matcher: Optional[ClipTemplateMatcher] = None,
-        stable_frames: int = 4,
-        min_confidence: float = 0.55,
-        emit_cooldown_frames: int = 6,
-        pause_frames: int = 12,
+        stable_frames: int = 8,
+        min_confidence: float = 0.70,
+        emit_cooldown_frames: int = 12,
+        pause_frames: int = 20,
     ):
         self.matcher = matcher or ClipTemplateMatcher()
         self.stable_frames = max(1, stable_frames)

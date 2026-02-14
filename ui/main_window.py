@@ -3,6 +3,7 @@ from core.mic_utils import record_audio
 from core.audio.vosk_listener import VoskListener
 import threading
 from PySide6.QtCore import QThread, Qt, QTimer, Signal
+from PySide6.QtGui import QPixmap
 from core.sequencing.sign_sequencer import sequence_signs
 from ui.widgets.animation_view import ASLAnimationView
 from ui.worker_camera import CameraWorker
@@ -23,12 +24,17 @@ class MainWindow(QWidget):
     stt_warmup_received = Signal(bool)
     camera_sequence_received = Signal(list)
     camera_token_received = Signal(str, float)
+    camera_frame_received = Signal(object)
 
     def __init__(self):
         super().__init__()
         self.thread = None
         self.worker = None
         self.vosk_init_in_progress = False
+        self.camera_thread = None
+        self.camera_worker = None
+        self.camera_running = False
+        self.pending_camera_tokens = []
 
         self.setWindowTitle("English <-> ASL Translator")
         self.setMinimumSize(1000, 700)
@@ -67,15 +73,9 @@ class MainWindow(QWidget):
         self.stt_warmup_received.connect(self._on_stt_warmup_complete)
         self.camera_sequence_received.connect(self.on_camera_sequence)
         self.camera_token_received.connect(self.on_camera_token)
+        self.camera_frame_received.connect(self.on_camera_frame)
 
-        self.camera_thread = QThread(self)
-        self.camera_worker = CameraWorker()
-        self.camera_worker.moveToThread(self.camera_thread)
-        self.camera_thread.started.connect(self.camera_worker.run)
-        self.camera_worker.pose_ready.connect(self.on_camera_pose)
-        self.camera_worker.token_ready.connect(self.camera_token_received.emit)
-        self.camera_worker.sequence_ready.connect(self.camera_sequence_received.emit)
-        self.camera_thread.start()
+        self.start_camera()
 
         self.vosk = None
         self.english_status_label.setText("Status: Loading speech model...")
@@ -126,17 +126,35 @@ class MainWindow(QWidget):
 
     def on_camera_pose(self, pose: dict):
         self.english_animation_view.set_live_pose(pose)
-        self.reverse_animation_view.set_live_pose(pose)
+
+    def on_camera_frame(self, frame_image):
+        if frame_image is None:
+            return
+        pixmap = QPixmap.fromImage(frame_image)
+        if self.camera_feed_label.width() > 0 and self.camera_feed_label.height() > 0:
+            pixmap = pixmap.scaled(
+                self.camera_feed_label.size(),
+                Qt.KeepAspectRatio,
+                Qt.SmoothTransformation,
+            )
+        self.camera_feed_label.setPixmap(pixmap)
 
     def on_camera_token(self, token: str, confidence: float):
-        self.camera_label.setText(
-            f"Camera ASL Input: {token} (conf {confidence:.2f})"
+        if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
+            self.pending_camera_tokens.append(token)
+        self.reverse_status_label.setText(
+            f"Status: Detecting sign... {token} (conf {confidence:.2f})"
         )
 
     def on_camera_sequence(self, tokens: list):
         if not tokens:
             return
-        self.camera_label.setText(f"Camera ASL Input: {' '.join(tokens)}")
+        self._finalize_camera_translation(tokens)
+
+    def _finalize_camera_translation(self, tokens: list):
+        self.camera_label.setText(
+            f"Camera ASL Input: {' '.join(tokens)}"
+        )
         reverse = asl_to_english(tokens=tokens)
         if reverse.error:
             self.reverse_label.setText("English Output:")
@@ -151,6 +169,7 @@ class MainWindow(QWidget):
             f"Confidence: {reverse.confidence:.2f} | "
             f"Latency: {reverse.latency_ms} ms"
         )
+        self.pending_camera_tokens.clear()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
@@ -164,10 +183,7 @@ class MainWindow(QWidget):
         if getattr(self, "vosk", None) is not None:
             self.vosk.stop()
 
-        if hasattr(self, "camera_thread"):
-            self.camera_thread.requestInterruption()
-            self.camera_thread.quit()
-            self.camera_thread.wait()
+        self.stop_camera()
         event.accept()
 
     def on_speech(self, text: str):
@@ -304,20 +320,77 @@ class MainWindow(QWidget):
         page = QWidget()
         page_layout = QVBoxLayout()
 
-        self.reverse_animation_view = ASLAnimationView()
-        self.reverse_animation_view.setMinimumHeight(620)
+        self.camera_feed_label = QLabel("Camera feed")
+        self.camera_feed_label.setMinimumHeight(620)
+        self.camera_feed_label.setAlignment(Qt.AlignCenter)
+        self.camera_feed_label.setStyleSheet(
+            "background-color: #111; border: 1px solid #2d2d2d; font-size: 18px;"
+        )
         self.reverse_status_label = QLabel("Status: Camera listening...")
         self.reverse_status_label.setStyleSheet("font-size: 18px;")
         self.camera_label = QLabel("Camera ASL Input:")
         self.camera_label.setStyleSheet("font-size: 18px;")
         self.reverse_label = QLabel("English Output:")
         self.reverse_label.setStyleSheet("font-size: 22px;")
+        self.camera_toggle_button = QPushButton("Stop Camera")
+        self.camera_toggle_button.setStyleSheet("font-size: 18px; height: 52px;")
+        self.camera_toggle_button.clicked.connect(self.toggle_camera)
 
-        page_layout.addWidget(self.reverse_animation_view, 5)
+        page_layout.addWidget(self.camera_feed_label, 5)
         page_layout.addWidget(self.reverse_status_label)
         page_layout.addWidget(self.camera_label)
         page_layout.addWidget(self.reverse_label)
+        page_layout.addWidget(self.camera_toggle_button)
         page_layout.setContentsMargins(0, 0, 0, 0)
         page_layout.setSpacing(12)
         page.setLayout(page_layout)
         return page
+
+    def start_camera(self):
+        if self.camera_running:
+            return
+        self.camera_thread = QThread(self)
+        self.camera_worker = CameraWorker()
+        self.camera_worker.moveToThread(self.camera_thread)
+        self.camera_thread.started.connect(self.camera_worker.run)
+        self.camera_worker.pose_ready.connect(self.on_camera_pose)
+        self.camera_worker.frame_ready.connect(self.camera_frame_received.emit)
+        self.camera_worker.token_ready.connect(self.camera_token_received.emit)
+        self.camera_worker.sequence_ready.connect(self.camera_sequence_received.emit)
+        self.camera_thread.start()
+        self.camera_running = True
+        if hasattr(self, "camera_toggle_button"):
+            self.camera_toggle_button.setText("Stop Camera")
+        if hasattr(self, "reverse_status_label"):
+            self.reverse_status_label.setText("Status: Camera listening...")
+        if hasattr(self, "camera_feed_label"):
+            self.camera_feed_label.setText("Camera feed")
+            self.camera_feed_label.setPixmap(QPixmap())
+
+    def stop_camera(self):
+        if not self.camera_running:
+            return
+        translated_on_stop = False
+        if self.pending_camera_tokens:
+            self._finalize_camera_translation(list(self.pending_camera_tokens))
+            translated_on_stop = True
+        if self.camera_thread is not None:
+            self.camera_thread.requestInterruption()
+            self.camera_thread.quit()
+            self.camera_thread.wait()
+        self.camera_thread = None
+        self.camera_worker = None
+        self.camera_running = False
+        if hasattr(self, "camera_toggle_button"):
+            self.camera_toggle_button.setText("Start Camera")
+        if hasattr(self, "reverse_status_label") and not translated_on_stop:
+            self.reverse_status_label.setText("Status: Camera stopped")
+        if hasattr(self, "camera_feed_label"):
+            self.camera_feed_label.setPixmap(QPixmap())
+            self.camera_feed_label.setText("Camera stopped")
+
+    def toggle_camera(self):
+        if self.camera_running:
+            self.stop_camera()
+        else:
+            self.start_camera()
