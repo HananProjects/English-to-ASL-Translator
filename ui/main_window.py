@@ -25,6 +25,7 @@ class MainWindow(QWidget):
     camera_sequence_received = Signal(list)
     camera_token_received = Signal(str, float)
     camera_frame_received = Signal(object)
+    camera_reset_requested = Signal()
 
     def __init__(self):
         super().__init__()
@@ -74,6 +75,7 @@ class MainWindow(QWidget):
         self.camera_sequence_received.connect(self.on_camera_sequence)
         self.camera_token_received.connect(self.on_camera_token)
         self.camera_frame_received.connect(self.on_camera_frame)
+        self.camera_reset_requested.connect(self.on_camera_reset_requested)
 
         self.start_camera()
 
@@ -335,12 +337,16 @@ class MainWindow(QWidget):
         self.camera_toggle_button = QPushButton("Stop Camera")
         self.camera_toggle_button.setStyleSheet("font-size: 18px; height: 52px;")
         self.camera_toggle_button.clicked.connect(self.toggle_camera)
+        self.reset_translation_button = QPushButton("Reset Translation")
+        self.reset_translation_button.setStyleSheet("font-size: 18px; height: 52px;")
+        self.reset_translation_button.clicked.connect(self.reset_translation)
 
         page_layout.addWidget(self.camera_feed_label, 5)
         page_layout.addWidget(self.reverse_status_label)
         page_layout.addWidget(self.camera_label)
         page_layout.addWidget(self.reverse_label)
         page_layout.addWidget(self.camera_toggle_button)
+        page_layout.addWidget(self.reset_translation_button)
         page_layout.setContentsMargins(0, 0, 0, 0)
         page_layout.setSpacing(12)
         page.setLayout(page_layout)
@@ -357,6 +363,7 @@ class MainWindow(QWidget):
         self.camera_worker.frame_ready.connect(self.camera_frame_received.emit)
         self.camera_worker.token_ready.connect(self.camera_token_received.emit)
         self.camera_worker.sequence_ready.connect(self.camera_sequence_received.emit)
+        self.camera_reset_requested.connect(self.camera_worker.reset_recognition_state)
         self.camera_thread.start()
         self.camera_running = True
         if hasattr(self, "camera_toggle_button"):
@@ -375,6 +382,10 @@ class MainWindow(QWidget):
             self._finalize_camera_translation(list(self.pending_camera_tokens))
             translated_on_stop = True
         if self.camera_thread is not None:
+            try:
+                self.camera_reset_requested.disconnect(self.camera_worker.reset_recognition_state)
+            except Exception:
+                pass
             self.camera_thread.requestInterruption()
             self.camera_thread.quit()
             self.camera_thread.wait()
@@ -394,3 +405,17 @@ class MainWindow(QWidget):
             self.stop_camera()
         else:
             self.start_camera()
+
+    def reset_translation(self):
+        self.pending_camera_tokens.clear()
+        self.camera_label.setText("Camera ASL Input:")
+        self.reverse_label.setText("English Output:")
+        if self.camera_running:
+            self.reverse_status_label.setText("Status: Camera listening...")
+            self.camera_reset_requested.emit()
+        else:
+            self.reverse_status_label.setText("Status: Camera stopped")
+
+    def on_camera_reset_requested(self):
+        # no-op local slot to keep signal visible and future extensible.
+        return

@@ -1,4 +1,12 @@
-from core.asl_to_english.recognizer import SignStreamRecognizer, normalize_pose, pose_distance
+import numpy as np
+
+from core.asl_to_english.recognizer import (
+    JOINT_KEYS,
+    ModelMatcher,
+    SignStreamRecognizer,
+    normalize_pose,
+    pose_distance,
+)
 
 
 class DummyMatcher:
@@ -83,3 +91,41 @@ def test_sign_stream_recognizer_does_not_repeat_same_token_while_held():
             emitted.append(update.detected_token)
 
     assert emitted == ["YOU"]
+
+
+def test_model_matcher_predicts_from_npz_model(tmp_path):
+    seq_len = 3
+    feature_dim = len(JOINT_KEYS) * 2
+    classes = 2
+
+    W = np.zeros((seq_len * feature_dim, classes), dtype=np.float32)
+    b = np.array([0.0, 2.0], dtype=np.float32)
+    mean = np.zeros((1, seq_len * feature_dim), dtype=np.float32)
+    std = np.ones((1, seq_len * feature_dim), dtype=np.float32)
+    labels = np.array(["HELLO", "GO"])
+
+    model_path = tmp_path / "toy_model.npz"
+    np.savez_compressed(
+        model_path,
+        W=W,
+        b=b,
+        mean=mean,
+        std=std,
+        labels=labels,
+        seq_len=np.int64(seq_len),
+        feature_dim=np.int64(feature_dim),
+    )
+
+    matcher = ModelMatcher(model_path)
+
+    token, conf = matcher.match({})
+    assert token is None
+    assert conf == 0.0
+
+    token, conf = matcher.match({})
+    assert token is None
+    assert conf == 0.0
+
+    token, conf = matcher.match({})
+    assert token == "GO"
+    assert conf > 0.5

@@ -21,6 +21,10 @@ class CameraWorker(QObject):
     def __init__(self):
         super().__init__()
         self.recognizer = SignStreamRecognizer()
+        print(f"[ASL] recognizer matcher={type(self.recognizer.matcher).__name__}")
+
+    def reset_recognition_state(self):
+        self.recognizer.reset()
 
     def run(self):
         if cv2 is None or mp is None:
@@ -29,8 +33,10 @@ class CameraWorker(QObject):
         from core.vision.pose_adapter import mediapipe_to_pose_dict
 
         cap = cv2.VideoCapture(0)
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        # Prefer higher quality preview for the UI feed.
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+        cap.set(cv2.CAP_PROP_FPS, 30)
 
         mp_holistic = mp.solutions.holistic.Holistic(
             model_complexity=0,
@@ -58,7 +64,10 @@ class CameraWorker(QObject):
                 QImage.Format_RGB888
             ).copy()
             self.frame_ready.emit(frame_image)
-            result = mp_holistic.process(rgb)
+
+            # Run landmark detection on a smaller frame for stable throughput.
+            proc = cv2.resize(rgb, (640, 360), interpolation=cv2.INTER_AREA)
+            result = mp_holistic.process(proc)
 
             # Extract all landmark groups safely
             pose_landmarks = result.pose_landmarks.landmark if result.pose_landmarks else None

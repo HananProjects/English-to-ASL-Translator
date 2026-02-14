@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+import numpy as np
+
 from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
 PoseDict = Dict[str, Tuple[float, float]]
@@ -80,6 +82,20 @@ def normalize_pose(pose: PoseDict) -> PoseDict:
             (point[1] - torso[1]) / scale,
         )
     return normalized
+
+
+def pose_to_feature_vector(pose: PoseDict) -> np.ndarray:
+    normalized = normalize_pose(pose)
+    feat: List[float] = []
+    for key in JOINT_KEYS:
+        point = normalized.get(key)
+        if point is None:
+            feat.extend([0.0, 0.0])
+        else:
+            feat.extend([float(point[0]), float(point[1])])
+    vector = np.asarray(feat, dtype=np.float32)
+    vector = np.nan_to_num(vector, nan=0.0, posinf=0.0, neginf=0.0)
+    return np.clip(vector, -20.0, 20.0)
 
 
 def pose_distance(a: PoseDict, b: PoseDict, min_shared: int = 6) -> float:
@@ -175,16 +191,111 @@ class ClipTemplateMatcher:
         return sorted(set(indices))
 
 
+class ModelMatcher:
+    def __init__(self, model_path: Path):
+        model = np.load(model_path, allow_pickle=True)
+        self.W = np.nan_to_num(model["W"].astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
+        self.b = np.nan_to_num(model["b"].astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
+        self.mean = np.nan_to_num(model["mean"].astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
+        self.std = np.nan_to_num(model["std"].astype(np.float32), nan=1.0, posinf=1.0, neginf=1.0)
+        self.std[self.std < 1e-6] = 1.0
+        self.W = np.clip(self.W, -10.0, 10.0)
+        self.b = np.clip(self.b, -10.0, 10.0)
+        self.mean = np.clip(self.mean, -20.0, 20.0)
+        self.std = np.clip(self.std, 1e-3, 1000.0)
+        labels_raw = model["labels"]
+        self.labels = [str(v) for v in labels_raw.tolist()]
+        self.seq_len = int(model["seq_len"])
+        self.feature_dim = int(model["feature_dim"])
+        self._buffer: List[np.ndarray] = []
+
+        if self.W.ndim != 2 or self.b.ndim != 1:
+            raise ValueError("Invalid model parameter shapes")
+        if self.W.shape[1] != len(self.labels) or self.b.shape[0] != len(self.labels):
+            raise ValueError("Model output dimension does not match labels")
+        if self.mean.shape[1] != self.W.shape[0] or self.std.shape[1] != self.W.shape[0]:
+            raise ValueError("Feature normalization shape mismatch")
+        if self.seq_len * self.feature_dim != self.W.shape[0]:
+            raise ValueError("Model feature size does not match seq_len/feature_dim")
+
+    @staticmethod
+    def default_model_path() -> Path:
+        repo_root = Path(__file__).resolve().parents[2]
+        return repo_root / "models" / "asl_landmark_classifier_v1.npz"
+
+    @classmethod
+    def try_create(cls, model_path: Optional[Path] = None) -> Optional["ModelMatcher"]:
+        path = model_path or cls.default_model_path()
+        if not path.exists():
+            return None
+        try:
+            return cls(path)
+        except Exception:
+            return None
+
+    def match(self, pose: PoseDict) -> Tuple[Optional[str], float]:
+        frame_feat = pose_to_feature_vector(pose)
+        if frame_feat.shape[0] != self.feature_dim:
+            return None, 0.0
+
+        self._buffer.append(frame_feat)
+        if len(self._buffer) > self.seq_len:
+            self._buffer = self._buffer[-self.seq_len:]
+        if len(self._buffer) < self.seq_len:
+            return None, 0.0
+
+        seq = np.stack(self._buffer, axis=0).reshape(1, -1)
+        seq = np.nan_to_num(seq, nan=0.0, posinf=0.0, neginf=0.0)
+        seq = np.clip(seq, -8.0, 8.0)
+        X = (seq - self.mean) / self.std
+        X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0).astype(np.float32)
+        X = np.clip(X, -8.0, 8.0)
+
+        logits = X @ self.W + self.b
+        logits = np.nan_to_num(logits, nan=0.0, posinf=0.0, neginf=0.0)
+        logits = np.clip(logits, -60.0, 60.0)
+        logits = logits - logits.max(axis=1, keepdims=True)
+        probs = np.exp(logits)
+        probs = probs / np.maximum(probs.sum(axis=1, keepdims=True), 1e-9)
+
+        best_idx = int(np.argmax(probs[0]))
+        confidence = float(probs[0, best_idx])
+        if best_idx < 0 or best_idx >= len(self.labels):
+            return None, 0.0
+
+        token = self.labels[best_idx].upper()
+        return token, confidence
+
+    def reset(self):
+        self._buffer.clear()
+
+
+def build_default_matcher(
+    prefer_model: bool = True,
+    model_path: Optional[Path] = None,
+):
+    if prefer_model:
+        model_matcher = ModelMatcher.try_create(model_path=model_path)
+        if model_matcher is not None:
+            return model_matcher
+    return ClipTemplateMatcher()
+
+
 class SignStreamRecognizer:
     def __init__(
         self,
-        matcher: Optional[ClipTemplateMatcher] = None,
+        matcher=None,
+        prefer_model: bool = True,
+        model_path: Optional[Path] = None,
         stable_frames: int = 8,
         min_confidence: float = 0.70,
         emit_cooldown_frames: int = 12,
         pause_frames: int = 20,
     ):
-        self.matcher = matcher or ClipTemplateMatcher()
+        self.matcher = matcher or build_default_matcher(
+            prefer_model=prefer_model,
+            model_path=model_path,
+        )
         self.stable_frames = max(1, stable_frames)
         self.min_confidence = min_confidence
         self.emit_cooldown_frames = max(0, emit_cooldown_frames)
@@ -246,3 +357,14 @@ class SignStreamRecognizer:
             sentence_tokens=None,
             buffered_tokens=list(self.buffered_tokens),
         )
+
+    def reset(self):
+        self.buffered_tokens.clear()
+        self._candidate_token = None
+        self._candidate_streak = 0
+        self._last_emitted_token = None
+        self._cooldown_left = 0
+        self._low_conf_streak = 0
+        reset_fn = getattr(self.matcher, "reset", None)
+        if callable(reset_fn):
+            reset_fn()
