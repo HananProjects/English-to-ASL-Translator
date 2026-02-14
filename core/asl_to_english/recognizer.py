@@ -270,6 +270,53 @@ class ModelMatcher:
         self._buffer.clear()
 
 
+class HybridMatcher:
+    """
+    Combines model and template matchers to reduce obvious mislabels.
+    """
+
+    def __init__(
+        self,
+        model_matcher: Optional[ModelMatcher],
+        template_matcher: Optional[ClipTemplateMatcher] = None,
+        strong_model_conf: float = 0.92,
+        strong_template_conf: float = 0.82,
+    ):
+        self.model_matcher = model_matcher
+        self.template_matcher = template_matcher or ClipTemplateMatcher()
+        self.strong_model_conf = strong_model_conf
+        self.strong_template_conf = strong_template_conf
+
+    def match(self, pose: PoseDict) -> Tuple[Optional[str], float]:
+        template_token, template_conf = self.template_matcher.match(pose)
+        if self.model_matcher is None:
+            return template_token, template_conf
+
+        model_token, model_conf = self.model_matcher.match(pose)
+
+        if model_token is None:
+            return template_token, template_conf
+        if template_token is None:
+            return model_token, model_conf
+
+        # When both agree, keep the label and trust the stronger confidence.
+        if model_token == template_token:
+            return model_token, max(model_conf, template_conf)
+
+        # If one matcher is very confident while the other is not, trust it.
+        if model_conf >= self.strong_model_conf and template_conf < 0.60:
+            return model_token, model_conf
+        if template_conf >= self.strong_template_conf and model_conf < 0.75:
+            return template_token, template_conf
+
+        # Ambiguous disagreement: reject this frame to avoid wrong token commits.
+        return None, 0.0
+
+    def reset(self):
+        if self.model_matcher is not None:
+            self.model_matcher.reset()
+
+
 def build_default_matcher(
     prefer_model: bool = True,
     model_path: Optional[Path] = None,
@@ -277,7 +324,7 @@ def build_default_matcher(
     if prefer_model:
         model_matcher = ModelMatcher.try_create(model_path=model_path)
         if model_matcher is not None:
-            return model_matcher
+            return HybridMatcher(model_matcher=model_matcher)
     return ClipTemplateMatcher()
 
 
