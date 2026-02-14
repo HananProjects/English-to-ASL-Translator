@@ -1,4 +1,4 @@
-from core.engine import english_to_asl, _get_stt_backend
+from core.engine import english_to_asl, asl_to_english, _get_stt_backend
 from core.mic_utils import record_audio
 from core.audio.vosk_listener import VoskListener
 import threading
@@ -6,7 +6,14 @@ from PySide6.QtCore import QThread, Qt, QTimer, Signal
 from core.sequencing.sign_sequencer import sequence_signs
 from ui.widgets.animation_view import ASLAnimationView
 from ui.worker_camera import CameraWorker
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
+from PySide6.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QHBoxLayout,
+    QStackedWidget,
+    QLabel,
+    QPushButton,
+)
 
 
 class MainWindow(QWidget):
@@ -14,6 +21,8 @@ class MainWindow(QWidget):
     record_result_received = Signal(dict)
     record_error_received = Signal(str)
     stt_warmup_received = Signal(bool)
+    camera_sequence_received = Signal(list)
+    camera_token_received = Signal(str, float)
 
     def __init__(self):
         super().__init__()
@@ -21,54 +30,60 @@ class MainWindow(QWidget):
         self.worker = None
         self.vosk_init_in_progress = False
 
-        self.setWindowTitle("English to ASL Translator")
+        self.setWindowTitle("English <-> ASL Translator")
         self.setMinimumSize(1000, 700)
         self.resize(1280, 820)
 
         layout = QVBoxLayout()
 
-        self.animation_view = ASLAnimationView()
-        self.animation_view.setMinimumHeight(620)
-        layout.addWidget(self.animation_view, 5)
+        self.mode = "english_to_asl"
 
-        self.status_label = QLabel("Status: Idle")
-        self.status_label.setStyleSheet("font-size: 18px;")
+        mode_row = QHBoxLayout()
+        self.english_mode_button = QPushButton("English -> ASL")
+        self.reverse_mode_button = QPushButton("ASL -> English")
+        self.english_mode_button.clicked.connect(
+            lambda: self.set_mode("english_to_asl")
+        )
+        self.reverse_mode_button.clicked.connect(
+            lambda: self.set_mode("asl_to_english")
+        )
+        mode_row.addWidget(self.english_mode_button)
+        mode_row.addWidget(self.reverse_mode_button)
+        layout.addLayout(mode_row)
 
-        self.tokens_label = QLabel("ASL Output:")
-        self.tokens_label.setStyleSheet("font-size: 22px;")
-
-        self.record_button = QPushButton("Record")
-        self.record_button.setStyleSheet("font-size: 20px; height: 60px;")
-        self.record_button.clicked.connect(self.on_record_clicked)
-        self.record_button.setEnabled(False)
-
-        layout.addWidget(self.status_label)
-        layout.addWidget(self.tokens_label)
-        layout.addWidget(self.record_button)
+        self.mode_stack = QStackedWidget()
+        self.mode_stack.addWidget(self._build_english_to_asl_page())
+        self.mode_stack.addWidget(self._build_asl_to_english_page())
+        layout.addWidget(self.mode_stack, 1)
 
         layout.setContentsMargins(24, 16, 24, 16)
         layout.setSpacing(12)
         self.setLayout(layout)
+        self._refresh_mode_buttons()
 
         self.speech_text_received.connect(self.on_speech)
         self.record_result_received.connect(self.on_translation_finished)
         self.record_error_received.connect(self.on_translation_error)
         self.stt_warmup_received.connect(self._on_stt_warmup_complete)
+        self.camera_sequence_received.connect(self.on_camera_sequence)
+        self.camera_token_received.connect(self.on_camera_token)
 
         self.camera_thread = QThread(self)
         self.camera_worker = CameraWorker()
         self.camera_worker.moveToThread(self.camera_thread)
         self.camera_thread.started.connect(self.camera_worker.run)
-        self.camera_worker.pose_ready.connect(self.animation_view.set_live_pose)
+        self.camera_worker.pose_ready.connect(self.on_camera_pose)
+        self.camera_worker.token_ready.connect(self.camera_token_received.emit)
+        self.camera_worker.sequence_ready.connect(self.camera_sequence_received.emit)
         self.camera_thread.start()
 
         self.vosk = None
-        self.status_label.setText("Status: Loading speech model...")
+        self.english_status_label.setText("Status: Loading speech model...")
         threading.Thread(target=self._warmup_stt_backend, daemon=True).start()
 
     def on_record_clicked(self):
-        self.status_label.setText("Status: Recording...")
-        self.tokens_label.setText("ASL Output:")
+        self.english_status_label.setText("Status: Recording...")
+        self.english_tokens_label.setText("ASL Output:")
         self.record_button.setEnabled(False)
 
         if getattr(self, "vosk", None) is not None:
@@ -82,14 +97,14 @@ class MainWindow(QWidget):
         heard_text = data.get("text", "")
         error = data.get("error")
 
-        self.tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
+        self.english_tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
         if error:
-            self.status_label.setText(
+            self.english_status_label.setText(
                 f"Heard: {heard_text or '(none)'} | Error: {error} | "
                 f"Latency: {data['latency']} ms"
             )
         else:
-            self.status_label.setText(
+            self.english_status_label.setText(
                 f"Heard: {heard_text or '(none)'} | "
                 f"Confidence: {data['confidence']:.2f} | "
                 f"Latency: {data['latency']} ms"
@@ -99,15 +114,43 @@ class MainWindow(QWidget):
             return
 
         sequence = sequence_signs(tokens)
-        self.animation_view.disable_live_pose()
-        self.animation_view.play(sequence)
+        self.english_animation_view.disable_live_pose()
+        self.english_animation_view.play(sequence)
         duration_ms = int(sum(e.duration for e in sequence) * 1000)
-        QTimer.singleShot(duration_ms, self.animation_view.enable_live_pose)
+        QTimer.singleShot(duration_ms, self.english_animation_view.enable_live_pose)
 
     def on_translation_error(self, message):
         print(f"[UI] translation error: {message}")
         self.record_button.setEnabled(True)
-        self.status_label.setText(f"Error: {message}")
+        self.english_status_label.setText(f"Error: {message}")
+
+    def on_camera_pose(self, pose: dict):
+        self.english_animation_view.set_live_pose(pose)
+        self.reverse_animation_view.set_live_pose(pose)
+
+    def on_camera_token(self, token: str, confidence: float):
+        self.camera_label.setText(
+            f"Camera ASL Input: {token} (conf {confidence:.2f})"
+        )
+
+    def on_camera_sequence(self, tokens: list):
+        if not tokens:
+            return
+        self.camera_label.setText(f"Camera ASL Input: {' '.join(tokens)}")
+        reverse = asl_to_english(tokens=tokens)
+        if reverse.error:
+            self.reverse_label.setText("English Output:")
+            self.reverse_status_label.setText(
+                f"Status: Camera reverse error: {reverse.error}"
+            )
+            return
+
+        self.reverse_label.setText(f"English Output: {reverse.english_text}")
+        self.reverse_status_label.setText(
+            f"Status: Camera ASL -> English | "
+            f"Confidence: {reverse.confidence:.2f} | "
+            f"Latency: {reverse.latency_ms} ms"
+        )
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
@@ -134,20 +177,20 @@ class MainWindow(QWidget):
         tokens = result.asl_tokens
         if not tokens:
             if result.error:
-                self.status_label.setText(f"Status: {result.error}")
+                self.english_status_label.setText(f"Status: {result.error}")
             return
 
-        self.tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
-        self.status_label.setText(
+        self.english_tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
+        self.english_status_label.setText(
             f"Status: Live Speech | Confidence: {result.confidence:.2f}"
         )
 
         sequence = sequence_signs(tokens)
-        self.animation_view.disable_live_pose()
-        self.animation_view.play(sequence)
+        self.english_animation_view.disable_live_pose()
+        self.english_animation_view.play(sequence)
         duration_ms = int(sum(e.duration for e in sequence) * 1000)
 
-        QTimer.singleShot(duration_ms, self.animation_view.enable_live_pose)
+        QTimer.singleShot(duration_ms, self.english_animation_view.enable_live_pose)
 
     def _start_vosk_async(self):
         if self.vosk is not None:
@@ -211,6 +254,70 @@ class MainWindow(QWidget):
     def _on_stt_warmup_complete(self, ok: bool):
         self.record_button.setEnabled(True)
         if ok:
-            self.status_label.setText("Status: Idle")
+            self.english_status_label.setText("Status: Idle")
         else:
-            self.status_label.setText("Status: STT warmup failed")
+            self.english_status_label.setText("Status: STT warmup failed")
+
+    def set_mode(self, mode: str):
+        if mode not in {"english_to_asl", "asl_to_english"}:
+            return
+        self.mode = mode
+        self.mode_stack.setCurrentIndex(0 if mode == "english_to_asl" else 1)
+        self._refresh_mode_buttons()
+
+    def _refresh_mode_buttons(self):
+        active_style = "font-size: 16px; font-weight: 700; height: 44px;"
+        inactive_style = "font-size: 16px; font-weight: 500; height: 44px;"
+        if self.mode == "english_to_asl":
+            self.english_mode_button.setStyleSheet(active_style)
+            self.reverse_mode_button.setStyleSheet(inactive_style)
+        else:
+            self.english_mode_button.setStyleSheet(inactive_style)
+            self.reverse_mode_button.setStyleSheet(active_style)
+
+    def _build_english_to_asl_page(self) -> QWidget:
+        page = QWidget()
+        page_layout = QVBoxLayout()
+
+        self.english_animation_view = ASLAnimationView()
+        self.english_animation_view.setMinimumHeight(620)
+        self.english_status_label = QLabel("Status: Idle")
+        self.english_status_label.setStyleSheet("font-size: 18px;")
+        self.english_tokens_label = QLabel("ASL Output:")
+        self.english_tokens_label.setStyleSheet("font-size: 22px;")
+
+        self.record_button = QPushButton("Record")
+        self.record_button.setStyleSheet("font-size: 20px; height: 60px;")
+        self.record_button.clicked.connect(self.on_record_clicked)
+        self.record_button.setEnabled(False)
+
+        page_layout.addWidget(self.english_animation_view, 5)
+        page_layout.addWidget(self.english_status_label)
+        page_layout.addWidget(self.english_tokens_label)
+        page_layout.addWidget(self.record_button)
+        page_layout.setContentsMargins(0, 0, 0, 0)
+        page_layout.setSpacing(12)
+        page.setLayout(page_layout)
+        return page
+
+    def _build_asl_to_english_page(self) -> QWidget:
+        page = QWidget()
+        page_layout = QVBoxLayout()
+
+        self.reverse_animation_view = ASLAnimationView()
+        self.reverse_animation_view.setMinimumHeight(620)
+        self.reverse_status_label = QLabel("Status: Camera listening...")
+        self.reverse_status_label.setStyleSheet("font-size: 18px;")
+        self.camera_label = QLabel("Camera ASL Input:")
+        self.camera_label.setStyleSheet("font-size: 18px;")
+        self.reverse_label = QLabel("English Output:")
+        self.reverse_label.setStyleSheet("font-size: 22px;")
+
+        page_layout.addWidget(self.reverse_animation_view, 5)
+        page_layout.addWidget(self.reverse_status_label)
+        page_layout.addWidget(self.camera_label)
+        page_layout.addWidget(self.reverse_label)
+        page_layout.setContentsMargins(0, 0, 0, 0)
+        page_layout.setSpacing(12)
+        page.setLayout(page_layout)
+        return page

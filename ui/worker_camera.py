@@ -1,13 +1,31 @@
-import cv2
-import mediapipe as mp
+try:
+    import cv2
+except Exception:
+    cv2 = None
+
+try:
+    import mediapipe as mp
+except Exception:
+    mp = None
 from PySide6.QtCore import QObject, Signal, QThread
-from core.vision.pose_adapter import mediapipe_to_pose_dict
+from core.asl_to_english.recognizer import SignStreamRecognizer
 
 
 class CameraWorker(QObject):
     pose_ready = Signal(dict)
+    token_ready = Signal(str, float)
+    sequence_ready = Signal(list)
+
+    def __init__(self):
+        super().__init__()
+        self.recognizer = SignStreamRecognizer()
 
     def run(self):
+        if cv2 is None or mp is None:
+            print("Camera dependencies unavailable (cv2/mediapipe)")
+            return
+        from core.vision.pose_adapter import mediapipe_to_pose_dict
+
         cap = cv2.VideoCapture(0)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -42,6 +60,11 @@ class CameraWorker(QObject):
                     right_hand_landmarks
                 )
                 self.pose_ready.emit(pose)
+                update = self.recognizer.process(pose)
+                if update.detected_token is not None:
+                    self.token_ready.emit(update.detected_token, update.confidence)
+                if update.sentence_tokens is not None:
+                    self.sequence_ready.emit(update.sentence_tokens)
 
         cap.release()
         print("Camera thread exiting cleanly")

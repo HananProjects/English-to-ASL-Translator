@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 WH_WORDS = {"who", "what", "where", "when", "why", "how"}
 TIME_WORDS = {"today", "tomorrow", "yesterday", "now", "later"}
@@ -21,6 +21,7 @@ def asl_to_english_text(tokens: List[str]) -> str:
 
     words = [_token_to_word(token) for token in tokens]
     words = _restore_english_order(words)
+    words = _realize_english(words)
     return _format_sentence(words)
 
 
@@ -49,9 +50,49 @@ def _restore_english_order(words: List[str]) -> List[str]:
 def _format_sentence(words: List[str]) -> str:
     if not words:
         return ""
+    words = ["I" if w == "i" else w for w in words]
     text = " ".join(words)
     if words[0] in WH_WORDS:
         suffix = "?"
     else:
         suffix = "."
     return text[0].upper() + text[1:] + suffix
+
+
+def _realize_english(words: List[str]) -> List[str]:
+    if not words:
+        return words
+
+    # Recover omitted "to be" auxiliaries and progressive verb form in
+    # common ASL WH-questions, e.g. "YOU GO WHERE" -> "where are you going".
+    if words[0] in WH_WORDS and len(words) >= 3:
+        subject = words[1]
+        verb = words[2]
+        aux = _present_be_for_subject(subject)
+        if aux is not None:
+            realized = [words[0], aux, subject, _to_gerund(verb)]
+            if len(words) > 3:
+                realized.extend(words[3:])
+            return realized
+
+    return words
+
+
+def _present_be_for_subject(subject: str) -> Optional[str]:
+    s = subject.lower()
+    if s == "i":
+        return "am"
+    if s in {"you", "we", "they"}:
+        return "are"
+    if s in {"he", "she", "it"}:
+        return "is"
+    return None
+
+
+def _to_gerund(verb: str) -> str:
+    v = verb.lower()
+    if v.endswith("ing"):
+        return v
+    if len(v) > 2 and v.endswith("e") and not v.endswith(("ee", "oe", "ye")):
+        return v[:-1] + "ing"
+    return v + "ing"
