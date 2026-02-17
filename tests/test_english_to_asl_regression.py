@@ -24,3 +24,13 @@ def test_synonym_mapping():
 def test_unknown_token_preserved():
     r = english_to_asl(text="I go home")
     assert r.asl_tokens == ["ME", "GO", "HOME"]
+
+
+def test_greeting_how_are_you_order():
+    r = english_to_asl(text="hello how are you")
+    assert r.asl_tokens == ["HELLO", "HOW", "YOU"]
+
+
+def test_how_are_you_order():
+    r = english_to_asl(text="how are you")
+    assert r.asl_tokens == ["HOW", "YOU"]

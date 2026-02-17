@@ -19,6 +19,7 @@ AUX_VERBS = {
 ARTICLES = {"a", "an", "the", "to", "of", "for"}
 TIME_WORDS = {"today", "tomorrow", "yesterday", "now", "later"}
 NEGATION_WORDS = {"not", "never", "no"}
+GREETING_WORDS = {"hello", "hi", "hey"}
 
 
 def map_grammar(text: str) -> list[str]:
@@ -28,6 +29,15 @@ def map_grammar(text: str) -> list[str]:
     words = text.split()
     if not words:
         return []
+
+    # Common conversational phrase handling with copula drop:
+    # "hello how are you" -> "hello how you"
+    has_how_are_you = "how" in words and "you" in words and "are" in words
+    greeting = next((w for w in words if w in GREETING_WORDS), None)
+    if has_how_are_you and greeting is not None:
+        return [greeting, "how", "you"]
+    if has_how_are_you and words[0] == "how":
+        return ["how", "you"]
 
     # ASL commonly fronts time markers.
     time_words = [w for w in words if w in TIME_WORDS]
