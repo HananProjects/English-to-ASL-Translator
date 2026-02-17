@@ -56,6 +56,7 @@ IRREGULAR_VERBS = {
     "did": "do",
     "said": "say",
     "saw": "see",
+    "forgot": "forget",
 }
 
 
@@ -80,6 +81,8 @@ def _normalize_token(token: str) -> str:
     if len(token) > 3 and token.endswith("ied"):
         return token[:-3] + "y"
     if len(token) > 3 and token.endswith("ed"):
+        if token.endswith("eed"):
+            return token
         base = token[:-2]
         if base.endswith("i"):
             return base[:-1] + "y"

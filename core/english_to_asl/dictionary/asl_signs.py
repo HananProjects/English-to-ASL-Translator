@@ -104,6 +104,10 @@ ASL_SIGNS = {
         "clips": ["time_1", "time_2", "time_3"],
         "duration": 0.7,
     },
+    "TOMORROW": {
+        "clip": "tomorrow",
+        "duration": 0.7,
+    },
     "WAIT": {
         "clips": ["wait_1", "wait_2", "wait_3"],
         "duration": 0.7,
