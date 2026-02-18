@@ -78,9 +78,14 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
         if not clip_name:
             print(f"[WARN] No clip name configured for token: {token}")
             continue
-        duration = _clip_duration_seconds(clip_name)
-        if duration is None:
-            duration = sign_def.get("duration", DEFAULT_SIGN_DURATION)
+        clip_duration = _clip_duration_seconds(clip_name)
+        configured_duration = float(sign_def.get("duration", DEFAULT_SIGN_DURATION))
+        if clip_duration is None:
+            duration = configured_duration
+        else:
+            # Use clip timing when available, but cap to configured duration to
+            # avoid extremely long source clips freezing playback.
+            duration = min(clip_duration, configured_duration)
 
         events.append(
             SignEvent(

@@ -12,24 +12,34 @@ ASL_SIGNS = {
         "clips": ["how", "how_2", "how_3"],
         "duration": 0.7,
     },
-    "ARE": {
-        "clip": "are",
-        "duration": 0.6,
-    },
     "ME": {
-        "clip": "me",
+        # Temporary fallback: "me" clip is missing in this branch.
+        "clip": "my_2",
         "duration": 0.6,
     },
     "THANK_YOU": {
-        "clip": "thank_you",
+        # Temporary fallback: "thank_you" clip is missing in this branch.
+        "clip": "please_2",
         "duration": 0.8,
     },
     "GO": {
         "clips": ["go_1", "go_2", "go_3"],
         "duration": 0.7,
     },
+    "AND": {
+        "clip": "and_2",
+        "duration": 0.7,
+    },
+    "HOME": {
+        "clip": "home_1",
+        "duration": 0.7,
+    },
+    "WHY": {
+        "clip": "why_2",
+        "duration": 0.7,
+    },
     "WHERE": {
-        "clip": "where",
+        "clip": "where_1",
         "duration": 0.7,
     },
     "BROTHER": {
@@ -118,6 +128,11 @@ ASL_SIGNS = {
     },
     "TOMORROW": {
         "clip": "tomorrow",
+        "duration": 0.7,
+    },
+    "TODAY": {
+        # Temporary fallback: dedicated "today" clip not available yet.
+        "clip": "now_2",
         "duration": 0.7,
     },
     "WAIT": {
