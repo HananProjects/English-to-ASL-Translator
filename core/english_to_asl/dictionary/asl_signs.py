@@ -64,6 +64,10 @@ ASL_SIGNS = {
         "clips": ["help_1", "help_2", "help_3"],
         "duration": 0.7,
     },
+    "HERE": {
+        "clips": ["here_2", "here_3"],
+        "duration": 0.7,
+    },
     "LATER": {
         "clips": ["later_1", "later_2", "later_3"],
         "duration": 0.7,
@@ -80,6 +84,10 @@ ASL_SIGNS = {
         "clips": ["mother_1", "mother_2", "mother_3"],
         "duration": 0.7,
     },
+    "MY": {
+        "clip": "my_2",
+        "duration": 0.7,
+    },
     "NEED": {
         "clips": ["need_1", "need_2", "need_3"],
         "duration": 0.7,
@@ -94,6 +102,10 @@ ASL_SIGNS = {
     },
     "PLAY": {
         "clips": ["play_1", "play_2", "play_3"],
+        "duration": 0.7,
+    },
+    "PLEASE": {
+        "clip": "please_2",
         "duration": 0.7,
     },
     "SCHOOL": {
@@ -120,6 +132,10 @@ ASL_SIGNS = {
         "clips": ["water_1", "water_2", "water_3"],
         "duration": 0.7,
     },
+    "WE": {
+        "clip": "we_2",
+        "duration": 0.7,
+    },
     "WHAT": {
         "clips": ["what_1", "what_2", "what_3"],
         "duration": 0.7,
@@ -142,6 +158,10 @@ ASL_SIGNS = {
     },
     "YES": {
         "clips": ["yes_1", "yes_2", "yes_3"],
+        "duration": 0.7,
+    },
+    "YOUR": {
+        "clip": "your_2",
         "duration": 0.7,
     },
 }
