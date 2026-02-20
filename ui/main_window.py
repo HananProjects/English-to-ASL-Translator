@@ -29,6 +29,8 @@ class MainWindow(QWidget):
 
         self.animation_view = ASLAnimationView()
         self.animation_view.setMinimumHeight(620)
+        # Keep avatar stationary by default in English->ASL mode.
+        self.animation_view.disable_live_pose()
         layout.addWidget(self.animation_view, 5)
 
         self.status_label = QLabel("Status: Idle")
@@ -36,6 +38,8 @@ class MainWindow(QWidget):
 
         self.tokens_label = QLabel("ASL Output:")
         self.tokens_label.setStyleSheet("font-size: 22px;")
+        self.clips_label = QLabel("Clips: (none)")
+        self.clips_label.setStyleSheet("font-size: 16px;")
 
         self.record_button = QPushButton("Record")
         self.record_button.setStyleSheet("font-size: 20px; height: 60px;")
@@ -44,6 +48,7 @@ class MainWindow(QWidget):
 
         layout.addWidget(self.status_label)
         layout.addWidget(self.tokens_label)
+        layout.addWidget(self.clips_label)
         layout.addWidget(self.record_button)
 
         layout.setContentsMargins(24, 16, 24, 16)
@@ -96,13 +101,13 @@ class MainWindow(QWidget):
             )
 
         if not tokens:
+            self.clips_label.setText("Clips: (none)")
             return
 
         sequence = sequence_signs(tokens)
+        self._set_clips_label(sequence)
         self.animation_view.disable_live_pose()
         self.animation_view.play(sequence)
-        duration_ms = int(sum(e.duration for e in sequence) * 1000)
-        QTimer.singleShot(duration_ms, self.animation_view.enable_live_pose)
 
     def on_translation_error(self, message):
         print(f"[UI] translation error: {message}")
@@ -143,11 +148,9 @@ class MainWindow(QWidget):
         )
 
         sequence = sequence_signs(tokens)
+        self._set_clips_label(sequence)
         self.animation_view.disable_live_pose()
         self.animation_view.play(sequence)
-        duration_ms = int(sum(e.duration for e in sequence) * 1000)
-
-        QTimer.singleShot(duration_ms, self.animation_view.enable_live_pose)
 
     def _start_vosk_async(self):
         if self.vosk is not None:
@@ -214,3 +217,10 @@ class MainWindow(QWidget):
             self.status_label.setText("Status: Idle")
         else:
             self.status_label.setText("Status: STT warmup failed")
+
+    def _set_clips_label(self, sequence):
+        if not sequence:
+            self.clips_label.setText("Clips: (none)")
+            return
+        clip_parts = [f"{event.token}:{event.clip}.json" for event in sequence]
+        self.clips_label.setText("Clips: " + " | ".join(clip_parts))
