@@ -21,9 +21,9 @@ class CameraWorker(QObject):
 
     def __init__(self):
         super().__init__()
-        # Use template-only matching until the model is retrained on expanded labels.
+        # Prefer model/hybrid matching; recognizer will use v2 model if available.
         self.recognizer = SignStreamRecognizer(
-            prefer_model=False,
+            prefer_model=True,
             stable_frames=6,
             min_confidence=0.60,
             emit_cooldown_frames=10,

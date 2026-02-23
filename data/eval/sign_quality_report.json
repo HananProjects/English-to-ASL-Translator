@@ -1,0 +1,1003 @@
+{
+  "clips_dir": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips",
+  "total_clips_scored": 186,
+  "total_labels_scored": 96,
+  "top_signs": [
+    {
+      "label": "HAVE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9267,
+      "best_clips": [
+        "have.json"
+      ]
+    },
+    {
+      "label": "LIVE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9233,
+      "best_clips": [
+        "live.json"
+      ]
+    },
+    {
+      "label": "DIFFERENT",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.917,
+      "best_clips": [
+        "different.json"
+      ]
+    },
+    {
+      "label": "GO",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.9151,
+      "best_clips": [
+        "go_1.json",
+        "go_2.json",
+        "go_3.json"
+      ]
+    },
+    {
+      "label": "FRIEND",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9145,
+      "best_clips": [
+        "friend.json"
+      ]
+    },
+    {
+      "label": "ABOUT",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9125,
+      "best_clips": [
+        "about.json"
+      ]
+    },
+    {
+      "label": "COME",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9099,
+      "best_clips": [
+        "come.json"
+      ]
+    },
+    {
+      "label": "BUT",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.907,
+      "best_clips": [
+        "but.json"
+      ]
+    },
+    {
+      "label": "HAPPY",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9063,
+      "best_clips": [
+        "happy.json"
+      ]
+    },
+    {
+      "label": "LITTLE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9063,
+      "best_clips": [
+        "little.json"
+      ]
+    },
+    {
+      "label": "CAN",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9039,
+      "best_clips": [
+        "can.json"
+      ]
+    },
+    {
+      "label": "GET",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9007,
+      "best_clips": [
+        "get.json"
+      ]
+    },
+    {
+      "label": "MEET",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8992,
+      "best_clips": [
+        "meet.json"
+      ]
+    },
+    {
+      "label": "AND",
+      "num_clips": 2,
+      "quality_score_top3_avg": 0.8881,
+      "best_clips": [
+        "and_2.json",
+        "and_1.json"
+      ]
+    },
+    {
+      "label": "WHEN",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8862,
+      "best_clips": [
+        "when_1.json"
+      ]
+    },
+    {
+      "label": "WHICH",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8857,
+      "best_clips": [
+        "which_1.json"
+      ]
+    },
+    {
+      "label": "WRITE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8857,
+      "best_clips": [
+        "write_1.json"
+      ]
+    },
+    {
+      "label": "WITH",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8847,
+      "best_clips": [
+        "with_1.json"
+      ]
+    },
+    {
+      "label": "HARD",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.872,
+      "best_clips": [
+        "hard.json"
+      ]
+    },
+    {
+      "label": "HOME",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8689,
+      "best_clips": [
+        "home_1.json"
+      ]
+    },
+    {
+      "label": "TRY",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8631,
+      "best_clips": [
+        "try_1.json"
+      ]
+    },
+    {
+      "label": "THINK",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.863,
+      "best_clips": [
+        "think_1.json"
+      ]
+    },
+    {
+      "label": "THING",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8629,
+      "best_clips": [
+        "thing_1.json"
+      ]
+    },
+    {
+      "label": "TIRED",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8625,
+      "best_clips": [
+        "tired_1.json"
+      ]
+    },
+    {
+      "label": "TALK",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8623,
+      "best_clips": [
+        "talk_1.json"
+      ]
+    },
+    {
+      "label": "TAKE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8622,
+      "best_clips": [
+        "take_1.json"
+      ]
+    },
+    {
+      "label": "THEY",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8619,
+      "best_clips": [
+        "they_1.json"
+      ]
+    },
+    {
+      "label": "THEIR",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8611,
+      "best_clips": [
+        "their_1.json"
+      ]
+    },
+    {
+      "label": "AGAIN",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8602,
+      "best_clips": [
+        "again.json"
+      ]
+    },
+    {
+      "label": "GOOD",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.8573,
+      "best_clips": [
+        "good.json"
+      ]
+    }
+  ],
+  "bottom_signs": [
+    {
+      "label": "SAME",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.4796,
+      "best_clips": [
+        "same_3.json",
+        "same_2.json",
+        "same_1.json"
+      ]
+    },
+    {
+      "label": "NO",
+      "num_clips": 4,
+      "quality_score_top3_avg": 0.4907,
+      "best_clips": [
+        "no_1.json",
+        "no_1_2.json",
+        "no_3.json"
+      ]
+    },
+    {
+      "label": "SIGN",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.533,
+      "best_clips": [
+        "sign_1.json"
+      ]
+    },
+    {
+      "label": "UNDERSTAND",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5347,
+      "best_clips": [
+        "understand_1.json"
+      ]
+    },
+    {
+      "label": "RIGHT",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.546,
+      "best_clips": [
+        "right_2.json",
+        "right_3.json",
+        "right_1.json"
+      ]
+    },
+    {
+      "label": "MAN",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.5778,
+      "best_clips": [
+        "man_1.json",
+        "man_2.json",
+        "man_3.json"
+      ]
+    },
+    {
+      "label": "DRINK",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.5811,
+      "best_clips": [
+        "drink_1.json",
+        "drink_2.json",
+        "drink_3.json"
+      ]
+    },
+    {
+      "label": "LIKE",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.5821,
+      "best_clips": [
+        "like_1.json",
+        "like_3.json",
+        "like_2.json"
+      ]
+    },
+    {
+      "label": "HE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5969,
+      "best_clips": [
+        "he.json"
+      ]
+    },
+    {
+      "label": "KNOW",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5985,
+      "best_clips": [
+        "know.json"
+      ]
+    },
+    {
+      "label": "FEEL",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5985,
+      "best_clips": [
+        "feel.json"
+      ]
+    },
+    {
+      "label": "YOU_V2",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6002,
+      "best_clips": [
+        "you_v2.json"
+      ]
+    },
+    {
+      "label": "NEED",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.6014,
+      "best_clips": [
+        "need_1.json",
+        "need_3.json",
+        "need_2.json"
+      ]
+    },
+    {
+      "label": "YOU_V3",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6019,
+      "best_clips": [
+        "you_v3.json"
+      ]
+    },
+    {
+      "label": "LOOK",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6035,
+      "best_clips": [
+        "look.json"
+      ]
+    },
+    {
+      "label": "BAD",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6052,
+      "best_clips": [
+        "bad.json"
+      ]
+    },
+    {
+      "label": "MOTHER",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.6061,
+      "best_clips": [
+        "mother_1.json",
+        "mother_2.json",
+        "mother_3.json"
+      ]
+    },
+    {
+      "label": "FINE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6069,
+      "best_clips": [
+        "fine.json"
+      ]
+    },
+    {
+      "label": "FEW",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6069,
+      "best_clips": [
+        "few.json"
+      ]
+    },
+    {
+      "label": "WOMAN",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.6078,
+      "best_clips": [
+        "woman_1.json",
+        "woman_3.json",
+        "woman_2.json"
+      ]
+    },
+    {
+      "label": "GIRL",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6085,
+      "best_clips": [
+        "girl.json"
+      ]
+    },
+    {
+      "label": "FOR",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6102,
+      "best_clips": [
+        "for.json"
+      ]
+    },
+    {
+      "label": "ASK",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6102,
+      "best_clips": [
+        "ask.json"
+      ]
+    },
+    {
+      "label": "YES",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.6103,
+      "best_clips": [
+        "yes_1.json",
+        "yes_2.json",
+        "yes_3.json"
+      ]
+    },
+    {
+      "label": "BOY",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6119,
+      "best_clips": [
+        "boy.json"
+      ]
+    },
+    {
+      "label": "FIND",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.6169,
+      "best_clips": [
+        "find.json"
+      ]
+    },
+    {
+      "label": "FINISH",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.6171,
+      "best_clips": [
+        "finish_1.json",
+        "finish_3.json",
+        "finish_2.json"
+      ]
+    },
+    {
+      "label": "ME",
+      "num_clips": 2,
+      "quality_score_top3_avg": 0.6237,
+      "best_clips": [
+        "me_1.json",
+        "me.json"
+      ]
+    },
+    {
+      "label": "WRONG",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.6256,
+      "best_clips": [
+        "wrong_1.json",
+        "wrong_2.json",
+        "wrong_3.json"
+      ]
+    },
+    {
+      "label": "WHO",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.6315,
+      "best_clips": [
+        "who_1.json",
+        "who_3.json",
+        "who_2.json"
+      ]
+    }
+  ],
+  "top_clips": [
+    {
+      "clip": "hello_1.json",
+      "label": "HELLO",
+      "frames": 43,
+      "score": 0.9717,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "thank_you_1.json",
+      "label": "THANK_YOU",
+      "frames": 51,
+      "score": 0.953,
+      "pose_coverage": 0.9712,
+      "hand_coverage": 0.951
+    },
+    {
+      "clip": "brother_1.json",
+      "label": "BROTHER",
+      "frames": 37,
+      "score": 0.9528,
+      "pose_coverage": 0.9921,
+      "hand_coverage": 0.9865
+    },
+    {
+      "clip": "go_1.json",
+      "label": "GO",
+      "frames": 41,
+      "score": 0.9524,
+      "pose_coverage": 0.9857,
+      "hand_coverage": 0.9756
+    },
+    {
+      "clip": "want_1.json",
+      "label": "WANT",
+      "frames": 56,
+      "score": 0.935,
+      "pose_coverage": 0.9475,
+      "hand_coverage": 0.9107
+    },
+    {
+      "clip": "how.json",
+      "label": "HOW",
+      "frames": 27,
+      "score": 0.9329,
+      "pose_coverage": 0.9891,
+      "hand_coverage": 0.9815
+    },
+    {
+      "clip": "eat_1.json",
+      "label": "EAT",
+      "frames": 45,
+      "score": 0.9315,
+      "pose_coverage": 0.9608,
+      "hand_coverage": 0.9333
+    },
+    {
+      "clip": "now_1.json",
+      "label": "NOW",
+      "frames": 47,
+      "score": 0.9297,
+      "pose_coverage": 0.9562,
+      "hand_coverage": 0.9255
+    },
+    {
+      "clip": "have.json",
+      "label": "HAVE",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "mother_1.json",
+      "label": "MOTHER",
+      "frames": 37,
+      "score": 0.9264,
+      "pose_coverage": 0.9682,
+      "hand_coverage": 0.9459
+    },
+    {
+      "clip": "who_1.json",
+      "label": "WHO",
+      "frames": 45,
+      "score": 0.9242,
+      "pose_coverage": 0.9542,
+      "hand_coverage": 0.9222
+    },
+    {
+      "clip": "live.json",
+      "label": "LIVE",
+      "frames": 14,
+      "score": 0.9233,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "give_1.json",
+      "label": "GIVE",
+      "frames": 51,
+      "score": 0.921,
+      "pose_coverage": 0.9423,
+      "hand_coverage": 0.902
+    },
+    {
+      "clip": "now_3.json",
+      "label": "NOW",
+      "frames": 12,
+      "score": 0.92,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "different.json",
+      "label": "DIFFERENT",
+      "frames": 20,
+      "score": 0.917,
+      "pose_coverage": 0.9853,
+      "hand_coverage": 0.975
+    },
+    {
+      "clip": "friend.json",
+      "label": "FRIEND",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "time_2.json",
+      "label": "TIME",
+      "frames": 24,
+      "score": 0.9128,
+      "pose_coverage": 0.9755,
+      "hand_coverage": 0.9583
+    },
+    {
+      "clip": "about.json",
+      "label": "ABOUT",
+      "frames": 32,
+      "score": 0.9125,
+      "pose_coverage": 0.9632,
+      "hand_coverage": 0.9375
+    },
+    {
+      "clip": "come.json",
+      "label": "COME",
+      "frames": 23,
+      "score": 0.9099,
+      "pose_coverage": 0.9744,
+      "hand_coverage": 0.9565
+    },
+    {
+      "clip": "but.json",
+      "label": "BUT",
+      "frames": 22,
+      "score": 0.907,
+      "pose_coverage": 0.9733,
+      "hand_coverage": 0.9545
+    },
+    {
+      "clip": "more_2.json",
+      "label": "MORE",
+      "frames": 1376,
+      "score": 0.9065,
+      "pose_coverage": 0.9158,
+      "hand_coverage": 0.8568
+    },
+    {
+      "clip": "happy.json",
+      "label": "HAPPY",
+      "frames": 16,
+      "score": 0.9063,
+      "pose_coverage": 0.9816,
+      "hand_coverage": 0.9688
+    },
+    {
+      "clip": "little.json",
+      "label": "LITTLE",
+      "frames": 16,
+      "score": 0.9063,
+      "pose_coverage": 0.9816,
+      "hand_coverage": 0.9688
+    },
+    {
+      "clip": "many_1.json",
+      "label": "MANY",
+      "frames": 1376,
+      "score": 0.9051,
+      "pose_coverage": 0.9145,
+      "hand_coverage": 0.8547
+    },
+    {
+      "clip": "my_1.json",
+      "label": "MY",
+      "frames": 1376,
+      "score": 0.9051,
+      "pose_coverage": 0.9145,
+      "hand_coverage": 0.8547
+    },
+    {
+      "clip": "need_1.json",
+      "label": "NEED",
+      "frames": 50,
+      "score": 0.905,
+      "pose_coverage": 0.9294,
+      "hand_coverage": 0.88
+    },
+    {
+      "clip": "can.json",
+      "label": "CAN",
+      "frames": 21,
+      "score": 0.9039,
+      "pose_coverage": 0.972,
+      "hand_coverage": 0.9524
+    },
+    {
+      "clip": "get.json",
+      "label": "GET",
+      "frames": 20,
+      "score": 0.9007,
+      "pose_coverage": 0.9706,
+      "hand_coverage": 0.95
+    },
+    {
+      "clip": "go_2.json",
+      "label": "GO",
+      "frames": 24,
+      "score": 0.8992,
+      "pose_coverage": 0.9632,
+      "hand_coverage": 0.9375
+    },
+    {
+      "clip": "meet.json",
+      "label": "MEET",
+      "frames": 24,
+      "score": 0.8992,
+      "pose_coverage": 0.9632,
+      "hand_coverage": 0.9375
+    }
+  ],
+  "bottom_clips": [
+    {
+      "clip": "same_1.json",
+      "label": "SAME",
+      "frames": 41,
+      "score": 0.4269,
+      "pose_coverage": 0.5122,
+      "hand_coverage": 0.1707
+    },
+    {
+      "clip": "mother_3.json",
+      "label": "MOTHER",
+      "frames": 33,
+      "score": 0.4307,
+      "pose_coverage": 0.5276,
+      "hand_coverage": 0.197
+    },
+    {
+      "clip": "drink_3.json",
+      "label": "DRINK",
+      "frames": 33,
+      "score": 0.4307,
+      "pose_coverage": 0.5276,
+      "hand_coverage": 0.197
+    },
+    {
+      "clip": "finish_2.json",
+      "label": "FINISH",
+      "frames": 14,
+      "score": 0.4336,
+      "pose_coverage": 0.5588,
+      "hand_coverage": 0.25
+    },
+    {
+      "clip": "drink_2.json",
+      "label": "DRINK",
+      "frames": 28,
+      "score": 0.4336,
+      "pose_coverage": 0.5378,
+      "hand_coverage": 0.2143
+    },
+    {
+      "clip": "we_2.json",
+      "label": "WE",
+      "frames": 31,
+      "score": 0.4356,
+      "pose_coverage": 0.5351,
+      "hand_coverage": 0.2097
+    },
+    {
+      "clip": "who_2.json",
+      "label": "WHO",
+      "frames": 27,
+      "score": 0.4372,
+      "pose_coverage": 0.5425,
+      "hand_coverage": 0.2222
+    },
+    {
+      "clip": "man_3.json",
+      "label": "MAN",
+      "frames": 39,
+      "score": 0.4376,
+      "pose_coverage": 0.5249,
+      "hand_coverage": 0.1923
+    },
+    {
+      "clip": "my_2.json",
+      "label": "MY",
+      "frames": 30,
+      "score": 0.4385,
+      "pose_coverage": 0.5392,
+      "hand_coverage": 0.2167
+    },
+    {
+      "clip": "need_2.json",
+      "label": "NEED",
+      "frames": 49,
+      "score": 0.4487,
+      "pose_coverage": 0.5198,
+      "hand_coverage": 0.1837
+    },
+    {
+      "clip": "need_3.json",
+      "label": "NEED",
+      "frames": 33,
+      "score": 0.4505,
+      "pose_coverage": 0.5455,
+      "hand_coverage": 0.2273
+    },
+    {
+      "clip": "no_2.json",
+      "label": "NO",
+      "frames": 26,
+      "score": 0.4536,
+      "pose_coverage": 0.5588,
+      "hand_coverage": 0.25
+    },
+    {
+      "clip": "woman_2.json",
+      "label": "WOMAN",
+      "frames": 28,
+      "score": 0.457,
+      "pose_coverage": 0.5588,
+      "hand_coverage": 0.25
+    },
+    {
+      "clip": "give_2.json",
+      "label": "GIVE",
+      "frames": 12,
+      "score": 0.4575,
+      "pose_coverage": 0.5833,
+      "hand_coverage": 0.2917
+    },
+    {
+      "clip": "tell_2.json",
+      "label": "TELL",
+      "frames": 30,
+      "score": 0.4603,
+      "pose_coverage": 0.5588,
+      "hand_coverage": 0.25
+    },
+    {
+      "clip": "mother_2.json",
+      "label": "MOTHER",
+      "frames": 27,
+      "score": 0.4613,
+      "pose_coverage": 0.5643,
+      "hand_coverage": 0.2593
+    },
+    {
+      "clip": "like_2.json",
+      "label": "LIKE",
+      "frames": 31,
+      "score": 0.4672,
+      "pose_coverage": 0.5636,
+      "hand_coverage": 0.2581
+    },
+    {
+      "clip": "woman_3.json",
+      "label": "WOMAN",
+      "frames": 13,
+      "score": 0.4696,
+      "pose_coverage": 0.5928,
+      "hand_coverage": 0.3077
+    },
+    {
+      "clip": "now_2.json",
+      "label": "NOW",
+      "frames": 31,
+      "score": 0.4778,
+      "pose_coverage": 0.5731,
+      "hand_coverage": 0.2742
+    },
+    {
+      "clip": "like_3.json",
+      "label": "LIKE",
+      "frames": 30,
+      "score": 0.4821,
+      "pose_coverage": 0.5784,
+      "hand_coverage": 0.2833
+    },
+    {
+      "clip": "yes_3.json",
+      "label": "YES",
+      "frames": 23,
+      "score": 0.4841,
+      "pose_coverage": 0.5908,
+      "hand_coverage": 0.3043
+    },
+    {
+      "clip": "same_2.json",
+      "label": "SAME",
+      "frames": 19,
+      "score": 0.4849,
+      "pose_coverage": 0.5975,
+      "hand_coverage": 0.3158
+    },
+    {
+      "clip": "no_3.json",
+      "label": "NO",
+      "frames": 19,
+      "score": 0.4849,
+      "pose_coverage": 0.5975,
+      "hand_coverage": 0.3158
+    },
+    {
+      "clip": "later_2.json",
+      "label": "LATER",
+      "frames": 15,
+      "score": 0.4897,
+      "pose_coverage": 0.6078,
+      "hand_coverage": 0.3333
+    },
+    {
+      "clip": "right_1.json",
+      "label": "RIGHT",
+      "frames": 33,
+      "score": 0.49,
+      "pose_coverage": 0.5811,
+      "hand_coverage": 0.2879
+    },
+    {
+      "clip": "wrong_3.json",
+      "label": "WRONG",
+      "frames": 26,
+      "score": 0.4913,
+      "pose_coverage": 0.5928,
+      "hand_coverage": 0.3077
+    },
+    {
+      "clip": "no_1_2.json",
+      "label": "NO",
+      "frames": 50,
+      "score": 0.4936,
+      "pose_coverage": 0.5588,
+      "hand_coverage": 0.25
+    },
+    {
+      "clip": "no_1.json",
+      "label": "NO",
+      "frames": 50,
+      "score": 0.4936,
+      "pose_coverage": 0.5588,
+      "hand_coverage": 0.25
+    },
+    {
+      "clip": "wrong_2.json",
+      "label": "WRONG",
+      "frames": 31,
+      "score": 0.4988,
+      "pose_coverage": 0.592,
+      "hand_coverage": 0.3065
+    },
+    {
+      "clip": "eat_3.json",
+      "label": "EAT",
+      "frames": 42,
+      "score": 0.5036,
+      "pose_coverage": 0.5798,
+      "hand_coverage": 0.2857
+    }
+  ]
+}

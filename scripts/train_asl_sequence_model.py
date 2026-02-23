@@ -44,6 +44,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--val-split", type=float, default=0.2)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument(
+        "--min-samples-per-label",
+        type=int,
+        default=2,
+        help="Drop labels with fewer than this many clip samples.",
+    )
+    p.add_argument(
         "--labels-file",
         type=Path,
         default=None,
@@ -140,11 +146,17 @@ def load_label_whitelist(path: Path) -> set[str]:
     return labels
 
 
-def build_dataset(clips_dir: Path, seq_len: int, labels_file: Path | None):
+def build_dataset(
+    clips_dir: Path,
+    seq_len: int,
+    labels_file: Path | None,
+    min_samples_per_label: int,
+):
     whitelist = load_label_whitelist(labels_file) if labels_file else None
 
     X_list: List[np.ndarray] = []
     y_tokens: List[str] = []
+    counts: Dict[str, int] = {}
     files = sorted(clips_dir.glob("*.json"))
     for fp in files:
         token = infer_label_from_clip_name(fp.stem)
@@ -156,15 +168,36 @@ def build_dataset(clips_dir: Path, seq_len: int, labels_file: Path | None):
             continue
         X_list.append(seq)
         y_tokens.append(token)
+        counts[token] = counts.get(token, 0) + 1
 
     if not X_list:
         raise RuntimeError("No training samples found from clips.")
 
-    labels = sorted(set(y_tokens))
+    keep_labels = {
+        token for token, c in counts.items()
+        if c >= max(1, int(min_samples_per_label))
+    }
+    dropped = sorted(
+        (token, counts[token]) for token in counts
+        if token not in keep_labels
+    )
+
+    X_keep: List[np.ndarray] = []
+    y_keep_tokens: List[str] = []
+    for x, token in zip(X_list, y_tokens):
+        if token in keep_labels:
+            X_keep.append(x)
+            y_keep_tokens.append(token)
+
+    if not X_keep:
+        raise RuntimeError("No samples left after min-samples-per-label filter.")
+
+    labels = sorted(set(y_keep_tokens))
     label_to_idx = {lab: i for i, lab in enumerate(labels)}
-    y = np.asarray([label_to_idx[t] for t in y_tokens], dtype=np.int64)
-    X = np.stack(X_list, axis=0).astype(np.float32)
-    return X, y, labels
+    y = np.asarray([label_to_idx[t] for t in y_keep_tokens], dtype=np.int64)
+    X = np.stack(X_keep, axis=0).astype(np.float32)
+    kept_counts = {lab: counts[lab] for lab in labels}
+    return X, y, labels, kept_counts, dropped
 
 
 def train_val_split(X: np.ndarray, y: np.ndarray, val_split: float, seed: int):
@@ -200,7 +233,12 @@ def main() -> None:
     args = parse_args()
     np.random.seed(args.seed)
 
-    X, y, labels = build_dataset(args.clips_dir, args.seq_len, args.labels_file)
+    X, y, labels, kept_counts, dropped = build_dataset(
+        args.clips_dir,
+        args.seq_len,
+        args.labels_file,
+        args.min_samples_per_label,
+    )
     n, seq_len, feat_dim = X.shape
     n_classes = len(labels)
     flat_dim = seq_len * feat_dim
@@ -250,6 +288,11 @@ def main() -> None:
     )
     print(f"Saved model: {args.out}")
     print(f"labels={len(labels)} seq_len={seq_len} feature_dim={feat_dim}")
+    print(f"kept_labels={len(labels)} min_samples_per_label={args.min_samples_per_label}")
+    if dropped:
+        print("dropped_labels:", ", ".join(f"{t}({c})" for t, c in dropped))
+    top_counts = sorted(kept_counts.items(), key=lambda kv: (-kv[1], kv[0]))[:20]
+    print("top_label_counts:", ", ".join(f"{t}({c})" for t, c in top_counts))
 
 
 if __name__ == "__main__":
