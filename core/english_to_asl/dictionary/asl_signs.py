@@ -208,7 +208,7 @@ ASL_SIGNS = {
     "LIVE": {"clip": "live", "duration": 0.7},
     "LOOK": {"clip": "look", "duration": 0.7},
     "MAKE": {"clip": "make", "duration": 0.7},
-    "MANY": {"clip": "many", "duration": 0.7},
+    "MANY": {"clips": ["many_1", "many_2", "many_3"], "duration": 0.7},
     "MEET": {"clip": "meet", "duration": 0.7},
     "MORE": {"clip": "more", "duration": 0.7},
     "NAME": {"clip": "name", "duration": 0.7},
