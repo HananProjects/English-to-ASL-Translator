@@ -1,39 +1,6 @@
 {
-  "saved": [
-    {
-      "gloss": "many",
-      "clip": "many_1",
-      "video_id": "34822",
-      "source": "data\\WLASL\\start_kit\\raw_videos\\IxO7unGawfk.mp4",
-      "frame_count": 1376,
-      "pose_ratio": 1.0,
-      "hand_ratio": 0.9920058139534884
-    },
-    {
-      "gloss": "many",
-      "clip": "many_2",
-      "video_id": "69396",
-      "source": "data\\WLASL\\start_kit\\raw_videos\\69396.mp4",
-      "frame_count": 36,
-      "pose_ratio": 1.0,
-      "hand_ratio": 0.8333333333333334
-    },
-    {
-      "gloss": "many",
-      "clip": "many_3",
-      "video_id": "34823",
-      "source": "data\\WLASL\\start_kit\\raw_videos\\34823.mp4",
-      "frame_count": 34,
-      "pose_ratio": 1.0,
-      "hand_ratio": 0.35294117647058826
-    }
-  ],
+  "saved": [],
   "skipped": [
-    {
-      "gloss": "many",
-      "video_id": "70308",
-      "reason": "missing_video_file"
-    },
     {
       "gloss": "name",
       "video_id": "37575",
