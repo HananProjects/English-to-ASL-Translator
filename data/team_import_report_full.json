@@ -1,0 +1,311 @@
+{
+  "saved": [
+    {
+      "source": "ui\\animation\\extra_clips\\BROTHER_1.mp4",
+      "clip": "brother_1",
+      "output": "ui\\animation\\clips\\brother_1.json",
+      "frame_count": 37,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 2.51
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\DRINK_1.mp4",
+      "clip": "drink_1",
+      "output": "ui\\animation\\clips\\drink_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.94,
+      "time_s": 3.19
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\EAT_1.mp4",
+      "clip": "eat_1",
+      "output": "ui\\animation\\clips\\eat_1.json",
+      "frame_count": 45,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 2.92
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\FAMILY_1.mp4",
+      "clip": "family_1",
+      "output": "ui\\animation\\clips\\family_1.json",
+      "frame_count": 41,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9024390243902439,
+      "time_s": 2.69
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\FINISH_1.mp4",
+      "clip": "finish_1",
+      "output": "ui\\animation\\clips\\finish_1.json",
+      "frame_count": 45,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7777777777777778,
+      "time_s": 2.94
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\FORGET_1.mp4",
+      "clip": "forget_1",
+      "output": "ui\\animation\\clips\\forget_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.86,
+      "time_s": 3.17
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\GIVE_1.mp4",
+      "clip": "give_1",
+      "output": "ui\\animation\\clips\\give_1.json",
+      "frame_count": 51,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 3.34
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\GO_1.mp4",
+      "clip": "go_1",
+      "output": "ui\\animation\\clips\\go_1.json",
+      "frame_count": 41,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 2.69
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\HELLO_1.mp4",
+      "clip": "hello_1",
+      "output": "ui\\animation\\clips\\hello_1.json",
+      "frame_count": 43,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 2.83
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\HELP_1.mp4",
+      "clip": "help_1",
+      "output": "ui\\animation\\clips\\help_1.json",
+      "frame_count": 41,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9512195121951219,
+      "time_s": 2.71
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\HOW_1.mp4",
+      "clip": "how_1",
+      "output": "ui\\animation\\clips\\how_1.json",
+      "frame_count": 43,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7441860465116279,
+      "time_s": 2.77
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\LATER_1.mp4",
+      "clip": "later_1",
+      "output": "ui\\animation\\clips\\later_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.86,
+      "time_s": 3.31
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\LIKE_1.mp4",
+      "clip": "like_1",
+      "output": "ui\\animation\\clips\\like_1.json",
+      "frame_count": 43,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 2.78
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\MAN_1.mp4",
+      "clip": "man_1",
+      "output": "ui\\animation\\clips\\man_1.json",
+      "frame_count": 41,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7317073170731707,
+      "time_s": 2.73
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\ME_1.mp4",
+      "clip": "me_1",
+      "output": "ui\\animation\\clips\\me_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.52,
+      "time_s": 3.28
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\MOTHER_1.mp4",
+      "clip": "mother_1",
+      "output": "ui\\animation\\clips\\mother_1.json",
+      "frame_count": 37,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 2.42
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\NEED_1.mp4",
+      "clip": "need_1",
+      "output": "ui\\animation\\clips\\need_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 3.28
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\NO_1.mp4",
+      "clip": "no_1",
+      "output": "ui\\animation\\clips\\no_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.5,
+      "time_s": 3.63
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\NOW_1.mp4",
+      "clip": "now_1",
+      "output": "ui\\animation\\clips\\now_1.json",
+      "frame_count": 47,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9361702127659575,
+      "time_s": 3.98
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\PLAY_1.mp4",
+      "clip": "play_1",
+      "output": "ui\\animation\\clips\\play_1.json",
+      "frame_count": 47,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8936170212765957,
+      "time_s": 3.71
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\SCHOOL_1.mp4",
+      "clip": "school_1",
+      "output": "ui\\animation\\clips\\school_1.json",
+      "frame_count": 47,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7446808510638298,
+      "time_s": 3.84
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\THANK YOU_1.mp4",
+      "clip": "thank_you_1",
+      "output": "ui\\animation\\clips\\thank_you_1.json",
+      "frame_count": 51,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 3.94
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\TIME_1.mp4",
+      "clip": "time_1",
+      "output": "ui\\animation\\clips\\time_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.86,
+      "time_s": 3.91
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WAIT_1.mp4",
+      "clip": "wait_1",
+      "output": "ui\\animation\\clips\\wait_1.json",
+      "frame_count": 47,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7872340425531915,
+      "time_s": 3.67
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WANT_1.mp4",
+      "clip": "want_1",
+      "output": "ui\\animation\\clips\\want_1.json",
+      "frame_count": 56,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9464285714285714,
+      "time_s": 4.22
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WATER_1.mp4",
+      "clip": "water_1",
+      "output": "ui\\animation\\clips\\water_1.json",
+      "frame_count": 51,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9607843137254902,
+      "time_s": 3.79
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WHAT_1.mp4",
+      "clip": "what_1",
+      "output": "ui\\animation\\clips\\what_1.json",
+      "frame_count": 39,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.48717948717948717,
+      "time_s": 3.03
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WHERE_1.mp4",
+      "clip": "where_1",
+      "output": "ui\\animation\\clips\\where_1.json",
+      "frame_count": 50,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.78,
+      "time_s": 3.93
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WHO_1.mp4",
+      "clip": "who_1",
+      "output": "ui\\animation\\clips\\who_1.json",
+      "frame_count": 45,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0,
+      "time_s": 3.47
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WOMAN_1.mp4",
+      "clip": "woman_1",
+      "output": "ui\\animation\\clips\\woman_1.json",
+      "frame_count": 41,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9024390243902439,
+      "time_s": 3.27
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\WORK_1.mp4",
+      "clip": "work_1",
+      "output": "ui\\animation\\clips\\work_1.json",
+      "frame_count": 47,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.46808510638297873,
+      "time_s": 3.57
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\YEAR_1.mp4",
+      "clip": "year_1",
+      "output": "ui\\animation\\clips\\year_1.json",
+      "frame_count": 51,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8627450980392157,
+      "time_s": 4.22
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\YES_1.mp4",
+      "clip": "yes_1",
+      "output": "ui\\animation\\clips\\yes_1.json",
+      "frame_count": 41,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.975609756097561,
+      "time_s": 3.56
+    },
+    {
+      "source": "ui\\animation\\extra_clips\\YOU_1.mp4",
+      "clip": "you_1",
+      "output": "ui\\animation\\clips\\you_1.json",
+      "frame_count": 47,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9787234042553191,
+      "time_s": 4.03
+    }
+  ],
+  "skipped": []
+}

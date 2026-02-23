@@ -10,8 +10,9 @@ from ui.animation.clip_loader import load_clip
 
 class ASLAnimationView(QWidget):
     HAND_VISUAL_SCALE = 0.78
-    PLAYBACK_SPEED = 0.75
-    PLAYBACK_SMOOTHING_ALPHA = 0.35
+    # Slower playback + stronger smoothing to reduce jitter on imported clips.
+    PLAYBACK_SPEED = 0.60
+    PLAYBACK_SMOOTHING_ALPHA = 0.22
     HAND_CHAINS = (
         (0, 1, 2, 3, 4),
         (0, 5, 6, 7, 8),

@@ -2,6 +2,7 @@ import argparse
 import json
 import re
 import sys
+import time
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 
@@ -267,6 +268,17 @@ def main():
         "skipped": [],
     }
 
+    total_candidates = 0
+    for entry in content:
+        gloss_key = normalize_gloss(str(entry.get("gloss", "")).strip())
+        if not gloss_key:
+            continue
+        if not keep_all and gloss_key not in gloss_filter:
+            continue
+        total_candidates += len(entry.get("instances", []))
+    print(f"[import] candidate videos: {total_candidates}")
+
+    processed = 0
     saved_total = 0
     for entry in content:
         raw_gloss = str(entry.get("gloss", "")).strip()
@@ -281,7 +293,13 @@ def main():
 
         instances = entry.get("instances", [])
         for inst in instances:
+            processed += 1
+            video_id = inst.get("video_id")
+            t0 = time.time()
+            print(f"[import] {processed}/{total_candidates} gloss={raw_gloss} video_id={video_id}")
+
             if per_gloss_count.get(gloss_key, 0) >= args.max_per_gloss:
+                print(f"[skip] gloss limit reached for {raw_gloss}")
                 break
             if args.limit and saved_total >= args.limit:
                 break
@@ -290,9 +308,10 @@ def main():
             if video_path is None:
                 report["skipped"].append({
                     "gloss": raw_gloss,
-                    "video_id": inst.get("video_id"),
+                    "video_id": video_id,
                     "reason": "missing_video_file",
                 })
+                print("[skip] missing_video_file")
                 continue
 
             clip = extract_clip_from_video(
@@ -303,9 +322,10 @@ def main():
             if clip is None:
                 report["skipped"].append({
                     "gloss": raw_gloss,
-                    "video_id": inst.get("video_id"),
+                    "video_id": video_id,
                     "reason": "video_open_failed",
                 })
+                print("[skip] video_open_failed")
                 continue
 
             frame_count = len(clip["frames"])
@@ -319,12 +339,16 @@ def main():
             if not usable:
                 report["skipped"].append({
                     "gloss": raw_gloss,
-                    "video_id": inst.get("video_id"),
+                    "video_id": video_id,
                     "reason": "quality_gate_failed",
                     "frame_count": frame_count,
                     "pose_ratio": pose_ratio,
                     "hand_ratio": hand_ratio,
                 })
+                print(
+                    f"[skip] quality_gate_failed frames={frame_count} "
+                    f"pose_ratio={pose_ratio:.2f} hand_ratio={hand_ratio:.2f}"
+                )
                 continue
 
             per_gloss_count[gloss_key] = per_gloss_count.get(gloss_key, 0) + 1
@@ -345,12 +369,14 @@ def main():
             report["saved"].append({
                 "gloss": raw_gloss,
                 "clip": clip_name,
-                "video_id": inst.get("video_id"),
+                "video_id": video_id,
                 "source": str(video_path),
                 "frame_count": frame_count,
                 "pose_ratio": pose_ratio,
                 "hand_ratio": hand_ratio,
             })
+            dt = time.time() - t0
+            print(f"[saved] clip={clip_name} frames={frame_count} time_s={dt:.1f}")
 
         if args.limit and saved_total >= args.limit:
             break

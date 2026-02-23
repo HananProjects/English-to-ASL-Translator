@@ -23,6 +23,7 @@ class SignEvent:
 
 # Base duration per sign (seconds)
 DEFAULT_SIGN_DURATION = 0.7
+MAX_PLAYBACK_DURATION = 2.5
 _DURATION_CACHE: Dict[str, float] = {}
 _VARIANT_INDEX: Dict[str, int] = {}
 
@@ -78,9 +79,14 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
         if not clip_name:
             print(f"[WARN] No clip name configured for token: {token}")
             continue
-        duration = _clip_duration_seconds(clip_name)
-        if duration is None:
-            duration = sign_def.get("duration", DEFAULT_SIGN_DURATION)
+        clip_duration = _clip_duration_seconds(clip_name)
+        configured_duration = float(sign_def.get("duration", DEFAULT_SIGN_DURATION))
+        if clip_duration is None:
+            duration = configured_duration
+        else:
+            # Prefer actual clip timing for natural motion, but cap very long
+            # clips to keep sentence playback responsive.
+            duration = min(clip_duration, max(configured_duration, MAX_PLAYBACK_DURATION))
 
         events.append(
             SignEvent(
