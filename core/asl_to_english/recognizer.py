@@ -1,5 +1,6 @@
 import json
 import math
+from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -30,6 +31,19 @@ JOINT_KEYS = (
     "right_pinky_tip",
 )
 
+HAND_KEYS = (
+    "left_thumb_tip",
+    "left_index_tip",
+    "left_middle_tip",
+    "left_ring_tip",
+    "left_pinky_tip",
+    "right_thumb_tip",
+    "right_index_tip",
+    "right_middle_tip",
+    "right_ring_tip",
+    "right_pinky_tip",
+)
+
 
 @dataclass
 class PoseTemplate:
@@ -43,6 +57,9 @@ class RecognitionUpdate:
     confidence: float
     sentence_tokens: Optional[List[str]]
     buffered_tokens: List[str]
+    raw_token: Optional[str] = None
+    raw_confidence: float = 0.0
+    candidate_streak: int = 0
 
 
 def normalize_pose(pose: PoseDict) -> PoseDict:
@@ -98,7 +115,7 @@ def pose_to_feature_vector(pose: PoseDict) -> np.ndarray:
     return np.clip(vector, -20.0, 20.0)
 
 
-def pose_distance(a: PoseDict, b: PoseDict, min_shared: int = 6) -> float:
+def pose_distance(a: PoseDict, b: PoseDict, min_shared: int = 9) -> float:
     shared = [key for key in a if key in b]
     if len(shared) < min_shared:
         return float("inf")
@@ -123,19 +140,35 @@ class ClipTemplateMatcher:
 
     def match(self, pose: PoseDict) -> Tuple[Optional[str], float]:
         pose_vector = normalize_pose(pose)
-        if len(pose_vector) < 6 or not self.templates:
+        if len(pose_vector) < 8 or not self.templates:
+            return None, 0.0
+
+        # Reject low-information frames (hands mostly missing), which cause
+        # unstable nearest-template jumps.
+        hand_points = sum(1 for key in HAND_KEYS if key in pose_vector)
+        if hand_points < 2:
             return None, 0.0
 
         best_token = None
         best_distance = float("inf")
+        second_best_distance = float("inf")
 
         for template in self.templates:
             distance = pose_distance(pose_vector, template.vector)
             if distance < best_distance:
+                second_best_distance = best_distance
                 best_distance = distance
                 best_token = template.token
+            elif distance < second_best_distance:
+                second_best_distance = distance
 
         if best_token is None or not math.isfinite(best_distance):
+            return None, 0.0
+
+        # Absolute and relative checks to suppress ambiguous matches.
+        if best_distance > 0.90:
+            return None, 0.0
+        if math.isfinite(second_best_distance) and (second_best_distance - best_distance) < 0.005:
             return None, 0.0
 
         # Distance in normalized pose space is typically ~0..2 for useful matches.
@@ -221,6 +254,9 @@ class ModelMatcher:
     @staticmethod
     def default_model_path() -> Path:
         repo_root = Path(__file__).resolve().parents[2]
+        v2 = repo_root / "models" / "asl_landmark_classifier_v2.npz"
+        if v2.exists():
+            return v2
         return repo_root / "models" / "asl_landmark_classifier_v1.npz"
 
     @classmethod
@@ -354,14 +390,21 @@ class SignStreamRecognizer:
         self._last_emitted_token: Optional[str] = None
         self._cooldown_left = 0
         self._low_conf_streak = 0
+        self._right_hand_history = deque(maxlen=12)
+        self._hello_motion_cooldown = 0
 
     def process(self, pose: PoseDict) -> RecognitionUpdate:
         token, confidence = self.matcher.match(pose)
+        motion_token, motion_conf = self._match_hello_motion(pose)
+        if motion_token is not None:
+            token, confidence = motion_token, motion_conf
         detected_token = None
         sentence_tokens = None
 
         if self._cooldown_left > 0:
             self._cooldown_left -= 1
+        if self._hello_motion_cooldown > 0:
+            self._hello_motion_cooldown -= 1
 
         if token is None or confidence < self.min_confidence:
             self._candidate_token = None
@@ -379,6 +422,9 @@ class SignStreamRecognizer:
                 confidence=confidence,
                 sentence_tokens=sentence_tokens,
                 buffered_tokens=list(self.buffered_tokens),
+                raw_token=token,
+                raw_confidence=confidence,
+                candidate_streak=self._candidate_streak,
             )
 
         self._low_conf_streak = 0
@@ -403,6 +449,9 @@ class SignStreamRecognizer:
             confidence=confidence,
             sentence_tokens=None,
             buffered_tokens=list(self.buffered_tokens),
+            raw_token=token,
+            raw_confidence=confidence,
+            candidate_streak=self._candidate_streak,
         )
 
     def reset(self):
@@ -412,6 +461,46 @@ class SignStreamRecognizer:
         self._last_emitted_token = None
         self._cooldown_left = 0
         self._low_conf_streak = 0
+        self._right_hand_history.clear()
+        self._hello_motion_cooldown = 0
         reset_fn = getattr(self.matcher, "reset", None)
         if callable(reset_fn):
             reset_fn()
+
+    def _match_hello_motion(self, pose: PoseDict) -> Tuple[Optional[str], float]:
+        """
+        HELLO is a movement sign; single-frame matching often confuses it with KNOW.
+        Detect a short right-hand trajectory from forehead area outward.
+        """
+        if self._hello_motion_cooldown > 0:
+            return None, 0.0
+
+        head = pose.get("head")
+        hand = pose.get("hand_right")
+        if head is None or hand is None:
+            return None, 0.0
+
+        self._right_hand_history.append((hand[0], hand[1], head[0], head[1]))
+        if len(self._right_hand_history) < 8:
+            return None, 0.0
+
+        start = self._right_hand_history[0]
+        end = self._right_hand_history[-1]
+        sx, sy, shx, shy = start
+        ex, ey, ehx, ehy = end
+
+        # Start near forehead.
+        start_dist = math.dist((sx, sy), (shx, shy))
+        near_forehead = start_dist < 0.16 and abs(sy - shy) < 0.12
+
+        # Move outward mainly in x (camera mirror can flip sign of delta).
+        dx = ex - sx
+        dy = ey - sy
+        moved_outward = abs(dx) > 0.10 and abs(dy) < 0.12
+
+        if near_forehead and moved_outward:
+            self._hello_motion_cooldown = 20
+            self._right_hand_history.clear()
+            return "HELLO", 0.92
+
+        return None, 0.0

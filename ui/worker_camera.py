@@ -17,14 +17,33 @@ class CameraWorker(QObject):
     frame_ready = Signal(object)
     token_ready = Signal(str, float)
     sequence_ready = Signal(list)
+    debug_ready = Signal(str, float, int)
 
     def __init__(self):
         super().__init__()
-        self.recognizer = SignStreamRecognizer()
+        # Use template-only matching until the model is retrained on expanded labels.
+        self.recognizer = SignStreamRecognizer(
+            prefer_model=False,
+            stable_frames=6,
+            min_confidence=0.60,
+            emit_cooldown_frames=10,
+            pause_frames=18,
+        )
+        self._running = False
+        self._cap = None
         print(f"[ASL] recognizer matcher={type(self.recognizer.matcher).__name__}")
 
     def reset_recognition_state(self):
         self.recognizer.reset()
+
+    def stop(self):
+        self._running = False
+        if self._cap is not None:
+            try:
+                self._cap.release()
+            except Exception:
+                pass
+            self._cap = None
 
     def run(self):
         if cv2 is None or mp is None:
@@ -33,6 +52,8 @@ class CameraWorker(QObject):
         from core.vision.pose_adapter import mediapipe_to_pose_dict
 
         cap = cv2.VideoCapture(0)
+        self._cap = cap
+        self._running = True
         # Prefer higher quality preview for the UI feed.
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
@@ -48,9 +69,10 @@ class CameraWorker(QObject):
 
         thread = QThread.currentThread()
 
-        while cap.isOpened() and not thread.isInterruptionRequested():
+        while self._running and cap.isOpened() and not thread.isInterruptionRequested():
             ret, frame = cap.read()
             if not ret:
+                QThread.msleep(5)
                 continue
 
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -74,18 +96,29 @@ class CameraWorker(QObject):
             left_hand_landmarks = result.left_hand_landmarks.landmark if result.left_hand_landmarks else None
             right_hand_landmarks = result.right_hand_landmarks.landmark if result.right_hand_landmarks else None
 
-            if pose_landmarks:
-                pose = mediapipe_to_pose_dict(
-                    pose_landmarks,
-                    left_hand_landmarks,
-                    right_hand_landmarks
-                )
-                self.pose_ready.emit(pose)
-                update = self.recognizer.process(pose)
-                if update.detected_token is not None:
-                    self.token_ready.emit(update.detected_token, update.confidence)
-                if update.sentence_tokens is not None:
-                    self.sequence_ready.emit(update.sentence_tokens)
+            if not pose_landmarks:
+                self.debug_ready.emit("", 0.0, 0)
+                continue
 
+            pose = mediapipe_to_pose_dict(
+                pose_landmarks,
+                left_hand_landmarks,
+                right_hand_landmarks
+            )
+            self.pose_ready.emit(pose)
+            update = self.recognizer.process(pose)
+            raw_token = update.raw_token or ""
+            self.debug_ready.emit(
+                raw_token,
+                float(update.raw_confidence),
+                int(update.candidate_streak),
+            )
+            if update.detected_token is not None:
+                self.token_ready.emit(update.detected_token, update.confidence)
+            if update.sentence_tokens is not None:
+                self.sequence_ready.emit(update.sentence_tokens)
+
+        self._running = False
         cap.release()
+        self._cap = None
         print("Camera thread exiting cleanly")
