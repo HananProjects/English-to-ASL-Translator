@@ -1,3 +1,5 @@
+from typing import Optional
+
 class ASLDictionary:
     def __init__(self):
         # English token -> ASL sign ID
@@ -17,7 +19,7 @@ class ASLDictionary:
             "no": "NO",
         }
 
-    def lookup(self, token: str) -> str | None:
+    def lookup(self, token: str) -> Optional[str]:
         """
         Returns ASL sign ID or None if unknown
         """

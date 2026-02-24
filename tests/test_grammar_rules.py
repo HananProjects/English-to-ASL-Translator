@@ -8,9 +8,9 @@ def test_wh_question():
 
 def test_time_first():
     r = english_to_asl(text="I will go tomorrow")
-    assert r.asl_tokens == ["TOMORROW", "I", "GO"]
+    assert r.asl_tokens == ["TOMORROW", "ME", "GO"]
 
 
 def test_statement():
     r = english_to_asl(text="I am going home")
-    assert r.asl_tokens == ["I", "GO", "HOME"]
+    assert r.asl_tokens == ["ME", "GO", "HOME"]

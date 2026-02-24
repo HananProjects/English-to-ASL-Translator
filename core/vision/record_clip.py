@@ -1,5 +1,6 @@
 import argparse
 import json
+import re
 import time
 from pathlib import Path
 
@@ -34,9 +35,36 @@ def _default_clip_path(sign: str) -> Path:
     return repo_root / "ui" / "animation" / "clips" / f"{sign.lower()}.json"
 
 
+def _next_numbered_sign_name(sign: str) -> str:
+    """
+    hello_1 -> hello_2
+    hello -> hello_2
+    thank_you_3 -> thank_you_4
+    """
+    m = re.match(r"^(.*?)(?:_(\d+))?$", sign.strip().lower())
+    if not m:
+        return sign.strip().lower()
+    base = (m.group(1) or sign).strip("_")
+    num = m.group(2)
+    if num is None:
+        return f"{base}_2"
+    return f"{base}_{int(num) + 1}"
+
+
+def _save_clip(clip_path: Path, fps: int, frames: list) -> bool:
+    if not frames:
+        print("No frames recorded yet.")
+        return False
+    with open(clip_path, "w", encoding="utf-8") as f:
+        json.dump({"fps": fps, "frames": frames}, f, indent=2)
+    print(f"Saved {len(frames)} frames to {clip_path}")
+    return True
+
+
 def main():
     args = _parse_args()
-    clip_path = _default_clip_path(args.sign)
+    current_sign = args.sign.strip().lower()
+    clip_path = _default_clip_path(current_sign)
     clip_path.parent.mkdir(parents=True, exist_ok=True)
 
     cap = cv2.VideoCapture(args.camera_index)
@@ -58,7 +86,7 @@ def main():
     last_capture_time = 0.0
     sample_period = 1.0 / max(1, args.fps)
 
-    print("Controls: [R]ecord toggle  [S]ave  [C]lear  [Q]uit")
+    print("Controls: [R]ecord toggle  [S]ave  [I] save+increment  [C]lear  [N]ext sign  [Q]uit")
     print(f"Target clip: {clip_path}")
 
     while cap.isOpened():
@@ -108,7 +136,7 @@ def main():
         status = "RECORDING" if recording else "IDLE"
         cv2.putText(
             frame,
-            f"{args.sign.upper()} | {status} | frames={len(frames)} | fps={args.fps}",
+            f"{current_sign.upper()} | {status} | frames={len(frames)} | fps={args.fps}",
             (10, 30),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.65,
@@ -118,7 +146,7 @@ def main():
         )
         cv2.putText(
             frame,
-            "R:toggle S:save C:clear Q:quit",
+            "R:toggle S:save I:save+inc C:clear N:next Q:quit",
             (10, 60),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.6,
@@ -148,12 +176,29 @@ def main():
             frames.clear()
             print("Cleared frames.")
         elif key == ord("s"):
-            if not frames:
-                print("No frames recorded yet.")
+            _save_clip(clip_path, args.fps, frames)
+        elif key == ord("i"):
+            if not _save_clip(clip_path, args.fps, frames):
                 continue
-            with open(clip_path, "w", encoding="utf-8") as f:
-                json.dump({"fps": args.fps, "frames": frames}, f, indent=2)
-            print(f"Saved {len(frames)} frames to {clip_path}")
+            frames.clear()
+            recording = False
+            current_sign = _next_numbered_sign_name(current_sign)
+            clip_path = _default_clip_path(current_sign)
+            clip_path.parent.mkdir(parents=True, exist_ok=True)
+            print(f"Auto-incremented target clip: {clip_path}")
+        elif key == ord("n"):
+            recording = False
+            if frames:
+                print("Switching sign: clearing unsaved frames.")
+            frames.clear()
+            next_sign = input("Enter next sign name: ").strip().lower()
+            if not next_sign:
+                print(f"Sign unchanged: {current_sign}")
+                continue
+            current_sign = next_sign
+            clip_path = _default_clip_path(current_sign)
+            clip_path.parent.mkdir(parents=True, exist_ok=True)
+            print(f"Target clip switched to: {clip_path}")
         elif key == ord("q"):
             break
 

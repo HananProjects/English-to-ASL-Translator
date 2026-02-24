@@ -1,0 +1,5 @@
+# Auto-generated recommended ASL training labels
+# source=data\eval\sign_quality_report.json
+# min_clips=2 min_quality=0.7 max_labels=30
+GO
+AND
