@@ -1,6 +1,6 @@
 {
   "clips_dir": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips",
-  "total_clips_scored": 210,
+  "total_clips_scored": 240,
   "total_labels_scored": 96,
   "top_signs": [
     {
@@ -9,6 +9,16 @@
       "quality_score_top3_avg": 0.9267,
       "best_clips": [
         "have.json"
+      ]
+    },
+    {
+      "label": "WRITE",
+      "num_clips": 5,
+      "quality_score_top3_avg": 0.9244,
+      "best_clips": [
+        "write_1.json",
+        "write_2.json",
+        "write_5.json"
       ]
     },
     {
@@ -54,11 +64,31 @@
       ]
     },
     {
+      "label": "WITH",
+      "num_clips": 9,
+      "quality_score_top3_avg": 0.9102,
+      "best_clips": [
+        "with_4.json",
+        "with_3.json",
+        "with_2.json"
+      ]
+    },
+    {
       "label": "COME",
       "num_clips": 1,
       "quality_score_top3_avg": 0.9099,
       "best_clips": [
         "come.json"
+      ]
+    },
+    {
+      "label": "WHEN",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.9084,
+      "best_clips": [
+        "when_4.json",
+        "when_2.json",
+        "when_8.json"
       ]
     },
     {
@@ -119,35 +149,11 @@
       ]
     },
     {
-      "label": "WHEN",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8862,
-      "best_clips": [
-        "when_1.json"
-      ]
-    },
-    {
       "label": "WHICH",
       "num_clips": 1,
       "quality_score_top3_avg": 0.8857,
       "best_clips": [
         "which_1.json"
-      ]
-    },
-    {
-      "label": "WRITE",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8857,
-      "best_clips": [
-        "write_1.json"
-      ]
-    },
-    {
-      "label": "WITH",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8847,
-      "best_clips": [
-        "with_1.json"
       ]
     },
     {
@@ -212,14 +218,6 @@
       "quality_score_top3_avg": 0.8622,
       "best_clips": [
         "take_1.json"
-      ]
-    },
-    {
-      "label": "THEY",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8619,
-      "best_clips": [
-        "they_1.json"
       ]
     },
     {
@@ -376,15 +374,6 @@
         "family_1.json",
         "family_3.json",
         "family_2.json"
-      ]
-    },
-    {
-      "label": "WHY",
-      "num_clips": 2,
-      "quality_score_top3_avg": 0.7107,
-      "best_clips": [
-        "why_1.json",
-        "why_2.json"
       ]
     },
     {
@@ -643,6 +632,16 @@
       ]
     },
     {
+      "label": "THEY",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.6191,
+      "best_clips": [
+        "they_8.json",
+        "they_6.json",
+        "they_7.json"
+      ]
+    },
+    {
       "label": "FINISH",
       "num_clips": 3,
       "quality_score_top3_avg": 0.6171,
@@ -702,6 +701,16 @@
       "quality_score_top3_avg": 0.6102,
       "best_clips": [
         "for.json"
+      ]
+    },
+    {
+      "label": "WHY",
+      "num_clips": 6,
+      "quality_score_top3_avg": 0.6102,
+      "best_clips": [
+        "why_1.json",
+        "why_2.json",
+        "why_3.json"
       ]
     },
     {
@@ -1029,6 +1038,16 @@
       ]
     },
     {
+      "label": "WHY",
+      "num_clips": 6,
+      "quality_score_top3_avg": 0.6102,
+      "best_clips": [
+        "why_1.json",
+        "why_2.json",
+        "why_3.json"
+      ]
+    },
+    {
       "label": "FOR",
       "num_clips": 1,
       "quality_score_top3_avg": 0.6102,
@@ -1088,6 +1107,16 @@
         "finish_1.json",
         "finish_3.json",
         "finish_2.json"
+      ]
+    },
+    {
+      "label": "THEY",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.6191,
+      "best_clips": [
+        "they_8.json",
+        "they_6.json",
+        "they_7.json"
       ]
     },
     {
@@ -1346,15 +1375,6 @@
       ]
     },
     {
-      "label": "WHY",
-      "num_clips": 2,
-      "quality_score_top3_avg": 0.7107,
-      "best_clips": [
-        "why_1.json",
-        "why_2.json"
-      ]
-    },
-    {
       "label": "FAMILY",
       "num_clips": 3,
       "quality_score_top3_avg": 0.726,
@@ -1511,14 +1531,6 @@
       ]
     },
     {
-      "label": "THEY",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8619,
-      "best_clips": [
-        "they_1.json"
-      ]
-    },
-    {
       "label": "TAKE",
       "num_clips": 1,
       "quality_score_top3_avg": 0.8622,
@@ -1583,35 +1595,11 @@
       ]
     },
     {
-      "label": "WITH",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8847,
-      "best_clips": [
-        "with_1.json"
-      ]
-    },
-    {
-      "label": "WRITE",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8857,
-      "best_clips": [
-        "write_1.json"
-      ]
-    },
-    {
       "label": "WHICH",
       "num_clips": 1,
       "quality_score_top3_avg": 0.8857,
       "best_clips": [
         "which_1.json"
-      ]
-    },
-    {
-      "label": "WHEN",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8862,
-      "best_clips": [
-        "when_1.json"
       ]
     },
     {
@@ -1672,11 +1660,31 @@
       ]
     },
     {
+      "label": "WHEN",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.9084,
+      "best_clips": [
+        "when_4.json",
+        "when_2.json",
+        "when_8.json"
+      ]
+    },
+    {
       "label": "COME",
       "num_clips": 1,
       "quality_score_top3_avg": 0.9099,
       "best_clips": [
         "come.json"
+      ]
+    },
+    {
+      "label": "WITH",
+      "num_clips": 9,
+      "quality_score_top3_avg": 0.9102,
+      "best_clips": [
+        "with_4.json",
+        "with_3.json",
+        "with_2.json"
       ]
     },
     {
@@ -1722,6 +1730,16 @@
       ]
     },
     {
+      "label": "WRITE",
+      "num_clips": 5,
+      "quality_score_top3_avg": 0.9244,
+      "best_clips": [
+        "write_1.json",
+        "write_2.json",
+        "write_5.json"
+      ]
+    },
+    {
       "label": "HAVE",
       "num_clips": 1,
       "quality_score_top3_avg": 0.9267,
@@ -1764,6 +1782,14 @@
       "hand_coverage": 0.9722
     },
     {
+      "clip": "write_1.json",
+      "label": "WRITE",
+      "frames": 22,
+      "score": 0.9367,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
       "clip": "want_1.json",
       "label": "WANT",
       "frames": 56,
@@ -1774,6 +1800,14 @@
     {
       "clip": "how.json",
       "label": "HOW",
+      "frames": 27,
+      "score": 0.9329,
+      "pose_coverage": 0.9891,
+      "hand_coverage": 0.9815
+    },
+    {
+      "clip": "when_4.json",
+      "label": "WHEN",
       "frames": 27,
       "score": 0.9329,
       "pose_coverage": 0.9891,
@@ -1844,6 +1878,22 @@
       "hand_coverage": 1.0
     },
     {
+      "clip": "with_4.json",
+      "label": "WITH",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
+    },
+    {
+      "clip": "write_2.json",
+      "label": "WRITE",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
+    },
+    {
       "clip": "different.json",
       "label": "DIFFERENT",
       "frames": 20,
@@ -1852,8 +1902,24 @@
       "hand_coverage": 0.975
     },
     {
+      "clip": "write_5.json",
+      "label": "WRITE",
+      "frames": 20,
+      "score": 0.917,
+      "pose_coverage": 0.9853,
+      "hand_coverage": 0.975
+    },
+    {
       "clip": "friend.json",
       "label": "FRIEND",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "with_3.json",
+      "label": "WITH",
       "frames": 19,
       "score": 0.9145,
       "pose_coverage": 0.9845,
@@ -1948,6 +2014,14 @@
       "hand_coverage": 0.9524
     },
     {
+      "clip": "when_2.json",
+      "label": "WHEN",
+      "frames": 25,
+      "score": 0.9025,
+      "pose_coverage": 0.9647,
+      "hand_coverage": 0.94
+    },
+    {
       "clip": "get.json",
       "label": "GET",
       "frames": 20,
@@ -1996,6 +2070,14 @@
       "hand_coverage": 0.8902
     },
     {
+      "clip": "with_2.json",
+      "label": "WITH",
+      "frames": 13,
+      "score": 0.8966,
+      "pose_coverage": 0.9774,
+      "hand_coverage": 0.9615
+    },
+    {
       "clip": "go_3.json",
       "label": "GO",
       "frames": 18,
@@ -2010,6 +2092,30 @@
       "score": 0.8914,
       "pose_coverage": 0.9022,
       "hand_coverage": 0.8337
+    },
+    {
+      "clip": "when_8.json",
+      "label": "WHEN",
+      "frames": 17,
+      "score": 0.8899,
+      "pose_coverage": 0.9654,
+      "hand_coverage": 0.9412
+    },
+    {
+      "clip": "with_8.json",
+      "label": "WITH",
+      "frames": 17,
+      "score": 0.8899,
+      "pose_coverage": 0.9654,
+      "hand_coverage": 0.9412
+    },
+    {
+      "clip": "when_1.json",
+      "label": "WHEN",
+      "frames": 25,
+      "score": 0.8894,
+      "pose_coverage": 0.9529,
+      "hand_coverage": 0.92
     },
     {
       "clip": "family_1.json",
@@ -2036,28 +2142,12 @@
       "hand_coverage": 0.8286
     },
     {
-      "clip": "why_1.json",
-      "label": "WHY",
-      "frames": 2031,
-      "score": 0.8868,
-      "pose_coverage": 0.8981,
-      "hand_coverage": 0.8267
-    },
-    {
       "clip": "wrong_1.json",
       "label": "WRONG",
       "frames": 2031,
       "score": 0.8868,
       "pose_coverage": 0.8981,
       "hand_coverage": 0.8267
-    },
-    {
-      "clip": "when_1.json",
-      "label": "WHEN",
-      "frames": 2031,
-      "score": 0.8862,
-      "pose_coverage": 0.8975,
-      "hand_coverage": 0.8257
     },
     {
       "clip": "will_1.json",
@@ -2068,16 +2158,16 @@
       "hand_coverage": 0.8252
     },
     {
-      "clip": "which_1.json",
-      "label": "WHICH",
-      "frames": 2031,
-      "score": 0.8857,
-      "pose_coverage": 0.897,
-      "hand_coverage": 0.825
+      "clip": "with_1.json",
+      "label": "WITH",
+      "frames": 16,
+      "score": 0.8859,
+      "pose_coverage": 0.9632,
+      "hand_coverage": 0.9375
     },
     {
-      "clip": "write_1.json",
-      "label": "WRITE",
+      "clip": "which_1.json",
+      "label": "WHICH",
       "frames": 2031,
       "score": 0.8857,
       "pose_coverage": 0.897,
@@ -2092,12 +2182,12 @@
       "hand_coverage": 0.8242
     },
     {
-      "clip": "with_1.json",
+      "clip": "with_5.json",
       "label": "WITH",
-      "frames": 2031,
-      "score": 0.8847,
-      "pose_coverage": 0.8962,
-      "hand_coverage": 0.8235
+      "frames": 27,
+      "score": 0.8845,
+      "pose_coverage": 0.9455,
+      "hand_coverage": 0.9074
     },
     {
       "clip": "drink_1.json",
@@ -2106,6 +2196,14 @@
       "score": 0.8789,
       "pose_coverage": 0.9059,
       "hand_coverage": 0.84
+    },
+    {
+      "clip": "when_6.json",
+      "label": "WHEN",
+      "frames": 25,
+      "score": 0.8764,
+      "pose_coverage": 0.9412,
+      "hand_coverage": 0.9
     },
     {
       "clip": "hard.json",
@@ -2204,14 +2302,6 @@
       "hand_coverage": 0.7889
     },
     {
-      "clip": "they_1.json",
-      "label": "THEY",
-      "frames": 2712,
-      "score": 0.8619,
-      "pose_coverage": 0.8756,
-      "hand_coverage": 0.7885
-    },
-    {
       "clip": "their_1.json",
       "label": "THEIR",
       "frames": 2712,
@@ -2236,12 +2326,44 @@
       "hand_coverage": 0.881
     },
     {
+      "clip": "when_3.json",
+      "label": "WHEN",
+      "frames": 23,
+      "score": 0.8532,
+      "pose_coverage": 0.9233,
+      "hand_coverage": 0.8696
+    },
+    {
+      "clip": "when_5.json",
+      "label": "WHEN",
+      "frames": 23,
+      "score": 0.8532,
+      "pose_coverage": 0.9233,
+      "hand_coverage": 0.8696
+    },
+    {
       "clip": "later_1.json",
       "label": "LATER",
       "frames": 50,
       "score": 0.8527,
       "pose_coverage": 0.8824,
       "hand_coverage": 0.8
+    },
+    {
+      "clip": "write_3.json",
+      "label": "WRITE",
+      "frames": 20,
+      "score": 0.8517,
+      "pose_coverage": 0.9265,
+      "hand_coverage": 0.875
+    },
+    {
+      "clip": "when_7.json",
+      "label": "WHEN",
+      "frames": 22,
+      "score": 0.8476,
+      "pose_coverage": 0.9198,
+      "hand_coverage": 0.8636
     },
     {
       "clip": "water_1.json",
@@ -2258,6 +2380,14 @@
       "score": 0.8362,
       "pose_coverage": 0.902,
       "hand_coverage": 0.8333
+    },
+    {
+      "clip": "with_6.json",
+      "label": "WITH",
+      "frames": 17,
+      "score": 0.8323,
+      "pose_coverage": 0.9135,
+      "hand_coverage": 0.8529
     },
     {
       "clip": "year_1.json",
@@ -2282,6 +2412,14 @@
       "score": 0.825,
       "pose_coverage": 0.8709,
       "hand_coverage": 0.7805
+    },
+    {
+      "clip": "with_9.json",
+      "label": "WITH",
+      "frames": 27,
+      "score": 0.8241,
+      "pose_coverage": 0.8911,
+      "hand_coverage": 0.8148
     },
     {
       "clip": "finish_1.json",
@@ -2332,6 +2470,14 @@
       "hand_coverage": 0.71
     },
     {
+      "clip": "with_7.json",
+      "label": "WITH",
+      "frames": 29,
+      "score": 0.7907,
+      "pose_coverage": 0.858,
+      "hand_coverage": 0.7586
+    },
+    {
       "clip": "play_3.json",
       "label": "PLAY",
       "frames": 35,
@@ -2370,6 +2516,14 @@
       "score": 0.7792,
       "pose_coverage": 0.8011,
       "hand_coverage": 0.6619
+    },
+    {
+      "clip": "write_4.json",
+      "label": "WRITE",
+      "frames": 24,
+      "score": 0.7768,
+      "pose_coverage": 0.8529,
+      "hand_coverage": 0.75
     },
     {
       "clip": "how_1.json",
@@ -2564,6 +2718,30 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "they_8.json",
+      "label": "THEY",
+      "frames": 28,
+      "score": 0.6202,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_6.json",
+      "label": "THEY",
+      "frames": 27,
+      "score": 0.6185,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_7.json",
+      "label": "THEY",
+      "frames": 27,
+      "score": 0.6185,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "find.json",
       "label": "FIND",
       "frames": 26,
@@ -2644,8 +2822,56 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "why_1.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_2.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_3.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_4.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "girl.json",
       "label": "GIRL",
+      "frames": 21,
+      "score": 0.6085,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_4.json",
+      "label": "THEY",
+      "frames": 21,
+      "score": 0.6085,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_5.json",
+      "label": "THEY",
       "frames": 21,
       "score": 0.6085,
       "pose_coverage": 0.7059,
@@ -2708,6 +2934,14 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "they_3.json",
+      "label": "THEY",
+      "frames": 20,
+      "score": 0.6069,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "bad.json",
       "label": "BAD",
       "frames": 19,
@@ -2718,6 +2952,22 @@
     {
       "clip": "hello_1.json",
       "label": "HELLO",
+      "frames": 19,
+      "score": 0.6052,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_1.json",
+      "label": "THEY",
+      "frames": 19,
+      "score": 0.6052,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_2.json",
+      "label": "THEY",
       "frames": 19,
       "score": 0.6052,
       "pose_coverage": 0.7059,
@@ -2860,6 +3110,14 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "why_5.json",
+      "label": "WHY",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "you_v2.json",
       "label": "YOU_V2",
       "frames": 16,
@@ -2878,6 +3136,14 @@
     {
       "clip": "feel.json",
       "label": "FEEL",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_6.json",
+      "label": "WHY",
       "frames": 15,
       "score": 0.5985,
       "pose_coverage": 0.7059,
@@ -3070,14 +3336,6 @@
     {
       "clip": "understand_1.json",
       "label": "UNDERSTAND",
-      "frames": 1653,
-      "score": 0.5347,
-      "pose_coverage": 0.5808,
-      "hand_coverage": 0.2874
-    },
-    {
-      "clip": "why_2.json",
-      "label": "WHY",
       "frames": 1653,
       "score": 0.5347,
       "pose_coverage": 0.5808,
@@ -3742,14 +4000,6 @@
       "hand_coverage": 0.2872
     },
     {
-      "clip": "why_2.json",
-      "label": "WHY",
-      "frames": 1653,
-      "score": 0.5347,
-      "pose_coverage": 0.5808,
-      "hand_coverage": 0.2874
-    },
-    {
       "clip": "understand_1.json",
       "label": "UNDERSTAND",
       "frames": 1653,
@@ -3942,6 +4192,14 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "why_6.json",
+      "label": "WHY",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "feel.json",
       "label": "FEEL",
       "frames": 15,
@@ -3960,6 +4218,14 @@
     {
       "clip": "you_v2.json",
       "label": "YOU_V2",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_5.json",
+      "label": "WHY",
       "frames": 16,
       "score": 0.6002,
       "pose_coverage": 0.7059,
@@ -4102,6 +4368,22 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "they_2.json",
+      "label": "THEY",
+      "frames": 19,
+      "score": 0.6052,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_1.json",
+      "label": "THEY",
+      "frames": 19,
+      "score": 0.6052,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "hello_1.json",
       "label": "HELLO",
       "frames": 19,
@@ -4114,6 +4396,14 @@
       "label": "BAD",
       "frames": 19,
       "score": 0.6052,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_3.json",
+      "label": "THEY",
+      "frames": 20,
+      "score": 0.6069,
       "pose_coverage": 0.7059,
       "hand_coverage": 0.5
     },
@@ -4174,10 +4464,58 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "they_5.json",
+      "label": "THEY",
+      "frames": 21,
+      "score": 0.6085,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_4.json",
+      "label": "THEY",
+      "frames": 21,
+      "score": 0.6085,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "girl.json",
       "label": "GIRL",
       "frames": 21,
       "score": 0.6085,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_4.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_3.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_2.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "why_1.json",
+      "label": "WHY",
+      "frames": 22,
+      "score": 0.6102,
       "pose_coverage": 0.7059,
       "hand_coverage": 0.5
     },
@@ -4258,6 +4596,30 @@
       "label": "FIND",
       "frames": 26,
       "score": 0.6169,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_7.json",
+      "label": "THEY",
+      "frames": 27,
+      "score": 0.6185,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_6.json",
+      "label": "THEY",
+      "frames": 27,
+      "score": 0.6185,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "they_8.json",
+      "label": "THEY",
+      "frames": 28,
+      "score": 0.6202,
       "pose_coverage": 0.7059,
       "hand_coverage": 0.5
     },
@@ -4454,6 +4816,14 @@
       "hand_coverage": 0.686
     },
     {
+      "clip": "write_4.json",
+      "label": "WRITE",
+      "frames": 24,
+      "score": 0.7768,
+      "pose_coverage": 0.8529,
+      "hand_coverage": 0.75
+    },
+    {
       "clip": "your_1.json",
       "label": "YOUR",
       "frames": 210,
@@ -4492,6 +4862,14 @@
       "score": 0.7904,
       "pose_coverage": 0.8487,
       "hand_coverage": 0.7429
+    },
+    {
+      "clip": "with_7.json",
+      "label": "WITH",
+      "frames": 29,
+      "score": 0.7907,
+      "pose_coverage": 0.858,
+      "hand_coverage": 0.7586
     },
     {
       "clip": "forget_1.json",
@@ -4542,6 +4920,14 @@
       "hand_coverage": 0.7667
     },
     {
+      "clip": "with_9.json",
+      "label": "WITH",
+      "frames": 27,
+      "score": 0.8241,
+      "pose_coverage": 0.8911,
+      "hand_coverage": 0.8148
+    },
+    {
       "clip": "yes_1.json",
       "label": "YES",
       "frames": 41,
@@ -4566,6 +4952,14 @@
       "hand_coverage": 0.7647
     },
     {
+      "clip": "with_6.json",
+      "label": "WITH",
+      "frames": 17,
+      "score": 0.8323,
+      "pose_coverage": 0.9135,
+      "hand_coverage": 0.8529
+    },
+    {
       "clip": "buy.json",
       "label": "BUY",
       "frames": 27,
@@ -4582,12 +4976,44 @@
       "hand_coverage": 0.7843
     },
     {
+      "clip": "when_7.json",
+      "label": "WHEN",
+      "frames": 22,
+      "score": 0.8476,
+      "pose_coverage": 0.9198,
+      "hand_coverage": 0.8636
+    },
+    {
+      "clip": "write_3.json",
+      "label": "WRITE",
+      "frames": 20,
+      "score": 0.8517,
+      "pose_coverage": 0.9265,
+      "hand_coverage": 0.875
+    },
+    {
       "clip": "later_1.json",
       "label": "LATER",
       "frames": 50,
       "score": 0.8527,
       "pose_coverage": 0.8824,
       "hand_coverage": 0.8
+    },
+    {
+      "clip": "when_5.json",
+      "label": "WHEN",
+      "frames": 23,
+      "score": 0.8532,
+      "pose_coverage": 0.9233,
+      "hand_coverage": 0.8696
+    },
+    {
+      "clip": "when_3.json",
+      "label": "WHEN",
+      "frames": 23,
+      "score": 0.8532,
+      "pose_coverage": 0.9233,
+      "hand_coverage": 0.8696
     },
     {
       "clip": "good.json",
@@ -4612,14 +5038,6 @@
       "score": 0.8611,
       "pose_coverage": 0.8748,
       "hand_coverage": 0.7872
-    },
-    {
-      "clip": "they_1.json",
-      "label": "THEY",
-      "frames": 2712,
-      "score": 0.8619,
-      "pose_coverage": 0.8756,
-      "hand_coverage": 0.7885
     },
     {
       "clip": "take_1.json",
@@ -4718,6 +5136,14 @@
       "hand_coverage": 0.8958
     },
     {
+      "clip": "when_6.json",
+      "label": "WHEN",
+      "frames": 25,
+      "score": 0.8764,
+      "pose_coverage": 0.9412,
+      "hand_coverage": 0.9
+    },
+    {
       "clip": "drink_1.json",
       "label": "DRINK",
       "frames": 50,
@@ -4726,12 +5152,12 @@
       "hand_coverage": 0.84
     },
     {
-      "clip": "with_1.json",
+      "clip": "with_5.json",
       "label": "WITH",
-      "frames": 2031,
-      "score": 0.8847,
-      "pose_coverage": 0.8962,
-      "hand_coverage": 0.8235
+      "frames": 27,
+      "score": 0.8845,
+      "pose_coverage": 0.9455,
+      "hand_coverage": 0.9074
     },
     {
       "clip": "we_1.json",
@@ -4742,20 +5168,20 @@
       "hand_coverage": 0.8242
     },
     {
-      "clip": "write_1.json",
-      "label": "WRITE",
-      "frames": 2031,
-      "score": 0.8857,
-      "pose_coverage": 0.897,
-      "hand_coverage": 0.825
-    },
-    {
       "clip": "which_1.json",
       "label": "WHICH",
       "frames": 2031,
       "score": 0.8857,
       "pose_coverage": 0.897,
       "hand_coverage": 0.825
+    },
+    {
+      "clip": "with_1.json",
+      "label": "WITH",
+      "frames": 16,
+      "score": 0.8859,
+      "pose_coverage": 0.9632,
+      "hand_coverage": 0.9375
     },
     {
       "clip": "will_1.json",
@@ -4766,24 +5192,8 @@
       "hand_coverage": 0.8252
     },
     {
-      "clip": "when_1.json",
-      "label": "WHEN",
-      "frames": 2031,
-      "score": 0.8862,
-      "pose_coverage": 0.8975,
-      "hand_coverage": 0.8257
-    },
-    {
       "clip": "wrong_1.json",
       "label": "WRONG",
-      "frames": 2031,
-      "score": 0.8868,
-      "pose_coverage": 0.8981,
-      "hand_coverage": 0.8267
-    },
-    {
-      "clip": "why_1.json",
-      "label": "WHY",
       "frames": 2031,
       "score": 0.8868,
       "pose_coverage": 0.8981,
@@ -4814,6 +5224,30 @@
       "hand_coverage": 0.878
     },
     {
+      "clip": "when_1.json",
+      "label": "WHEN",
+      "frames": 25,
+      "score": 0.8894,
+      "pose_coverage": 0.9529,
+      "hand_coverage": 0.92
+    },
+    {
+      "clip": "with_8.json",
+      "label": "WITH",
+      "frames": 17,
+      "score": 0.8899,
+      "pose_coverage": 0.9654,
+      "hand_coverage": 0.9412
+    },
+    {
+      "clip": "when_8.json",
+      "label": "WHEN",
+      "frames": 17,
+      "score": 0.8899,
+      "pose_coverage": 0.9654,
+      "hand_coverage": 0.9412
+    },
+    {
       "clip": "please_1.json",
       "label": "PLEASE",
       "frames": 3466,
@@ -4828,6 +5262,14 @@
       "score": 0.8937,
       "pose_coverage": 0.9673,
       "hand_coverage": 0.9444
+    },
+    {
+      "clip": "with_2.json",
+      "label": "WITH",
+      "frames": 13,
+      "score": 0.8966,
+      "pose_coverage": 0.9774,
+      "hand_coverage": 0.9615
     },
     {
       "clip": "woman_1.json",
@@ -4876,6 +5318,14 @@
       "score": 0.9007,
       "pose_coverage": 0.9706,
       "hand_coverage": 0.95
+    },
+    {
+      "clip": "when_2.json",
+      "label": "WHEN",
+      "frames": 25,
+      "score": 0.9025,
+      "pose_coverage": 0.9647,
+      "hand_coverage": 0.94
     },
     {
       "clip": "can.json",
@@ -4966,6 +5416,14 @@
       "hand_coverage": 0.9583
     },
     {
+      "clip": "with_3.json",
+      "label": "WITH",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
       "clip": "friend.json",
       "label": "FRIEND",
       "frames": 19,
@@ -4974,12 +5432,36 @@
       "hand_coverage": 0.9737
     },
     {
+      "clip": "write_5.json",
+      "label": "WRITE",
+      "frames": 20,
+      "score": 0.917,
+      "pose_coverage": 0.9853,
+      "hand_coverage": 0.975
+    },
+    {
       "clip": "different.json",
       "label": "DIFFERENT",
       "frames": 20,
       "score": 0.917,
       "pose_coverage": 0.9853,
       "hand_coverage": 0.975
+    },
+    {
+      "clip": "write_2.json",
+      "label": "WRITE",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
+    },
+    {
+      "clip": "with_4.json",
+      "label": "WITH",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
     },
     {
       "clip": "now_3.json",
@@ -5046,6 +5528,14 @@
       "hand_coverage": 0.9333
     },
     {
+      "clip": "when_4.json",
+      "label": "WHEN",
+      "frames": 27,
+      "score": 0.9329,
+      "pose_coverage": 0.9891,
+      "hand_coverage": 0.9815
+    },
+    {
       "clip": "how.json",
       "label": "HOW",
       "frames": 27,
@@ -5060,6 +5550,14 @@
       "score": 0.935,
       "pose_coverage": 0.9475,
       "hand_coverage": 0.9107
+    },
+    {
+      "clip": "write_1.json",
+      "label": "WRITE",
+      "frames": 22,
+      "score": 0.9367,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
     },
     {
       "clip": "sign.json",
