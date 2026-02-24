@@ -25,7 +25,6 @@ class SignEvent:
 DEFAULT_SIGN_DURATION = 0.7
 MAX_PLAYBACK_DURATION = 2.5
 _DURATION_CACHE: Dict[str, float] = {}
-_VARIANT_INDEX: Dict[str, int] = {}
 
 
 def _clip_duration_seconds(clip_name: str) -> float | None:
@@ -52,13 +51,28 @@ def _clip_duration_seconds(clip_name: str) -> float | None:
         return None
 
 
+def _infer_avg_clip_name(clips: List[str]) -> str | None:
+    if not clips:
+        return None
+    first = clips[0]
+    if "_" in first:
+        base = first.rsplit("_", 1)[0]
+    else:
+        base = first
+    return f"{base}_avg"
+
+
 def _select_clip_name(token: str, sign_def: Dict) -> str | None:
     clips = sign_def.get("clips")
     if isinstance(clips, list) and clips:
-        idx = _VARIANT_INDEX.get(token, 0)
-        clip_name = clips[idx % len(clips)]
-        _VARIANT_INDEX[token] = idx + 1
-        return clip_name
+        merged_clip = sign_def.get("merged_clip")
+        if isinstance(merged_clip, str) and merged_clip:
+            return merged_clip
+        inferred_avg = _infer_avg_clip_name(clips)
+        if inferred_avg and _clip_duration_seconds(inferred_avg) is not None:
+            return inferred_avg
+        # Stable fallback: do not round-robin variants by default.
+        return clips[0]
     return sign_def.get("clip")
 
 def sequence_signs(tokens: List[str]) -> List[SignEvent]:
@@ -101,4 +115,3 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
 
 
     return events
-

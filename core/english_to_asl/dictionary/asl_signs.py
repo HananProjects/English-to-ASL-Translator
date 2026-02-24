@@ -56,7 +56,7 @@ ASL_SIGNS = {
     },
     "FAMILY": {
         "clips": ["family_1", "family_2", "family_3"],
-        "duration": 0.8,
+        "duration": 3,
     },
     "FINISH": {
         "clips": ["finish_1", "finish_2", "finish_3"],
