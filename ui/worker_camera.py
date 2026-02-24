@@ -1,3 +1,5 @@
+import os
+
 try:
     import cv2
 except Exception:
@@ -18,6 +20,7 @@ class CameraWorker(QObject):
     token_ready = Signal(str, float)
     sequence_ready = Signal(list)
     debug_ready = Signal(str, float, int)
+    error_ready = Signal(str)
 
     def __init__(self):
         super().__init__()
@@ -47,13 +50,25 @@ class CameraWorker(QObject):
 
     def run(self):
         if cv2 is None or mp is None:
+            self.error_ready.emit("Camera dependencies unavailable (cv2/mediapipe)")
             print("Camera dependencies unavailable (cv2/mediapipe)")
             return
         from core.vision.pose_adapter import mediapipe_to_pose_dict
 
-        cap = cv2.VideoCapture(0)
+        camera_index = int(os.getenv("ASL_CAMERA_INDEX", "0"))
+        cap = cv2.VideoCapture(camera_index)
         self._cap = cap
         self._running = True
+        if not cap.isOpened():
+            self.error_ready.emit(
+                f"Unable to open camera index {camera_index}. "
+                "Set ASL_CAMERA_INDEX to the correct camera."
+            )
+            self._running = False
+            cap.release()
+            self._cap = None
+            return
+
         # Prefer higher quality preview for the UI feed.
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
@@ -68,12 +83,18 @@ class CameraWorker(QObject):
         )
 
         thread = QThread.currentThread()
+        failed_reads = 0
 
         while self._running and cap.isOpened() and not thread.isInterruptionRequested():
             ret, frame = cap.read()
             if not ret:
+                failed_reads += 1
+                if failed_reads >= 600:
+                    self.error_ready.emit("Camera stream read failed repeatedly.")
+                    break
                 QThread.msleep(5)
                 continue
+            failed_reads = 0
 
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             h, w, c = rgb.shape
@@ -119,6 +140,10 @@ class CameraWorker(QObject):
                 self.sequence_ready.emit(update.sentence_tokens)
 
         self._running = False
+        try:
+            mp_holistic.close()
+        except Exception:
+            pass
         cap.release()
         self._cap = None
         print("Camera thread exiting cleanly")

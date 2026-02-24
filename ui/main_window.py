@@ -26,6 +26,7 @@ class MainWindow(QWidget):
     camera_token_received = Signal(str, float)
     camera_frame_received = Signal(object)
     camera_debug_received = Signal(str, float, int)
+    camera_error_received = Signal(str)
     camera_reset_requested = Signal()
 
     def __init__(self):
@@ -37,6 +38,7 @@ class MainWindow(QWidget):
         self.camera_worker = None
         self.camera_running = False
         self.pending_camera_tokens = []
+        self.camera_error_message = None
 
         self.setWindowTitle("English <-> ASL Translator")
         self.setMinimumSize(1000, 700)
@@ -77,6 +79,7 @@ class MainWindow(QWidget):
         self.camera_token_received.connect(self.on_camera_token)
         self.camera_frame_received.connect(self.on_camera_frame)
         self.camera_debug_received.connect(self.on_camera_debug)
+        self.camera_error_received.connect(self.on_camera_error)
         self.camera_reset_requested.connect(self.on_camera_reset_requested)
 
         self.start_camera()
@@ -155,6 +158,12 @@ class MainWindow(QWidget):
         self.reverse_debug_label.setText(
             f"Debug Match: {token_text} | conf={confidence:.2f} | streak={streak}"
         )
+
+    def on_camera_error(self, message: str):
+        self.camera_error_message = message
+        self.reverse_status_label.setText(f"Status: Camera error: {message}")
+        if self.camera_running:
+            self.stop_camera()
 
     def on_camera_sequence(self, tokens: list):
         if not tokens:
@@ -366,6 +375,7 @@ class MainWindow(QWidget):
     def start_camera(self):
         if self.camera_running:
             return
+        self.camera_error_message = None
         self.pending_camera_tokens.clear()
         if hasattr(self, "camera_label"):
             self.camera_label.setText("Camera ASL Input:")
@@ -379,6 +389,7 @@ class MainWindow(QWidget):
         self.camera_worker.frame_ready.connect(self.camera_frame_received.emit)
         self.camera_worker.token_ready.connect(self.camera_token_received.emit)
         self.camera_worker.debug_ready.connect(self.camera_debug_received.emit)
+        self.camera_worker.error_ready.connect(self.camera_error_received.emit)
         self.camera_worker.sequence_ready.connect(self.camera_sequence_received.emit)
         self.camera_reset_requested.connect(self.camera_worker.reset_recognition_state)
         self.camera_thread.start()
@@ -421,7 +432,12 @@ class MainWindow(QWidget):
         if hasattr(self, "camera_toggle_button"):
             self.camera_toggle_button.setText("Start Camera")
         if hasattr(self, "reverse_status_label") and not translated_on_stop:
-            self.reverse_status_label.setText("Status: Camera stopped")
+            if self.camera_error_message:
+                self.reverse_status_label.setText(
+                    f"Status: Camera error: {self.camera_error_message}"
+                )
+            else:
+                self.reverse_status_label.setText("Status: Camera stopped")
         if hasattr(self, "reverse_debug_label"):
             self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if hasattr(self, "camera_feed_label"):
