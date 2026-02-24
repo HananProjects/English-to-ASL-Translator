@@ -1,8 +1,18 @@
 {
   "clips_dir": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips",
-  "total_clips_scored": 288,
+  "total_clips_scored": 344,
   "total_labels_scored": 94,
   "top_signs": [
+    {
+      "label": "TIRED",
+      "num_clips": 7,
+      "quality_score_top3_avg": 0.9295,
+      "best_clips": [
+        "tired_3.json",
+        "tired_2.json",
+        "tired_5.json"
+      ]
+    },
     {
       "label": "TRY",
       "num_clips": 8,
@@ -19,6 +29,26 @@
       "quality_score_top3_avg": 0.9267,
       "best_clips": [
         "have.json"
+      ]
+    },
+    {
+      "label": "MEET",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.9265,
+      "best_clips": [
+        "meet_7.json",
+        "meet_6.json",
+        "meet_3.json"
+      ]
+    },
+    {
+      "label": "MAKE",
+      "num_clips": 10,
+      "quality_score_top3_avg": 0.9261,
+      "best_clips": [
+        "make_4.json",
+        "make_6.json",
+        "make_9.json"
       ]
     },
     {
@@ -92,6 +122,16 @@
       ]
     },
     {
+      "label": "HARD",
+      "num_clips": 13,
+      "quality_score_top3_avg": 0.9092,
+      "best_clips": [
+        "hard_3.json",
+        "hard_12.json",
+        "hard_8.json"
+      ]
+    },
+    {
       "label": "BUT",
       "num_clips": 1,
       "quality_score_top3_avg": 0.907,
@@ -142,20 +182,22 @@
       ]
     },
     {
-      "label": "MEET",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8992,
-      "best_clips": [
-        "meet.json"
-      ]
-    },
-    {
       "label": "AND",
       "num_clips": 2,
       "quality_score_top3_avg": 0.8881,
       "best_clips": [
         "and_2.json",
         "and_1.json"
+      ]
+    },
+    {
+      "label": "GOOD",
+      "num_clips": 11,
+      "quality_score_top3_avg": 0.8837,
+      "best_clips": [
+        "good_6.json",
+        "good_4.json",
+        "good_10.json"
       ]
     },
     {
@@ -169,35 +211,11 @@
       ]
     },
     {
-      "label": "HARD",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.872,
-      "best_clips": [
-        "hard.json"
-      ]
-    },
-    {
-      "label": "TIRED",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8625,
-      "best_clips": [
-        "tired_1.json"
-      ]
-    },
-    {
       "label": "AGAIN",
       "num_clips": 1,
       "quality_score_top3_avg": 0.8602,
       "best_clips": [
         "again.json"
-      ]
-    },
-    {
-      "label": "GOOD",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8573,
-      "best_clips": [
-        "good.json"
       ]
     },
     {
@@ -216,14 +234,6 @@
       "quality_score_top3_avg": 0.8362,
       "best_clips": [
         "buy.json"
-      ]
-    },
-    {
-      "label": "MAKE",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8286,
-      "best_clips": [
-        "make.json"
       ]
     },
     {
@@ -763,10 +773,12 @@
     },
     {
       "label": "LOOK",
-      "num_clips": 1,
+      "num_clips": 7,
       "quality_score_top3_avg": 0.6035,
       "best_clips": [
-        "look.json"
+        "look_5.json",
+        "look.json",
+        "look_4.json"
       ]
     },
     {
@@ -810,6 +822,16 @@
       ]
     },
     {
+      "label": "HE",
+      "num_clips": 7,
+      "quality_score_top3_avg": 0.5991,
+      "best_clips": [
+        "he_3.json",
+        "he_4.json",
+        "he_5.json"
+      ]
+    },
+    {
       "label": "FEEL",
       "num_clips": 1,
       "quality_score_top3_avg": 0.5985,
@@ -825,14 +847,6 @@
         "talk_2.json",
         "talk_3.json",
         "talk_6.json"
-      ]
-    },
-    {
-      "label": "HE",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.5969,
-      "best_clips": [
-        "he.json"
       ]
     },
     {
@@ -916,14 +930,6 @@
       ]
     },
     {
-      "label": "HE",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.5969,
-      "best_clips": [
-        "he.json"
-      ]
-    },
-    {
       "label": "TALK",
       "num_clips": 6,
       "quality_score_top3_avg": 0.5985,
@@ -939,6 +945,16 @@
       "quality_score_top3_avg": 0.5985,
       "best_clips": [
         "feel.json"
+      ]
+    },
+    {
+      "label": "HE",
+      "num_clips": 7,
+      "quality_score_top3_avg": 0.5991,
+      "best_clips": [
+        "he_3.json",
+        "he_4.json",
+        "he_5.json"
       ]
     },
     {
@@ -983,10 +999,12 @@
     },
     {
       "label": "LOOK",
-      "num_clips": 1,
+      "num_clips": 7,
       "quality_score_top3_avg": 0.6035,
       "best_clips": [
-        "look.json"
+        "look_5.json",
+        "look.json",
+        "look_4.json"
       ]
     },
     {
@@ -1525,14 +1543,6 @@
       ]
     },
     {
-      "label": "MAKE",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8286,
-      "best_clips": [
-        "make.json"
-      ]
-    },
-    {
       "label": "BUY",
       "num_clips": 1,
       "quality_score_top3_avg": 0.8362,
@@ -1551,35 +1561,11 @@
       ]
     },
     {
-      "label": "GOOD",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8573,
-      "best_clips": [
-        "good.json"
-      ]
-    },
-    {
       "label": "AGAIN",
       "num_clips": 1,
       "quality_score_top3_avg": 0.8602,
       "best_clips": [
         "again.json"
-      ]
-    },
-    {
-      "label": "TIRED",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8625,
-      "best_clips": [
-        "tired_1.json"
-      ]
-    },
-    {
-      "label": "HARD",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.872,
-      "best_clips": [
-        "hard.json"
       ]
     },
     {
@@ -1593,20 +1579,22 @@
       ]
     },
     {
+      "label": "GOOD",
+      "num_clips": 11,
+      "quality_score_top3_avg": 0.8837,
+      "best_clips": [
+        "good_6.json",
+        "good_4.json",
+        "good_10.json"
+      ]
+    },
+    {
       "label": "AND",
       "num_clips": 2,
       "quality_score_top3_avg": 0.8881,
       "best_clips": [
         "and_2.json",
         "and_1.json"
-      ]
-    },
-    {
-      "label": "MEET",
-      "num_clips": 1,
-      "quality_score_top3_avg": 0.8992,
-      "best_clips": [
-        "meet.json"
       ]
     },
     {
@@ -1657,6 +1645,16 @@
       "quality_score_top3_avg": 0.907,
       "best_clips": [
         "but.json"
+      ]
+    },
+    {
+      "label": "HARD",
+      "num_clips": 13,
+      "quality_score_top3_avg": 0.9092,
+      "best_clips": [
+        "hard_3.json",
+        "hard_12.json",
+        "hard_8.json"
       ]
     },
     {
@@ -1730,6 +1728,26 @@
       ]
     },
     {
+      "label": "MAKE",
+      "num_clips": 10,
+      "quality_score_top3_avg": 0.9261,
+      "best_clips": [
+        "make_4.json",
+        "make_6.json",
+        "make_9.json"
+      ]
+    },
+    {
+      "label": "MEET",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.9265,
+      "best_clips": [
+        "meet_7.json",
+        "meet_6.json",
+        "meet_3.json"
+      ]
+    },
+    {
       "label": "HAVE",
       "num_clips": 1,
       "quality_score_top3_avg": 0.9267,
@@ -1745,6 +1763,16 @@
         "try_1.json",
         "try_3.json",
         "try_7.json"
+      ]
+    },
+    {
+      "label": "TIRED",
+      "num_clips": 7,
+      "quality_score_top3_avg": 0.9295,
+      "best_clips": [
+        "tired_3.json",
+        "tired_2.json",
+        "tired_5.json"
       ]
     }
   ],
@@ -1782,12 +1810,28 @@
       "hand_coverage": 0.9722
     },
     {
+      "clip": "tired_3.json",
+      "label": "TIRED",
+      "frames": 23,
+      "score": 0.9383,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
       "clip": "want_1.json",
       "label": "WANT",
       "frames": 56,
       "score": 0.935,
       "pose_coverage": 0.9475,
       "hand_coverage": 0.9107
+    },
+    {
+      "clip": "meet_7.json",
+      "label": "MEET",
+      "frames": 20,
+      "score": 0.9333,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
     },
     {
       "clip": "try_1.json",
@@ -1814,6 +1858,14 @@
       "hand_coverage": 0.9333
     },
     {
+      "clip": "tired_2.json",
+      "label": "TIRED",
+      "frames": 26,
+      "score": 0.9308,
+      "pose_coverage": 0.9887,
+      "hand_coverage": 0.9808
+    },
+    {
       "clip": "with_4.json",
       "label": "WITH",
       "frames": 18,
@@ -1830,6 +1882,14 @@
       "hand_coverage": 0.9255
     },
     {
+      "clip": "make_4.json",
+      "label": "MAKE",
+      "frames": 17,
+      "score": 0.9283,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
       "clip": "try_3.json",
       "label": "TRY",
       "frames": 17,
@@ -1840,6 +1900,22 @@
     {
       "clip": "have.json",
       "label": "HAVE",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "make_6.json",
+      "label": "MAKE",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "meet_6.json",
+      "label": "MEET",
       "frames": 16,
       "score": 0.9267,
       "pose_coverage": 1.0,
@@ -1886,6 +1962,14 @@
       "hand_coverage": 1.0
     },
     {
+      "clip": "make_9.json",
+      "label": "MAKE",
+      "frames": 14,
+      "score": 0.9233,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
       "clip": "give_1.json",
       "label": "GIVE",
       "frames": 51,
@@ -1900,6 +1984,22 @@
       "score": 0.92,
       "pose_coverage": 1.0,
       "hand_coverage": 1.0
+    },
+    {
+      "clip": "meet_3.json",
+      "label": "MEET",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
+    },
+    {
+      "clip": "tired_5.json",
+      "label": "TIRED",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
     },
     {
       "clip": "different.json",
@@ -1936,6 +2036,38 @@
     {
       "clip": "friend.json",
       "label": "FRIEND",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "hard_3.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "meet_1.json",
+      "label": "MEET",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "tired_1.json",
+      "label": "TIRED",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "tired_6.json",
+      "label": "TIRED",
       "frames": 19,
       "score": 0.9145,
       "pose_coverage": 0.9845,
@@ -1998,6 +2130,14 @@
       "hand_coverage": 0.9565
     },
     {
+      "clip": "hard_12.json",
+      "label": "HARD",
+      "frames": 17,
+      "score": 0.9091,
+      "pose_coverage": 0.9827,
+      "hand_coverage": 0.9706
+    },
+    {
       "clip": "which_2.json",
       "label": "WHICH",
       "frames": 17,
@@ -2008,6 +2148,14 @@
     {
       "clip": "but.json",
       "label": "BUT",
+      "frames": 22,
+      "score": 0.907,
+      "pose_coverage": 0.9733,
+      "hand_coverage": 0.9545
+    },
+    {
+      "clip": "meet_4.json",
+      "label": "MEET",
       "frames": 22,
       "score": 0.907,
       "pose_coverage": 0.9733,
@@ -2032,6 +2180,22 @@
     {
       "clip": "little.json",
       "label": "LITTLE",
+      "frames": 16,
+      "score": 0.9063,
+      "pose_coverage": 0.9816,
+      "hand_coverage": 0.9688
+    },
+    {
+      "clip": "make_5.json",
+      "label": "MAKE",
+      "frames": 16,
+      "score": 0.9063,
+      "pose_coverage": 0.9816,
+      "hand_coverage": 0.9688
+    },
+    {
+      "clip": "make_7.json",
+      "label": "MAKE",
       "frames": 16,
       "score": 0.9063,
       "pose_coverage": 0.9816,
@@ -2078,6 +2242,30 @@
       "hand_coverage": 0.9524
     },
     {
+      "clip": "hard_8.json",
+      "label": "HARD",
+      "frames": 21,
+      "score": 0.9039,
+      "pose_coverage": 0.972,
+      "hand_coverage": 0.9524
+    },
+    {
+      "clip": "meet_2.json",
+      "label": "MEET",
+      "frames": 21,
+      "score": 0.9039,
+      "pose_coverage": 0.972,
+      "hand_coverage": 0.9524
+    },
+    {
+      "clip": "tired_4.json",
+      "label": "TIRED",
+      "frames": 21,
+      "score": 0.9039,
+      "pose_coverage": 0.972,
+      "hand_coverage": 0.9524
+    },
+    {
       "clip": "when_4.json",
       "label": "WHEN",
       "frames": 15,
@@ -2112,6 +2300,14 @@
     {
       "clip": "get.json",
       "label": "GET",
+      "frames": 20,
+      "score": 0.9007,
+      "pose_coverage": 0.9706,
+      "hand_coverage": 0.95
+    },
+    {
+      "clip": "meet_5.json",
+      "label": "MEET",
       "frames": 20,
       "score": 0.9007,
       "pose_coverage": 0.9706,
@@ -2158,6 +2354,30 @@
       "hand_coverage": 0.9375
     },
     {
+      "clip": "hard_2.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8973,
+      "pose_coverage": 0.969,
+      "hand_coverage": 0.9474
+    },
+    {
+      "clip": "hard_7.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8973,
+      "pose_coverage": 0.969,
+      "hand_coverage": 0.9474
+    },
+    {
+      "clip": "make_1.json",
+      "label": "MAKE",
+      "frames": 19,
+      "score": 0.8973,
+      "pose_coverage": 0.969,
+      "hand_coverage": 0.9474
+    },
+    {
       "clip": "more.json",
       "label": "MORE",
       "frames": 19,
@@ -2182,8 +2402,24 @@
       "hand_coverage": 0.8902
     },
     {
+      "clip": "hard_10.json",
+      "label": "HARD",
+      "frames": 23,
+      "score": 0.8958,
+      "pose_coverage": 0.9616,
+      "hand_coverage": 0.9348
+    },
+    {
       "clip": "go_3.json",
       "label": "GO",
+      "frames": 18,
+      "score": 0.8937,
+      "pose_coverage": 0.9673,
+      "hand_coverage": 0.9444
+    },
+    {
+      "clip": "good_6.json",
+      "label": "GOOD",
       "frames": 18,
       "score": 0.8937,
       "pose_coverage": 0.9673,
@@ -2204,6 +2440,14 @@
       "score": 0.8914,
       "pose_coverage": 0.9022,
       "hand_coverage": 0.8337
+    },
+    {
+      "clip": "make_2.json",
+      "label": "MAKE",
+      "frames": 17,
+      "score": 0.8899,
+      "pose_coverage": 0.9654,
+      "hand_coverage": 0.9412
     },
     {
       "clip": "with_8.json",
@@ -2254,6 +2498,14 @@
       "hand_coverage": 0.8267
     },
     {
+      "clip": "make_3.json",
+      "label": "MAKE",
+      "frames": 16,
+      "score": 0.8859,
+      "pose_coverage": 0.9632,
+      "hand_coverage": 0.9375
+    },
+    {
       "clip": "when_3.json",
       "label": "WHEN",
       "frames": 16,
@@ -2278,6 +2530,14 @@
       "hand_coverage": 0.8242
     },
     {
+      "clip": "hard_4.json",
+      "label": "HARD",
+      "frames": 20,
+      "score": 0.8844,
+      "pose_coverage": 0.9559,
+      "hand_coverage": 0.925
+    },
+    {
       "clip": "when_1.json",
       "label": "WHEN",
       "frames": 20,
@@ -2294,12 +2554,52 @@
       "hand_coverage": 0.9333
     },
     {
+      "clip": "good_4.json",
+      "label": "GOOD",
+      "frames": 19,
+      "score": 0.8801,
+      "pose_coverage": 0.9536,
+      "hand_coverage": 0.9211
+    },
+    {
+      "clip": "hard_1.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8801,
+      "pose_coverage": 0.9536,
+      "hand_coverage": 0.9211
+    },
+    {
+      "clip": "hard_9.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8801,
+      "pose_coverage": 0.9536,
+      "hand_coverage": 0.9211
+    },
+    {
       "clip": "drink_1.json",
       "label": "DRINK",
       "frames": 50,
       "score": 0.8789,
       "pose_coverage": 0.9059,
       "hand_coverage": 0.84
+    },
+    {
+      "clip": "good_10.json",
+      "label": "GOOD",
+      "frames": 22,
+      "score": 0.8773,
+      "pose_coverage": 0.9465,
+      "hand_coverage": 0.9091
+    },
+    {
+      "clip": "tired_7.json",
+      "label": "TIRED",
+      "frames": 22,
+      "score": 0.8773,
+      "pose_coverage": 0.9465,
+      "hand_coverage": 0.9091
     },
     {
       "clip": "with_1.json",
@@ -2366,6 +2666,14 @@
       "hand_coverage": 0.7902
     },
     {
+      "clip": "hard_11.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8629,
+      "pose_coverage": 0.9381,
+      "hand_coverage": 0.8947
+    },
+    {
       "clip": "tomorrow_2.json",
       "label": "TOMORROW",
       "frames": 2712,
@@ -2374,12 +2682,12 @@
       "hand_coverage": 0.7896
     },
     {
-      "clip": "tired_1.json",
-      "label": "TIRED",
-      "frames": 2712,
+      "clip": "good_9.json",
+      "label": "GOOD",
+      "frames": 22,
       "score": 0.8625,
-      "pose_coverage": 0.8761,
-      "hand_coverage": 0.7895
+      "pose_coverage": 0.9332,
+      "hand_coverage": 0.8864
     },
     {
       "clip": "again.json",
@@ -2398,12 +2706,28 @@
       "hand_coverage": 0.9
     },
     {
+      "clip": "good_8.json",
+      "label": "GOOD",
+      "frames": 18,
+      "score": 0.8575,
+      "pose_coverage": 0.9346,
+      "hand_coverage": 0.8889
+    },
+    {
       "clip": "good.json",
       "label": "GOOD",
       "frames": 21,
       "score": 0.8573,
       "pose_coverage": 0.93,
       "hand_coverage": 0.881
+    },
+    {
+      "clip": "make_8.json",
+      "label": "MAKE",
+      "frames": 14,
+      "score": 0.8534,
+      "pose_coverage": 0.937,
+      "hand_coverage": 0.8929
     },
     {
       "clip": "which_6.json",
@@ -2430,6 +2754,14 @@
       "hand_coverage": 0.875
     },
     {
+      "clip": "hard_6.json",
+      "label": "HARD",
+      "frames": 17,
+      "score": 0.8515,
+      "pose_coverage": 0.9308,
+      "hand_coverage": 0.8824
+    },
+    {
       "clip": "water_1.json",
       "label": "WATER",
       "frames": 51,
@@ -2444,6 +2776,14 @@
       "score": 0.8362,
       "pose_coverage": 0.902,
       "hand_coverage": 0.8333
+    },
+    {
+      "clip": "good_2.json",
+      "label": "GOOD",
+      "frames": 20,
+      "score": 0.8354,
+      "pose_coverage": 0.9118,
+      "hand_coverage": 0.85
     },
     {
       "clip": "year_1.json",
@@ -2526,12 +2866,36 @@
       "hand_coverage": 0.734
     },
     {
+      "clip": "good_3.json",
+      "label": "GOOD",
+      "frames": 20,
+      "score": 0.8027,
+      "pose_coverage": 0.8824,
+      "hand_coverage": 0.8
+    },
+    {
       "clip": "like_1.json",
       "label": "LIKE",
       "frames": 43,
       "score": 0.797,
       "pose_coverage": 0.8427,
       "hand_coverage": 0.7326
+    },
+    {
+      "clip": "good_1.json",
+      "label": "GOOD",
+      "frames": 23,
+      "score": 0.7964,
+      "pose_coverage": 0.8721,
+      "hand_coverage": 0.7826
+    },
+    {
+      "clip": "hard_5.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.7942,
+      "pose_coverage": 0.8762,
+      "hand_coverage": 0.7895
     },
     {
       "clip": "forget_1.json",
@@ -2596,6 +2960,14 @@
       "score": 0.7792,
       "pose_coverage": 0.8011,
       "hand_coverage": 0.6619
+    },
+    {
+      "clip": "good_5.json",
+      "label": "GOOD",
+      "frames": 22,
+      "score": 0.7734,
+      "pose_coverage": 0.8529,
+      "hand_coverage": 0.75
     },
     {
       "clip": "how_1.json",
@@ -2668,6 +3040,14 @@
       "score": 0.7158,
       "pose_coverage": 0.7815,
       "hand_coverage": 0.6286
+    },
+    {
+      "clip": "good_7.json",
+      "label": "GOOD",
+      "frames": 18,
+      "score": 0.6942,
+      "pose_coverage": 0.7876,
+      "hand_coverage": 0.6389
     },
     {
       "clip": "thing_7.json",
@@ -3150,6 +3530,14 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "look_5.json",
+      "label": "LOOK",
+      "frames": 19,
+      "score": 0.6052,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "their_6.json",
       "label": "THEIR",
       "frames": 19,
@@ -3286,6 +3674,22 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "look_4.json",
+      "label": "LOOK",
+      "frames": 17,
+      "score": 0.6019,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_6.json",
+      "label": "LOOK",
+      "frames": 17,
+      "score": 0.6019,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "take_1.json",
       "label": "TAKE",
       "frames": 17,
@@ -3318,6 +3722,14 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "he_3.json",
+      "label": "HE",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "hello_2.json",
       "label": "HELLO",
       "frames": 16,
@@ -3344,6 +3756,30 @@
     {
       "clip": "know_4.json",
       "label": "KNOW",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_1.json",
+      "label": "LOOK",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_2.json",
+      "label": "LOOK",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_3.json",
+      "label": "LOOK",
       "frames": 16,
       "score": 0.6002,
       "pose_coverage": 0.7059,
@@ -3398,6 +3834,30 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "he_4.json",
+      "label": "HE",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_5.json",
+      "label": "HE",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_7.json",
+      "label": "HE",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "home_6.json",
       "label": "HOME",
       "frames": 15,
@@ -3442,14 +3902,6 @@
       "label": "YOU",
       "frames": 15,
       "score": 0.5985,
-      "pose_coverage": 0.7059,
-      "hand_coverage": 0.5
-    },
-    {
-      "clip": "he.json",
-      "label": "HE",
-      "frames": 14,
-      "score": 0.5969,
       "pose_coverage": 0.7059,
       "hand_coverage": 0.5
     },
@@ -3542,6 +3994,22 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "he.json",
+      "label": "HE",
+      "frames": 12,
+      "score": 0.5935,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_2.json",
+      "label": "HE",
+      "frames": 12,
+      "score": 0.5935,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "know_2.json",
       "label": "KNOW",
       "frames": 12,
@@ -3570,6 +4038,14 @@
       "label": "YOU",
       "frames": 12,
       "score": 0.5935,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_6.json",
+      "label": "HE",
+      "frames": 11,
+      "score": 0.5919,
       "pose_coverage": 0.7059,
       "hand_coverage": 0.5
     },
@@ -4536,6 +5012,14 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "he_6.json",
+      "label": "HE",
+      "frames": 11,
+      "score": 0.5919,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "you_3.json",
       "label": "YOU",
       "frames": 12,
@@ -4562,6 +5046,22 @@
     {
       "clip": "know_2.json",
       "label": "KNOW",
+      "frames": 12,
+      "score": 0.5935,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_2.json",
+      "label": "HE",
+      "frames": 12,
+      "score": 0.5935,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he.json",
+      "label": "HE",
       "frames": 12,
       "score": 0.5935,
       "pose_coverage": 0.7059,
@@ -4656,14 +5156,6 @@
       "hand_coverage": 0.5
     },
     {
-      "clip": "he.json",
-      "label": "HE",
-      "frames": 14,
-      "score": 0.5969,
-      "pose_coverage": 0.7059,
-      "hand_coverage": 0.5
-    },
-    {
       "clip": "you_1.json",
       "label": "YOU",
       "frames": 15,
@@ -4706,6 +5198,30 @@
     {
       "clip": "home_6.json",
       "label": "HOME",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_7.json",
+      "label": "HE",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_5.json",
+      "label": "HE",
+      "frames": 15,
+      "score": 0.5985,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "he_4.json",
+      "label": "HE",
       "frames": 15,
       "score": 0.5985,
       "pose_coverage": 0.7059,
@@ -4760,6 +5276,30 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "look_3.json",
+      "label": "LOOK",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_2.json",
+      "label": "LOOK",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_1.json",
+      "label": "LOOK",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "know_4.json",
       "label": "KNOW",
       "frames": 16,
@@ -4792,6 +5332,14 @@
       "hand_coverage": 0.5
     },
     {
+      "clip": "he_3.json",
+      "label": "HE",
+      "frames": 16,
+      "score": 0.6002,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
       "clip": "tomorrow.json",
       "label": "TOMORROW",
       "frames": 17,
@@ -4818,6 +5366,22 @@
     {
       "clip": "take_1.json",
       "label": "TAKE",
+      "frames": 17,
+      "score": 0.6019,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_6.json",
+      "label": "LOOK",
+      "frames": 17,
+      "score": 0.6019,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_4.json",
+      "label": "LOOK",
       "frames": 17,
       "score": 0.6019,
       "pose_coverage": 0.7059,
@@ -4954,6 +5518,14 @@
     {
       "clip": "their_6.json",
       "label": "THEIR",
+      "frames": 19,
+      "score": 0.6052,
+      "pose_coverage": 0.7059,
+      "hand_coverage": 0.5
+    },
+    {
+      "clip": "look_5.json",
+      "label": "LOOK",
       "frames": 19,
       "score": 0.6052,
       "pose_coverage": 0.7059,
@@ -5440,6 +6012,14 @@
       "hand_coverage": 0.6333
     },
     {
+      "clip": "good_7.json",
+      "label": "GOOD",
+      "frames": 18,
+      "score": 0.6942,
+      "pose_coverage": 0.7876,
+      "hand_coverage": 0.6389
+    },
+    {
       "clip": "what_3.json",
       "label": "WHAT",
       "frames": 35,
@@ -5512,6 +6092,14 @@
       "hand_coverage": 0.686
     },
     {
+      "clip": "good_5.json",
+      "label": "GOOD",
+      "frames": 22,
+      "score": 0.7734,
+      "pose_coverage": 0.8529,
+      "hand_coverage": 0.75
+    },
+    {
       "clip": "your_1.json",
       "label": "YOUR",
       "frames": 210,
@@ -5576,12 +6164,36 @@
       "hand_coverage": 0.71
     },
     {
+      "clip": "hard_5.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.7942,
+      "pose_coverage": 0.8762,
+      "hand_coverage": 0.7895
+    },
+    {
+      "clip": "good_1.json",
+      "label": "GOOD",
+      "frames": 23,
+      "score": 0.7964,
+      "pose_coverage": 0.8721,
+      "hand_coverage": 0.7826
+    },
+    {
       "clip": "like_1.json",
       "label": "LIKE",
       "frames": 43,
       "score": 0.797,
       "pose_coverage": 0.8427,
       "hand_coverage": 0.7326
+    },
+    {
+      "clip": "good_3.json",
+      "label": "GOOD",
+      "frames": 20,
+      "score": 0.8027,
+      "pose_coverage": 0.8824,
+      "hand_coverage": 0.8
     },
     {
       "clip": "wait_1.json",
@@ -5664,6 +6276,14 @@
       "hand_coverage": 0.7647
     },
     {
+      "clip": "good_2.json",
+      "label": "GOOD",
+      "frames": 20,
+      "score": 0.8354,
+      "pose_coverage": 0.9118,
+      "hand_coverage": 0.85
+    },
+    {
       "clip": "buy.json",
       "label": "BUY",
       "frames": 27,
@@ -5678,6 +6298,14 @@
       "score": 0.8442,
       "pose_coverage": 0.8731,
       "hand_coverage": 0.7843
+    },
+    {
+      "clip": "hard_6.json",
+      "label": "HARD",
+      "frames": 17,
+      "score": 0.8515,
+      "pose_coverage": 0.9308,
+      "hand_coverage": 0.8824
     },
     {
       "clip": "when_2.json",
@@ -5704,12 +6332,28 @@
       "hand_coverage": 0.8929
     },
     {
+      "clip": "make_8.json",
+      "label": "MAKE",
+      "frames": 14,
+      "score": 0.8534,
+      "pose_coverage": 0.937,
+      "hand_coverage": 0.8929
+    },
+    {
       "clip": "good.json",
       "label": "GOOD",
       "frames": 21,
       "score": 0.8573,
       "pose_coverage": 0.93,
       "hand_coverage": 0.881
+    },
+    {
+      "clip": "good_8.json",
+      "label": "GOOD",
+      "frames": 18,
+      "score": 0.8575,
+      "pose_coverage": 0.9346,
+      "hand_coverage": 0.8889
     },
     {
       "clip": "which_5.json",
@@ -5728,12 +6372,12 @@
       "hand_coverage": 0.8472
     },
     {
-      "clip": "tired_1.json",
-      "label": "TIRED",
-      "frames": 2712,
+      "clip": "good_9.json",
+      "label": "GOOD",
+      "frames": 22,
       "score": 0.8625,
-      "pose_coverage": 0.8761,
-      "hand_coverage": 0.7895
+      "pose_coverage": 0.9332,
+      "hand_coverage": 0.8864
     },
     {
       "clip": "tomorrow_2.json",
@@ -5742,6 +6386,14 @@
       "score": 0.8626,
       "pose_coverage": 0.8763,
       "hand_coverage": 0.7896
+    },
+    {
+      "clip": "hard_11.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8629,
+      "pose_coverage": 0.9381,
+      "hand_coverage": 0.8947
     },
     {
       "clip": "tell_1.json",
@@ -5808,12 +6460,52 @@
       "hand_coverage": 0.9286
     },
     {
+      "clip": "tired_7.json",
+      "label": "TIRED",
+      "frames": 22,
+      "score": 0.8773,
+      "pose_coverage": 0.9465,
+      "hand_coverage": 0.9091
+    },
+    {
+      "clip": "good_10.json",
+      "label": "GOOD",
+      "frames": 22,
+      "score": 0.8773,
+      "pose_coverage": 0.9465,
+      "hand_coverage": 0.9091
+    },
+    {
       "clip": "drink_1.json",
       "label": "DRINK",
       "frames": 50,
       "score": 0.8789,
       "pose_coverage": 0.9059,
       "hand_coverage": 0.84
+    },
+    {
+      "clip": "hard_9.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8801,
+      "pose_coverage": 0.9536,
+      "hand_coverage": 0.9211
+    },
+    {
+      "clip": "hard_1.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8801,
+      "pose_coverage": 0.9536,
+      "hand_coverage": 0.9211
+    },
+    {
+      "clip": "good_4.json",
+      "label": "GOOD",
+      "frames": 19,
+      "score": 0.8801,
+      "pose_coverage": 0.9536,
+      "hand_coverage": 0.9211
     },
     {
       "clip": "which_1.json",
@@ -5826,6 +6518,14 @@
     {
       "clip": "when_1.json",
       "label": "WHEN",
+      "frames": 20,
+      "score": 0.8844,
+      "pose_coverage": 0.9559,
+      "hand_coverage": 0.925
+    },
+    {
+      "clip": "hard_4.json",
+      "label": "HARD",
       "frames": 20,
       "score": 0.8844,
       "pose_coverage": 0.9559,
@@ -5850,6 +6550,14 @@
     {
       "clip": "when_3.json",
       "label": "WHEN",
+      "frames": 16,
+      "score": 0.8859,
+      "pose_coverage": 0.9632,
+      "hand_coverage": 0.9375
+    },
+    {
+      "clip": "make_3.json",
+      "label": "MAKE",
       "frames": 16,
       "score": 0.8859,
       "pose_coverage": 0.9632,
@@ -5904,6 +6612,14 @@
       "hand_coverage": 0.9412
     },
     {
+      "clip": "make_2.json",
+      "label": "MAKE",
+      "frames": 17,
+      "score": 0.8899,
+      "pose_coverage": 0.9654,
+      "hand_coverage": 0.9412
+    },
+    {
       "clip": "please_1.json",
       "label": "PLEASE",
       "frames": 3466,
@@ -5920,12 +6636,28 @@
       "hand_coverage": 0.9583
     },
     {
+      "clip": "good_6.json",
+      "label": "GOOD",
+      "frames": 18,
+      "score": 0.8937,
+      "pose_coverage": 0.9673,
+      "hand_coverage": 0.9444
+    },
+    {
       "clip": "go_3.json",
       "label": "GO",
       "frames": 18,
       "score": 0.8937,
       "pose_coverage": 0.9673,
       "hand_coverage": 0.9444
+    },
+    {
+      "clip": "hard_10.json",
+      "label": "HARD",
+      "frames": 23,
+      "score": 0.8958,
+      "pose_coverage": 0.9616,
+      "hand_coverage": 0.9348
     },
     {
       "clip": "woman_1.json",
@@ -5946,6 +6678,30 @@
     {
       "clip": "more.json",
       "label": "MORE",
+      "frames": 19,
+      "score": 0.8973,
+      "pose_coverage": 0.969,
+      "hand_coverage": 0.9474
+    },
+    {
+      "clip": "make_1.json",
+      "label": "MAKE",
+      "frames": 19,
+      "score": 0.8973,
+      "pose_coverage": 0.969,
+      "hand_coverage": 0.9474
+    },
+    {
+      "clip": "hard_7.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.8973,
+      "pose_coverage": 0.969,
+      "hand_coverage": 0.9474
+    },
+    {
+      "clip": "hard_2.json",
+      "label": "HARD",
       "frames": 19,
       "score": 0.8973,
       "pose_coverage": 0.969,
@@ -5992,6 +6748,14 @@
       "hand_coverage": 0.95
     },
     {
+      "clip": "meet_5.json",
+      "label": "MEET",
+      "frames": 20,
+      "score": 0.9007,
+      "pose_coverage": 0.9706,
+      "hand_coverage": 0.95
+    },
+    {
       "clip": "get.json",
       "label": "GET",
       "frames": 20,
@@ -6030,6 +6794,30 @@
       "score": 0.9032,
       "pose_coverage": 0.9804,
       "hand_coverage": 0.9667
+    },
+    {
+      "clip": "tired_4.json",
+      "label": "TIRED",
+      "frames": 21,
+      "score": 0.9039,
+      "pose_coverage": 0.972,
+      "hand_coverage": 0.9524
+    },
+    {
+      "clip": "meet_2.json",
+      "label": "MEET",
+      "frames": 21,
+      "score": 0.9039,
+      "pose_coverage": 0.972,
+      "hand_coverage": 0.9524
+    },
+    {
+      "clip": "hard_8.json",
+      "label": "HARD",
+      "frames": 21,
+      "score": 0.9039,
+      "pose_coverage": 0.972,
+      "hand_coverage": 0.9524
     },
     {
       "clip": "can.json",
@@ -6072,6 +6860,22 @@
       "hand_coverage": 0.9688
     },
     {
+      "clip": "make_7.json",
+      "label": "MAKE",
+      "frames": 16,
+      "score": 0.9063,
+      "pose_coverage": 0.9816,
+      "hand_coverage": 0.9688
+    },
+    {
+      "clip": "make_5.json",
+      "label": "MAKE",
+      "frames": 16,
+      "score": 0.9063,
+      "pose_coverage": 0.9816,
+      "hand_coverage": 0.9688
+    },
+    {
       "clip": "little.json",
       "label": "LITTLE",
       "frames": 16,
@@ -6096,6 +6900,14 @@
       "hand_coverage": 0.8568
     },
     {
+      "clip": "meet_4.json",
+      "label": "MEET",
+      "frames": 22,
+      "score": 0.907,
+      "pose_coverage": 0.9733,
+      "hand_coverage": 0.9545
+    },
+    {
       "clip": "but.json",
       "label": "BUT",
       "frames": 22,
@@ -6106,6 +6918,14 @@
     {
       "clip": "which_2.json",
       "label": "WHICH",
+      "frames": 17,
+      "score": 0.9091,
+      "pose_coverage": 0.9827,
+      "hand_coverage": 0.9706
+    },
+    {
+      "clip": "hard_12.json",
+      "label": "HARD",
       "frames": 17,
       "score": 0.9091,
       "pose_coverage": 0.9827,
@@ -6168,6 +6988,38 @@
       "hand_coverage": 0.9737
     },
     {
+      "clip": "tired_6.json",
+      "label": "TIRED",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "tired_1.json",
+      "label": "TIRED",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "meet_1.json",
+      "label": "MEET",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
+      "clip": "hard_3.json",
+      "label": "HARD",
+      "frames": 19,
+      "score": 0.9145,
+      "pose_coverage": 0.9845,
+      "hand_coverage": 0.9737
+    },
+    {
       "clip": "friend.json",
       "label": "FRIEND",
       "frames": 19,
@@ -6208,6 +7060,22 @@
       "hand_coverage": 0.975
     },
     {
+      "clip": "tired_5.json",
+      "label": "TIRED",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
+    },
+    {
+      "clip": "meet_3.json",
+      "label": "MEET",
+      "frames": 21,
+      "score": 0.9195,
+      "pose_coverage": 0.986,
+      "hand_coverage": 0.9762
+    },
+    {
       "clip": "now_3.json",
       "label": "NOW",
       "frames": 12,
@@ -6222,6 +7090,14 @@
       "score": 0.921,
       "pose_coverage": 0.9423,
       "hand_coverage": 0.902
+    },
+    {
+      "clip": "make_9.json",
+      "label": "MAKE",
+      "frames": 14,
+      "score": 0.9233,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
     },
     {
       "clip": "live.json",
@@ -6264,6 +7140,22 @@
       "hand_coverage": 1.0
     },
     {
+      "clip": "meet_6.json",
+      "label": "MEET",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "make_6.json",
+      "label": "MAKE",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
       "clip": "have.json",
       "label": "HAVE",
       "frames": 16,
@@ -6274,6 +7166,14 @@
     {
       "clip": "try_3.json",
       "label": "TRY",
+      "frames": 17,
+      "score": 0.9283,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "make_4.json",
+      "label": "MAKE",
       "frames": 17,
       "score": 0.9283,
       "pose_coverage": 1.0,
@@ -6294,6 +7194,14 @@
       "score": 0.93,
       "pose_coverage": 1.0,
       "hand_coverage": 1.0
+    },
+    {
+      "clip": "tired_2.json",
+      "label": "TIRED",
+      "frames": 26,
+      "score": 0.9308,
+      "pose_coverage": 0.9887,
+      "hand_coverage": 0.9808
     },
     {
       "clip": "eat_1.json",
@@ -6320,12 +7228,28 @@
       "hand_coverage": 1.0
     },
     {
+      "clip": "meet_7.json",
+      "label": "MEET",
+      "frames": 20,
+      "score": 0.9333,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
       "clip": "want_1.json",
       "label": "WANT",
       "frames": 56,
       "score": 0.935,
       "pose_coverage": 0.9475,
       "hand_coverage": 0.9107
+    },
+    {
+      "clip": "tired_3.json",
+      "label": "TIRED",
+      "frames": 23,
+      "score": 0.9383,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
     },
     {
       "clip": "sign.json",
