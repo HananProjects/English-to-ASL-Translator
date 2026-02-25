@@ -39,6 +39,7 @@ class MainWindow(QWidget):
         self.camera_running = False
         self.pending_camera_tokens = []
         self.camera_error_message = None
+        self.demo_mode = True
 
         self.setWindowTitle("English <-> ASL Translator")
         self.setMinimumSize(1000, 700)
@@ -49,17 +50,43 @@ class MainWindow(QWidget):
         self.mode = "english_to_asl"
 
         mode_row = QHBoxLayout()
+        self.mode_badge_label = QLabel("Mode: English -> ASL")
+        self.mode_badge_label.setStyleSheet(
+            "font-size: 14px; font-weight: 700; color: #d7f9ff; "
+            "background-color: #18435a; border-radius: 10px; padding: 6px 10px;"
+        )
         self.english_mode_button = QPushButton("English -> ASL")
         self.reverse_mode_button = QPushButton("ASL -> English")
+        self.demo_mode_button = QPushButton("Demo Mode: ON")
         self.english_mode_button.clicked.connect(
             lambda: self.set_mode("english_to_asl")
         )
         self.reverse_mode_button.clicked.connect(
             lambda: self.set_mode("asl_to_english")
         )
+        self.demo_mode_button.clicked.connect(self.toggle_demo_mode)
+        self.demo_mode_button.setStyleSheet(
+            "font-size: 14px; font-weight: 700; height: 36px; "
+            "background-color: #204d28; color: #e6ffe9;"
+        )
+        mode_row.addWidget(self.mode_badge_label)
         mode_row.addWidget(self.english_mode_button)
         mode_row.addWidget(self.reverse_mode_button)
+        mode_row.addStretch(1)
+        mode_row.addWidget(self.demo_mode_button)
         layout.addLayout(mode_row)
+
+        state_row = QHBoxLayout()
+        self.mic_state_label = QLabel("Mic: Warming")
+        self.camera_state_label = QLabel("Camera: Starting")
+        for label in (self.mic_state_label, self.camera_state_label):
+            label.setStyleSheet(
+                "font-size: 13px; color: #d0d7de; "
+                "background-color: #2a2f36; border-radius: 9px; padding: 5px 9px;"
+            )
+            state_row.addWidget(label)
+        state_row.addStretch(1)
+        layout.addLayout(state_row)
 
         self.mode_stack = QStackedWidget()
         self.mode_stack.addWidget(self._build_english_to_asl_page())
@@ -70,6 +97,7 @@ class MainWindow(QWidget):
         layout.setSpacing(12)
         self.setLayout(layout)
         self._refresh_mode_buttons()
+        self._apply_demo_mode()
 
         self.speech_text_received.connect(self.on_speech)
         self.record_result_received.connect(self.on_translation_finished)
@@ -104,18 +132,22 @@ class MainWindow(QWidget):
         heard_text = data.get("text", "")
         error = data.get("error")
 
-        self.english_tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
+        self.english_tokens_label.setText(
+            f"Detected ASL Tokens: {' '.join(tokens) if tokens else '(none)'}"
+        )
         if error:
-            self.english_status_label.setText(
-                f"Heard: {heard_text or '(none)'} | Error: {error} | "
-                f"Latency: {data['latency']} ms"
-            )
+            self.english_status_label.setText(f"Status: Error ({error})")
         else:
-            self.english_status_label.setText(
-                f"Heard: {heard_text or '(none)'} | "
-                f"Confidence: {data['confidence']:.2f} | "
-                f"Latency: {data['latency']} ms"
-            )
+            if self.demo_mode:
+                self.english_status_label.setText(
+                    f"Heard: {heard_text or '(none)'}"
+                )
+            else:
+                self.english_status_label.setText(
+                    f"Heard: {heard_text or '(none)'} | "
+                    f"Confidence: {data['confidence']:.2f} | "
+                    f"Latency: {data['latency']} ms"
+                )
 
         if not tokens:
             return
@@ -149,9 +181,12 @@ class MainWindow(QWidget):
     def on_camera_token(self, token: str, confidence: float):
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
-        self.reverse_status_label.setText(
-            f"Status: Detecting sign... {token} (conf {confidence:.2f})"
-        )
+        if self.demo_mode:
+            self.reverse_status_label.setText(f"Status: Detecting sign... {token}")
+        else:
+            self.reverse_status_label.setText(
+                f"Status: Detecting sign... {token} (conf {confidence:.2f})"
+            )
 
     def on_camera_debug(self, token: str, confidence: float, streak: int):
         token_text = token if token else "(none)"
@@ -172,22 +207,25 @@ class MainWindow(QWidget):
 
     def _finalize_camera_translation(self, tokens: list):
         self.camera_label.setText(
-            f"Camera ASL Input: {' '.join(tokens)}"
+            f"Detected ASL Tokens: {' '.join(tokens)}"
         )
         reverse = asl_to_english(tokens=tokens)
         if reverse.error:
-            self.reverse_label.setText("English Output:")
+            self.reverse_label.setText("English Translation:")
             self.reverse_status_label.setText(
                 f"Status: Camera reverse error: {reverse.error}"
             )
             return
 
-        self.reverse_label.setText(f"English Output: {reverse.english_text}")
-        self.reverse_status_label.setText(
-            f"Status: Camera ASL -> English | "
-            f"Confidence: {reverse.confidence:.2f} | "
-            f"Latency: {reverse.latency_ms} ms"
-        )
+        self.reverse_label.setText(f"English Translation: {reverse.english_text}")
+        if self.demo_mode:
+            self.reverse_status_label.setText("Status: Translation updated")
+        else:
+            self.reverse_status_label.setText(
+                f"Status: Camera ASL -> English | "
+                f"Confidence: {reverse.confidence:.2f} | "
+                f"Latency: {reverse.latency_ms} ms"
+            )
         self.pending_camera_tokens.clear()
 
     def keyPressEvent(self, event):
@@ -215,10 +253,13 @@ class MainWindow(QWidget):
                 self.english_status_label.setText(f"Status: {result.error}")
             return
 
-        self.english_tokens_label.setText(f"ASL Output: {' '.join(tokens)}")
-        self.english_status_label.setText(
-            f"Status: Live Speech | Confidence: {result.confidence:.2f}"
-        )
+        self.english_tokens_label.setText(f"Detected ASL Tokens: {' '.join(tokens)}")
+        if self.demo_mode:
+            self.english_status_label.setText("Status: Live speech detected")
+        else:
+            self.english_status_label.setText(
+                f"Status: Live Speech | Confidence: {result.confidence:.2f}"
+            )
 
         sequence = sequence_signs(tokens)
         self.english_animation_view.disable_live_pose()
@@ -290,8 +331,10 @@ class MainWindow(QWidget):
         self.record_button.setEnabled(True)
         if ok:
             self.english_status_label.setText("Status: Idle")
+            self.mic_state_label.setText("Mic: Ready")
         else:
             self.english_status_label.setText("Status: STT warmup failed")
+            self.mic_state_label.setText("Mic: Error")
 
     def set_mode(self, mode: str):
         if mode not in {"english_to_asl", "asl_to_english"}:
@@ -299,6 +342,10 @@ class MainWindow(QWidget):
         self.mode = mode
         self.mode_stack.setCurrentIndex(0 if mode == "english_to_asl" else 1)
         self._refresh_mode_buttons()
+        if mode == "english_to_asl":
+            self.mode_badge_label.setText("Mode: English -> ASL")
+        else:
+            self.mode_badge_label.setText("Mode: ASL -> English")
 
     def _refresh_mode_buttons(self):
         active_style = "font-size: 16px; font-weight: 700; height: 44px;"
@@ -318,7 +365,7 @@ class MainWindow(QWidget):
         self.english_animation_view.setMinimumHeight(620)
         self.english_status_label = QLabel("Status: Idle")
         self.english_status_label.setStyleSheet("font-size: 18px;")
-        self.english_tokens_label = QLabel("ASL Output:")
+        self.english_tokens_label = QLabel("Detected ASL Tokens:")
         self.english_tokens_label.setStyleSheet("font-size: 22px;")
 
         self.record_button = QPushButton("Record")
@@ -349,9 +396,9 @@ class MainWindow(QWidget):
         self.reverse_status_label.setStyleSheet("font-size: 18px;")
         self.reverse_debug_label = QLabel("Debug Match: (none) | conf=0.00 | streak=0")
         self.reverse_debug_label.setStyleSheet("font-size: 14px; color: #b8b8b8;")
-        self.camera_label = QLabel("Camera ASL Input:")
+        self.camera_label = QLabel("Detected ASL Tokens:")
         self.camera_label.setStyleSheet("font-size: 18px;")
-        self.reverse_label = QLabel("English Output:")
+        self.reverse_label = QLabel("English Translation:")
         self.reverse_label.setStyleSheet("font-size: 22px;")
         self.camera_toggle_button = QPushButton("Stop Camera")
         self.camera_toggle_button.setStyleSheet("font-size: 18px; height: 52px;")
@@ -394,6 +441,7 @@ class MainWindow(QWidget):
         self.camera_reset_requested.connect(self.camera_worker.reset_recognition_state)
         self.camera_thread.start()
         self.camera_running = True
+        self.camera_state_label.setText("Camera: Ready")
         if hasattr(self, "camera_toggle_button"):
             self.camera_toggle_button.setText("Stop Camera")
         if hasattr(self, "reverse_status_label"):
@@ -429,6 +477,7 @@ class MainWindow(QWidget):
         self.camera_thread = None
         self.camera_worker = None
         self.camera_running = False
+        self.camera_state_label.setText("Camera: Stopped")
         if hasattr(self, "camera_toggle_button"):
             self.camera_toggle_button.setText("Start Camera")
         if hasattr(self, "reverse_status_label") and not translated_on_stop:
@@ -452,8 +501,8 @@ class MainWindow(QWidget):
 
     def reset_translation(self):
         self.pending_camera_tokens.clear()
-        self.camera_label.setText("Camera ASL Input:")
-        self.reverse_label.setText("English Output:")
+        self.camera_label.setText("Detected ASL Tokens:")
+        self.reverse_label.setText("English Translation:")
         self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if self.camera_running:
             self.reverse_status_label.setText("Status: Camera listening...")
@@ -464,3 +513,23 @@ class MainWindow(QWidget):
     def on_camera_reset_requested(self):
         # no-op local slot to keep signal visible and future extensible.
         return
+
+    def toggle_demo_mode(self):
+        self.demo_mode = not self.demo_mode
+        self._apply_demo_mode()
+
+    def _apply_demo_mode(self):
+        if self.demo_mode:
+            self.demo_mode_button.setText("Demo Mode: ON")
+            self.demo_mode_button.setStyleSheet(
+                "font-size: 14px; font-weight: 700; height: 36px; "
+                "background-color: #204d28; color: #e6ffe9;"
+            )
+            self.reverse_debug_label.hide()
+        else:
+            self.demo_mode_button.setText("Demo Mode: OFF")
+            self.demo_mode_button.setStyleSheet(
+                "font-size: 14px; font-weight: 700; height: 36px; "
+                "background-color: #4d2b20; color: #ffe9e6;"
+            )
+            self.reverse_debug_label.show()
