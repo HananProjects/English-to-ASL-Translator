@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
     QStackedWidget,
     QLabel,
     QPushButton,
+    QSizePolicy,
 )
 
 
@@ -100,6 +101,8 @@ class MainWindow(QWidget):
         layout.setContentsMargins(24, 16, 24, 16)
         layout.setSpacing(12)
         self.setLayout(layout)
+        # English -> ASL avatar should not mirror camera pose.
+        self.english_animation_view.disable_live_pose()
         self._refresh_mode_buttons()
         self._apply_demo_mode()
 
@@ -159,8 +162,6 @@ class MainWindow(QWidget):
         sequence = sequence_signs(tokens)
         self.english_animation_view.disable_live_pose()
         self.english_animation_view.play(sequence)
-        duration_ms = int(sum(e.duration for e in sequence) * 1000)
-        QTimer.singleShot(duration_ms, self.english_animation_view.enable_live_pose)
 
     def on_translation_error(self, message):
         print(f"[UI] translation error: {message}")
@@ -268,9 +269,6 @@ class MainWindow(QWidget):
         sequence = sequence_signs(tokens)
         self.english_animation_view.disable_live_pose()
         self.english_animation_view.play(sequence)
-        duration_ms = int(sum(e.duration for e in sequence) * 1000)
-
-        QTimer.singleShot(duration_ms, self.english_animation_view.enable_live_pose)
 
     def _start_vosk_async(self):
         if self.vosk is not None:
@@ -364,7 +362,10 @@ class MainWindow(QWidget):
         page_layout = QVBoxLayout()
 
         self.english_animation_view = ASLAnimationView()
-        self.english_animation_view.setMinimumHeight(620)
+        self.english_animation_view.setMinimumHeight(520)
+        self.english_animation_view.setSizePolicy(
+            QSizePolicy.Expanding, QSizePolicy.Expanding
+        )
         self.english_status_label = QLabel("Status: Idle")
         self.english_status_label.setStyleSheet("font-size: 18px;")
         self.english_tokens_label = QLabel("Detected ASL Tokens:")
@@ -376,10 +377,18 @@ class MainWindow(QWidget):
         self.record_button.clicked.connect(self.on_record_clicked)
         self.record_button.setEnabled(False)
 
-        page_layout.addWidget(self.english_animation_view, 5)
-        page_layout.addWidget(self.english_status_label)
-        page_layout.addWidget(self.english_tokens_label)
-        page_layout.addWidget(self.record_button)
+        controls_panel = QWidget()
+        controls_panel.setObjectName("bottomPanel")
+        controls_layout = QVBoxLayout()
+        controls_layout.setContentsMargins(12, 10, 12, 12)
+        controls_layout.setSpacing(10)
+        controls_layout.addWidget(self.english_status_label)
+        controls_layout.addWidget(self.english_tokens_label)
+        controls_layout.addWidget(self.record_button)
+        controls_panel.setLayout(controls_layout)
+
+        page_layout.addWidget(self.english_animation_view, 1)
+        page_layout.addWidget(controls_panel, 0)
         page_layout.setContentsMargins(0, 0, 0, 0)
         page_layout.setSpacing(12)
         page.setLayout(page_layout)
@@ -603,6 +612,11 @@ class MainWindow(QWidget):
             QPushButton#demoButton {
                 border-radius: 10px;
                 min-height: 36px;
+            }
+            QWidget#bottomPanel {
+                background-color: #0b121a;
+                border: 1px solid #1f2a36;
+                border-radius: 12px;
             }
             """
         )
