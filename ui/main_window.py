@@ -44,6 +44,7 @@ class MainWindow(QWidget):
         self.setWindowTitle("English <-> ASL Translator")
         self.setMinimumSize(1000, 700)
         self.resize(1280, 820)
+        self._apply_theme()
 
         layout = QVBoxLayout()
 
@@ -58,6 +59,9 @@ class MainWindow(QWidget):
         self.english_mode_button = QPushButton("English -> ASL")
         self.reverse_mode_button = QPushButton("ASL -> English")
         self.demo_mode_button = QPushButton("Demo Mode: ON")
+        self.english_mode_button.setObjectName("modeButton")
+        self.reverse_mode_button.setObjectName("modeButton")
+        self.demo_mode_button.setObjectName("demoButton")
         self.english_mode_button.clicked.connect(
             lambda: self.set_mode("english_to_asl")
         )
@@ -348,14 +352,12 @@ class MainWindow(QWidget):
             self.mode_badge_label.setText("Mode: ASL -> English")
 
     def _refresh_mode_buttons(self):
-        active_style = "font-size: 16px; font-weight: 700; height: 44px;"
-        inactive_style = "font-size: 16px; font-weight: 500; height: 44px;"
-        if self.mode == "english_to_asl":
-            self.english_mode_button.setStyleSheet(active_style)
-            self.reverse_mode_button.setStyleSheet(inactive_style)
-        else:
-            self.english_mode_button.setStyleSheet(inactive_style)
-            self.reverse_mode_button.setStyleSheet(active_style)
+        english_active = self.mode == "english_to_asl"
+        self.english_mode_button.setProperty("active", english_active)
+        self.reverse_mode_button.setProperty("active", not english_active)
+        for button in (self.english_mode_button, self.reverse_mode_button):
+            button.style().unpolish(button)
+            button.style().polish(button)
 
     def _build_english_to_asl_page(self) -> QWidget:
         page = QWidget()
@@ -369,7 +371,8 @@ class MainWindow(QWidget):
         self.english_tokens_label.setStyleSheet("font-size: 22px;")
 
         self.record_button = QPushButton("Record")
-        self.record_button.setStyleSheet("font-size: 20px; height: 60px;")
+        self.record_button.setObjectName("primaryButton")
+        self.record_button.setMinimumHeight(60)
         self.record_button.clicked.connect(self.on_record_clicked)
         self.record_button.setEnabled(False)
 
@@ -401,10 +404,12 @@ class MainWindow(QWidget):
         self.reverse_label = QLabel("English Translation:")
         self.reverse_label.setStyleSheet("font-size: 22px;")
         self.camera_toggle_button = QPushButton("Stop Camera")
-        self.camera_toggle_button.setStyleSheet("font-size: 18px; height: 52px;")
+        self.camera_toggle_button.setObjectName("primaryButton")
+        self.camera_toggle_button.setMinimumHeight(52)
         self.camera_toggle_button.clicked.connect(self.toggle_camera)
         self.reset_translation_button = QPushButton("Reset Translation")
-        self.reset_translation_button.setStyleSheet("font-size: 18px; height: 52px;")
+        self.reset_translation_button.setObjectName("secondaryButton")
+        self.reset_translation_button.setMinimumHeight(52)
         self.reset_translation_button.clicked.connect(self.reset_translation)
 
         page_layout.addWidget(self.camera_feed_label, 5)
@@ -533,3 +538,71 @@ class MainWindow(QWidget):
                 "background-color: #4d2b20; color: #ffe9e6;"
             )
             self.reverse_debug_label.show()
+
+    def _apply_theme(self):
+        self.setStyleSheet(
+            """
+            QWidget {
+                background-color: #0f141b;
+                color: #e8edf3;
+                font-family: "Segoe UI", "Inter", sans-serif;
+            }
+            QLabel {
+                color: #e8edf3;
+            }
+            QStackedWidget {
+                background-color: transparent;
+                border: none;
+            }
+            QPushButton {
+                background-color: #202833;
+                border: 1px solid #2e3a49;
+                border-radius: 10px;
+                color: #e8edf3;
+                padding: 8px 14px;
+            }
+            QPushButton:hover {
+                background-color: #293445;
+                border-color: #3f5065;
+            }
+            QPushButton:pressed {
+                background-color: #1a222d;
+            }
+            QPushButton#modeButton {
+                font-size: 16px;
+                font-weight: 600;
+                min-height: 44px;
+            }
+            QPushButton#modeButton[active="true"] {
+                background-color: #1f6feb;
+                border-color: #2f81f7;
+                color: #ffffff;
+                font-weight: 700;
+            }
+            QPushButton#primaryButton {
+                background-color: #1f6feb;
+                border-color: #2f81f7;
+                color: #ffffff;
+                font-weight: 700;
+            }
+            QPushButton#primaryButton:hover {
+                background-color: #2f81f7;
+            }
+            QPushButton#primaryButton:pressed {
+                background-color: #1a5ec0;
+            }
+            QPushButton#secondaryButton {
+                background-color: #2b3441;
+                border-color: #3a4657;
+                color: #d7dee7;
+                font-weight: 600;
+            }
+            QPushButton#secondaryButton:hover {
+                background-color: #364255;
+            }
+            QPushButton#demoButton {
+                border-radius: 10px;
+                min-height: 36px;
+            }
+            """
+        )
