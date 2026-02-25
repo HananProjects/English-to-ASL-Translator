@@ -8,7 +8,7 @@ import shutil
 import os
 from datetime import datetime
 from PySide6.QtCore import QThread, Qt, QTimer, Signal
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QGuiApplication
 from core.sequencing.sign_sequencer import sequence_signs
 from ui.widgets.animation_view import ASLAnimationView
 from ui.worker_camera import CameraWorker
@@ -74,10 +74,18 @@ class MainWindow(QWidget):
         self.espeak_amplitude = _env_int("ASL_TTS_AMPLITUDE", 180, min_value=0, max_value=200)
         self.espeak_speed = _env_int("ASL_TTS_SPEED", 160, min_value=80, max_value=300)
         self.speaker_enabled = self.tts_backend != "none"
+        self.compact_ui = self._detect_compact_ui()
+        self.preview_min_height = 360 if self.compact_ui else 520
+        self.primary_button_height = 48 if self.compact_ui else 60
+        self.secondary_button_height = 34 if self.compact_ui else 40
+        self.mini_button_height = 30 if self.compact_ui else 36
+        self.body_font = 15 if self.compact_ui else 18
+        self.heading_font = 18 if self.compact_ui else 22
+        self.small_font = 12 if self.compact_ui else 14
 
         self.setWindowTitle("English <-> ASL Translator")
-        self.setMinimumSize(1000, 700)
-        self.resize(1280, 820)
+        self.setMinimumSize(760, 440)
+        self.resize(960 if self.compact_ui else 1280, 540 if self.compact_ui else 820)
         self._apply_theme()
 
         layout = QVBoxLayout()
@@ -87,11 +95,15 @@ class MainWindow(QWidget):
         mode_row = QHBoxLayout()
         self.mode_badge_label = QLabel("Mode: English -> ASL")
         self.mode_badge_label.setStyleSheet(
-            "font-size: 14px; font-weight: 700; color: #d7f9ff; "
+            f"font-size: {self.small_font}px; font-weight: 700; color: #d7f9ff; "
             "background-color: #18435a; border-radius: 10px; padding: 6px 10px;"
         )
-        self.english_mode_button = QPushButton("English -> ASL")
-        self.reverse_mode_button = QPushButton("ASL -> English")
+        self.english_mode_button = QPushButton(
+            "E -> ASL" if self.compact_ui else "English -> ASL"
+        )
+        self.reverse_mode_button = QPushButton(
+            "ASL -> EN" if self.compact_ui else "ASL -> English"
+        )
         self.demo_mode_button = QPushButton("Demo Mode: ON")
         self.english_mode_button.setObjectName("modeButton")
         self.reverse_mode_button.setObjectName("modeButton")
@@ -104,7 +116,7 @@ class MainWindow(QWidget):
         )
         self.demo_mode_button.clicked.connect(self.toggle_demo_mode)
         self.demo_mode_button.setStyleSheet(
-            "font-size: 14px; font-weight: 700; height: 36px; "
+            f"font-size: {self.small_font}px; font-weight: 700; height: {self.mini_button_height}px; "
             "background-color: #204d28; color: #e6ffe9;"
         )
         mode_row.addWidget(self.mode_badge_label)
@@ -119,7 +131,7 @@ class MainWindow(QWidget):
         self.camera_state_label = QLabel("Camera: Starting")
         for label in (self.mic_state_label, self.camera_state_label):
             label.setStyleSheet(
-                "font-size: 13px; color: #d0d7de; "
+                f"font-size: {self.small_font}px; color: #d0d7de; "
                 "background-color: #2a2f36; border-radius: 9px; padding: 5px 9px;"
             )
             state_row.addWidget(label)
@@ -131,8 +143,13 @@ class MainWindow(QWidget):
         self.mode_stack.addWidget(self._build_asl_to_english_page())
         layout.addWidget(self.mode_stack, 1)
 
-        layout.setContentsMargins(24, 16, 24, 16)
-        layout.setSpacing(12)
+        if self.compact_ui:
+            layout.setContentsMargins(10, 8, 10, 8)
+            layout.setSpacing(8)
+            self.mode_badge_label.hide()
+        else:
+            layout.setContentsMargins(24, 16, 24, 16)
+            layout.setSpacing(12)
         self.setLayout(layout)
         # English -> ASL avatar should not mirror camera pose.
         self.english_animation_view.disable_live_pose()
@@ -397,26 +414,26 @@ class MainWindow(QWidget):
         page_layout = QVBoxLayout()
 
         self.english_animation_view = ASLAnimationView()
-        self.english_animation_view.setMinimumHeight(520)
+        self.english_animation_view.setMinimumHeight(self.preview_min_height)
         self.english_animation_view.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Expanding
         )
         self.english_status_label = QLabel("Status: Idle")
-        self.english_status_label.setStyleSheet("font-size: 18px;")
+        self.english_status_label.setStyleSheet(f"font-size: {self.body_font}px;")
         self.english_tokens_label = QLabel("Detected ASL Tokens:")
-        self.english_tokens_label.setStyleSheet("font-size: 22px;")
+        self.english_tokens_label.setStyleSheet(f"font-size: {self.heading_font}px;")
 
         self.record_button = QPushButton("Record")
         self.record_button.setObjectName("primaryButton")
-        self.record_button.setMinimumHeight(60)
+        self.record_button.setMinimumHeight(self.primary_button_height)
         self.record_button.clicked.connect(self.on_record_clicked)
         self.record_button.setEnabled(False)
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
         controls_layout = QVBoxLayout()
-        controls_layout.setContentsMargins(12, 10, 12, 12)
-        controls_layout.setSpacing(10)
+        controls_layout.setContentsMargins(10, 8, 10, 8)
+        controls_layout.setSpacing(8 if self.compact_ui else 10)
         controls_layout.addWidget(self.english_status_label)
         controls_layout.addWidget(self.english_tokens_label)
         controls_layout.addWidget(self.record_button)
@@ -425,7 +442,7 @@ class MainWindow(QWidget):
         page_layout.addWidget(self.english_animation_view, 1)
         page_layout.addWidget(controls_panel, 0)
         page_layout.setContentsMargins(0, 0, 0, 0)
-        page_layout.setSpacing(12)
+        page_layout.setSpacing(8 if self.compact_ui else 12)
         page.setLayout(page_layout)
         return page
 
@@ -434,45 +451,45 @@ class MainWindow(QWidget):
         page_layout = QVBoxLayout()
 
         self.camera_feed_label = QLabel("Camera feed")
-        self.camera_feed_label.setMinimumHeight(520)
+        self.camera_feed_label.setMinimumHeight(self.preview_min_height)
         self.camera_feed_label.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Expanding
         )
         self.camera_feed_label.setAlignment(Qt.AlignCenter)
         self.camera_feed_label.setStyleSheet(
             "background-color: #111822; border: 1px solid #2d3a4b; "
-            "border-radius: 10px; font-size: 18px;"
+            f"border-radius: 10px; font-size: {self.body_font}px;"
         )
         self.reverse_status_label = QLabel("Status: Camera listening...")
-        self.reverse_status_label.setStyleSheet("font-size: 18px;")
+        self.reverse_status_label.setStyleSheet(f"font-size: {self.body_font}px;")
         self.reverse_debug_label = QLabel("Debug Match: (none) | conf=0.00 | streak=0")
-        self.reverse_debug_label.setStyleSheet("font-size: 14px; color: #b8b8b8;")
+        self.reverse_debug_label.setStyleSheet(f"font-size: {self.small_font}px; color: #b8b8b8;")
         self.camera_label = QLabel("Detected ASL Tokens:")
-        self.camera_label.setStyleSheet("font-size: 20px;")
+        self.camera_label.setStyleSheet(f"font-size: {self.body_font + 2}px;")
         self.reverse_label = QLabel("English Translation:")
         self.reverse_label.setWordWrap(True)
-        self.reverse_label.setStyleSheet("font-size: 22px;")
+        self.reverse_label.setStyleSheet(f"font-size: {self.heading_font}px;")
         self.camera_toggle_button = QPushButton("Stop Camera")
         self.camera_toggle_button.setObjectName("primaryButton")
-        self.camera_toggle_button.setMinimumHeight(40)
+        self.camera_toggle_button.setMinimumHeight(self.secondary_button_height)
         self.camera_toggle_button.clicked.connect(self.toggle_camera)
         self.reset_translation_button = QPushButton("Reset Translation")
         self.reset_translation_button.setObjectName("secondaryButton")
-        self.reset_translation_button.setMinimumHeight(40)
+        self.reset_translation_button.setMinimumHeight(self.secondary_button_height)
         self.reset_translation_button.clicked.connect(self.reset_translation)
         self.add_history_button = QPushButton("Add to History")
         self.add_history_button.setObjectName("secondaryButton")
-        self.add_history_button.setMinimumHeight(36)
+        self.add_history_button.setMinimumHeight(self.mini_button_height)
         self.add_history_button.clicked.connect(self.add_current_translation_to_history)
         self.speaker_button = QPushButton(
             "Speaker: ON" if self.speaker_enabled else "Speaker: OFF"
         )
         self.speaker_button.setObjectName("secondaryButton")
-        self.speaker_button.setMinimumHeight(36)
+        self.speaker_button.setMinimumHeight(self.mini_button_height)
         self.speaker_button.clicked.connect(self.toggle_speaker)
         self.test_speaker_button = QPushButton("Test Speaker")
         self.test_speaker_button.setObjectName("secondaryButton")
-        self.test_speaker_button.setMinimumHeight(36)
+        self.test_speaker_button.setMinimumHeight(self.mini_button_height)
         self.test_speaker_button.clicked.connect(self.test_speaker)
         if self.tts_backend == "none":
             self.speaker_button.setEnabled(False)
@@ -480,10 +497,10 @@ class MainWindow(QWidget):
             self.test_speaker_button.setEnabled(False)
 
         self.history_label = QLabel("History")
-        self.history_label.setStyleSheet("font-size: 18px; font-weight: 700;")
+        self.history_label.setStyleSheet(f"font-size: {self.body_font}px; font-weight: 700;")
         self.history_list = QListWidget()
-        self.history_list.setMinimumHeight(70)
-        self.history_list.setMaximumHeight(96)
+        self.history_list.setMinimumHeight(52 if self.compact_ui else 70)
+        self.history_list.setMaximumHeight(78 if self.compact_ui else 96)
         self.history_list.itemClicked.connect(self.on_history_item_clicked)
         self.history_list.setStyleSheet(
             "background-color: #0a1118; border: 1px solid #1f2a36; border-radius: 8px;"
@@ -493,19 +510,19 @@ class MainWindow(QWidget):
         controls_panel.setObjectName("bottomPanel")
         controls_layout = QVBoxLayout()
         controls_layout.setContentsMargins(10, 8, 10, 8)
-        controls_layout.setSpacing(6)
+        controls_layout.setSpacing(4 if self.compact_ui else 6)
         controls_layout.addWidget(self.reverse_status_label)
         controls_layout.addWidget(self.reverse_debug_label)
         controls_layout.addWidget(self.camera_label)
         controls_layout.addWidget(self.reverse_label)
 
         actions_row = QHBoxLayout()
-        actions_row.setSpacing(10)
+        actions_row.setSpacing(6 if self.compact_ui else 10)
         actions_row.addWidget(self.camera_toggle_button, 1)
         actions_row.addWidget(self.reset_translation_button, 1)
         controls_layout.addLayout(actions_row)
         review_row = QHBoxLayout()
-        review_row.setSpacing(10)
+        review_row.setSpacing(6 if self.compact_ui else 10)
         review_row.addWidget(self.add_history_button, 1)
         review_row.addWidget(self.speaker_button, 1)
         review_row.addWidget(self.test_speaker_button, 1)
@@ -518,7 +535,7 @@ class MainWindow(QWidget):
         page_layout.addWidget(self.camera_feed_label, 1)
         page_layout.addWidget(controls_panel, 0)
         page_layout.setContentsMargins(0, 0, 0, 0)
-        page_layout.setSpacing(12)
+        page_layout.setSpacing(8 if self.compact_ui else 12)
         page.setLayout(page_layout)
         return page
 
@@ -753,21 +770,33 @@ class MainWindow(QWidget):
         if self.demo_mode:
             self.demo_mode_button.setText("Demo Mode: ON")
             self.demo_mode_button.setStyleSheet(
-                "font-size: 14px; font-weight: 700; height: 36px; "
+                f"font-size: {self.small_font}px; font-weight: 700; height: {self.mini_button_height}px; "
                 "background-color: #204d28; color: #e6ffe9;"
             )
             self.reverse_debug_label.hide()
         else:
             self.demo_mode_button.setText("Demo Mode: OFF")
             self.demo_mode_button.setStyleSheet(
-                "font-size: 14px; font-weight: 700; height: 36px; "
+                f"font-size: {self.small_font}px; font-weight: 700; height: {self.mini_button_height}px; "
                 "background-color: #4d2b20; color: #ffe9e6;"
             )
             self.reverse_debug_label.show()
 
+    def _detect_compact_ui(self) -> bool:
+        touch_env = os.getenv("ASL_TOUCH_UI", "").strip().lower()
+        if touch_env in {"1", "true", "yes", "on"}:
+            return True
+        screen = QGuiApplication.primaryScreen()
+        if screen is None:
+            return False
+        geo = screen.availableGeometry()
+        return geo.width() <= 1024 or geo.height() <= 600
+
     def _apply_theme(self):
-        self.setStyleSheet(
-            """
+        mode_font = 14 if self.compact_ui else 16
+        mode_height = 36 if self.compact_ui else 44
+        demo_height = self.mini_button_height
+        css = """
             QWidget {
                 background-color: #0f141b;
                 color: #e8edf3;
@@ -795,9 +824,9 @@ class MainWindow(QWidget):
                 background-color: #1a222d;
             }
             QPushButton#modeButton {
-                font-size: 16px;
+                font-size: __MODE_FONT__px;
                 font-weight: 600;
-                min-height: 44px;
+                min-height: __MODE_HEIGHT__px;
             }
             QPushButton#modeButton[active="true"] {
                 background-color: #1f6feb;
@@ -828,7 +857,7 @@ class MainWindow(QWidget):
             }
             QPushButton#demoButton {
                 border-radius: 10px;
-                min-height: 36px;
+                min-height: __DEMO_HEIGHT__px;
             }
             QWidget#bottomPanel {
                 background-color: #0b121a;
@@ -836,4 +865,7 @@ class MainWindow(QWidget):
                 border-radius: 12px;
             }
             """
-        )
+        css = css.replace("__MODE_FONT__", str(mode_font))
+        css = css.replace("__MODE_HEIGHT__", str(mode_height))
+        css = css.replace("__DEMO_HEIGHT__", str(demo_height))
+        self.setStyleSheet(css)
