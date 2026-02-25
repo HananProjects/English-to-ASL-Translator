@@ -2,6 +2,9 @@ from core.engine import english_to_asl, asl_to_english, _get_stt_backend
 from core.mic_utils import record_audio
 from core.audio.vosk_listener import VoskListener
 import threading
+import subprocess
+import sys
+from datetime import datetime
 from PySide6.QtCore import QThread, Qt, QTimer, Signal
 from PySide6.QtGui import QPixmap
 from core.sequencing.sign_sequencer import sequence_signs
@@ -15,7 +18,13 @@ from PySide6.QtWidgets import (
     QLabel,
     QPushButton,
     QSizePolicy,
+    QListWidget,
 )
+
+try:
+    from PySide6.QtTextToSpeech import QTextToSpeech
+except Exception:
+    QTextToSpeech = None
 
 
 class MainWindow(QWidget):
@@ -41,6 +50,10 @@ class MainWindow(QWidget):
         self.pending_camera_tokens = []
         self.camera_error_message = None
         self.demo_mode = True
+        self.latest_translation_text = ""
+        self.speaker_enabled = False
+        self.tts_engine = self._init_tts_engine()
+        self.tts_backend = self._resolve_tts_backend()
 
         self.setWindowTitle("English <-> ASL Translator")
         self.setMinimumSize(1000, 700)
@@ -222,7 +235,8 @@ class MainWindow(QWidget):
             )
             return
 
-        self.reverse_label.setText(f"English Translation: {reverse.english_text}")
+        self.latest_translation_text = reverse.english_text
+        self.reverse_label.setText(f"English Translation: {self.latest_translation_text}")
         if self.demo_mode:
             self.reverse_status_label.setText("Status: Translation updated")
         else:
@@ -231,6 +245,7 @@ class MainWindow(QWidget):
                 f"Confidence: {reverse.confidence:.2f} | "
                 f"Latency: {reverse.latency_ms} ms"
             )
+        self._speak_translation_if_enabled(self.latest_translation_text)
         self.pending_camera_tokens.clear()
 
     def keyPressEvent(self, event):
@@ -399,35 +414,86 @@ class MainWindow(QWidget):
         page_layout = QVBoxLayout()
 
         self.camera_feed_label = QLabel("Camera feed")
-        self.camera_feed_label.setMinimumHeight(620)
+        self.camera_feed_label.setMinimumHeight(520)
+        self.camera_feed_label.setSizePolicy(
+            QSizePolicy.Expanding, QSizePolicy.Expanding
+        )
         self.camera_feed_label.setAlignment(Qt.AlignCenter)
         self.camera_feed_label.setStyleSheet(
-            "background-color: #111; border: 1px solid #2d2d2d; font-size: 18px;"
+            "background-color: #111822; border: 1px solid #2d3a4b; "
+            "border-radius: 10px; font-size: 18px;"
         )
         self.reverse_status_label = QLabel("Status: Camera listening...")
         self.reverse_status_label.setStyleSheet("font-size: 18px;")
         self.reverse_debug_label = QLabel("Debug Match: (none) | conf=0.00 | streak=0")
         self.reverse_debug_label.setStyleSheet("font-size: 14px; color: #b8b8b8;")
         self.camera_label = QLabel("Detected ASL Tokens:")
-        self.camera_label.setStyleSheet("font-size: 18px;")
+        self.camera_label.setStyleSheet("font-size: 20px;")
         self.reverse_label = QLabel("English Translation:")
+        self.reverse_label.setWordWrap(True)
         self.reverse_label.setStyleSheet("font-size: 22px;")
         self.camera_toggle_button = QPushButton("Stop Camera")
         self.camera_toggle_button.setObjectName("primaryButton")
-        self.camera_toggle_button.setMinimumHeight(52)
+        self.camera_toggle_button.setMinimumHeight(40)
         self.camera_toggle_button.clicked.connect(self.toggle_camera)
         self.reset_translation_button = QPushButton("Reset Translation")
         self.reset_translation_button.setObjectName("secondaryButton")
-        self.reset_translation_button.setMinimumHeight(52)
+        self.reset_translation_button.setMinimumHeight(40)
         self.reset_translation_button.clicked.connect(self.reset_translation)
+        self.add_history_button = QPushButton("Add to History")
+        self.add_history_button.setObjectName("secondaryButton")
+        self.add_history_button.setMinimumHeight(36)
+        self.add_history_button.clicked.connect(self.add_current_translation_to_history)
+        self.speaker_button = QPushButton("Speaker: OFF")
+        self.speaker_button.setObjectName("secondaryButton")
+        self.speaker_button.setMinimumHeight(36)
+        self.speaker_button.clicked.connect(self.toggle_speaker)
+        self.test_speaker_button = QPushButton("Test Speaker")
+        self.test_speaker_button.setObjectName("secondaryButton")
+        self.test_speaker_button.setMinimumHeight(36)
+        self.test_speaker_button.clicked.connect(self.test_speaker)
+        if self.tts_backend == "none":
+            self.speaker_button.setEnabled(False)
+            self.speaker_button.setText("Speaker: Unavailable")
+            self.test_speaker_button.setEnabled(False)
 
-        page_layout.addWidget(self.camera_feed_label, 5)
-        page_layout.addWidget(self.reverse_status_label)
-        page_layout.addWidget(self.reverse_debug_label)
-        page_layout.addWidget(self.camera_label)
-        page_layout.addWidget(self.reverse_label)
-        page_layout.addWidget(self.camera_toggle_button)
-        page_layout.addWidget(self.reset_translation_button)
+        self.history_label = QLabel("History")
+        self.history_label.setStyleSheet("font-size: 18px; font-weight: 700;")
+        self.history_list = QListWidget()
+        self.history_list.setMinimumHeight(70)
+        self.history_list.setMaximumHeight(96)
+        self.history_list.setStyleSheet(
+            "background-color: #0a1118; border: 1px solid #1f2a36; border-radius: 8px;"
+        )
+
+        controls_panel = QWidget()
+        controls_panel.setObjectName("bottomPanel")
+        controls_layout = QVBoxLayout()
+        controls_layout.setContentsMargins(10, 8, 10, 8)
+        controls_layout.setSpacing(6)
+        controls_layout.addWidget(self.reverse_status_label)
+        controls_layout.addWidget(self.reverse_debug_label)
+        controls_layout.addWidget(self.camera_label)
+        controls_layout.addWidget(self.reverse_label)
+
+        actions_row = QHBoxLayout()
+        actions_row.setSpacing(10)
+        actions_row.addWidget(self.camera_toggle_button, 1)
+        actions_row.addWidget(self.reset_translation_button, 1)
+        controls_layout.addLayout(actions_row)
+        review_row = QHBoxLayout()
+        review_row.setSpacing(10)
+        review_row.addWidget(self.add_history_button, 1)
+        review_row.addWidget(self.speaker_button, 1)
+        review_row.addWidget(self.test_speaker_button, 1)
+        controls_layout.addLayout(review_row)
+        controls_layout.addWidget(self.history_label)
+        controls_layout.addWidget(self.history_list)
+
+        controls_panel.setLayout(controls_layout)
+
+        page_layout.addWidget(self.camera_feed_label, 1)
+        page_layout.addWidget(controls_panel, 0)
         page_layout.setContentsMargins(0, 0, 0, 0)
         page_layout.setSpacing(12)
         page.setLayout(page_layout)
@@ -439,9 +505,9 @@ class MainWindow(QWidget):
         self.camera_error_message = None
         self.pending_camera_tokens.clear()
         if hasattr(self, "camera_label"):
-            self.camera_label.setText("Camera ASL Input:")
+            self.camera_label.setText("Detected ASL Tokens:")
         if hasattr(self, "reverse_label"):
-            self.reverse_label.setText("English Output:")
+            self.reverse_label.setText("English Translation:")
         self.camera_thread = QThread(self)
         self.camera_worker = CameraWorker()
         self.camera_worker.moveToThread(self.camera_thread)
@@ -517,12 +583,101 @@ class MainWindow(QWidget):
         self.pending_camera_tokens.clear()
         self.camera_label.setText("Detected ASL Tokens:")
         self.reverse_label.setText("English Translation:")
+        self.latest_translation_text = ""
         self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if self.camera_running:
             self.reverse_status_label.setText("Status: Camera listening...")
             self.camera_reset_requested.emit()
         else:
             self.reverse_status_label.setText("Status: Camera stopped")
+
+    def add_current_translation_to_history(self):
+        text = (self.latest_translation_text or "").strip()
+        if not text:
+            self.reverse_status_label.setText("Status: No translation to add")
+            return
+        stamp = datetime.now().strftime("%H:%M:%S")
+        self.history_list.insertItem(0, f"[{stamp}] {text}")
+        self.reverse_status_label.setText("Status: Added to history")
+
+    def _init_tts_engine(self):
+        if QTextToSpeech is None:
+            return None
+        try:
+            engine = QTextToSpeech(self)
+            # Keep output clear and audible for demo use.
+            engine.setVolume(1.0)
+            engine.setRate(-0.1)
+            return engine
+        except Exception:
+            return None
+
+    def _resolve_tts_backend(self) -> str:
+        if sys.platform.startswith("win"):
+            return "sapi"
+        if self.tts_engine is not None:
+            return "qt"
+        return "none"
+
+    def toggle_speaker(self):
+        if self.tts_backend == "none":
+            self.reverse_status_label.setText("Status: Speaker unavailable")
+            return
+        self.speaker_enabled = not self.speaker_enabled
+        if self.speaker_enabled:
+            self.speaker_button.setText("Speaker: ON")
+            self.reverse_status_label.setText(
+                f"Status: Speaker enabled ({self.tts_backend.upper()})"
+            )
+            self._speak_text("Speaker enabled")
+        else:
+            self.speaker_button.setText("Speaker: OFF")
+            self.reverse_status_label.setText("Status: Speaker disabled")
+
+    def _speak_translation_if_enabled(self, text: str):
+        if not self.speaker_enabled:
+            return
+        if not text:
+            return
+        self._speak_text(text)
+
+    def _speak_text(self, text: str):
+        if not text:
+            return
+        if self.tts_backend == "qt" and self.tts_engine is not None:
+            try:
+                self.tts_engine.stop()
+                self.tts_engine.say(text)
+                return
+            except Exception:
+                pass
+        if self.tts_backend == "sapi":
+            safe_text = text.replace("'", "''")
+            ps = (
+                "Add-Type -AssemblyName System.Speech; "
+                "$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; "
+                "$s.Volume = 100; $s.Rate = 0; "
+                f"$s.Speak('{safe_text}')"
+            )
+            try:
+                subprocess.Popen(
+                    ["powershell", "-NoProfile", "-Command", ps],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
+                return
+            except Exception:
+                pass
+        self.reverse_status_label.setText("Status: Speaker error")
+
+    def test_speaker(self):
+        if self.tts_backend == "none":
+            self.reverse_status_label.setText("Status: Speaker unavailable")
+            return
+        self._speak_text("This is a speaker test.")
+        self.reverse_status_label.setText(
+            f"Status: Speaker test sent ({self.tts_backend.upper()})"
+        )
 
     def on_camera_reset_requested(self):
         # no-op local slot to keep signal visible and future extensible.
