@@ -4,6 +4,8 @@ from core.audio.vosk_listener import VoskListener
 import threading
 import subprocess
 import sys
+import shutil
+import os
 from datetime import datetime
 from PySide6.QtCore import QThread, Qt, QTimer, Signal
 from PySide6.QtGui import QPixmap
@@ -19,12 +21,28 @@ from PySide6.QtWidgets import (
     QPushButton,
     QSizePolicy,
     QListWidget,
+    QListWidgetItem,
 )
 
 try:
     from PySide6.QtTextToSpeech import QTextToSpeech
 except Exception:
     QTextToSpeech = None
+
+
+def _env_int(name: str, default: int, min_value: int | None = None, max_value: int | None = None) -> int:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        value = int(raw)
+    except Exception:
+        return default
+    if min_value is not None and value < min_value:
+        value = min_value
+    if max_value is not None and value > max_value:
+        value = max_value
+    return value
 
 
 class MainWindow(QWidget):
@@ -51,9 +69,11 @@ class MainWindow(QWidget):
         self.camera_error_message = None
         self.demo_mode = True
         self.latest_translation_text = ""
-        self.speaker_enabled = False
         self.tts_engine = self._init_tts_engine()
         self.tts_backend = self._resolve_tts_backend()
+        self.espeak_amplitude = _env_int("ASL_TTS_AMPLITUDE", 180, min_value=0, max_value=200)
+        self.espeak_speed = _env_int("ASL_TTS_SPEED", 160, min_value=80, max_value=300)
+        self.speaker_enabled = self.tts_backend != "none"
 
         self.setWindowTitle("English <-> ASL Translator")
         self.setMinimumSize(1000, 700)
@@ -444,7 +464,9 @@ class MainWindow(QWidget):
         self.add_history_button.setObjectName("secondaryButton")
         self.add_history_button.setMinimumHeight(36)
         self.add_history_button.clicked.connect(self.add_current_translation_to_history)
-        self.speaker_button = QPushButton("Speaker: OFF")
+        self.speaker_button = QPushButton(
+            "Speaker: ON" if self.speaker_enabled else "Speaker: OFF"
+        )
         self.speaker_button.setObjectName("secondaryButton")
         self.speaker_button.setMinimumHeight(36)
         self.speaker_button.clicked.connect(self.toggle_speaker)
@@ -462,6 +484,7 @@ class MainWindow(QWidget):
         self.history_list = QListWidget()
         self.history_list.setMinimumHeight(70)
         self.history_list.setMaximumHeight(96)
+        self.history_list.itemClicked.connect(self.on_history_item_clicked)
         self.history_list.setStyleSheet(
             "background-color: #0a1118; border: 1px solid #1f2a36; border-radius: 8px;"
         )
@@ -600,6 +623,24 @@ class MainWindow(QWidget):
         self.history_list.insertItem(0, f"[{stamp}] {text}")
         self.reverse_status_label.setText("Status: Added to history")
 
+    def on_history_item_clicked(self, item: QListWidgetItem):
+        if self.tts_backend == "none":
+            self.reverse_status_label.setText("Status: Speaker unavailable")
+            return
+        raw = item.text().strip()
+        text = raw
+        if raw.startswith("[") and "] " in raw:
+            text = raw.split("] ", 1)[1].strip()
+        if not text:
+            self.reverse_status_label.setText("Status: Empty history item")
+            return
+        self.latest_translation_text = text
+        self.reverse_label.setText(f"English Translation: {text}")
+        self._speak_text(text)
+        self.reverse_status_label.setText(
+            f"Status: Playing history item ({self.tts_backend.upper()})"
+        )
+
     def _init_tts_engine(self):
         if QTextToSpeech is None:
             return None
@@ -615,6 +656,8 @@ class MainWindow(QWidget):
     def _resolve_tts_backend(self) -> str:
         if sys.platform.startswith("win"):
             return "sapi"
+        if shutil.which("espeak") or shutil.which("espeak-ng"):
+            return "espeak"
         if self.tts_engine is not None:
             return "qt"
         return "none"
@@ -668,6 +711,25 @@ class MainWindow(QWidget):
                 return
             except Exception:
                 pass
+        if self.tts_backend == "espeak":
+            tts_cmd = shutil.which("espeak-ng") or shutil.which("espeak")
+            if tts_cmd:
+                try:
+                    subprocess.Popen(
+                        [
+                            tts_cmd,
+                            "-a",
+                            str(self.espeak_amplitude),
+                            "-s",
+                            str(self.espeak_speed),
+                            text,
+                        ],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                    return
+                except Exception:
+                    pass
         self.reverse_status_label.setText("Status: Speaker error")
 
     def test_speaker(self):
