@@ -54,11 +54,24 @@ def resolve_input_device_with_rate(preferred: Optional[str] = None):
         device = _system_default_input_index()
         try:
             info = sd.query_devices(device=device, kind="input")
-        except Exception:
+        except Exception as e:
             device = None
-            info = sd.query_devices(kind="input")
+            try:
+                info = sd.query_devices(kind="input")
+            except Exception as inner:
+                raise RuntimeError(
+                    "No usable microphone input device found. "
+                    "Check OS microphone permissions and selected input device."
+                ) from inner
+            if not info:
+                raise RuntimeError(
+                    "No microphone input devices are available."
+                ) from e
 
     default_rate = int(float(info.get("default_samplerate", 16000)))
+    max_channels = int(info.get("max_input_channels", 0))
+    if max_channels < 1:
+        raise RuntimeError("Selected audio device does not support input capture.")
     return device, default_rate
 
 
@@ -97,15 +110,21 @@ def record_audio(
     print(f"[Mic] using device={device} name={dev_name} rate={capture_rate}")
 
     frames = int(duration_sec * capture_rate)
-    recording = sd.rec(
-        frames,
-        samplerate=capture_rate,
-        channels=1,
-        dtype="int16",
-        device=device,
-    )
+    try:
+        recording = sd.rec(
+            frames,
+            samplerate=capture_rate,
+            channels=1,
+            dtype="int16",
+            device=device,
+        )
+        sd.wait()
+    except Exception as e:
+        raise RuntimeError(
+            f"Microphone capture failed on device={device} ({dev_name}). "
+            "Check permissions and whether another app is using the microphone."
+        ) from e
 
-    sd.wait()
     mono = recording.reshape(-1)
     mono_16k = _resample_int16_mono(mono, capture_rate, sample_rate)
     return mono_16k.tobytes()
