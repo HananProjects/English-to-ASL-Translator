@@ -1,5 +1,5 @@
 import time
-from typing import List
+from typing import List, Optional
 from core.sequencing.sign_sequencer import SignEvent
 
 
@@ -11,7 +11,7 @@ class AnimationStub:
 
     def __init__(self):
         self.sequence: List[SignEvent] = []
-        self.start_time: float | None = None
+        self.start_time: Optional[float] = None
         self.current_index = 0
 
     def play(self, sequence: List[SignEvent]):

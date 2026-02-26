@@ -1,8 +1,10 @@
 import time
-from core.types import TranslationResult
+from core.types import TranslationResult, ReverseTranslationResult
 from core.config import MIN_STT_CONFIDENCE
 from typing import Optional
 from core.confidence import compute_confidence
+from core.asl_to_english.pipeline import parse_asl_tokens, asl_to_english_text
+from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
 # These imports WILL FAIL until partners implement them — that is OK
 _stt_backend = None
@@ -75,6 +77,39 @@ def english_to_asl(audio: Optional[bytes] = None,
         confidence=confidence,
         latency_ms=latency,
         source_text=text or ""
+    )
+
+
+def asl_to_english(tokens: Optional[list[str]] = None,
+                   text: Optional[str] = None) -> ReverseTranslationResult:
+    """
+    Reverse pipeline entry point:
+    ASL gloss tokens -> English sentence.
+    """
+    start_time = time.time()
+
+    source_tokens = [t.upper() for t in tokens] if tokens else []
+    if text is not None:
+        source_tokens = parse_asl_tokens(text)
+
+    if not source_tokens:
+        return ReverseTranslationResult(
+            english_text="",
+            confidence=0.0,
+            latency_ms=elapsed_ms(start_time),
+            error="NO_ASL_INPUT",
+            source_tokens=[],
+        )
+
+    english_text = asl_to_english_text(source_tokens)
+    known_count = sum(1 for token in source_tokens if token in ASL_SIGNS)
+    confidence = known_count / len(source_tokens) if source_tokens else 0.0
+
+    return ReverseTranslationResult(
+        english_text=english_text,
+        confidence=confidence,
+        latency_ms=elapsed_ms(start_time),
+        source_tokens=source_tokens,
     )
 
 

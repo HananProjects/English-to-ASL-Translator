@@ -2,27 +2,37 @@ import time
 from typing import List
 from PySide6.QtWidgets import QWidget
 from PySide6.QtCore import QTimer, Qt
-from PySide6.QtGui import QPainter, QPen
+from PySide6.QtGui import QColor, QPainter, QPen
 from core.sequencing.sign_sequencer import SignEvent
 from ui.animation.poses.basic_poses import POSES
 from ui.animation.clip_loader import load_clip
 
 
 class ASLAnimationView(QWidget):
-    HAND_VISUAL_SCALE = 0.75
-    PLAYBACK_SPEED = 0.75
-    PLAYBACK_SMOOTHING_ALPHA = 0.35
-    HAND_CONNECTIONS = (
-        (0, 1), (1, 2), (2, 3), (3, 4),
-        (0, 5), (5, 6), (6, 7), (7, 8),
-        (5, 9), (9, 10), (10, 11), (11, 12),
-        (9, 13), (13, 14), (14, 15), (15, 16),
-        (13, 17), (17, 18), (18, 19), (19, 20),
-        (0, 17),
+    HAND_VISUAL_SCALE = 0.78
+    # Slower playback + stronger smoothing to reduce jitter on imported clips.
+    PLAYBACK_SPEED = 0.60
+    PLAYBACK_SMOOTHING_ALPHA = 0.22
+    HAND_CHAINS = (
+        (0, 1, 2, 3, 4),
+        (0, 5, 6, 7, 8),
+        (0, 9, 10, 11, 12),
+        (0, 13, 14, 15, 16),
+        (0, 17, 18, 19, 20),
     )
+    FINGER_COLORS = (
+        QColor(120, 255, 140),
+        QColor(80, 230, 255),
+        QColor(90, 170, 255),
+        QColor(170, 130, 255),
+        QColor(255, 130, 220),
+    )
+    BODY_COLOR = QColor(210, 10, 20)
+    JOINT_COLOR = QColor(245, 245, 245)
 
     def __init__(self):
         super().__init__()
+        self.setAutoFillBackground(False)
 
         self.sequence: List[SignEvent] = []
         self.start_time = None
@@ -61,8 +71,6 @@ class ASLAnimationView(QWidget):
         painter = QPainter(self)
         try:
             painter.setRenderHint(QPainter.Antialiasing)
-            pen = QPen(Qt.black, 4)
-            painter.setPen(pen)
 
             w, h = self.width(), self.height()
             pose = (
@@ -77,31 +85,42 @@ class ASLAnimationView(QWidget):
                 x, y = pose[name]
                 x = max(0.0, min(1.0, float(x)))
                 y = max(0.0, min(1.0, float(y)))
-                return int(x * w), int(y * h)
-            
-            head = p("head")
-            if head:
-                painter.setPen(QPen(Qt.black, 3))
-                painter.setBrush(Qt.white)
-                painter.drawEllipse(
-                    head[0] - 12,
-                    head[1] - 12,
-                    24,
-                    24
+                return (
+                    int((0.04 + x * 0.92) * w),
+                    int((0.02 + y * 0.94) * h),
                 )
 
-            self._line(painter, p("shoulder_left"), p("elbow_left"))
-            self._line(painter, p("elbow_left"), p("hand_left"))
-            self._line(painter, p("shoulder_right"), p("elbow_right"))
-            self._line(painter, p("elbow_right"), p("hand_right"))
+            painter.setPen(QPen(self.BODY_COLOR, 6, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            head = p("head")
+            if head:
+                self._draw_face(painter, head, w, h)
+
+            shoulder_l = p("shoulder_left")
+            shoulder_r = p("shoulder_right")
+            elbow_l = p("elbow_left")
+            elbow_r = p("elbow_right")
+            wrist_l = p("hand_left")
+            wrist_r = p("hand_right")
+            shoulder_l, shoulder_r = self._naturalize_shoulders(
+                head,
+                shoulder_l,
+                shoulder_r,
+                h,
+            )
+
+            torso_shoulder_l, torso_shoulder_r = self._draw_torso(
+                painter, shoulder_l, shoulder_r, h
+            )
+            arm_start_l = torso_shoulder_l if torso_shoulder_l is not None else shoulder_l
+            arm_start_r = torso_shoulder_r if torso_shoulder_r is not None else shoulder_r
+
+            self._line(painter, arm_start_l, elbow_l)
+            self._line(painter, elbow_l, wrist_l)
+            self._line(painter, arm_start_r, elbow_r)
+            self._line(painter, elbow_r, wrist_r)
 
             self._draw_full_hand(painter, p, "left")
             self._draw_full_hand(painter, p, "right")
-
-            self._dot(painter, p("left_thumb_tip"))
-            self._dot(painter, p("left_index_tip"))
-            self._dot(painter, p("right_thumb_tip"))
-            self._dot(painter, p("right_index_tip"))
 
         finally:
             painter.end()
@@ -201,10 +220,62 @@ class ASLAnimationView(QWidget):
             return int(sx), int(sy)
 
         hand0 = hp(0)
-        self._line(painter, wrist, hand0)
+        if hand0:
+            painter.setPen(QPen(self.BODY_COLOR, 6, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            self._line(painter, wrist, hand0)
 
-        for a, b in self.HAND_CONNECTIONS:
-            self._line(painter, hp(a), hp(b))
+        for i, chain in enumerate(self.HAND_CHAINS):
+            painter.setPen(QPen(self.FINGER_COLORS[i], 5, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            for j in range(len(chain) - 1):
+                self._line(painter, hp(chain[j]), hp(chain[j + 1]))
 
+        painter.setPen(QPen(self.JOINT_COLOR, 1))
+        painter.setBrush(self.JOINT_COLOR)
         for idx in range(21):
-            self._dot(painter, hp(idx), radius=2)
+            self._dot(painter, hp(idx), radius=4)
+
+    def _draw_torso(self, painter, shoulder_l, shoulder_r, h):
+        if shoulder_l is None or shoulder_r is None:
+            return None, None
+        cx = (shoulder_l[0] + shoulder_r[0]) // 2
+        shoulder_span = shoulder_r[0] - shoulder_l[0]
+        torso_span = int(shoulder_span * 0.55)
+        top_y = int((shoulder_l[1] + shoulder_r[1]) / 2) + 4
+        body_height = int(h * 0.22)
+        top_l = (cx - torso_span // 2, top_y)
+        top_r = (cx + torso_span // 2, top_y)
+        hip_l = (cx - int(torso_span * 0.42), top_y + body_height)
+        hip_r = (cx + int(torso_span * 0.38), top_y + body_height + 6)
+        self._line(painter, top_l, top_r)
+        self._line(painter, top_l, hip_l)
+        self._line(painter, top_r, hip_r)
+        self._line(painter, hip_l, hip_r)
+        return top_l, top_r
+
+    def _draw_face(self, painter, head, w, h):
+        rw = max(26, int(w * 0.03))
+        rh = max(40, int(h * 0.08))
+        cx, cy = head
+        painter.setBrush(Qt.NoBrush)
+        painter.drawEllipse(cx - rw, cy - rh, rw * 2, rh * 2)
+
+        eye_y = cy - int(rh * 0.15)
+        brow_y = cy - int(rh * 0.38)
+        eye_dx = int(rw * 0.45)
+        eye_w = int(rw * 0.35)
+        mouth_y = cy + int(rh * 0.42)
+        painter.drawArc(cx - eye_dx - eye_w, eye_y - 5, eye_w * 2, 10, 0, 180 * 16)
+        painter.drawArc(cx + eye_dx - eye_w, eye_y - 5, eye_w * 2, 10, 0, 180 * 16)
+        painter.drawLine(cx - eye_dx - eye_w, brow_y, cx - eye_dx + eye_w, brow_y - 4)
+        painter.drawLine(cx + eye_dx - eye_w, brow_y - 4, cx + eye_dx + eye_w, brow_y)
+        painter.drawArc(cx - int(rw * 0.45), mouth_y - 8, int(rw * 0.9), 20, 200 * 16, 140 * 16)
+
+    def _naturalize_shoulders(self, head, shoulder_l, shoulder_r, h):
+        if head is None or shoulder_l is None or shoulder_r is None:
+            return shoulder_l, shoulder_r
+
+        # Pull shoulder line upward toward a natural head-neck distance.
+        target_y = head[1] + int(h * 0.12)
+        ly = int(shoulder_l[1] * 0.45 + target_y * 0.55)
+        ry = int(shoulder_r[1] * 0.45 + target_y * 0.55)
+        return (shoulder_l[0], ly), (shoulder_r[0], ry)

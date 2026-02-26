@@ -216,3 +216,9 @@ __marimo__/
 
 # temporary test files
 core/**/_test_*.py
+
+# WLASL / dataset artifacts
+data/WLASL/
+data/WLASL/start_kit/raw_videos/
+data/WLASL/start_kit/download_*.log
+data/wlasl_import_report.json

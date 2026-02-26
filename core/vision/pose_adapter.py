@@ -12,10 +12,8 @@ def mediapipe_to_pose_dict(
         return pose_landmarks[i].x, pose_landmarks[i].y
 
     def norm(x, y):
-        # MediaPipe already provides normalized image coordinates.
-        x_n = max(0.0, min(1.0, x))
-        y_n = max(0.0, min(1.0, y))
-        return (x_n, y_n)
+        # Keep image-normalized coordinates in display range.
+        return (max(0.0, min(1.0, float(x))), max(0.0, min(1.0, float(y))))
 
     pose = {
         "head": norm(*pt_pose(PL.NOSE)),
@@ -33,6 +31,8 @@ def mediapipe_to_pose_dict(
 
     # --- LEFT HAND ---
     if left_hand_landmarks:
+        # Use hand-model wrist for better hand position tracking.
+        pose["hand_left"] = norm(left_hand_landmarks[0].x, left_hand_landmarks[0].y)
         for idx, lm in enumerate(left_hand_landmarks):
             pose[f"left_hand_{idx}"] = norm(lm.x, lm.y)
 
@@ -59,6 +59,8 @@ def mediapipe_to_pose_dict(
 
     # --- RIGHT HAND ---
     if right_hand_landmarks:
+        # Use hand-model wrist for better hand position tracking.
+        pose["hand_right"] = norm(right_hand_landmarks[0].x, right_hand_landmarks[0].y)
         for idx, lm in enumerate(right_hand_landmarks):
             pose[f"right_hand_{idx}"] = norm(lm.x, lm.y)
 

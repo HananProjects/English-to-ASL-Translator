@@ -1,0 +1,15 @@
+# Auto-generated recommended ASL training labels
+# source=data/eval/sign_quality_report.json
+# min_clips=3 min_quality=0.82 max_labels=30
+TIRED
+TRY
+MEET
+MAKE
+WITH
+GO
+WRITE
+HARD
+WHEN
+GOOD
+WHICH
+HOW

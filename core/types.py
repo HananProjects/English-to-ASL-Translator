@@ -8,3 +8,12 @@ class TranslationResult:
     latency_ms: int
     error: Optional[str] = None
     source_text: str = ""
+
+
+@dataclass
+class ReverseTranslationResult:
+    english_text: str
+    confidence: float
+    latency_ms: int
+    error: Optional[str] = None
+    source_tokens: Optional[List[str]] = None
