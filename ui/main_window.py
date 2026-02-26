@@ -6,6 +6,7 @@ import subprocess
 import sys
 import shutil
 import os
+import tempfile
 from datetime import datetime
 from PySide6.QtCore import QThread, Qt, QTimer, Signal
 from PySide6.QtGui import QPixmap, QGuiApplication
@@ -73,6 +74,10 @@ class MainWindow(QWidget):
         self.tts_backend = self._resolve_tts_backend()
         self.espeak_amplitude = _env_int("ASL_TTS_AMPLITUDE", 180, min_value=0, max_value=200)
         self.espeak_speed = _env_int("ASL_TTS_SPEED", 160, min_value=80, max_value=300)
+        self.tts_alsa_device = os.getenv(
+            "ASL_TTS_ALSA_DEVICE",
+            "default:CARD=wm8960soundcard",
+        )
         self.speaker_enabled = self.tts_backend != "none"
         self.compact_ui = self._detect_compact_ui()
         self.preview_min_height = 360 if self.compact_ui else 520
@@ -492,9 +497,7 @@ class MainWindow(QWidget):
         self.test_speaker_button.setMinimumHeight(self.mini_button_height)
         self.test_speaker_button.clicked.connect(self.test_speaker)
         if self.tts_backend == "none":
-            self.speaker_button.setEnabled(False)
-            self.speaker_button.setText("Speaker: Unavailable")
-            self.test_speaker_button.setEnabled(False)
+            self.speaker_button.setText("Speaker: OFF")
 
         self.history_label = QLabel("History")
         self.history_label.setStyleSheet(f"font-size: {self.body_font}px; font-weight: 700;")
@@ -673,13 +676,19 @@ class MainWindow(QWidget):
     def _resolve_tts_backend(self) -> str:
         if sys.platform.startswith("win"):
             return "sapi"
-        if shutil.which("espeak") or shutil.which("espeak-ng"):
+        if (
+            shutil.which("espeak")
+            or shutil.which("espeak-ng")
+            or os.path.exists("/usr/bin/espeak")
+            or os.path.exists("/usr/bin/espeak-ng")
+        ):
             return "espeak"
         if self.tts_engine is not None:
             return "qt"
         return "none"
 
     def toggle_speaker(self):
+        self.tts_backend = self._resolve_tts_backend()
         if self.tts_backend == "none":
             self.reverse_status_label.setText("Status: Speaker unavailable")
             return
@@ -729,18 +738,42 @@ class MainWindow(QWidget):
             except Exception:
                 pass
         if self.tts_backend == "espeak":
-            tts_cmd = shutil.which("espeak-ng") or shutil.which("espeak")
+            tts_cmd = (
+                shutil.which("espeak-ng")
+                or shutil.which("espeak")
+                or ("/usr/bin/espeak-ng" if os.path.exists("/usr/bin/espeak-ng") else None)
+                or ("/usr/bin/espeak" if os.path.exists("/usr/bin/espeak") else None)
+            )
             if tts_cmd:
                 try:
-                    subprocess.Popen(
+                    with tempfile.NamedTemporaryFile(
+                        prefix="asl_tts_",
+                        suffix=".wav",
+                        delete=False,
+                    ) as wavf:
+                        wav_path = wavf.name
+                    subprocess.run(
                         [
                             tts_cmd,
                             "-a",
                             str(self.espeak_amplitude),
                             "-s",
                             str(self.espeak_speed),
+                            "-w",
+                            wav_path,
                             text,
                         ],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        check=False,
+                    )
+                    subprocess.Popen(
+                        ["aplay", "-D", self.tts_alsa_device, wav_path],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                    subprocess.Popen(
+                        ["sh", "-c", f"sleep 2; rm -f '{wav_path}'"],
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )
@@ -750,6 +783,7 @@ class MainWindow(QWidget):
         self.reverse_status_label.setText("Status: Speaker error")
 
     def test_speaker(self):
+        self.tts_backend = self._resolve_tts_backend()
         if self.tts_backend == "none":
             self.reverse_status_label.setText("Status: Speaker unavailable")
             return

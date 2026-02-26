@@ -21,6 +21,7 @@ CAMERA_ZOOM="${ASL_CAMERA_ZOOM:-1.0}"
 CAMERA_BUFFER_SIZE="${ASL_CAMERA_BUFFER_SIZE:-1}"
 TOUCH_UI="${ASL_TOUCH_UI:-1}"
 TOUCH_FULLSCREEN="${ASL_TOUCH_FULLSCREEN:-1}"
+TTS_ALSA_DEVICE="${ASL_TTS_ALSA_DEVICE:-default:CARD=wm8960soundcard}"
 
 if ! command -v libcamerify >/dev/null 2>&1; then
   echo "Error: libcamerify not found. Install Raspberry Pi camera apps/tools first." >&2
@@ -44,4 +45,5 @@ ASL_CAMERA_ZOOM="${CAMERA_ZOOM}" \
 ASL_CAMERA_BUFFER_SIZE="${CAMERA_BUFFER_SIZE}" \
 ASL_TOUCH_UI="${TOUCH_UI}" \
 ASL_TOUCH_FULLSCREEN="${TOUCH_FULLSCREEN}" \
+ASL_TTS_ALSA_DEVICE="${TTS_ALSA_DEVICE}" \
 libcamerify "${PYTHON_BIN}" -m ui.main
