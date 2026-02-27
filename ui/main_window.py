@@ -64,6 +64,7 @@ class MainWindow(QWidget):
         self.worker = None
         self.record_stop_event = None
         self.recording_in_progress = False
+        self.last_english_sequence = None
         self.vosk_init_in_progress = False
         self.camera_thread = None
         self.camera_worker = None
@@ -188,6 +189,7 @@ class MainWindow(QWidget):
         self.english_tokens_label.setText("ASL Output:")
         self.record_button.setEnabled(False)
         self.stop_button.setEnabled(True)
+        self.replay_button.setEnabled(False)
         self.recording_in_progress = True
         self.record_stop_event = threading.Event()
 
@@ -204,11 +206,18 @@ class MainWindow(QWidget):
         if self.record_stop_event is not None:
             self.record_stop_event.set()
 
+    def on_replay_clicked(self):
+        if not self.last_english_sequence:
+            return
+        self.english_status_label.setText("Status: Replaying last animation")
+        self._play_english_sequence(self.last_english_sequence)
+
     def on_translation_finished(self, data):
         self.recording_in_progress = False
         self.record_stop_event = None
         self.record_button.setEnabled(True)
         self.stop_button.setEnabled(False)
+        self.replay_button.setEnabled(bool(self.last_english_sequence))
         tokens = data["tokens"]
         heard_text = data.get("text", "")
         error = data.get("error")
@@ -234,8 +243,7 @@ class MainWindow(QWidget):
             return
 
         sequence = sequence_signs(tokens)
-        self.english_animation_view.disable_live_pose()
-        self.english_animation_view.play(sequence)
+        self._play_english_sequence(sequence)
 
     def on_translation_error(self, message):
         print(f"[UI] translation error: {message}")
@@ -243,6 +251,7 @@ class MainWindow(QWidget):
         self.record_stop_event = None
         self.record_button.setEnabled(True)
         self.stop_button.setEnabled(False)
+        self.replay_button.setEnabled(bool(self.last_english_sequence))
         self.english_status_label.setText(f"Error: {message}")
 
     def on_camera_pose(self, pose: dict):
@@ -349,6 +358,13 @@ class MainWindow(QWidget):
             )
 
         sequence = sequence_signs(tokens)
+        self._play_english_sequence(sequence)
+
+    def _play_english_sequence(self, sequence):
+        if not sequence:
+            return
+        self.last_english_sequence = list(sequence)
+        self.replay_button.setEnabled(True)
         self.english_animation_view.disable_live_pose()
         self.english_animation_view.play(sequence)
 
@@ -469,6 +485,11 @@ class MainWindow(QWidget):
         self.stop_button.setMinimumHeight(self.secondary_button_height)
         self.stop_button.clicked.connect(self.on_stop_record_clicked)
         self.stop_button.setEnabled(False)
+        self.replay_button = QPushButton("Replay")
+        self.replay_button.setObjectName("secondaryButton")
+        self.replay_button.setMinimumHeight(self.secondary_button_height)
+        self.replay_button.clicked.connect(self.on_replay_clicked)
+        self.replay_button.setEnabled(False)
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
@@ -481,6 +502,7 @@ class MainWindow(QWidget):
         controls_row.setSpacing(8 if self.compact_ui else 10)
         controls_row.addWidget(self.record_button)
         controls_row.addWidget(self.stop_button)
+        controls_row.addWidget(self.replay_button)
         controls_layout.addLayout(controls_row)
         controls_panel.setLayout(controls_layout)
 
