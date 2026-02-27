@@ -96,9 +96,19 @@ class MainWindow(QWidget):
         )
         self.speaker_enabled = self.tts_backend != "none"
         self.compact_ui = self._detect_compact_ui()
-        self.english_drawer_width = 300 if self.compact_ui else 420
-        self.preview_min_height = 360 if self.compact_ui else 520
-        self.english_preview_min_height = 520 if self.compact_ui else 780
+        self.portrait_ui = self._detect_portrait_ui()
+        if self.portrait_ui:
+            self.english_drawer_width = 240 if self.compact_ui else 280
+            self.preview_min_height = 420 if self.compact_ui else 560
+            self.english_preview_min_height = 620 if self.compact_ui else 860
+            self.english_controls_max_height = 190 if self.compact_ui else 210
+            self.english_saved_drawer_max_height = 86 if self.compact_ui else 104
+        else:
+            self.english_drawer_width = 300 if self.compact_ui else 420
+            self.preview_min_height = 360 if self.compact_ui else 520
+            self.english_preview_min_height = 520 if self.compact_ui else 780
+            self.english_controls_max_height = 220 if self.compact_ui else 270
+            self.english_saved_drawer_max_height = 96 if self.compact_ui else 128
         self.primary_button_height = 48 if self.compact_ui else 60
         self.secondary_button_height = 34 if self.compact_ui else 40
         self.mini_button_height = 30 if self.compact_ui else 36
@@ -107,8 +117,12 @@ class MainWindow(QWidget):
         self.small_font = 12 if self.compact_ui else 14
 
         self.setWindowTitle("English <-> ASL Translator")
-        self.setMinimumSize(760, 440)
-        self.resize(960 if self.compact_ui else 1280, 540 if self.compact_ui else 820)
+        if self.portrait_ui:
+            self.setMinimumSize(420, 760)
+            self.resize(720 if self.compact_ui else 820, 1180 if self.compact_ui else 1280)
+        else:
+            self.setMinimumSize(760, 440)
+            self.resize(960 if self.compact_ui else 1280, 540 if self.compact_ui else 820)
         self._apply_theme()
 
         layout = QVBoxLayout()
@@ -845,7 +859,7 @@ class MainWindow(QWidget):
         self.english_saved_drawer.setObjectName("savedDrawerPanel")
         self.english_saved_drawer.setMinimumWidth(0)
         self.english_saved_drawer.setMaximumWidth(0)
-        self.english_saved_drawer.setMaximumHeight(96 if self.compact_ui else 128)
+        self.english_saved_drawer.setMaximumHeight(self.english_saved_drawer_max_height)
         self.english_saved_drawer.setVisible(False)
         drawer_layout = QVBoxLayout()
         drawer_layout.setContentsMargins(0, 0, 0, 0)
@@ -869,7 +883,7 @@ class MainWindow(QWidget):
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
-        controls_panel.setMaximumHeight(220 if self.compact_ui else 270)
+        controls_panel.setMaximumHeight(self.english_controls_max_height)
         controls_layout = QVBoxLayout()
         controls_layout.setContentsMargins(8, 6, 8, 6)
         controls_layout.setSpacing(6 if self.compact_ui else 8)
@@ -1278,6 +1292,18 @@ class MainWindow(QWidget):
             return False
         geo = screen.availableGeometry()
         return geo.width() <= 1024 or geo.height() <= 600
+
+    def _detect_portrait_ui(self) -> bool:
+        portrait_env = os.getenv("ASL_PORTRAIT_UI", "").strip().lower()
+        if portrait_env in {"1", "true", "yes", "on"}:
+            return True
+        if portrait_env in {"0", "false", "no", "off"}:
+            return False
+        screen = QGuiApplication.primaryScreen()
+        if screen is None:
+            return False
+        geo = screen.availableGeometry()
+        return geo.height() > geo.width()
 
     def _apply_theme(self):
         mode_font = 14 if self.compact_ui else 16
