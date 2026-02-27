@@ -2,6 +2,8 @@ import sounddevice as sd
 import numpy as np
 from typing import Optional
 import os
+import threading
+import time
 
 
 def _system_default_input_index() -> Optional[int]:
@@ -126,5 +128,57 @@ def record_audio(
         ) from e
 
     mono = recording.reshape(-1)
+    mono_16k = _resample_int16_mono(mono, capture_rate, sample_rate)
+    return mono_16k.tobytes()
+
+
+def record_audio_until_stop(
+    stop_event: threading.Event,
+    sample_rate: int = 16000,
+    input_device: Optional[str] = None,
+    max_duration_sec: Optional[float] = None,
+) -> bytes:
+    """
+    Records audio until `stop_event` is set and returns raw PCM bytes.
+    """
+    device, capture_rate = resolve_input_device_with_rate(input_device)
+    try:
+        dev_info = sd.query_devices(device=device, kind="input")
+        dev_name = dev_info.get("name", "default")
+    except Exception:
+        dev_name = "default"
+    print(f"[Mic] using device={device} name={dev_name} rate={capture_rate}")
+
+    chunks = []
+
+    def _callback(indata, frames, callback_time, status):
+        if status:
+            print(f"[Mic] stream status: {status}")
+        chunks.append(indata.copy())
+
+    try:
+        with sd.InputStream(
+            samplerate=capture_rate,
+            channels=1,
+            dtype="int16",
+            device=device,
+            callback=_callback,
+        ):
+            started_at = time.monotonic()
+            while not stop_event.is_set():
+                if max_duration_sec is not None:
+                    elapsed = time.monotonic() - started_at
+                    if elapsed >= max_duration_sec:
+                        break
+                sd.sleep(50)
+    except Exception as e:
+        raise RuntimeError(
+            f"Microphone capture failed on device={device} ({dev_name}). "
+            "Check permissions and whether another app is using the microphone."
+        ) from e
+
+    if not chunks:
+        return b""
+    mono = np.concatenate(chunks, axis=0).reshape(-1)
     mono_16k = _resample_int16_mono(mono, capture_rate, sample_rate)
     return mono_16k.tobytes()

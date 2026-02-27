@@ -1,5 +1,5 @@
 from core.engine import english_to_asl, asl_to_english, _get_stt_backend
-from core.mic_utils import record_audio
+from core.mic_utils import record_audio_until_stop
 from core.audio.vosk_listener import VoskListener
 import threading
 import subprocess
@@ -62,6 +62,8 @@ class MainWindow(QWidget):
         super().__init__()
         self.thread = None
         self.worker = None
+        self.record_stop_event = None
+        self.recording_in_progress = False
         self.vosk_init_in_progress = False
         self.camera_thread = None
         self.camera_worker = None
@@ -179,17 +181,34 @@ class MainWindow(QWidget):
         threading.Thread(target=self._warmup_stt_backend, daemon=True).start()
 
     def on_record_clicked(self):
-        self.english_status_label.setText("Status: Recording...")
+        if self.recording_in_progress:
+            return
+
+        self.english_status_label.setText("Status: Recording... press Stop when done")
         self.english_tokens_label.setText("ASL Output:")
         self.record_button.setEnabled(False)
+        self.stop_button.setEnabled(True)
+        self.recording_in_progress = True
+        self.record_stop_event = threading.Event()
 
         if getattr(self, "vosk", None) is not None:
             self.vosk.stop()
 
         threading.Thread(target=self._run_record_job, daemon=True).start()
 
+    def on_stop_record_clicked(self):
+        if not self.recording_in_progress:
+            return
+        self.english_status_label.setText("Status: Stopping recording...")
+        self.stop_button.setEnabled(False)
+        if self.record_stop_event is not None:
+            self.record_stop_event.set()
+
     def on_translation_finished(self, data):
+        self.recording_in_progress = False
+        self.record_stop_event = None
         self.record_button.setEnabled(True)
+        self.stop_button.setEnabled(False)
         tokens = data["tokens"]
         heard_text = data.get("text", "")
         error = data.get("error")
@@ -220,7 +239,10 @@ class MainWindow(QWidget):
 
     def on_translation_error(self, message):
         print(f"[UI] translation error: {message}")
+        self.recording_in_progress = False
+        self.record_stop_event = None
         self.record_button.setEnabled(True)
+        self.stop_button.setEnabled(False)
         self.english_status_label.setText(f"Error: {message}")
 
     def on_camera_pose(self, pose: dict):
@@ -299,6 +321,9 @@ class MainWindow(QWidget):
             self.thread.quit()
             self.thread.wait()
 
+        if self.record_stop_event is not None:
+            self.record_stop_event.set()
+
         if getattr(self, "vosk", None) is not None:
             self.vosk.stop()
 
@@ -340,8 +365,13 @@ class MainWindow(QWidget):
     def _run_record_job(self):
         try:
             print("[Record] capture start")
-            audio = record_audio(duration_sec=4.0)
+            stop_event = self.record_stop_event
+            if stop_event is None:
+                raise RuntimeError("Recording session was not initialized.")
+            audio = record_audio_until_stop(stop_event=stop_event)
             print(f"[Record] captured bytes={len(audio)}")
+            if not audio:
+                raise RuntimeError("No audio captured. Try recording again.")
             result = english_to_asl(audio=audio)
             print(
                 "[Record] stt text=",
@@ -388,6 +418,7 @@ class MainWindow(QWidget):
 
     def _on_stt_warmup_complete(self, ok: bool):
         self.record_button.setEnabled(True)
+        self.stop_button.setEnabled(False)
         if ok:
             self.english_status_label.setText("Status: Idle")
             self.mic_state_label.setText("Mic: Ready")
@@ -433,6 +464,11 @@ class MainWindow(QWidget):
         self.record_button.setMinimumHeight(self.primary_button_height)
         self.record_button.clicked.connect(self.on_record_clicked)
         self.record_button.setEnabled(False)
+        self.stop_button = QPushButton("Stop")
+        self.stop_button.setObjectName("secondaryButton")
+        self.stop_button.setMinimumHeight(self.secondary_button_height)
+        self.stop_button.clicked.connect(self.on_stop_record_clicked)
+        self.stop_button.setEnabled(False)
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
@@ -441,7 +477,11 @@ class MainWindow(QWidget):
         controls_layout.setSpacing(8 if self.compact_ui else 10)
         controls_layout.addWidget(self.english_status_label)
         controls_layout.addWidget(self.english_tokens_label)
-        controls_layout.addWidget(self.record_button)
+        controls_row = QHBoxLayout()
+        controls_row.setSpacing(8 if self.compact_ui else 10)
+        controls_row.addWidget(self.record_button)
+        controls_row.addWidget(self.stop_button)
+        controls_layout.addLayout(controls_row)
         controls_panel.setLayout(controls_layout)
 
         page_layout.addWidget(self.english_animation_view, 1)
