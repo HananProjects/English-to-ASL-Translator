@@ -333,8 +333,9 @@ class ASLAnimationView(QWidget):
         shoulder_span = shoulder_r[0] - shoulder_l[0]
         torso_span = int(shoulder_span * 0.62)
         top_y = int((shoulder_l[1] + shoulder_r[1]) / 2) + 4
-        body_height = int(max(shoulder_span * 0.95, h * 0.11))
-        body_height = min(body_height, int(h * 0.18))
+        # Extend torso close to the lower viewport so full body reads naturally.
+        target_bottom_y = int(h * 0.94)
+        body_height = max(int(shoulder_span * 0.95), target_bottom_y - top_y)
         top_l = (cx - torso_span // 2 + offset[0], top_y + offset[1])
         top_r = (cx + torso_span // 2 + offset[0], top_y + offset[1])
         hip_l = (cx - int(torso_span * 0.46) + offset[0], top_y + body_height + offset[1])
