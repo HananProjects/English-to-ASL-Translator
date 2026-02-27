@@ -10,7 +10,7 @@ import os
 import tempfile
 from datetime import datetime
 from pathlib import Path
-from PySide6.QtCore import QThread, Qt, QTimer, Signal
+from PySide6.QtCore import QThread, Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve
 from PySide6.QtGui import QPixmap, QGuiApplication
 from core.sequencing.sign_sequencer import sequence_signs, SignEvent
 from ui.widgets.animation_view import ASLAnimationView
@@ -73,6 +73,8 @@ class MainWindow(QWidget):
         self.english_history_entries = []
         self.english_favorite_entries = []
         self.max_english_history = 40
+        self.english_drawer_open = False
+        self.english_drawer_width = 420
         self.english_state_path = (
             Path(__file__).resolve().parents[1] / "data" / "english_asl_ui_state.json"
         )
@@ -94,8 +96,9 @@ class MainWindow(QWidget):
         )
         self.speaker_enabled = self.tts_backend != "none"
         self.compact_ui = self._detect_compact_ui()
+        self.english_drawer_width = 300 if self.compact_ui else 420
         self.preview_min_height = 360 if self.compact_ui else 520
-        self.english_preview_min_height = 380 if self.compact_ui else 620
+        self.english_preview_min_height = 520 if self.compact_ui else 780
         self.primary_button_height = 48 if self.compact_ui else 60
         self.secondary_button_height = 34 if self.compact_ui else 40
         self.mini_button_height = 30 if self.compact_ui else 36
@@ -591,6 +594,33 @@ class MainWindow(QWidget):
         self.favorite_button.style().unpolish(self.favorite_button)
         self.favorite_button.style().polish(self.favorite_button)
 
+    def toggle_english_saved_drawer(self):
+        if not hasattr(self, "english_saved_drawer"):
+            return
+        if not self.english_drawer_open:
+            self.english_saved_drawer.setVisible(True)
+        target_width = self.english_drawer_width if not self.english_drawer_open else 0
+        current_width = self.english_saved_drawer.maximumWidth()
+        self.english_saved_drawer_anim.stop()
+        self.english_saved_drawer_anim.setStartValue(current_width)
+        self.english_saved_drawer_anim.setEndValue(target_width)
+        self.english_saved_drawer_anim.start()
+        self.english_drawer_open = not self.english_drawer_open
+        if self.english_drawer_open:
+            self.english_saved_drawer_toggle.setText("Saved ▸")
+            self.english_saved_drawer_toggle.setToolTip("Hide saved drawer")
+        else:
+            self.english_saved_drawer_toggle.setText("Saved ◂")
+            self.english_saved_drawer_toggle.setToolTip("Show saved drawer")
+
+    def _on_english_drawer_anim_value(self, value):
+        width = int(value)
+        self.english_saved_drawer.setMinimumWidth(width)
+
+    def _on_english_drawer_anim_finished(self):
+        if not self.english_drawer_open:
+            self.english_saved_drawer.setVisible(False)
+
     def _load_english_collections(self):
         path = self.english_state_path
         if not path.exists():
@@ -783,15 +813,15 @@ class MainWindow(QWidget):
         self.clear_english_history_button.clicked.connect(self.on_clear_english_history_clicked)
 
         self.english_history_list = QListWidget()
-        self.english_history_list.setMinimumHeight(72 if self.compact_ui else 112)
-        self.english_history_list.setMaximumHeight(120 if self.compact_ui else 180)
+        self.english_history_list.setMinimumHeight(48 if self.compact_ui else 64)
+        self.english_history_list.setMaximumHeight(72 if self.compact_ui else 96)
         self.english_history_list.itemClicked.connect(self.on_english_history_item_clicked)
         self.english_history_list.setStyleSheet(
             "background-color: #0a1118; border: 1px solid #1f2a36; border-radius: 8px;"
         )
         self.english_favorites_list = QListWidget()
-        self.english_favorites_list.setMinimumHeight(72 if self.compact_ui else 112)
-        self.english_favorites_list.setMaximumHeight(120 if self.compact_ui else 180)
+        self.english_favorites_list.setMinimumHeight(48 if self.compact_ui else 64)
+        self.english_favorites_list.setMaximumHeight(72 if self.compact_ui else 96)
         self.english_favorites_list.itemClicked.connect(self.on_english_favorite_item_clicked)
         self.english_favorites_list.setStyleSheet(
             "background-color: #0a1118; border: 1px solid #1f2a36; border-radius: 8px;"
@@ -810,28 +840,60 @@ class MainWindow(QWidget):
         favorites_tab.setLayout(favorites_layout)
         self.english_saved_tabs.addTab(history_tab, "History")
         self.english_saved_tabs.addTab(favorites_tab, "Favorites")
+        self.english_saved_drawer = QWidget()
+        self.english_saved_drawer.setObjectName("savedDrawerPanel")
+        self.english_saved_drawer.setMinimumWidth(0)
+        self.english_saved_drawer.setMaximumWidth(0)
+        self.english_saved_drawer.setMaximumHeight(96 if self.compact_ui else 128)
+        self.english_saved_drawer.setVisible(False)
+        drawer_layout = QVBoxLayout()
+        drawer_layout.setContentsMargins(0, 0, 0, 0)
+        drawer_layout.setSpacing(0)
+        drawer_layout.addWidget(self.english_saved_tabs)
+        self.english_saved_drawer.setLayout(drawer_layout)
+        self.english_saved_drawer_toggle = QPushButton("Saved ◂")
+        self.english_saved_drawer_toggle.setObjectName("drawerHandleButton")
+        self.english_saved_drawer_toggle.setMinimumHeight(self.secondary_button_height)
+        self.english_saved_drawer_toggle.clicked.connect(self.toggle_english_saved_drawer)
+        self.english_saved_drawer_toggle.setToolTip("Show saved drawer")
+        self.english_saved_drawer_anim = QPropertyAnimation(
+            self.english_saved_drawer,
+            b"maximumWidth",
+            self,
+        )
+        self.english_saved_drawer_anim.setDuration(220)
+        self.english_saved_drawer_anim.setEasingCurve(QEasingCurve.InOutCubic)
+        self.english_saved_drawer_anim.valueChanged.connect(self._on_english_drawer_anim_value)
+        self.english_saved_drawer_anim.finished.connect(self._on_english_drawer_anim_finished)
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
+        controls_panel.setMaximumHeight(220 if self.compact_ui else 270)
         controls_layout = QVBoxLayout()
-        controls_layout.setContentsMargins(10, 8, 10, 8)
-        controls_layout.setSpacing(8 if self.compact_ui else 10)
+        controls_layout.setContentsMargins(8, 6, 8, 6)
+        controls_layout.setSpacing(6 if self.compact_ui else 8)
         controls_layout.addWidget(self.english_status_label)
         controls_layout.addWidget(self.english_tokens_label)
+        controls_layout.addStretch(1)
         controls_row = QHBoxLayout()
         controls_row.setSpacing(8 if self.compact_ui else 10)
         controls_row.addStretch(1)
         controls_row.addWidget(self.record_button, 0, Qt.AlignCenter)
         controls_row.addWidget(self.replay_button, 0, Qt.AlignCenter)
+        controls_row.addWidget(self.favorite_button, 0, Qt.AlignCenter)
         controls_row.addStretch(1)
         controls_layout.addLayout(controls_row)
         quick_row = QHBoxLayout()
         quick_row.setSpacing(8 if self.compact_ui else 10)
-        quick_row.addWidget(self.favorite_button)
         quick_row.addStretch(1)
         quick_row.addWidget(self.clear_english_history_button)
         controls_layout.addLayout(quick_row)
-        controls_layout.addWidget(self.english_saved_tabs)
+        drawer_row = QHBoxLayout()
+        drawer_row.setSpacing(8 if self.compact_ui else 10)
+        drawer_row.addStretch(1)
+        drawer_row.addWidget(self.english_saved_drawer_toggle, 0, Qt.AlignRight)
+        drawer_row.addWidget(self.english_saved_drawer)
+        controls_layout.addLayout(drawer_row)
         controls_panel.setLayout(controls_layout)
 
         page_layout.addWidget(self.english_animation_view, 1)
@@ -1336,6 +1398,23 @@ class MainWindow(QWidget):
                 background-color: #252c36;
                 color: #8a96a7;
                 border-color: #303947;
+            }
+            QPushButton#drawerHandleButton {
+                background-color: #1f2b3a;
+                border: 1px solid #36506e;
+                border-radius: 10px;
+                color: #cfe4ff;
+                font-weight: 700;
+                min-width: 86px;
+                padding: 6px 10px;
+            }
+            QPushButton#drawerHandleButton:hover {
+                background-color: #2a3d54;
+            }
+            QWidget#savedDrawerPanel {
+                background-color: #0b121a;
+                border: 1px solid #1f2a36;
+                border-radius: 10px;
             }
             QPushButton#secondaryButton {
                 background-color: #2b3441;
