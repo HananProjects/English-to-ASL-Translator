@@ -1,6 +1,7 @@
 from core.engine import english_to_asl, asl_to_english, _get_stt_backend
 from core.mic_utils import record_audio_until_stop
 from core.audio.vosk_listener import VoskListener
+import json
 import threading
 import subprocess
 import sys
@@ -8,9 +9,10 @@ import shutil
 import os
 import tempfile
 from datetime import datetime
+from pathlib import Path
 from PySide6.QtCore import QThread, Qt, QTimer, Signal
 from PySide6.QtGui import QPixmap, QGuiApplication
-from core.sequencing.sign_sequencer import sequence_signs
+from core.sequencing.sign_sequencer import sequence_signs, SignEvent
 from ui.widgets.animation_view import ASLAnimationView
 from ui.worker_camera import CameraWorker
 from PySide6.QtWidgets import (
@@ -23,6 +25,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QListWidget,
     QListWidgetItem,
+    QTabWidget,
 )
 
 try:
@@ -64,7 +67,15 @@ class MainWindow(QWidget):
         self.worker = None
         self.record_stop_event = None
         self.recording_in_progress = False
+        self.stt_ready = False
         self.last_english_sequence = None
+        self.last_english_entry = None
+        self.english_history_entries = []
+        self.english_favorite_entries = []
+        self.max_english_history = 40
+        self.english_state_path = (
+            Path(__file__).resolve().parents[1] / "data" / "english_asl_ui_state.json"
+        )
         self.vosk_init_in_progress = False
         self.camera_thread = None
         self.camera_worker = None
@@ -84,6 +95,7 @@ class MainWindow(QWidget):
         self.speaker_enabled = self.tts_backend != "none"
         self.compact_ui = self._detect_compact_ui()
         self.preview_min_height = 360 if self.compact_ui else 520
+        self.english_preview_min_height = 380 if self.compact_ui else 620
         self.primary_button_height = 48 if self.compact_ui else 60
         self.secondary_button_height = 34 if self.compact_ui else 40
         self.mini_button_height = 30 if self.compact_ui else 36
@@ -175,6 +187,9 @@ class MainWindow(QWidget):
         self.camera_error_received.connect(self.on_camera_error)
         self.camera_reset_requested.connect(self.on_camera_reset_requested)
 
+        self._load_english_collections()
+        self._refresh_english_collections_ui()
+
         self.start_camera()
 
         self.vosk = None
@@ -183,15 +198,16 @@ class MainWindow(QWidget):
 
     def on_record_clicked(self):
         if self.recording_in_progress:
+            self.on_stop_record_clicked()
             return
 
-        self.english_status_label.setText("Status: Recording... press Stop when done")
+        self.english_status_label.setText("Status: Recording... tap again to stop")
         self.english_tokens_label.setText("ASL Output:")
-        self.record_button.setEnabled(False)
-        self.stop_button.setEnabled(True)
+        self.record_button.setEnabled(True)
         self.replay_button.setEnabled(False)
         self.recording_in_progress = True
         self.record_stop_event = threading.Event()
+        self._refresh_record_toggle_button()
 
         if getattr(self, "vosk", None) is not None:
             self.vosk.stop()
@@ -202,7 +218,9 @@ class MainWindow(QWidget):
         if not self.recording_in_progress:
             return
         self.english_status_label.setText("Status: Stopping recording...")
-        self.stop_button.setEnabled(False)
+        self.recording_in_progress = False
+        self.record_button.setEnabled(False)
+        self._refresh_record_toggle_button()
         if self.record_stop_event is not None:
             self.record_stop_event.set()
 
@@ -212,11 +230,67 @@ class MainWindow(QWidget):
         self.english_status_label.setText("Status: Replaying last animation")
         self._play_english_sequence(self.last_english_sequence)
 
+    def on_add_favorite_clicked(self):
+        if not self.last_english_entry:
+            self.english_status_label.setText("Status: No animation to favorite yet")
+            self._refresh_favorite_button()
+            return
+        if self._contains_english_entry(self.english_favorite_entries, self.last_english_entry):
+            self.english_favorite_entries = [
+                entry
+                for entry in self.english_favorite_entries
+                if self._english_entry_signature(entry) != self._english_entry_signature(self.last_english_entry)
+            ]
+            self.english_status_label.setText("Status: Removed from favorites")
+        else:
+            self.english_favorite_entries.insert(0, self.last_english_entry)
+            self.english_status_label.setText("Status: Added to favorites")
+        self._refresh_english_collections_ui()
+        self._save_english_collections()
+        self._refresh_favorite_button()
+
+    def on_remove_favorite_clicked(self):
+        item = self.english_favorites_list.currentItem()
+        if item is None:
+            self.english_status_label.setText("Status: Select a favorite to remove")
+            return
+        row = self.english_favorites_list.row(item)
+        if row < 0 or row >= len(self.english_favorite_entries):
+            self.english_status_label.setText("Status: Favorite selection invalid")
+            return
+        del self.english_favorite_entries[row]
+        self._refresh_english_collections_ui()
+        self._save_english_collections()
+        self._refresh_favorite_button()
+        self.english_status_label.setText("Status: Favorite removed")
+
+    def on_clear_english_history_clicked(self):
+        self.english_history_entries.clear()
+        self._refresh_english_collections_ui()
+        self._save_english_collections()
+        self.english_status_label.setText("Status: History cleared")
+
+    def on_english_history_item_clicked(self, item: QListWidgetItem):
+        row = self.english_history_list.row(item)
+        if row < 0 or row >= len(self.english_history_entries):
+            self.english_status_label.setText("Status: History item unavailable")
+            return
+        entry = self.english_history_entries[row]
+        self._replay_english_entry(entry, source="history")
+
+    def on_english_favorite_item_clicked(self, item: QListWidgetItem):
+        row = self.english_favorites_list.row(item)
+        if row < 0 or row >= len(self.english_favorite_entries):
+            self.english_status_label.setText("Status: Favorite item unavailable")
+            return
+        entry = self.english_favorite_entries[row]
+        self._replay_english_entry(entry, source="favorites")
+
     def on_translation_finished(self, data):
         self.recording_in_progress = False
         self.record_stop_event = None
         self.record_button.setEnabled(True)
-        self.stop_button.setEnabled(False)
+        self._refresh_record_toggle_button()
         self.replay_button.setEnabled(bool(self.last_english_sequence))
         tokens = data["tokens"]
         heard_text = data.get("text", "")
@@ -243,6 +317,11 @@ class MainWindow(QWidget):
             return
 
         sequence = sequence_signs(tokens)
+        self._remember_english_result(
+            text=heard_text,
+            tokens=tokens,
+            sequence=sequence,
+        )
         self._play_english_sequence(sequence)
 
     def on_translation_error(self, message):
@@ -250,7 +329,7 @@ class MainWindow(QWidget):
         self.recording_in_progress = False
         self.record_stop_event = None
         self.record_button.setEnabled(True)
-        self.stop_button.setEnabled(False)
+        self._refresh_record_toggle_button()
         self.replay_button.setEnabled(bool(self.last_english_sequence))
         self.english_status_label.setText(f"Error: {message}")
 
@@ -358,6 +437,11 @@ class MainWindow(QWidget):
             )
 
         sequence = sequence_signs(tokens)
+        self._remember_english_result(
+            text=text,
+            tokens=tokens,
+            sequence=sequence,
+        )
         self._play_english_sequence(sequence)
 
     def _play_english_sequence(self, sequence):
@@ -365,8 +449,202 @@ class MainWindow(QWidget):
             return
         self.last_english_sequence = list(sequence)
         self.replay_button.setEnabled(True)
+        self._refresh_favorite_button()
         self.english_animation_view.disable_live_pose()
         self.english_animation_view.play(sequence)
+
+    def _refresh_record_toggle_button(self):
+        is_recording = self.recording_in_progress
+        self.record_button.setProperty("recording", is_recording)
+        self.record_button.setText("■" if is_recording else "●")
+        self.record_button.setToolTip(
+            "Stop recording" if is_recording else "Start recording"
+        )
+        self.record_button.style().unpolish(self.record_button)
+        self.record_button.style().polish(self.record_button)
+
+    def _remember_english_result(self, text: str, tokens: list, sequence: list):
+        if not tokens or not sequence:
+            return
+        entry = self._make_english_entry(text=text, tokens=tokens, sequence=sequence)
+        self.last_english_entry = entry
+        self._refresh_favorite_button()
+        if self._contains_english_entry(self.english_history_entries[:1], entry):
+            return
+        self.english_history_entries.insert(0, entry)
+        if len(self.english_history_entries) > self.max_english_history:
+            self.english_history_entries = self.english_history_entries[: self.max_english_history]
+        self._refresh_english_collections_ui()
+        self._save_english_collections()
+
+    def _replay_english_entry(self, entry: dict, source: str):
+        sequence = self._sequence_from_payload(entry.get("sequence"))
+        if not sequence:
+            tokens = entry.get("tokens", [])
+            sequence = sequence_signs(tokens)
+        if not sequence:
+            self.english_status_label.setText("Status: Unable to replay item")
+            return
+        self.last_english_entry = entry
+        self._refresh_favorite_button()
+        self.english_tokens_label.setText(
+            f"Detected ASL Tokens: {' '.join(entry.get('tokens', [])) or '(none)'}"
+        )
+        text = (entry.get("text") or "").strip()
+        if text:
+            self.english_status_label.setText(
+                f"Status: Replaying {source} item | Heard: {text}"
+            )
+        else:
+            self.english_status_label.setText(f"Status: Replaying {source} item")
+        self._play_english_sequence(sequence)
+
+    def _make_english_entry(self, text: str, tokens: list, sequence: list) -> dict:
+        now = datetime.now()
+        return {
+            "stamp": now.strftime("%H:%M:%S"),
+            "created_at": now.isoformat(timespec="seconds"),
+            "text": (text or "").strip(),
+            "tokens": list(tokens),
+            "sequence": self._sequence_to_payload(sequence),
+        }
+
+    def _sequence_to_payload(self, sequence: list) -> list:
+        payload = []
+        for evt in sequence:
+            payload.append(
+                {
+                    "token": evt.token,
+                    "clip": evt.clip,
+                    "start": float(evt.start),
+                    "duration": float(evt.duration),
+                }
+            )
+        return payload
+
+    def _sequence_from_payload(self, payload: list) -> list:
+        if not isinstance(payload, list):
+            return []
+        seq = []
+        for item in payload:
+            if not isinstance(item, dict):
+                continue
+            try:
+                seq.append(
+                    SignEvent(
+                        token=str(item.get("token", "")),
+                        clip=str(item.get("clip", "")),
+                        start=float(item.get("start", 0.0)),
+                        duration=float(item.get("duration", 0.0)),
+                    )
+                )
+            except Exception:
+                continue
+        return seq
+
+    def _contains_english_entry(self, entries: list, candidate: dict) -> bool:
+        for entry in entries:
+            if self._english_entry_signature(entry) == self._english_entry_signature(candidate):
+                return True
+        return False
+
+    def _english_entry_signature(self, entry: dict):
+        text = (entry.get("text") or "").strip().lower()
+        tokens = tuple(entry.get("tokens", []))
+        return text, tokens
+
+    def _format_english_entry(self, entry: dict) -> str:
+        stamp = entry.get("stamp") or "??:??:??"
+        text = (entry.get("text") or "").strip()
+        if text:
+            return f"[{stamp}] {text}"
+        return f"[{stamp}] {' '.join(entry.get('tokens', [])) or '(no tokens)'}"
+
+    def _refresh_english_collections_ui(self):
+        if hasattr(self, "english_history_list"):
+            self.english_history_list.clear()
+            for entry in self.english_history_entries:
+                self.english_history_list.addItem(self._format_english_entry(entry))
+        if hasattr(self, "english_favorites_list"):
+            self.english_favorites_list.clear()
+            for entry in self.english_favorite_entries:
+                self.english_favorites_list.addItem(self._format_english_entry(entry))
+        self._refresh_favorite_button()
+
+    def _refresh_favorite_button(self):
+        if not hasattr(self, "favorite_button"):
+            return
+        has_current = self.last_english_entry is not None
+        is_favorited = (
+            has_current
+            and self._contains_english_entry(
+                self.english_favorite_entries,
+                self.last_english_entry,
+            )
+        )
+        self.favorite_button.setEnabled(has_current)
+        self.favorite_button.setProperty("favorited", bool(is_favorited))
+        self.favorite_button.setText("★" if is_favorited else "☆")
+        self.favorite_button.setToolTip(
+            "Remove from favorites" if is_favorited else "Add to favorites"
+        )
+        self.favorite_button.style().unpolish(self.favorite_button)
+        self.favorite_button.style().polish(self.favorite_button)
+
+    def _load_english_collections(self):
+        path = self.english_state_path
+        if not path.exists():
+            return
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            history = data.get("history", [])
+            favorites = data.get("favorites", [])
+            self.english_history_entries = self._sanitize_english_entries(history)
+            self.english_favorite_entries = self._sanitize_english_entries(favorites)
+        except Exception as e:
+            print(f"[UI] failed loading English collections: {e}")
+            self.english_history_entries = []
+            self.english_favorite_entries = []
+
+    def _save_english_collections(self):
+        path = self.english_state_path
+        try:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            payload = {
+                "history": self.english_history_entries[: self.max_english_history],
+                "favorites": self.english_favorite_entries,
+            }
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(payload, f, indent=2)
+        except Exception as e:
+            print(f"[UI] failed saving English collections: {e}")
+
+    def _sanitize_english_entries(self, entries: list) -> list:
+        if not isinstance(entries, list):
+            return []
+        clean = []
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            text = (entry.get("text") or "").strip()
+            tokens = entry.get("tokens", [])
+            if not isinstance(tokens, list):
+                tokens = []
+            tokens = [str(tok) for tok in tokens if str(tok).strip()]
+            seq = self._sequence_from_payload(entry.get("sequence", []))
+            if not tokens and not seq:
+                continue
+            clean.append(
+                {
+                    "stamp": entry.get("stamp") or "??:??:??",
+                    "created_at": entry.get("created_at") or "",
+                    "text": text,
+                    "tokens": tokens,
+                    "sequence": self._sequence_to_payload(seq),
+                }
+            )
+        return clean[: self.max_english_history]
 
     def _start_vosk_async(self):
         if self.vosk is not None:
@@ -433,8 +711,9 @@ class MainWindow(QWidget):
             self.stt_warmup_received.emit(False)
 
     def _on_stt_warmup_complete(self, ok: bool):
-        self.record_button.setEnabled(True)
-        self.stop_button.setEnabled(False)
+        self.stt_ready = ok
+        self.record_button.setEnabled(ok)
+        self._refresh_record_toggle_button()
         if ok:
             self.english_status_label.setText("Status: Idle")
             self.mic_state_label.setText("Mic: Ready")
@@ -466,7 +745,7 @@ class MainWindow(QWidget):
         page_layout = QVBoxLayout()
 
         self.english_animation_view = ASLAnimationView()
-        self.english_animation_view.setMinimumHeight(self.preview_min_height)
+        self.english_animation_view.setMinimumHeight(self.english_preview_min_height)
         self.english_animation_view.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Expanding
         )
@@ -475,21 +754,62 @@ class MainWindow(QWidget):
         self.english_tokens_label = QLabel("Detected ASL Tokens:")
         self.english_tokens_label.setStyleSheet(f"font-size: {self.heading_font}px;")
 
-        self.record_button = QPushButton("Record")
-        self.record_button.setObjectName("primaryButton")
-        self.record_button.setMinimumHeight(self.primary_button_height)
+        self.record_button = QPushButton("●")
+        self.record_button.setObjectName("recordToggleButton")
+        record_size = 46 if self.compact_ui else 56
+        self.record_button.setFixedSize(record_size, record_size)
         self.record_button.clicked.connect(self.on_record_clicked)
         self.record_button.setEnabled(False)
-        self.stop_button = QPushButton("Stop")
-        self.stop_button.setObjectName("secondaryButton")
-        self.stop_button.setMinimumHeight(self.secondary_button_height)
-        self.stop_button.clicked.connect(self.on_stop_record_clicked)
-        self.stop_button.setEnabled(False)
-        self.replay_button = QPushButton("Replay")
-        self.replay_button.setObjectName("secondaryButton")
-        self.replay_button.setMinimumHeight(self.secondary_button_height)
+        self._refresh_record_toggle_button()
+        self.replay_button = QPushButton("↻")
+        self.replay_button.setObjectName("replayIconButton")
+        self.replay_button.setFixedSize(record_size, record_size)
         self.replay_button.clicked.connect(self.on_replay_clicked)
         self.replay_button.setEnabled(False)
+        self.replay_button.setToolTip("Replay last animation")
+        self.favorite_button = QPushButton("☆")
+        self.favorite_button.setObjectName("favoriteStarButton")
+        self.favorite_button.setFixedSize(record_size, record_size)
+        self.favorite_button.clicked.connect(self.on_add_favorite_clicked)
+        self.favorite_button.setEnabled(False)
+        self.favorite_button.setToolTip("Add to favorites")
+        self.remove_favorite_button = QPushButton("Remove Favorite")
+        self.remove_favorite_button.setObjectName("secondaryButton")
+        self.remove_favorite_button.setMinimumHeight(self.secondary_button_height)
+        self.remove_favorite_button.clicked.connect(self.on_remove_favorite_clicked)
+        self.clear_english_history_button = QPushButton("Clear History")
+        self.clear_english_history_button.setObjectName("secondaryButton")
+        self.clear_english_history_button.setMinimumHeight(self.secondary_button_height)
+        self.clear_english_history_button.clicked.connect(self.on_clear_english_history_clicked)
+
+        self.english_history_list = QListWidget()
+        self.english_history_list.setMinimumHeight(72 if self.compact_ui else 112)
+        self.english_history_list.setMaximumHeight(120 if self.compact_ui else 180)
+        self.english_history_list.itemClicked.connect(self.on_english_history_item_clicked)
+        self.english_history_list.setStyleSheet(
+            "background-color: #0a1118; border: 1px solid #1f2a36; border-radius: 8px;"
+        )
+        self.english_favorites_list = QListWidget()
+        self.english_favorites_list.setMinimumHeight(72 if self.compact_ui else 112)
+        self.english_favorites_list.setMaximumHeight(120 if self.compact_ui else 180)
+        self.english_favorites_list.itemClicked.connect(self.on_english_favorite_item_clicked)
+        self.english_favorites_list.setStyleSheet(
+            "background-color: #0a1118; border: 1px solid #1f2a36; border-radius: 8px;"
+        )
+        self.english_saved_tabs = QTabWidget()
+        self.english_saved_tabs.setObjectName("englishSavedTabs")
+        history_tab = QWidget()
+        history_layout = QVBoxLayout()
+        history_layout.setContentsMargins(6, 6, 6, 6)
+        history_layout.addWidget(self.english_history_list)
+        history_tab.setLayout(history_layout)
+        favorites_tab = QWidget()
+        favorites_layout = QVBoxLayout()
+        favorites_layout.setContentsMargins(6, 6, 6, 6)
+        favorites_layout.addWidget(self.english_favorites_list)
+        favorites_tab.setLayout(favorites_layout)
+        self.english_saved_tabs.addTab(history_tab, "History")
+        self.english_saved_tabs.addTab(favorites_tab, "Favorites")
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
@@ -500,10 +820,18 @@ class MainWindow(QWidget):
         controls_layout.addWidget(self.english_tokens_label)
         controls_row = QHBoxLayout()
         controls_row.setSpacing(8 if self.compact_ui else 10)
-        controls_row.addWidget(self.record_button)
-        controls_row.addWidget(self.stop_button)
-        controls_row.addWidget(self.replay_button)
+        controls_row.addStretch(1)
+        controls_row.addWidget(self.record_button, 0, Qt.AlignCenter)
+        controls_row.addWidget(self.replay_button, 0, Qt.AlignCenter)
+        controls_row.addStretch(1)
         controls_layout.addLayout(controls_row)
+        quick_row = QHBoxLayout()
+        quick_row.setSpacing(8 if self.compact_ui else 10)
+        quick_row.addWidget(self.favorite_button)
+        quick_row.addStretch(1)
+        quick_row.addWidget(self.clear_english_history_button)
+        controls_layout.addLayout(quick_row)
+        controls_layout.addWidget(self.english_saved_tabs)
         controls_panel.setLayout(controls_layout)
 
         page_layout.addWidget(self.english_animation_view, 1)
@@ -941,6 +1269,73 @@ class MainWindow(QWidget):
             }
             QPushButton#primaryButton:pressed {
                 background-color: #1a5ec0;
+            }
+            QPushButton#recordToggleButton {
+                background-color: #d93025;
+                border: 2px solid #ff8a80;
+                border-radius: 999px;
+                color: #ffffff;
+                font-weight: 800;
+                font-size: 24px;
+                padding: 0px;
+            }
+            QPushButton#recordToggleButton:hover {
+                background-color: #ef3b2d;
+                border-color: #ffaea7;
+            }
+            QPushButton#recordToggleButton:pressed {
+                background-color: #b3261e;
+            }
+            QPushButton#recordToggleButton[recording="true"] {
+                background-color: #ff3b30;
+                border-color: #ffc1bb;
+                border-radius: 8px;
+            }
+            QPushButton#recordToggleButton:disabled {
+                background-color: #6b2a26;
+                border-color: #7b3a35;
+                color: #f5c7c4;
+            }
+            QPushButton#replayIconButton {
+                background-color: #2b3441;
+                border: 1px solid #3a4657;
+                border-radius: 999px;
+                color: #d7dee7;
+                font-weight: 800;
+                font-size: 22px;
+                padding: 0px;
+            }
+            QPushButton#replayIconButton:hover {
+                background-color: #364255;
+            }
+            QPushButton#replayIconButton:pressed {
+                background-color: #1e2733;
+            }
+            QPushButton#replayIconButton:disabled {
+                background-color: #252c36;
+                color: #8a96a7;
+            }
+            QPushButton#favoriteStarButton {
+                background-color: #2b3441;
+                border: 1px solid #3a4657;
+                border-radius: 999px;
+                color: #d7dee7;
+                font-weight: 800;
+                font-size: 24px;
+                padding: 0px;
+            }
+            QPushButton#favoriteStarButton:hover {
+                background-color: #364255;
+            }
+            QPushButton#favoriteStarButton[favorited="true"] {
+                background-color: #4e430f;
+                border-color: #f2cc60;
+                color: #ffd84d;
+            }
+            QPushButton#favoriteStarButton:disabled {
+                background-color: #252c36;
+                color: #8a96a7;
+                border-color: #303947;
             }
             QPushButton#secondaryButton {
                 background-color: #2b3441;
