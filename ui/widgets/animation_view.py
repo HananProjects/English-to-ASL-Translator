@@ -30,6 +30,12 @@ class ASLAnimationView(QWidget):
     BODY_COLOR = QColor(246, 84, 92)
     BODY_SHADOW = QColor(18, 22, 30, 190)
     JOINT_COLOR = QColor(244, 247, 255)
+    VIEWPORT_LEFT = 0.08
+    VIEWPORT_RIGHT = 0.92
+    VIEWPORT_TOP = 0.04
+    VIEWPORT_BOTTOM = 0.90
+    FIT_TOP_PADDING = 0.08
+    FIT_BOTTOM_PADDING = 0.24
 
     def __init__(self):
         super().__init__()
@@ -88,18 +94,8 @@ class ASLAnimationView(QWidget):
                 self.live_pose
                 if self.use_live_pose and self.live_pose
                 else self._get_active_pose()
-            )   
-
-            def p(name):
-                if name not in pose:
-                    return None
-                x, y = pose[name]
-                x = max(0.0, min(1.0, float(x)))
-                y = max(0.0, min(1.0, float(y)))
-                return (
-                    int((0.04 + x * 0.92) * w),
-                    int((0.02 + y * 0.82) * h),
-                )
+            )
+            p = self._build_pose_mapper(pose, w, h)
 
             painter.setPen(QPen(self.BODY_SHADOW, 10, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             head = p("head")
@@ -163,6 +159,57 @@ class ASLAnimationView(QWidget):
 
         finally:
             painter.end()
+
+    def _build_pose_mapper(self, pose: dict, width: int, height: int):
+        points = []
+        for value in pose.values():
+            try:
+                x, y = value
+                points.append((float(x), float(y)))
+            except Exception:
+                continue
+
+        if not points:
+            def _empty_mapper(name):
+                return None
+            return _empty_mapper
+
+        min_x = min(x for x, _ in points)
+        max_x = max(x for x, _ in points)
+        min_y = min(y for _, y in points)
+        max_y = max(y for _, y in points)
+
+        span_x = max(max_x - min_x, 1e-3)
+        span_y = max(max_y - min_y, 1e-3)
+
+        left = self.VIEWPORT_LEFT * width
+        right = self.VIEWPORT_RIGHT * width
+        top = self.VIEWPORT_TOP * height
+        bottom = self.VIEWPORT_BOTTOM * height
+        view_w = max(1.0, right - left)
+        view_h = max(1.0, bottom - top)
+        top_pad_px = self.FIT_TOP_PADDING * height
+        bottom_pad_px = self.FIT_BOTTOM_PADDING * height
+        fit_h = max(1.0, view_h - top_pad_px - bottom_pad_px)
+
+        scale = min(view_w / span_x, fit_h / span_y)
+        used_w = span_x * scale
+        used_h = span_y * scale
+        offset_x = left + (view_w - used_w) * 0.5
+        offset_y = top + top_pad_px + (fit_h - used_h) * 0.5
+
+        def _mapper(name):
+            if name not in pose:
+                return None
+            try:
+                x, y = pose[name]
+            except Exception:
+                return None
+            px = offset_x + (float(x) - min_x) * scale
+            py = offset_y + (float(y) - min_y) * scale
+            return int(px), int(py)
+
+        return _mapper
 
     def _get_active_pose(self):
         if not self.sequence or self.start_time is None:
@@ -286,7 +333,9 @@ class ASLAnimationView(QWidget):
         shoulder_span = shoulder_r[0] - shoulder_l[0]
         torso_span = int(shoulder_span * 0.62)
         top_y = int((shoulder_l[1] + shoulder_r[1]) / 2) + 4
-        body_height = int(h * 0.24)
+        # Extend torso close to the lower viewport so full body reads naturally.
+        target_bottom_y = int(h * 0.94)
+        body_height = max(int(shoulder_span * 0.95), target_bottom_y - top_y)
         top_l = (cx - torso_span // 2 + offset[0], top_y + offset[1])
         top_r = (cx + torso_span // 2 + offset[0], top_y + offset[1])
         hip_l = (cx - int(torso_span * 0.46) + offset[0], top_y + body_height + offset[1])
