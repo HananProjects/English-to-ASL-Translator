@@ -67,12 +67,6 @@ class CameraWorker(QObject):
 
     def stop(self):
         self._running = False
-        if self._cap is not None:
-            try:
-                self._cap.release()
-            except Exception:
-                pass
-            self._cap = None
 
     def run(self):
         if cv2 is None or mp is None:

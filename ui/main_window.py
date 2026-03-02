@@ -60,6 +60,7 @@ class MainWindow(QWidget):
     camera_debug_received = Signal(str, float, int)
     camera_error_received = Signal(str)
     camera_reset_requested = Signal()
+    camera_stop_requested = Signal()
 
     def __init__(self):
         super().__init__()
@@ -1067,6 +1068,7 @@ class MainWindow(QWidget):
         self.camera_worker.error_ready.connect(self.camera_error_received.emit)
         self.camera_worker.sequence_ready.connect(self.camera_sequence_received.emit)
         self.camera_reset_requested.connect(self.camera_worker.reset_recognition_state)
+        self.camera_stop_requested.connect(self.camera_worker.stop)
         self.camera_thread.start()
         self.camera_running = True
         self.camera_state_label.setText("Camera: Ready")
@@ -1093,12 +1095,16 @@ class MainWindow(QWidget):
         thread = self.camera_thread
         if worker is not None:
             try:
-                worker.stop()
+                self.camera_stop_requested.emit()
             except Exception:
                 pass
         if thread is not None:
             try:
                 self.camera_reset_requested.disconnect(worker.reset_recognition_state)
+            except Exception:
+                pass
+            try:
+                self.camera_stop_requested.disconnect(worker.stop)
             except Exception:
                 pass
             thread.requestInterruption()
