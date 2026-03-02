@@ -1,4 +1,5 @@
 from core.engine import english_to_asl, asl_to_english, _get_stt_backend
+from core.battery_status import read_battery_status
 from core.mic_utils import record_audio_until_stop
 from core.audio.vosk_listener import VoskListener
 import json
@@ -115,6 +116,11 @@ class MainWindow(QWidget):
         self.body_font = 15 if self.compact_ui else 18
         self.heading_font = 18 if self.compact_ui else 22
         self.small_font = 12 if self.compact_ui else 14
+        self.battery_timer = QTimer(self)
+        self.battery_timer.setInterval(
+            _env_int("ASL_BATTERY_POLL_MS", 30000, min_value=1000)
+        )
+        self.battery_timer.timeout.connect(self.refresh_battery_status)
 
         self.setWindowTitle("English <-> ASL Translator")
         if self.portrait_ui:
@@ -184,7 +190,12 @@ class MainWindow(QWidget):
         state_row.setSpacing(8)
         self.mic_state_label = QLabel("Mic: Warming")
         self.camera_state_label = QLabel("Camera: Starting")
-        for label in (self.mic_state_label, self.camera_state_label):
+        self.battery_state_label = QLabel("Battery: Detecting")
+        for label in (
+            self.mic_state_label,
+            self.camera_state_label,
+            self.battery_state_label,
+        ):
             label.setObjectName("statusChip")
             state_row.addWidget(label)
         state_row.addStretch(1)
@@ -209,6 +220,8 @@ class MainWindow(QWidget):
         self.english_animation_view.disable_live_pose()
         self._refresh_mode_buttons()
         self._apply_demo_mode()
+        self.refresh_battery_status()
+        self.battery_timer.start()
 
         self.speech_text_received.connect(self.on_speech)
         self.record_result_received.connect(self.on_translation_finished)
@@ -438,6 +451,8 @@ class MainWindow(QWidget):
             self.close()
 
     def closeEvent(self, event):
+        self.battery_timer.stop()
+
         if self.thread is not None and self.thread.isRunning():
             self.thread.quit()
             self.thread.wait()
@@ -1317,6 +1332,10 @@ class MainWindow(QWidget):
             self.reverse_debug_label.show()
         self.demo_mode_button.style().unpolish(self.demo_mode_button)
         self.demo_mode_button.style().polish(self.demo_mode_button)
+
+    def refresh_battery_status(self):
+        status = read_battery_status()
+        self.battery_state_label.setText(status.label)
 
     def _detect_compact_ui(self) -> bool:
         touch_env = os.getenv("ASL_TOUCH_UI", "").strip().lower()
