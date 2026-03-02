@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import os
+import shutil
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -84,6 +86,55 @@ def _status_from_base(base: Path) -> BatteryStatus | None:
     )
 
 
+def _read_i2c_byte(bus: int, address: int, register: int) -> int | None:
+    i2cget = shutil.which("i2cget")
+    if not i2cget:
+        return None
+    try:
+        result = subprocess.run(
+            [i2cget, "-y", str(bus), hex(address), hex(register)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except Exception:
+        return None
+
+    raw = result.stdout.strip().lower()
+    if not raw.startswith("0x"):
+        return None
+    try:
+        return int(raw, 16)
+    except Exception:
+        return None
+
+
+def _read_max1704x_status() -> BatteryStatus | None:
+    bus = int(os.getenv("ASL_BATTERY_I2C_BUS", "1"))
+    address = int(os.getenv("ASL_BATTERY_I2C_ADDR", "0x36"), 0)
+
+    soc_msb = _read_i2c_byte(bus, address, 0x04)
+    soc_lsb = _read_i2c_byte(bus, address, 0x05)
+    vcell_msb = _read_i2c_byte(bus, address, 0x02)
+    vcell_lsb = _read_i2c_byte(bus, address, 0x03)
+
+    if soc_msb is None or soc_lsb is None:
+        return None
+
+    percent = int(max(0.0, min(100.0, soc_msb + (soc_lsb / 256.0))))
+    voltage = None
+    if vcell_msb is not None and vcell_lsb is not None:
+        raw_vcell = (vcell_msb << 4) | (vcell_lsb >> 4)
+        voltage = raw_vcell * 0.00125
+
+    return BatteryStatus(
+        available=True,
+        percent=percent,
+        voltage_volts=voltage,
+        source=f"i2c:{bus}:{hex(address)}",
+    )
+
+
 def read_battery_status() -> BatteryStatus:
     capacity_override = os.getenv("ASL_BATTERY_CAPACITY_PATH", "").strip()
     voltage_override = os.getenv("ASL_BATTERY_VOLTAGE_PATH", "").strip()
@@ -105,5 +156,9 @@ def read_battery_status() -> BatteryStatus:
             status = _status_from_base(device)
             if status is not None:
                 return status
+
+    max1704x_status = _read_max1704x_status()
+    if max1704x_status is not None:
+        return max1704x_status
 
     return BatteryStatus(available=False)
