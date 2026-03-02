@@ -223,8 +223,7 @@ class MainWindow(QWidget):
 
         self._load_english_collections()
         self._refresh_english_collections_ui()
-
-        self.start_camera()
+        self.set_mode(self.mode)
 
         self.vosk = None
         self.english_status_label.setText("Status: Loading speech model...")
@@ -790,8 +789,27 @@ class MainWindow(QWidget):
         self._refresh_mode_buttons()
         if mode == "english_to_asl":
             self.mode_badge_label.setText("English to ASL active")
+            if self.camera_running:
+                self.stop_camera(finalize_pending=False)
+            else:
+                self.camera_state_label.setText("Camera: Standby")
+                if hasattr(self, "camera_toggle_button"):
+                    self.camera_toggle_button.setText("Start Camera")
+                if hasattr(self, "reverse_status_label"):
+                    self.reverse_status_label.setText(
+                        "Status: Camera idle until ASL mode"
+                    )
+                if hasattr(self, "reverse_debug_label"):
+                    self.reverse_debug_label.setText(
+                        "Debug Match: (none) | conf=0.00 | streak=0"
+                    )
+                if hasattr(self, "camera_feed_label"):
+                    self.camera_feed_label.setPixmap(QPixmap())
+                    self.camera_feed_label.setText("Camera standby")
         else:
             self.mode_badge_label.setText("ASL to English active")
+            if not self.camera_running:
+                self.start_camera()
 
     def _refresh_mode_buttons(self):
         english_active = self.mode == "english_to_asl"
@@ -1062,13 +1080,15 @@ class MainWindow(QWidget):
             self.camera_feed_label.setText("Camera feed")
             self.camera_feed_label.setPixmap(QPixmap())
 
-    def stop_camera(self):
+    def stop_camera(self, finalize_pending: bool = True):
         if not self.camera_running:
             return
         translated_on_stop = False
-        if self.pending_camera_tokens:
+        if finalize_pending and self.pending_camera_tokens:
             self._finalize_camera_translation(list(self.pending_camera_tokens))
             translated_on_stop = True
+        elif not finalize_pending:
+            self.pending_camera_tokens.clear()
         worker = self.camera_worker
         thread = self.camera_thread
         if worker is not None:
