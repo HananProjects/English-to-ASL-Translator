@@ -129,13 +129,26 @@ class MainWindow(QWidget):
 
         self.mode = "english_to_asl"
 
-        mode_row = QHBoxLayout()
-        self.mode_badge_label = QLabel("Mode: English -> ASL")
-        self.mode_badge_label.setStyleSheet(
-            f"font-size: {self.small_font}px; font-weight: 700; color: #005ecb; "
-            "background-color: #e8f2ff; border: 1px solid #c7dcff; "
-            "border-radius: 10px; padding: 6px 10px;"
-        )
+        header_panel = QWidget()
+        header_panel.setObjectName("topPanel")
+        header_layout = QVBoxLayout()
+        header_layout.setContentsMargins(16, 14, 16, 14)
+        header_layout.setSpacing(10 if self.compact_ui else 12)
+
+        title_row = QHBoxLayout()
+        title_row.setSpacing(10)
+        title_copy = QVBoxLayout()
+        title_copy.setSpacing(2)
+        self.header_title_label = QLabel("English <-> ASL")
+        self.header_title_label.setObjectName("pageTitle")
+        self.header_subtitle_label = QLabel("Real-time translation in a clean two-mode workspace")
+        self.header_subtitle_label.setObjectName("pageSubtitle")
+        title_copy.addWidget(self.header_title_label)
+        title_copy.addWidget(self.header_subtitle_label)
+        title_row.addLayout(title_copy, 1)
+
+        self.mode_badge_label = QLabel("English to ASL active")
+        self.mode_badge_label.setObjectName("modeBadge")
         self.english_mode_button = QPushButton(
             "E -> ASL" if self.compact_ui else "English -> ASL"
         )
@@ -153,28 +166,31 @@ class MainWindow(QWidget):
             lambda: self.set_mode("asl_to_english")
         )
         self.demo_mode_button.clicked.connect(self.toggle_demo_mode)
-        self.demo_mode_button.setStyleSheet(
-            f"font-size: {self.small_font}px; font-weight: 700; height: {self.mini_button_height}px; "
-            "background-color: #34c759; color: #ffffff; border: 1px solid #2ba84a; border-radius: 10px;"
-        )
-        mode_row.addWidget(self.mode_badge_label)
+        title_row.addWidget(self.mode_badge_label, 0, Qt.AlignTop)
+        title_row.addWidget(self.demo_mode_button, 0, Qt.AlignTop)
+        header_layout.addLayout(title_row)
+
+        mode_shell = QWidget()
+        mode_shell.setObjectName("modeShell")
+        mode_row = QHBoxLayout()
+        mode_row.setContentsMargins(6, 6, 6, 6)
+        mode_row.setSpacing(6)
         mode_row.addWidget(self.english_mode_button)
         mode_row.addWidget(self.reverse_mode_button)
-        mode_row.addStretch(1)
-        mode_row.addWidget(self.demo_mode_button)
-        layout.addLayout(mode_row)
+        mode_shell.setLayout(mode_row)
+        header_layout.addWidget(mode_shell)
 
         state_row = QHBoxLayout()
+        state_row.setSpacing(8)
         self.mic_state_label = QLabel("Mic: Warming")
         self.camera_state_label = QLabel("Camera: Starting")
         for label in (self.mic_state_label, self.camera_state_label):
-            label.setStyleSheet(
-                f"font-size: {self.small_font}px; color: #3a3a3c; "
-                "background-color: #ffffff; border: 1px solid #d1d1d6; border-radius: 9px; padding: 5px 9px;"
-            )
+            label.setObjectName("statusChip")
             state_row.addWidget(label)
         state_row.addStretch(1)
-        layout.addLayout(state_row)
+        header_layout.addLayout(state_row)
+        header_panel.setLayout(header_layout)
+        layout.addWidget(header_panel)
 
         self.mode_stack = QStackedWidget()
         self.mode_stack.addWidget(self._build_english_to_asl_page())
@@ -773,9 +789,9 @@ class MainWindow(QWidget):
         self.mode_stack.setCurrentIndex(0 if mode == "english_to_asl" else 1)
         self._refresh_mode_buttons()
         if mode == "english_to_asl":
-            self.mode_badge_label.setText("Mode: English -> ASL")
+            self.mode_badge_label.setText("English to ASL active")
         else:
-            self.mode_badge_label.setText("Mode: ASL -> English")
+            self.mode_badge_label.setText("ASL to English active")
 
     def _refresh_mode_buttons(self):
         english_active = self.mode == "english_to_asl"
@@ -790,14 +806,15 @@ class MainWindow(QWidget):
         page_layout = QVBoxLayout()
 
         self.english_animation_view = ASLAnimationView()
+        self.english_animation_view.setObjectName("previewSurface")
         self.english_animation_view.setMinimumHeight(self.english_preview_min_height)
         self.english_animation_view.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Expanding
         )
         self.english_status_label = QLabel("Status: Idle")
-        self.english_status_label.setStyleSheet(f"font-size: {self.body_font}px;")
+        self.english_status_label.setObjectName("statusLine")
         self.english_tokens_label = QLabel("Detected ASL Tokens:")
-        self.english_tokens_label.setStyleSheet(f"font-size: {self.heading_font}px;")
+        self.english_tokens_label.setObjectName("heroValue")
 
         self.record_button = QPushButton("●")
         self.record_button.setObjectName("recordToggleButton")
@@ -820,11 +837,11 @@ class MainWindow(QWidget):
         self.favorite_button.setToolTip("Add to favorites")
         self.remove_favorite_button = QPushButton("Remove Favorite")
         self.remove_favorite_button.setObjectName("secondaryButton")
-        self.remove_favorite_button.setMinimumHeight(self.secondary_button_height)
+        self.remove_favorite_button.setMinimumHeight(self.mini_button_height)
         self.remove_favorite_button.clicked.connect(self.on_remove_favorite_clicked)
         self.clear_english_history_button = QPushButton("Clear History")
         self.clear_english_history_button.setObjectName("secondaryButton")
-        self.clear_english_history_button.setMinimumHeight(self.secondary_button_height)
+        self.clear_english_history_button.setMinimumHeight(self.mini_button_height)
         self.clear_english_history_button.clicked.connect(self.on_clear_english_history_clicked)
 
         self.english_history_list = QListWidget()
@@ -885,11 +902,10 @@ class MainWindow(QWidget):
         controls_panel.setObjectName("bottomPanel")
         controls_panel.setMaximumHeight(self.english_controls_max_height)
         controls_layout = QVBoxLayout()
-        controls_layout.setContentsMargins(8, 6, 8, 6)
-        controls_layout.setSpacing(6 if self.compact_ui else 8)
+        controls_layout.setContentsMargins(14, 12, 14, 12)
+        controls_layout.setSpacing(8 if self.compact_ui else 10)
         controls_layout.addWidget(self.english_status_label)
         controls_layout.addWidget(self.english_tokens_label)
-        controls_layout.addStretch(1)
         controls_row = QHBoxLayout()
         controls_row.setSpacing(8 if self.compact_ui else 10)
         controls_row.addStretch(1)
@@ -901,13 +917,16 @@ class MainWindow(QWidget):
         quick_row = QHBoxLayout()
         quick_row.setSpacing(8 if self.compact_ui else 10)
         quick_row.addStretch(1)
+        quick_row.addWidget(self.remove_favorite_button)
         quick_row.addWidget(self.clear_english_history_button)
+        quick_row.addWidget(self.english_saved_drawer_toggle)
+        quick_row.addStretch(1)
         controls_layout.addLayout(quick_row)
         drawer_row = QHBoxLayout()
         drawer_row.setSpacing(8 if self.compact_ui else 10)
         drawer_row.addStretch(1)
-        drawer_row.addWidget(self.english_saved_drawer_toggle, 0, Qt.AlignRight)
         drawer_row.addWidget(self.english_saved_drawer)
+        drawer_row.addStretch(1)
         controls_layout.addLayout(drawer_row)
         controls_panel.setLayout(controls_layout)
 
@@ -923,24 +942,21 @@ class MainWindow(QWidget):
         page_layout = QVBoxLayout()
 
         self.camera_feed_label = QLabel("Camera feed")
+        self.camera_feed_label.setObjectName("previewSurface")
         self.camera_feed_label.setMinimumHeight(self.preview_min_height)
         self.camera_feed_label.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Expanding
         )
         self.camera_feed_label.setAlignment(Qt.AlignCenter)
-        self.camera_feed_label.setStyleSheet(
-            "background-color: #ffffff; border: 1px solid #d1d1d6; "
-            f"border-radius: 14px; font-size: {self.body_font}px; color: #6b7280;"
-        )
         self.reverse_status_label = QLabel("Status: Camera listening...")
-        self.reverse_status_label.setStyleSheet(f"font-size: {self.body_font}px;")
+        self.reverse_status_label.setObjectName("statusLine")
         self.reverse_debug_label = QLabel("Debug Match: (none) | conf=0.00 | streak=0")
-        self.reverse_debug_label.setStyleSheet(f"font-size: {self.small_font}px; color: #8e8e93;")
+        self.reverse_debug_label.setObjectName("debugLine")
         self.camera_label = QLabel("Detected ASL Tokens:")
-        self.camera_label.setStyleSheet(f"font-size: {self.body_font + 2}px;")
+        self.camera_label.setObjectName("statusLine")
         self.reverse_label = QLabel("English Translation:")
         self.reverse_label.setWordWrap(True)
-        self.reverse_label.setStyleSheet(f"font-size: {self.heading_font}px;")
+        self.reverse_label.setObjectName("heroValue")
         self.camera_toggle_button = QPushButton("Stop Camera")
         self.camera_toggle_button.setObjectName("secondaryButton")
         self.camera_toggle_button.setMinimumHeight(self.secondary_button_height)
@@ -967,7 +983,7 @@ class MainWindow(QWidget):
             self.speaker_button.setText("Speaker: OFF")
 
         self.history_label = QLabel("History")
-        self.history_label.setStyleSheet(f"font-size: {self.body_font}px; font-weight: 700;")
+        self.history_label.setObjectName("sectionLabel")
         self.history_list = QListWidget()
         self.history_list.setMinimumHeight(52 if self.compact_ui else 70)
         self.history_list.setMaximumHeight(78 if self.compact_ui else 96)
@@ -979,8 +995,8 @@ class MainWindow(QWidget):
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
         controls_layout = QVBoxLayout()
-        controls_layout.setContentsMargins(10, 8, 10, 8)
-        controls_layout.setSpacing(4 if self.compact_ui else 6)
+        controls_layout.setContentsMargins(14, 12, 14, 12)
+        controls_layout.setSpacing(8 if self.compact_ui else 10)
         controls_layout.addWidget(self.reverse_status_label)
         controls_layout.addWidget(self.reverse_debug_label)
         controls_layout.addWidget(self.camera_label)
@@ -1272,20 +1288,15 @@ class MainWindow(QWidget):
         self._apply_demo_mode()
 
     def _apply_demo_mode(self):
+        self.demo_mode_button.setProperty("enabledState", self.demo_mode)
         if self.demo_mode:
             self.demo_mode_button.setText("Demo Mode: ON")
-            self.demo_mode_button.setStyleSheet(
-                f"font-size: {self.small_font}px; font-weight: 700; height: {self.mini_button_height}px; "
-                "background-color: #34c759; color: #ffffff; border: 1px solid #2ba84a; border-radius: 10px;"
-            )
             self.reverse_debug_label.hide()
         else:
             self.demo_mode_button.setText("Demo Mode: OFF")
-            self.demo_mode_button.setStyleSheet(
-                f"font-size: {self.small_font}px; font-weight: 700; height: {self.mini_button_height}px; "
-                "background-color: #8e8e93; color: #ffffff; border: 1px solid #7d7d82; border-radius: 10px;"
-            )
             self.reverse_debug_label.show()
+        self.demo_mode_button.style().unpolish(self.demo_mode_button)
+        self.demo_mode_button.style().polish(self.demo_mode_button)
 
     def _detect_compact_ui(self) -> bool:
         touch_env = os.getenv("ASL_TOUCH_UI", "").strip().lower()
@@ -1315,57 +1326,115 @@ class MainWindow(QWidget):
         demo_height = self.mini_button_height
         css = """
             QWidget {
-                background-color: #f2f2f7;
-                color: #1c1c1e;
+                background-color: #eef2f7;
+                color: #111827;
                 font-family: "SF Pro Text", ".AppleSystemUIFont", "Helvetica Neue", sans-serif;
             }
             QLabel {
-                color: #1c1c1e;
+                color: #111827;
+                background: transparent;
             }
             QStackedWidget {
                 background-color: transparent;
                 border: none;
             }
+            QWidget#topPanel,
+            QWidget#bottomPanel,
+            QWidget#savedDrawerPanel {
+                background-color: #fbfcfe;
+                border: 1px solid #d8e0ea;
+                border-radius: 20px;
+            }
+            QWidget#modeShell {
+                background-color: #e9eef5;
+                border: 1px solid #d8e0ea;
+                border-radius: 18px;
+            }
+            QLabel#pageTitle {
+                font-size: 24px;
+                font-weight: 700;
+                letter-spacing: 0.2px;
+            }
+            QLabel#pageSubtitle {
+                color: #6b7280;
+                font-size: 13px;
+            }
+            QLabel#modeBadge {
+                color: #0b63ce;
+                background-color: #e7f0ff;
+                border: 1px solid #c8dafc;
+                border-radius: 12px;
+                padding: 6px 10px;
+                font-size: 12px;
+                font-weight: 700;
+            }
+            QLabel#statusChip {
+                color: #334155;
+                background-color: #f4f7fb;
+                border: 1px solid #d8e0ea;
+                border-radius: 11px;
+                padding: 5px 10px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+            QLabel#statusLine {
+                font-size: 13px;
+                color: #475569;
+                font-weight: 600;
+            }
+            QLabel#debugLine {
+                font-size: 12px;
+                color: #94a3b8;
+            }
+            QLabel#heroValue {
+                font-size: 19px;
+                font-weight: 700;
+                color: #0f172a;
+                padding-top: 2px;
+            }
+            QLabel#sectionLabel {
+                font-size: 13px;
+                font-weight: 700;
+                color: #475569;
+            }
+            QLabel#previewSurface,
+            QWidget#previewSurface {
+                background-color: #f8fafc;
+                border: 1px solid #d8e0ea;
+                border-radius: 24px;
+                color: #94a3b8;
+            }
             QPushButton {
                 background-color: #ffffff;
-                border: 1px solid #d1d1d6;
-                border-radius: 10px;
-                color: #1c1c1e;
+                border: 1px solid #d8e0ea;
+                border-radius: 14px;
+                color: #0f172a;
                 padding: 8px 14px;
             }
             QPushButton:hover {
-                background-color: #f7f7fa;
-                border-color: #c8c7cc;
+                background-color: #f8fafc;
+                border-color: #cbd5e1;
             }
             QPushButton:pressed {
-                background-color: #ececf1;
+                background-color: #edf2f7;
             }
             QPushButton#modeButton {
                 font-size: __MODE_FONT__px;
                 font-weight: 700;
                 min-height: __MODE_HEIGHT__px;
+                border-radius: 12px;
+                border-color: transparent;
+                background-color: transparent;
+                color: #64748b;
             }
             QPushButton#modeButton[active="true"] {
-                background-color: #007aff;
-                border-color: #0062cc;
-                color: #ffffff;
-                font-weight: 700;
-            }
-            QPushButton#primaryButton {
-                background-color: #007aff;
-                border-color: #0062cc;
-                color: #ffffff;
-                font-weight: 700;
-            }
-            QPushButton#primaryButton:hover {
-                background-color: #1a86ff;
-            }
-            QPushButton#primaryButton:pressed {
-                background-color: #0066d6;
+                background-color: #ffffff;
+                border-color: #d8e0ea;
+                color: #0b63ce;
             }
             QPushButton#recordToggleButton {
-                background-color: #ff3b30;
-                border: 2px solid #ffb1ac;
+                background-color: #ff5a52;
+                border: 2px solid #ffd0cc;
                 border-radius: 999px;
                 color: #ffffff;
                 font-weight: 800;
@@ -1373,126 +1442,130 @@ class MainWindow(QWidget):
                 padding: 0px;
             }
             QPushButton#recordToggleButton:hover {
-                background-color: #ff5148;
-                border-color: #ffcbc7;
+                background-color: #ff6b63;
+                border-color: #ffe3e0;
             }
             QPushButton#recordToggleButton:pressed {
-                background-color: #e2342a;
+                background-color: #ef4d45;
             }
             QPushButton#recordToggleButton[recording="true"] {
-                background-color: #ff3b30;
-                border-color: #ffd8d5;
-                border-radius: 8px;
+                background-color: #ff5a52;
+                border-color: #ffe7e5;
+                border-radius: 14px;
             }
             QPushButton#recordToggleButton:disabled {
-                background-color: #f3b4b1;
-                border-color: #e8a2a0;
+                background-color: #f5b7b3;
+                border-color: #edc1be;
                 color: #ffffff;
             }
-            QPushButton#replayIconButton {
-                background-color: #ffffff;
-                border: 1px solid #d1d1d6;
-                border-radius: 999px;
-                color: #6e6e73;
-                font-weight: 800;
-                font-size: 22px;
-                padding: 0px;
-            }
-            QPushButton#replayIconButton:hover {
-                background-color: #f2f2f7;
-            }
-            QPushButton#replayIconButton:pressed {
-                background-color: #e9e9ee;
-            }
-            QPushButton#replayIconButton:disabled {
-                background-color: #f7f7fa;
-                color: #b0b0b6;
-            }
+            QPushButton#replayIconButton,
             QPushButton#favoriteStarButton {
                 background-color: #ffffff;
-                border: 1px solid #d1d1d6;
+                border: 1px solid #d8e0ea;
                 border-radius: 999px;
-                color: #8e8e93;
-                font-weight: 800;
-                font-size: 24px;
                 padding: 0px;
             }
+            QPushButton#replayIconButton {
+                color: #64748b;
+                font-weight: 800;
+                font-size: 22px;
+            }
+            QPushButton#favoriteStarButton {
+                color: #94a3b8;
+                font-weight: 800;
+                font-size: 24px;
+            }
+            QPushButton#replayIconButton:hover,
             QPushButton#favoriteStarButton:hover {
-                background-color: #f2f2f7;
+                background-color: #f8fafc;
+            }
+            QPushButton#replayIconButton:pressed,
+            QPushButton#favoriteStarButton:pressed {
+                background-color: #edf2f7;
+            }
+            QPushButton#replayIconButton:disabled,
+            QPushButton#favoriteStarButton:disabled {
+                background-color: #f8fafc;
+                color: #cbd5e1;
+                border-color: #e2e8f0;
             }
             QPushButton#favoriteStarButton[favorited="true"] {
-                background-color: #fff9e6;
-                border-color: #f2c94c;
-                color: #ffcc00;
+                background-color: #fff8e7;
+                border-color: #f7d774;
+                color: #eab308;
             }
-            QPushButton#favoriteStarButton:disabled {
-                background-color: #f7f7fa;
-                color: #b0b0b6;
-                border-color: #e2e2e8;
-            }
-            QPushButton#drawerHandleButton {
-                background-color: #ffffff;
-                border: 1px solid #c7d7ef;
-                border-radius: 10px;
-                color: #007aff;
-                font-weight: 700;
-                min-width: 86px;
-                padding: 6px 10px;
-            }
-            QPushButton#drawerHandleButton:hover {
-                background-color: #f2f8ff;
-            }
-            QWidget#savedDrawerPanel {
-                background-color: #ffffff;
-                border: 1px solid #d1d1d6;
-                border-radius: 10px;
-            }
+            QPushButton#drawerHandleButton,
             QPushButton#secondaryButton {
                 background-color: #ffffff;
-                border-color: #d1d1d6;
-                color: #1c1c1e;
+                border-color: #d8e0ea;
+                color: #334155;
                 font-weight: 600;
             }
+            QPushButton#drawerHandleButton {
+                color: #0b63ce;
+                min-width: 86px;
+                padding: 6px 12px;
+            }
+            QPushButton#drawerHandleButton:hover,
             QPushButton#secondaryButton:hover {
-                background-color: #f2f2f7;
+                background-color: #f8fafc;
+            }
+            QPushButton#drawerHandleButton:pressed,
+            QPushButton#secondaryButton:pressed {
+                background-color: #edf2f7;
             }
             QPushButton#demoButton {
-                border-radius: 10px;
                 min-height: __DEMO_HEIGHT__px;
+                border-radius: 12px;
+                padding: 6px 12px;
+                font-size: 12px;
+                font-weight: 700;
             }
-            QWidget#bottomPanel {
-                background-color: #ffffff;
-                border: 1px solid #d1d1d6;
-                border-radius: 14px;
+            QPushButton#demoButton[enabledState="true"] {
+                background-color: #34c759;
+                border-color: #2aa44b;
+                color: #ffffff;
+            }
+            QPushButton#demoButton[enabledState="false"] {
+                background-color: #94a3b8;
+                border-color: #7b8aa1;
+                color: #ffffff;
             }
             QListWidget {
                 background-color: #ffffff;
-                border: 1px solid #d1d1d6;
+                border: 1px solid #d8e0ea;
+                border-radius: 14px;
+                color: #111827;
+                padding: 4px;
+            }
+            QListWidget::item {
+                padding: 6px 8px;
                 border-radius: 10px;
-                color: #1c1c1e;
             }
             QListWidget::item:selected {
-                background-color: #dbeafe;
+                background-color: #e7f0ff;
                 color: #0f172a;
             }
             QTabWidget::pane {
-                border: 1px solid #d1d1d6;
-                border-radius: 10px;
+                border: 1px solid #d8e0ea;
+                border-radius: 14px;
                 background: #ffffff;
+                top: -1px;
             }
             QTabBar::tab {
-                background: #f2f2f7;
-                border: 1px solid #d1d1d6;
+                background: #eef2f7;
+                border: 1px solid #d8e0ea;
                 border-bottom: none;
-                padding: 5px 12px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-                color: #3a3a3c;
+                padding: 6px 14px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                color: #64748b;
+                font-weight: 600;
             }
             QTabBar::tab:selected {
-                background: #007aff;
-                color: #ffffff;
-                border-color: #0062cc;
+                background: #ffffff;
+                color: #0b63ce;
+                border-color: #d8e0ea;
             }
             """
         css = css.replace("__MODE_FONT__", str(mode_font))
