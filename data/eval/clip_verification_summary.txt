@@ -1,0 +1,10 @@
+clips_checked=337
+likely_ok=332
+suspicious=5
+
+Top suspicious clips:
+water_3.json | token=WATER | dur=5.083s | reasons=too_long_>5s
+thank_you_1.json | token=THANK_YOU | dur=4.25s | reasons=duration_outlier_vs_token_variants
+me_1.json | token=ME | dur=4.167s | reasons=duration_outlier_vs_token_variants
+hello_4.json | token=HELLO | dur=3.167s | reasons=duration_outlier_vs_token_variants
+water_2.json | token=WATER | dur=1.583s | reasons=low_motion

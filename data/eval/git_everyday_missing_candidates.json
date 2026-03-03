@@ -1,0 +1,137 @@
+{
+  "source": "data/external/SignLanguage/frontend/utils/signLanguageVideo.json",
+  "note": "Curated everyday-context candidates not present as exact local clip tokens.",
+  "count": 26,
+  "candidates": [
+    {
+      "category": "hospital",
+      "title": "doctor",
+      "url": "https://www.youtube.com/watch?v=Mti880uuUZ8"
+    },
+    {
+      "category": "hospital",
+      "title": "nurse",
+      "url": "https://www.youtube.com/watch?v=obSpztJnkaQ"
+    },
+    {
+      "category": "hospital",
+      "title": "clinic",
+      "url": "https://www.youtube.com/watch?v=D8YCaMxMCkY"
+    },
+    {
+      "category": "hospital",
+      "title": "appointment",
+      "url": "https://www.youtube.com/watch?v=Yn_Krim_UGI"
+    },
+    {
+      "category": "hospital",
+      "title": "medicine bottle",
+      "url": "https://www.youtube.com/watch?v=vOJmY0ZilmE"
+    },
+    {
+      "category": "hospital",
+      "title": "medicine cabinet",
+      "url": "https://www.youtube.com/watch?v=bRkFcboQikg"
+    },
+    {
+      "category": "hospital",
+      "title": "family doctor",
+      "url": "https://www.youtube.com/watch?v=tQdihN7K6cM"
+    },
+    {
+      "category": "hospital",
+      "title": "doctor s round",
+      "url": "https://www.youtube.com/watch?v=YScshc9yHUo"
+    },
+    {
+      "category": "hospital",
+      "title": "hospitalization stay in hospital",
+      "url": "https://www.youtube.com/watch?v=w5ftC4AE214"
+    },
+    {
+      "category": "hospital",
+      "title": "nursing hospital",
+      "url": "https://www.youtube.com/watch?v=Xlpulnj6fiA"
+    },
+    {
+      "category": "hospital",
+      "title": "maternity hospital",
+      "url": "https://www.youtube.com/watch?v=8Yw0507i5TQ"
+    },
+    {
+      "category": "hospital",
+      "title": "painkiller",
+      "url": "https://www.youtube.com/watch?v=-1A37hZHZTU"
+    },
+    {
+      "category": "hospital",
+      "title": "surgery",
+      "url": "https://www.youtube.com/watch?v=gY3JiiVSEGo"
+    },
+    {
+      "category": "hospital",
+      "title": "brain surgery",
+      "url": "https://www.youtube.com/watch?v=od8TgOaP-tc"
+    },
+    {
+      "category": "school",
+      "title": "teacher",
+      "url": "https://www.youtube.com/watch?v=c3WqY3MmM9o"
+    },
+    {
+      "category": "school",
+      "title": "parent teacher meeting",
+      "url": "https://www.youtube.com/watch?v=DO2AwOFkWjc"
+    },
+    {
+      "category": "school",
+      "title": "principal s office",
+      "url": "https://www.youtube.com/watch?v=gqpC_uoJJrQ"
+    },
+    {
+      "category": "school",
+      "title": "parochial school",
+      "url": "https://www.youtube.com/watch?v=ptAAZaftEeI"
+    },
+    {
+      "category": "school",
+      "title": "physical examination",
+      "url": "https://www.youtube.com/watch?v=4T1R88yEXaA"
+    },
+    {
+      "category": "school",
+      "title": "class act",
+      "url": "https://www.youtube.com/watch?v=nHo51qVXJ7Q"
+    },
+    {
+      "category": "restaurant",
+      "title": "waiter",
+      "url": "https://www.youtube.com/watch?v=x_hAi_901cI"
+    },
+    {
+      "category": "restaurant",
+      "title": "waitress",
+      "url": "https://www.youtube.com/watch?v=Dh0LuYkGqDo"
+    },
+    {
+      "category": "restaurant",
+      "title": "table",
+      "url": "https://www.youtube.com/watch?v=q16SyM_un9Q"
+    },
+    {
+      "category": "restaurant",
+      "title": "allergy",
+      "url": "https://www.youtube.com/watch?v=RRCx_5uPEBM"
+    },
+    {
+      "category": "restaurant",
+      "title": "allergy sufferer",
+      "url": "https://www.youtube.com/watch?v=wZ7kQjv9kFY"
+    },
+    {
+      "category": "restaurant",
+      "title": "diner small local restaurant",
+      "url": "https://www.youtube.com/watch?v=VXeXbA9jb4o"
+    }
+  ]
+}

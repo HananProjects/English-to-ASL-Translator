@@ -1,0 +1,61 @@
+{
+  "saved": [
+    {
+      "source": "data\\external\\general_videos_reactions\\a_ok.mp4",
+      "label": "A_OK",
+      "clip": "a_ok_1",
+      "frame_count": 43,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.5116279069767442
+    },
+    {
+      "source": "data\\external\\general_videos_reactions\\dizzy.mp4",
+      "label": "DIZZY",
+      "clip": "dizzy_1",
+      "frame_count": 98,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7040816326530612
+    },
+    {
+      "source": "data\\external\\general_videos_reactions\\emergency.mp4",
+      "label": "EMERGENCY",
+      "clip": "emergency_1",
+      "frame_count": 37,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8648648648648649
+    },
+    {
+      "source": "data\\external\\general_videos_reactions\\hurt.mp4",
+      "label": "HURT",
+      "clip": "hurt_1",
+      "frame_count": 16,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8125
+    },
+    {
+      "source": "data\\external\\general_videos_reactions\\really.mp4",
+      "label": "REALLY",
+      "clip": "really_1",
+      "frame_count": 15,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7333333333333333
+    },
+    {
+      "source": "data\\external\\general_videos_reactions\\really_response.mp4",
+      "label": "REALLY_RESPONSE",
+      "clip": "really_response_1",
+      "frame_count": 21,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8095238095238095
+    },
+    {
+      "source": "data\\external\\general_videos_reactions\\wow.mp4",
+      "label": "WOW",
+      "clip": "wow_1",
+      "frame_count": 33,
+      "pose_ratio": 1.0,
+      "hand_ratio": 1.0
+    }
+  ],
+  "skipped": []
+}

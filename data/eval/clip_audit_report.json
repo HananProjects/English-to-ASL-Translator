@@ -1,0 +1,205 @@
+{
+  "clips_dir": "ui\\animation\\clips",
+  "total_clips": 356,
+  "ok_clips": 332,
+  "issue_count": 24,
+  "thresholds": {
+    "max_seconds": 4.5,
+    "min_seconds": 0.4,
+    "min_motion": 0.004
+  },
+  "issues": [
+    {
+      "clip": "and_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2751,
+      "duration": 229.25,
+      "wrist_motion_score": 0.017474
+    },
+    {
+      "clip": "and_2.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2751,
+      "duration": 229.25,
+      "wrist_motion_score": 0.017444
+    },
+    {
+      "clip": "forget_3.json",
+      "reason": "low_motion",
+      "fps": 12.0,
+      "frame_count": 17,
+      "duration": 1.417,
+      "wrist_motion_score": 0.003551
+    },
+    {
+      "clip": "go_3.json",
+      "reason": "low_motion",
+      "fps": 12.0,
+      "frame_count": 18,
+      "duration": 1.5,
+      "wrist_motion_score": 0.003717
+    },
+    {
+      "clip": "here_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1340,
+      "duration": 111.667,
+      "wrist_motion_score": 0.019144
+    },
+    {
+      "clip": "many_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1376,
+      "duration": 114.667,
+      "wrist_motion_score": 0.015762
+    },
+    {
+      "clip": "more_2.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1376,
+      "duration": 114.667,
+      "wrist_motion_score": 0.015986
+    },
+    {
+      "clip": "more_3.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1653,
+      "duration": 137.75,
+      "wrist_motion_score": 0.023762
+    },
+    {
+      "clip": "my_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1376,
+      "duration": 114.667,
+      "wrist_motion_score": 0.015708
+    },
+    {
+      "clip": "please_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 3466,
+      "duration": 288.833,
+      "wrist_motion_score": 0.016015
+    },
+    {
+      "clip": "please_3.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1654,
+      "duration": 137.833,
+      "wrist_motion_score": 0.024032
+    },
+    {
+      "clip": "sign_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1668,
+      "duration": 139.0,
+      "wrist_motion_score": 0.024302
+    },
+    {
+      "clip": "tell_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2712,
+      "duration": 226.0,
+      "wrist_motion_score": 0.016203
+    },
+    {
+      "clip": "tomorrow_2.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2712,
+      "duration": 226.0,
+      "wrist_motion_score": 0.016083
+    },
+    {
+      "clip": "tomorrow_3.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2765,
+      "duration": 230.417,
+      "wrist_motion_score": 0.021601
+    },
+    {
+      "clip": "understand_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 1653,
+      "duration": 137.75,
+      "wrist_motion_score": 0.023762
+    },
+    {
+      "clip": "want_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 56,
+      "duration": 4.667,
+      "wrist_motion_score": 0.015336
+    },
+    {
+      "clip": "water_2.json",
+      "reason": "low_motion",
+      "fps": 12.0,
+      "frame_count": 19,
+      "duration": 1.583,
+      "wrist_motion_score": 0.00089
+    },
+    {
+      "clip": "water_3.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 61,
+      "duration": 5.083,
+      "wrist_motion_score": 0.010397
+    },
+    {
+      "clip": "we_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2031,
+      "duration": 169.25,
+      "wrist_motion_score": 0.014006
+    },
+    {
+      "clip": "will_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2031,
+      "duration": 169.25,
+      "wrist_motion_score": 0.013994
+    },
+    {
+      "clip": "will_2.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2765,
+      "duration": 230.417,
+      "wrist_motion_score": 0.021601
+    },
+    {
+      "clip": "wrong_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 2031,
+      "duration": 169.25,
+      "wrist_motion_score": 0.013943
+    },
+    {
+      "clip": "your_1.json",
+      "reason": "too_long",
+      "fps": 12.0,
+      "frame_count": 210,
+      "duration": 17.5,
+      "wrist_motion_score": 0.011866
+    }
+  ]
+}

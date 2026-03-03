@@ -1,0 +1,4267 @@
+{
+  "refs_json": "data\\external\\SignLanguage\\frontend\\utils\\signLanguageVideo.json",
+  "clips_dir": "ui\\animation\\clips",
+  "tokens_checked": 114,
+  "suspicious_count": 10,
+  "suspicious": [
+    {
+      "token": "FORGET",
+      "clip_count": 3,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "HELLO",
+      "clip_count": 7,
+      "worst_duration_seconds": 3.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "LATER",
+      "clip_count": 2,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "SORRY",
+      "clip_count": 4,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "THANK_YOU",
+      "clip_count": 4,
+      "worst_duration_seconds": 4.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "WAIT",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "WANT",
+      "clip_count": 3,
+      "worst_duration_seconds": 4.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "WHY",
+      "clip_count": 6,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "YEAR",
+      "clip_count": 3,
+      "worst_duration_seconds": 4.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "YES",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "token": "ABOUT",
+      "clip_count": 7,
+      "worst_duration_seconds": 2.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 17
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "about face-turn",
+            "url": "https://www.youtube.com/watch?v=QphfbqzRPNM",
+            "title_norm": "about face turn"
+          }
+        ],
+        "contains": [
+          {
+            "title": "grim-angry and pleased about something at the same time",
+            "url": "https://www.youtube.com/watch?v=mAWaLXIlViU",
+            "title_norm": "grim angry and pleased about something at the same time"
+          },
+          {
+            "title": "fumble about, fumble around, muck about, muck around",
+            "url": "https://www.youtube.com/watch?v=lLk4inBK5WQ",
+            "title_norm": "fumble about fumble around muck about muck around"
+          },
+          {
+            "title": "fly around, fly about-lots of movement and activity",
+            "url": "https://www.youtube.com/watch?v=759x17bkVpA",
+            "title_norm": "fly around fly about lots of movement and activity"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "AGAIN",
+      "clip_count": 1,
+      "worst_duration_seconds": 3.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "come again-please repeat",
+            "url": "https://www.youtube.com/watch?v=v_fGLijEbjo",
+            "title_norm": "come again please repeat"
+          },
+          {
+            "title": "bring back popular again",
+            "url": "https://www.youtube.com/watch?v=XEsTkRBvPVk",
+            "title_norm": "bring back popular again"
+          },
+          {
+            "title": "born again-converted to a personal faith in Christ",
+            "url": "https://www.youtube.com/watch?v=vWF3dpQDNtE",
+            "title_norm": "born again converted to a personal faith in christ"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "AND",
+      "clip_count": 3,
+      "worst_duration_seconds": 1.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 132
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "Foul and basket good-basketball",
+            "url": "https://www.youtube.com/watch?v=vGleZxYm170",
+            "title_norm": "foul and basket good basketball"
+          },
+          {
+            "title": "Winning and advancing in tournament play",
+            "url": "https://www.youtube.com/watch?v=HO_y5fVVvKg",
+            "title_norm": "winning and advancing in tournament play"
+          },
+          {
+            "title": "Ball hits net and drops back-volleyball",
+            "url": "https://www.youtube.com/watch?v=xppRWXj4ys8",
+            "title_norm": "ball hits net and drops back volleyball"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "ASK",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "ask for-figurative",
+            "url": "https://www.youtube.com/watch?v=ZRPH__fC0Ek",
+            "title_norm": "ask for figurative"
+          },
+          {
+            "title": "ask me no questions and I'll tell you no lies",
+            "url": "https://www.youtube.com/watch?v=P8vCmvSzTHw",
+            "title_norm": "ask me no questions and i ll tell you no lies"
+          }
+        ],
+        "contains": [
+          {
+            "title": "fire away-ask questions",
+            "url": "https://www.youtube.com/watch?v=m35OB8DkHqc",
+            "title_norm": "fire away ask questions"
+          },
+          {
+            "title": "consult-ask for information or advice from someone who has special knowledge about a particular subj",
+            "url": "https://www.youtube.com/watch?v=EcYaeJ3BgSE",
+            "title_norm": "consult ask for information or advice from someone who has special knowledge about a particular subj"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "BAD",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 9,
+        "contains": 10
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "bad rep",
+            "url": "https://www.youtube.com/watch?v=2NqCFWCZM1E",
+            "title_norm": "bad rep"
+          },
+          {
+            "title": "bad workers always blame their tools",
+            "url": "https://www.youtube.com/watch?v=SwsyhTSd6AM",
+            "title_norm": "bad workers always blame their tools"
+          },
+          {
+            "title": "bad taste in your mouth",
+            "url": "https://www.youtube.com/watch?v=yxUM0rkFx3A",
+            "title_norm": "bad taste in your mouth"
+          }
+        ],
+        "contains": [
+          {
+            "title": "handwriting is on the wall-used to say that it is clear that something bad will probably happen soon",
+            "url": "https://www.youtube.com/watch?v=MHebrKgFD98",
+            "title_norm": "handwriting is on the wall used to say that it is clear that something bad will probably happen soon"
+          },
+          {
+            "title": "give a dog a bad name and hang him",
+            "url": "https://www.youtube.com/watch?v=bddrg50KL0o",
+            "title_norm": "give a dog a bad name and hang him"
+          },
+          {
+            "title": "flyblown-dirty and in bad condition",
+            "url": "https://www.youtube.com/watch?v=86iMPF5_5ao",
+            "title_norm": "flyblown dirty and in bad condition"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "BOY",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "boy ASL",
+            "url": "https://www.youtube.com/watch?v=nIeOKwHT77E",
+            "title_norm": "boy asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "blue eyed boy",
+            "url": "https://www.youtube.com/watch?v=j6UzWeRqn-M",
+            "title_norm": "blue eyed boy"
+          },
+          {
+            "title": "paper boy",
+            "url": "https://www.youtube.com/watch?v=C8C2NPK-hTk",
+            "title_norm": "paper boy"
+          },
+          {
+            "title": "all work and no play, makes jack a dull boy",
+            "url": "https://www.youtube.com/watch?v=a02v7iikoWk",
+            "title_norm": "all work and no play makes jack a dull boy"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "BROTHER",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "brother, can you spare a dime",
+            "url": "https://www.youtube.com/watch?v=CvQqfYut0Go",
+            "title_norm": "brother can you spare a dime"
+          },
+          {
+            "title": "brother ASL",
+            "url": "https://www.youtube.com/watch?v=1xwpzPUrbeM",
+            "title_norm": "brother asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "big brother is watching",
+            "url": "https://www.youtube.com/watch?v=MU-HWNHvQq8",
+            "title_norm": "big brother is watching"
+          },
+          {
+            "title": "\"amen, \"amen, brother\", \"amen, sister\"",
+            "url": "https://www.youtube.com/watch?v=EknxUSqFOC0",
+            "title_norm": "amen amen brother amen sister"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "BUT",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 10
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "gloss, glossy-attractive but of little value, a deceptively attractive appearance",
+            "url": "https://www.youtube.com/watch?v=CYoApmMglSs",
+            "title_norm": "gloss glossy attractive but of little value a deceptively attractive appearance"
+          },
+          {
+            "title": "glitter-an exciting and attractive quality that something has but with  no real value",
+            "url": "https://www.youtube.com/watch?v=-HwG71EOfNE",
+            "title_norm": "glitter an exciting and attractive quality that something has but with no real value"
+          },
+          {
+            "title": "commensal-two different animal or plant species living in close association but not interdependent",
+            "url": "https://www.youtube.com/watch?v=nzAKeDIK4PI",
+            "title_norm": "commensal two different animal or plant species living in close association but not interdependent"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "BUY",
+      "clip_count": 1,
+      "worst_duration_seconds": 2.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 6,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "buy off",
+            "url": "https://www.youtube.com/watch?v=2RJUA4x86ls",
+            "title_norm": "buy off"
+          },
+          {
+            "title": "buy out",
+            "url": "https://www.youtube.com/watch?v=cva8EQ4f29o",
+            "title_norm": "buy out"
+          },
+          {
+            "title": "buy something for a song",
+            "url": "https://www.youtube.com/watch?v=e1kSv9j-fIg",
+            "title_norm": "buy something for a song"
+          }
+        ],
+        "contains": [
+          {
+            "title": "\"a steal\", \"a buy\" ASL",
+            "url": "https://www.youtube.com/watch?v=B5mLtPxap-U",
+            "title_norm": "a steal a buy asl"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "CAN",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.75,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 22,
+        "contains": 19
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "can't have your cake and eat it too",
+            "url": "https://www.youtube.com/watch?v=erHDdZbUmIc",
+            "title_norm": "can t have your cake and eat it too"
+          },
+          {
+            "title": "can't get a word in edgewise",
+            "url": "https://www.youtube.com/watch?v=a6buepVFVYM",
+            "title_norm": "can t get a word in edgewise"
+          },
+          {
+            "title": "can't see the forest for the trees",
+            "url": "https://www.youtube.com/watch?v=Ar3mIo_5CU8",
+            "title_norm": "can t see the forest for the trees"
+          }
+        ],
+        "contains": [
+          {
+            "title": "his mouth is writing checks his body can't cash",
+            "url": "https://www.youtube.com/watch?v=J4PFKvRPk9c",
+            "title_norm": "his mouth is writing checks his body can t cash"
+          },
+          {
+            "title": "fuel-something that someone can use to support their argument",
+            "url": "https://www.youtube.com/watch?v=wqJmKoUprfA",
+            "title_norm": "fuel something that someone can use to support their argument"
+          },
+          {
+            "title": "footprint-the area that a broadcast signal, especially one from a satellite, can reach",
+            "url": "https://www.youtube.com/watch?v=cHnx23uIK90",
+            "title_norm": "footprint the area that a broadcast signal especially one from a satellite can reach"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "COME",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 50,
+        "contains": 8
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "come up for",
+            "url": "https://www.youtube.com/watch?v=vjhbt85_nbk",
+            "title_norm": "come up for"
+          },
+          {
+            "title": "come up roses",
+            "url": "https://www.youtube.com/watch?v=4ZpCvl89dxM",
+            "title_norm": "come up roses"
+          },
+          {
+            "title": "come up to-tall",
+            "url": "https://www.youtube.com/watch?v=WJmxrYEapi8",
+            "title_norm": "come up to tall"
+          }
+        ],
+        "contains": [
+          {
+            "title": "hit on-come due and win",
+            "url": "https://www.youtube.com/watch?v=_8ZamlxVIlU",
+            "title_norm": "hit on come due and win"
+          },
+          {
+            "title": "good things come to he who waits",
+            "url": "https://www.youtube.com/watch?v=uOCzVru1QJE",
+            "title_norm": "good things come to he who waits"
+          },
+          {
+            "title": "formulate-come up with an idea",
+            "url": "https://www.youtube.com/watch?v=m6AYwySwid0",
+            "title_norm": "formulate come up with an idea"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "DIFFERENT",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 10
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "different strokes for different folks",
+            "url": "https://www.youtube.com/watch?v=HOffB-u-7no",
+            "title_norm": "different strokes for different folks"
+          },
+          {
+            "title": "different kettle of fish",
+            "url": "https://www.youtube.com/watch?v=IprMlvFaHN0",
+            "title_norm": "different kettle of fish"
+          }
+        ],
+        "contains": [
+          {
+            "title": "from a different angle,from a different point of view",
+            "url": "https://www.youtube.com/watch?v=VXJ-Kxdtfjw",
+            "title_norm": "from a different angle from a different point of view"
+          },
+          {
+            "title": "flux -mix together different elements",
+            "url": "https://www.youtube.com/watch?v=W0kdyZplBxU",
+            "title_norm": "flux mix together different elements"
+          },
+          {
+            "title": "fair-businesses present different events",
+            "url": "https://www.youtube.com/watch?v=tPq1vcYVMwU",
+            "title_norm": "fair businesses present different events"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "DRINK",
+      "clip_count": 4,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 3,
+        "contains": 6
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "drink up-drink",
+            "url": "https://www.youtube.com/watch?v=ncD2QtHgSJs",
+            "title_norm": "drink up drink"
+          },
+          {
+            "title": "drink alcohol",
+            "url": "https://www.youtube.com/watch?v=JtLV4-xaR4k",
+            "title_norm": "drink alcohol"
+          },
+          {
+            "title": "drink like a fish",
+            "url": "https://www.youtube.com/watch?v=EndMGREA7lc",
+            "title_norm": "drink like a fish"
+          }
+        ],
+        "contains": [
+          {
+            "title": "hair of the dog-an alcoholic drink taken to cure a hangover.",
+            "url": "https://www.youtube.com/watch?v=zqpp7JeksLA",
+            "title_norm": "hair of the dog an alcoholic drink taken to cure a hangover"
+          },
+          {
+            "title": "dry-drink",
+            "url": "https://www.youtube.com/watch?v=BwCOKEggROw",
+            "title_norm": "dry drink"
+          },
+          {
+            "title": "nip-drink or food",
+            "url": "https://www.youtube.com/watch?v=1Hy9VqOPoG4",
+            "title_norm": "nip drink or food"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "EASY",
+      "clip_count": 1,
+      "worst_duration_seconds": 2.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 4,
+        "contains": 8
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "easy come, easy go",
+            "url": "https://www.youtube.com/watch?v=R7ZR5vq_3qc",
+            "title_norm": "easy come easy go"
+          },
+          {
+            "title": "easy does it",
+            "url": "https://www.youtube.com/watch?v=102YptIDrxg",
+            "title_norm": "easy does it"
+          },
+          {
+            "title": "easy money",
+            "url": "https://www.youtube.com/watch?v=4Rp_dDG2y1w",
+            "title_norm": "easy money"
+          }
+        ],
+        "contains": [
+          {
+            "title": "got it made, have it easy",
+            "url": "https://www.youtube.com/watch?v=IXC-YwyjEQo",
+            "title_norm": "got it made have it easy"
+          },
+          {
+            "title": "go easy on",
+            "url": "https://www.youtube.com/watch?v=xgmUktH7KoE",
+            "title_norm": "go easy on"
+          },
+          {
+            "title": "flexible-easy to change",
+            "url": "https://www.youtube.com/watch?v=nL9sojZswwA",
+            "title_norm": "flexible easy to change"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "EAT",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.75,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 10,
+        "contains": 5
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "eat lead!-be shot",
+            "url": "https://www.youtube.com/watch?v=jYrwXHCQ7zc",
+            "title_norm": "eat lead be shot"
+          },
+          {
+            "title": "eat my hat-say that something will not happen and be shocked and humbled if it does",
+            "url": "https://www.youtube.com/watch?v=edfJnGQPYBM",
+            "title_norm": "eat my hat say that something will not happen and be shocked and humbled if it does"
+          },
+          {
+            "title": "eat someone alive-beat someone easily",
+            "url": "https://www.youtube.com/watch?v=egcBy-f_XCs",
+            "title_norm": "eat someone alive beat someone easily"
+          }
+        ],
+        "contains": [
+          {
+            "title": "can't have your cake and eat it too",
+            "url": "https://www.youtube.com/watch?v=erHDdZbUmIc",
+            "title_norm": "can t have your cake and eat it too"
+          },
+          {
+            "title": "dine out,eat out",
+            "url": "https://www.youtube.com/watch?v=pLkLptYybIg",
+            "title_norm": "dine out eat out"
+          },
+          {
+            "title": "can't have your cake and eat it too",
+            "url": "https://www.youtube.com/watch?v=2eDXjb0c_NI",
+            "title_norm": "can t have your cake and eat it too"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FAMILY",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 5,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "family doctor",
+            "url": "https://www.youtube.com/watch?v=tQdihN7K6cM",
+            "title_norm": "family doctor"
+          },
+          {
+            "title": "family allowance",
+            "url": "https://www.youtube.com/watch?v=NF1316CHL54",
+            "title_norm": "family allowance"
+          },
+          {
+            "title": "family status",
+            "url": "https://www.youtube.com/watch?v=F-7LNTqOVbA",
+            "title_norm": "family status"
+          }
+        ],
+        "contains": [
+          {
+            "title": "dysfunctional family",
+            "url": "https://www.youtube.com/watch?v=1ClnkllHdmg",
+            "title_norm": "dysfunctional family"
+          },
+          {
+            "title": "single parent family",
+            "url": "https://www.youtube.com/watch?v=U60djW7hvXc",
+            "title_norm": "single parent family"
+          },
+          {
+            "title": "single parent family",
+            "url": "https://www.youtube.com/watch?v=W3F1n1_4-dY",
+            "title_norm": "single parent family"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FEEL",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 6,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "feel out-get feedback or opinion on idea",
+            "url": "https://www.youtube.com/watch?v=yu2brPUqXgo",
+            "title_norm": "feel out get feedback or opinion on idea"
+          },
+          {
+            "title": "feel the pinch-to be or feel constrained by recent financial hardship",
+            "url": "https://www.youtube.com/watch?v=mDqxSzpnJBY",
+            "title_norm": "feel the pinch to be or feel constrained by recent financial hardship"
+          },
+          {
+            "title": "feel up to",
+            "url": "https://www.youtube.com/watch?v=JI8zil_Dwlo",
+            "title_norm": "feel up to"
+          }
+        ],
+        "contains": [
+          {
+            "title": "a feeler,float an idea,get a feel for-get feedback on an idea",
+            "url": "https://www.youtube.com/watch?v=7utZT6Pfhq8",
+            "title_norm": "a feeler float an idea get a feel for get feedback on an idea"
+          },
+          {
+            "title": "droopy,droopier,droopiest-how you feel",
+            "url": "https://www.youtube.com/watch?v=vPKYlsImcrY",
+            "title_norm": "droopy droopier droopiest how you feel"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FEW",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "few and far between",
+            "url": "https://www.youtube.com/watch?v=WJK8l4P9vfw",
+            "title_norm": "few and far between"
+          },
+          {
+            "title": "few,fewer,fewest",
+            "url": "https://www.youtube.com/watch?v=3GEimApEyLY",
+            "title_norm": "few fewer fewest"
+          }
+        ],
+        "contains": []
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FIND",
+      "clip_count": 1,
+      "worst_duration_seconds": 2.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 3,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "find out",
+            "url": "https://www.youtube.com/watch?v=FT1Lu-hRcVg",
+            "title_norm": "find out"
+          },
+          {
+            "title": "find your feet-increase confidence",
+            "url": "https://www.youtube.com/watch?v=EBDdNqRymCY",
+            "title_norm": "find your feet increase confidence"
+          },
+          {
+            "title": "find out   ASL",
+            "url": "https://www.youtube.com/watch?v=8mqlcLr4TI4",
+            "title_norm": "find out asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "eye for-able to find things others can't",
+            "url": "https://www.youtube.com/watch?v=uiIeGjJjQFs",
+            "title_norm": "eye for able to find things others can t"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FINE",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 9,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "fine,finer,finest-details",
+            "url": "https://www.youtube.com/watch?v=BxzMrZPjqik",
+            "title_norm": "fine finer finest details"
+          },
+          {
+            "title": "fine,finer,finest-easy to break",
+            "url": "https://www.youtube.com/watch?v=tR50WAaXnc4",
+            "title_norm": "fine finer finest easy to break"
+          },
+          {
+            "title": "fine,finer,finest,good,better,best",
+            "url": "https://www.youtube.com/watch?v=yIt07txImtI",
+            "title_norm": "fine finer finest good better best"
+          }
+        ],
+        "contains": [
+          {
+            "title": "cut it fine",
+            "url": "https://www.youtube.com/watch?v=4hSc8SRQzlA",
+            "title_norm": "cut it fine"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FINISH",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.75,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "complete, dispose of-finish task",
+            "url": "https://www.youtube.com/watch?v=532kOv7ZY_E",
+            "title_norm": "complete dispose of finish task"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FOR",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 6,
+        "contains": 88
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "for pete's sake!",
+            "url": "https://www.youtube.com/watch?v=GtHNp3juSnc",
+            "title_norm": "for pete s sake"
+          },
+          {
+            "title": "for the love of pete",
+            "url": "https://www.youtube.com/watch?v=qj0aPFQDHq8",
+            "title_norm": "for the love of pete"
+          },
+          {
+            "title": "for the time being",
+            "url": "https://www.youtube.com/watch?v=G0Yeamh54Ss",
+            "title_norm": "for the time being"
+          }
+        ],
+        "contains": [
+          {
+            "title": "Volleyball-3 signs for volleyabll",
+            "url": "https://www.youtube.com/watch?v=gBzwBFkQZEw",
+            "title_norm": "volleyball 3 signs for volleyabll"
+          },
+          {
+            "title": "hit on, hit up, hit up for money",
+            "url": "https://www.youtube.com/watch?v=13wJrquzcU0",
+            "title_norm": "hit on hit up hit up for money"
+          },
+          {
+            "title": "hell for leather-as fast as possible.",
+            "url": "https://www.youtube.com/watch?v=A8Cbv1WHULY",
+            "title_norm": "hell for leather as fast as possible"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "FORGET",
+      "clip_count": 3,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "FRIEND",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "fair weather friend",
+            "url": "https://www.youtube.com/watch?v=1wgAKkP0kVQ",
+            "title_norm": "fair weather friend"
+          },
+          {
+            "title": "any friend of yours is a friend of mine",
+            "url": "https://www.youtube.com/watch?v=XwMi-5B7X6k",
+            "title_norm": "any friend of yours is a friend of mine"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "GET",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 60,
+        "contains": 21
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "get wise to,wise to",
+            "url": "https://www.youtube.com/watch?v=zM2Ip-0-8Qw",
+            "title_norm": "get wise to wise to"
+          },
+          {
+            "title": "get your head in the game",
+            "url": "https://www.youtube.com/watch?v=qWCPmzszz1c",
+            "title_norm": "get your head in the game"
+          },
+          {
+            "title": "get your arms around it, get your teeth into, get your head around something",
+            "url": "https://www.youtube.com/watch?v=ggLQhbZI3tU",
+            "title_norm": "get your arms around it get your teeth into get your head around something"
+          }
+        ],
+        "contains": [
+          {
+            "title": "gravy-money or profit that you get unexpectedly",
+            "url": "https://www.youtube.com/watch?v=s954mT0zMJk",
+            "title_norm": "gravy money or profit that you get unexpectedly"
+          },
+          {
+            "title": "go for-try to get",
+            "url": "https://www.youtube.com/watch?v=dVZzB0M6zzg",
+            "title_norm": "go for try to get"
+          },
+          {
+            "title": "give as good as you get",
+            "url": "https://www.youtube.com/watch?v=0He_FYB_Vt4",
+            "title_norm": "give as good as you get"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "GIRL",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.75,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "girl friday",
+            "url": "https://www.youtube.com/watch?v=tS66BRBpQfM",
+            "title_norm": "girl friday"
+          },
+          {
+            "title": "girl ASL",
+            "url": "https://www.youtube.com/watch?v=A_eOdHcvPZE",
+            "title_norm": "girl asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "circumcise- remove a girl's or woman's clitoris",
+            "url": "https://www.youtube.com/watch?v=fhbz9mx6J1k",
+            "title_norm": "circumcise remove a girl s or woman s clitoris"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "GIVE",
+      "clip_count": 2,
+      "worst_duration_seconds": 4.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 25,
+        "contains": 11
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "give up your seat",
+            "url": "https://www.youtube.com/watch?v=9xHvcdYLJag",
+            "title_norm": "give up your seat"
+          },
+          {
+            "title": "give way,give way to,yield-driving",
+            "url": "https://www.youtube.com/watch?v=Jr_oNtY6wdI",
+            "title_norm": "give way give way to yield driving"
+          },
+          {
+            "title": "give your eye teeth,give your right arm",
+            "url": "https://www.youtube.com/watch?v=9ofeunt2Jbc",
+            "title_norm": "give your eye teeth give your right arm"
+          }
+        ],
+        "contains": [
+          {
+            "title": "handout,hand out-give",
+            "url": "https://www.youtube.com/watch?v=5bm0dg2h40o",
+            "title_norm": "handout hand out give"
+          },
+          {
+            "title": "hand off-give to another person",
+            "url": "https://www.youtube.com/watch?v=puFvM_DD1G8",
+            "title_norm": "hand off give to another person"
+          },
+          {
+            "title": "consult-give professional advice",
+            "url": "https://www.youtube.com/watch?v=KvwmowPNFVI",
+            "title_norm": "consult give professional advice"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "GO",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 43,
+        "contains": 11
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "go hang yourself",
+            "url": "https://www.youtube.com/watch?v=NlfiFbB192A",
+            "title_norm": "go hang yourself"
+          },
+          {
+            "title": "go to guy",
+            "url": "https://www.youtube.com/watch?v=lW8RtODYX44",
+            "title_norm": "go to guy"
+          },
+          {
+            "title": "go to guy",
+            "url": "https://www.youtube.com/watch?v=E6QaFTdUh2Y",
+            "title_norm": "go to guy"
+          }
+        ],
+        "contains": [
+          {
+            "title": "conflict- go against, as of rules and laws",
+            "url": "https://www.youtube.com/watch?v=50KGXjoFaRs",
+            "title_norm": "conflict go against as of rules and laws"
+          },
+          {
+            "title": "turn in-go to bed",
+            "url": "https://www.youtube.com/watch?v=IZpd0y4iTN0",
+            "title_norm": "turn in go to bed"
+          },
+          {
+            "title": "from day one, from the get go, from the word go",
+            "url": "https://www.youtube.com/watch?v=oZGUJVJ4WfE",
+            "title_norm": "from day one from the get go from the word go"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "GOOD",
+      "clip_count": 11,
+      "worst_duration_seconds": 1.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 9,
+        "contains": 11
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "good to the last drop-tasty,delicious",
+            "url": "https://www.youtube.com/watch?v=ve6q9IaYRnE",
+            "title_norm": "good to the last drop tasty delicious"
+          },
+          {
+            "title": "good walls make good neighbours",
+            "url": "https://www.youtube.com/watch?v=eVg0eLsrjok",
+            "title_norm": "good walls make good neighbours"
+          },
+          {
+            "title": "good will,goodwill",
+            "url": "https://www.youtube.com/watch?v=tjxsOzyMv_w",
+            "title_norm": "good will goodwill"
+          }
+        ],
+        "contains": [
+          {
+            "title": "Foul and basket good-basketball",
+            "url": "https://www.youtube.com/watch?v=vGleZxYm170",
+            "title_norm": "foul and basket good basketball"
+          },
+          {
+            "title": "heap coals on someone's head-to repay evil with good in order to make one's enemy repent.",
+            "url": "https://www.youtube.com/watch?v=5GYdDxTeVac",
+            "title_norm": "heap coals on someone s head to repay evil with good in order to make one s enemy repent"
+          },
+          {
+            "title": "a good beginning makes a good ending",
+            "url": "https://www.youtube.com/watch?v=EGSbOclWlQ0",
+            "title_norm": "a good beginning makes a good ending"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HAPPY",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 4
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "happy,happier,happiest",
+            "url": "https://www.youtube.com/watch?v=pYOq21Gote4",
+            "title_norm": "happy happier happiest"
+          }
+        ],
+        "contains": [
+          {
+            "title": "cheer up-become happy",
+            "url": "https://www.youtube.com/watch?v=e765doD-2oM",
+            "title_norm": "cheer up become happy"
+          },
+          {
+            "title": "cheer, cheer up-cause to become happy",
+            "url": "https://www.youtube.com/watch?v=dn19MMdfzG8",
+            "title_norm": "cheer cheer up cause to become happy"
+          },
+          {
+            "title": "buoy up-cause become happy",
+            "url": "https://www.youtube.com/watch?v=st9nANrLqIs",
+            "title_norm": "buoy up cause become happy"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HARD",
+      "clip_count": 13,
+      "worst_duration_seconds": 2.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 5,
+        "contains": 6
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "hard days night",
+            "url": "https://www.youtube.com/watch?v=Ehx9xCbAn1A",
+            "title_norm": "hard days night"
+          },
+          {
+            "title": "hard sell-sales strategy that is direct and pushy",
+            "url": "https://www.youtube.com/watch?v=XaPHmovWUI8",
+            "title_norm": "hard sell sales strategy that is direct and pushy"
+          },
+          {
+            "title": "hard to swallow",
+            "url": "https://www.youtube.com/watch?v=6myofrL9sOk",
+            "title_norm": "hard to swallow"
+          }
+        ],
+        "contains": [
+          {
+            "title": "done hard miles-done difficult work that makes you eligible to comment or participate in something",
+            "url": "https://www.youtube.com/watch?v=pJkq4YUX7Xg",
+            "title_norm": "done hard miles done difficult work that makes you eligible to comment or participate in something"
+          },
+          {
+            "title": "fight hard",
+            "url": "https://www.youtube.com/watch?v=PPDodHmjgWA",
+            "title_norm": "fight hard"
+          },
+          {
+            "title": "crack up-cause someone to laugh really hard",
+            "url": "https://www.youtube.com/watch?v=S-Se0d_ulBw",
+            "title_norm": "crack up cause someone to laugh really hard"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HAVE",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 15,
+        "contains": 19
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "have your work cut out for you",
+            "url": "https://www.youtube.com/watch?v=uMHOT5HCgBU",
+            "title_norm": "have your work cut out for you"
+          },
+          {
+            "title": "have nots",
+            "url": "https://www.youtube.com/watch?v=kA8gB7wa3Qs",
+            "title_norm": "have nots"
+          },
+          {
+            "title": "have something up your sleeve,trick up your sleeve",
+            "url": "https://www.youtube.com/watch?v=LliIq0wrJ30",
+            "title_norm": "have something up your sleeve trick up your sleeve"
+          }
+        ],
+        "contains": [
+          {
+            "title": "can't have your cake and eat it too",
+            "url": "https://www.youtube.com/watch?v=erHDdZbUmIc",
+            "title_norm": "can t have your cake and eat it too"
+          },
+          {
+            "title": "got it made, have it easy",
+            "url": "https://www.youtube.com/watch?v=IXC-YwyjEQo",
+            "title_norm": "got it made have it easy"
+          },
+          {
+            "title": "go around, go round-have enough for all",
+            "url": "https://www.youtube.com/watch?v=cfu_JP_9gBg",
+            "title_norm": "go around go round have enough for all"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HE",
+      "clip_count": 7,
+      "worst_duration_seconds": 1.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 5,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "he she always gives 110 percent",
+            "url": "https://www.youtube.com/watch?v=Ov0bLQjrVBY",
+            "title_norm": "he she always gives 110 percent"
+          },
+          {
+            "title": "he who laughs last laughs longest, best",
+            "url": "https://www.youtube.com/watch?v=lda08LXEEP4",
+            "title_norm": "he who laughs last laughs longest best"
+          },
+          {
+            "title": "he who lives by the sword, shall die by the sword",
+            "url": "https://www.youtube.com/watch?v=dMtfz_bO9UY",
+            "title_norm": "he who lives by the sword shall die by the sword"
+          }
+        ],
+        "contains": [
+          {
+            "title": "good things come to he who waits",
+            "url": "https://www.youtube.com/watch?v=uOCzVru1QJE",
+            "title_norm": "good things come to he who waits"
+          },
+          {
+            "title": "fight-determined to win (He has a lot of fight in him.)",
+            "url": "https://www.youtube.com/watch?v=8J2rtjCB_I8",
+            "title_norm": "fight determined to win he has a lot of fight in him"
+          },
+          {
+            "title": "crier-peddler who shouts to advertises the goods he sells",
+            "url": "https://www.youtube.com/watch?v=KyPtYEGk0eg",
+            "title_norm": "crier peddler who shouts to advertises the goods he sells"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HELLO",
+      "clip_count": 7,
+      "worst_duration_seconds": 3.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "HELP",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 11
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "help up",
+            "url": "https://www.youtube.com/watch?v=LQXbX6jAX18",
+            "title_norm": "help up"
+          }
+        ],
+        "contains": [
+          {
+            "title": "contribution-a voluntary gift given to help a cause or person",
+            "url": "https://www.youtube.com/watch?v=d0fu8fCMvM4",
+            "title_norm": "contribution a voluntary gift given to help a cause or person"
+          },
+          {
+            "title": "get through to-to help someone understand",
+            "url": "https://www.youtube.com/watch?v=0bl5Bp3F244",
+            "title_norm": "get through to to help someone understand"
+          },
+          {
+            "title": "further-to help the progress of something, improve its development",
+            "url": "https://www.youtube.com/watch?v=QMoKmoDUNZA",
+            "title_norm": "further to help the progress of something improve its development"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HERE",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "here's mud in your eye",
+            "url": "https://www.youtube.com/watch?v=aRUYijTPLAs",
+            "title_norm": "here s mud in your eye"
+          }
+        ],
+        "contains": [
+          {
+            "title": "fancy meeting you here",
+            "url": "https://www.youtube.com/watch?v=O-gKzJIepgg",
+            "title_norm": "fancy meeting you here"
+          },
+          {
+            "title": "buck stops here",
+            "url": "https://www.youtube.com/watch?v=1CFr0AUedP8",
+            "title_norm": "buck stops here"
+          },
+          {
+            "title": "come,come here",
+            "url": "https://www.youtube.com/watch?v=irXf4zFo8zI",
+            "title_norm": "come come here"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HOME",
+      "clip_count": 7,
+      "worst_duration_seconds": 1.5,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 6,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "Home,Home plate-baseball,softball",
+            "url": "https://www.youtube.com/watch?v=TvTelyr_gPc",
+            "title_norm": "home home plate baseball softball"
+          },
+          {
+            "title": "Home run after Home run",
+            "url": "https://www.youtube.com/watch?v=N9uRxxhZqwM",
+            "title_norm": "home run after home run"
+          },
+          {
+            "title": "Home run",
+            "url": "https://www.youtube.com/watch?v=2ks9j4LkoC0",
+            "title_norm": "home run"
+          }
+        ],
+        "contains": [
+          {
+            "title": "hit home",
+            "url": "https://www.youtube.com/watch?v=XUHJeL5p4cs",
+            "title_norm": "hit home"
+          },
+          {
+            "title": "feel at home",
+            "url": "https://www.youtube.com/watch?v=B3q-bxTUht8",
+            "title_norm": "feel at home"
+          },
+          {
+            "title": "eat in-at home",
+            "url": "https://www.youtube.com/watch?v=xrfxn9tV7ZM",
+            "title_norm": "eat in at home"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "HOW",
+      "clip_count": 4,
+      "worst_duration_seconds": 3.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 5
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "further-used when saying how long before or after a particular time something is",
+            "url": "https://www.youtube.com/watch?v=rICISpEmv9s",
+            "title_norm": "further used when saying how long before or after a particular time something is"
+          },
+          {
+            "title": "fall-how leaves fall",
+            "url": "https://www.youtube.com/watch?v=D5q2dWxs4wQ",
+            "title_norm": "fall how leaves fall"
+          },
+          {
+            "title": "droopy,droopier,droopiest-how you feel",
+            "url": "https://www.youtube.com/watch?v=vPKYlsImcrY",
+            "title_norm": "droopy droopier droopiest how you feel"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "KNOW",
+      "clip_count": 5,
+      "worst_duration_seconds": 1.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "know the area",
+            "url": "https://www.youtube.com/watch?v=63NH57hUMO0",
+            "title_norm": "know the area"
+          }
+        ],
+        "contains": [
+          {
+            "title": "don't know him from adam",
+            "url": "https://www.youtube.com/watch?v=I_ybgeQ8NDI",
+            "title_norm": "don t know him from adam"
+          },
+          {
+            "title": "better the devil you know than the devil you don\u2019t",
+            "url": "https://www.youtube.com/watch?v=oijGS2XO1S4",
+            "title_norm": "better the devil you know than the devil you don t"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "LATER",
+      "clip_count": 2,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "LIKE",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 5,
+        "contains": 27
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "like herding cats, like nailing jello to the wall, juggle frogs, like collecting frogs in a bucket",
+            "url": "https://www.youtube.com/watch?v=ONesqcRYFkk",
+            "title_norm": "like herding cats like nailing jello to the wall juggle frogs like collecting frogs in a bucket"
+          },
+          {
+            "title": "like a frog in a frying pan",
+            "url": "https://www.youtube.com/watch?v=zme2OXiiWW8",
+            "title_norm": "like a frog in a frying pan"
+          },
+          {
+            "title": "like a duck to water",
+            "url": "https://www.youtube.com/watch?v=QtZ10YuzWXw",
+            "title_norm": "like a duck to water"
+          }
+        ],
+        "contains": [
+          {
+            "title": "he never met a doughnut he didn't like",
+            "url": "https://www.youtube.com/watch?v=bHQR282MQCU",
+            "title_norm": "he never met a doughnut he didn t like"
+          },
+          {
+            "title": "grow on, grow upon-start to like",
+            "url": "https://www.youtube.com/watch?v=JNLX3BKERIc",
+            "title_norm": "grow on grow upon start to like"
+          },
+          {
+            "title": "grin like a cheshire cat",
+            "url": "https://www.youtube.com/watch?v=M6raReYAO8A",
+            "title_norm": "grin like a cheshire cat"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "LITTLE",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 4
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "gloss, glossy-attractive but of little value, a deceptively attractive appearance",
+            "url": "https://www.youtube.com/watch?v=CYoApmMglSs",
+            "title_norm": "gloss glossy attractive but of little value a deceptively attractive appearance"
+          },
+          {
+            "title": "bless your pointy little head",
+            "url": "https://www.youtube.com/watch?v=7c8w7XMrxrs",
+            "title_norm": "bless your pointy little head"
+          },
+          {
+            "title": "a little learning is a dangerous thing",
+            "url": "https://www.youtube.com/watch?v=I6YNPHKvmJA",
+            "title_norm": "a little learning is a dangerous thing"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "LIVE",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "Live ball-baseball,softball",
+            "url": "https://www.youtube.com/watch?v=DQ2SuuhGFeM",
+            "title_norm": "live ball baseball softball"
+          }
+        ],
+        "contains": [
+          {
+            "title": "environment-the place in which people live and work, and the physical conditions that affect them",
+            "url": "https://www.youtube.com/watch?v=Wj2ZyGOpQSY",
+            "title_norm": "environment the place in which people live and work and the physical conditions that affect them"
+          },
+          {
+            "title": "exile-forced to live far from homeland",
+            "url": "https://www.youtube.com/watch?v=I1vPoko-drA",
+            "title_norm": "exile forced to live far from homeland"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "LOOK",
+      "clip_count": 7,
+      "worst_duration_seconds": 1.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 7
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "finisher-person who puts on finishing touches on car to make it look good",
+            "url": "https://www.youtube.com/watch?v=wqbqdY2MkIQ",
+            "title_norm": "finisher person who puts on finishing touches on car to make it look good"
+          },
+          {
+            "title": "don't look a gift horse in the mouth",
+            "url": "https://www.youtube.com/watch?v=FV_fprT_fd4",
+            "title_norm": "don t look a gift horse in the mouth"
+          },
+          {
+            "title": "don't look back",
+            "url": "https://www.youtube.com/watch?v=oP-TNaNimPc",
+            "title_norm": "don t look back"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "MAKE",
+      "clip_count": 10,
+      "worst_duration_seconds": 1.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 33
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "make a fast buck",
+            "url": "https://www.youtube.com/watch?v=gthiemtqMZE",
+            "title_norm": "make a fast buck"
+          },
+          {
+            "title": "\"make up your mind\"",
+            "url": "https://www.youtube.com/watch?v=FxKQGckjkdE",
+            "title_norm": "make up your mind"
+          }
+        ],
+        "contains": [
+          {
+            "title": "Fill the basket,make lots of shots-basketball",
+            "url": "https://www.youtube.com/watch?v=vLI5PS1Wdvk",
+            "title_norm": "fill the basket make lots of shots basketball"
+          },
+          {
+            "title": "heap coals on someone's head-to repay evil with good in order to make one's enemy repent.",
+            "url": "https://www.youtube.com/watch?v=5GYdDxTeVac",
+            "title_norm": "heap coals on someone s head to repay evil with good in order to make one s enemy repent"
+          },
+          {
+            "title": "harden-to become strong, to make someone or something strong",
+            "url": "https://www.youtube.com/watch?v=IFE8lYjSEhc",
+            "title_norm": "harden to become strong to make someone or something strong"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "MAN",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 12
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "Man to man defense-basketball",
+            "url": "https://www.youtube.com/watch?v=b_BgMR6_YQw",
+            "title_norm": "man to man defense basketball"
+          },
+          {
+            "title": "man ASL",
+            "url": "https://www.youtube.com/watch?v=Jv9bZF0P778",
+            "title_norm": "man asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "heavy-a large strong man whose job is to protect someone",
+            "url": "https://www.youtube.com/watch?v=XJwej1VPCng",
+            "title_norm": "heavy a large strong man whose job is to protect someone"
+          },
+          {
+            "title": "hatchet man",
+            "url": "https://www.youtube.com/watch?v=2DB5nUXUXlQ",
+            "title_norm": "hatchet man"
+          },
+          {
+            "title": "gramps,grampa-old man",
+            "url": "https://www.youtube.com/watch?v=nVvpl3TosoM",
+            "title_norm": "gramps grampa old man"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "MANY",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 5
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "Many  teams in tournament",
+            "url": "https://www.youtube.com/watch?v=bv7XWIO88cA",
+            "title_norm": "many teams in tournament"
+          },
+          {
+            "title": "Many teams advancing in tournament",
+            "url": "https://www.youtube.com/watch?v=EvTQgPch9iY",
+            "title_norm": "many teams advancing in tournament"
+          }
+        ],
+        "contains": [
+          {
+            "title": "Play against many other teams",
+            "url": "https://www.youtube.com/watch?v=Yp7BewbVYOA",
+            "title_norm": "play against many other teams"
+          },
+          {
+            "title": "grasping at straws-not many options left",
+            "url": "https://www.youtube.com/watch?v=GcV_AYousRY",
+            "title_norm": "grasping at straws not many options left"
+          },
+          {
+            "title": "cosmopolitan-showing the influence of many different countries and cultures",
+            "url": "https://www.youtube.com/watch?v=MmKPeOh1sCc",
+            "title_norm": "cosmopolitan showing the influence of many different countries and cultures"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "ME",
+      "clip_count": 4,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 12
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hit me with your best shot",
+            "url": "https://www.youtube.com/watch?v=-zYj9-99b7Q",
+            "title_norm": "hit me with your best shot"
+          },
+          {
+            "title": "go figure-confusing to me",
+            "url": "https://www.youtube.com/watch?v=1j2vGjPb8jM",
+            "title_norm": "go figure confusing to me"
+          },
+          {
+            "title": "give me five,high five",
+            "url": "https://www.youtube.com/watch?v=CxcoqdXN8d0",
+            "title_norm": "give me five high five"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "MEET",
+      "clip_count": 8,
+      "worst_duration_seconds": 2.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 5
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "fit-qualifications meet requirements",
+            "url": "https://www.youtube.com/watch?v=ShK6D2brdzU",
+            "title_norm": "fit qualifications meet requirements"
+          },
+          {
+            "title": "become familiar-meet a new person and chat",
+            "url": "https://www.youtube.com/watch?v=ZJFVbAYPQGY",
+            "title_norm": "become familiar meet a new person and chat"
+          },
+          {
+            "title": "event-in a  track meet",
+            "url": "https://www.youtube.com/watch?v=OJaJ5NqZYgU",
+            "title_norm": "event in a track meet"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "MORE",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 4,
+        "contains": 22
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "More than one consecutive hit-volleyball",
+            "url": "https://www.youtube.com/watch?v=9oHA93szYDk",
+            "title_norm": "more than one consecutive hit volleyball"
+          },
+          {
+            "title": "more benign,most benign,benigner,benignest-nice   ASL",
+            "url": "https://www.youtube.com/watch?v=WOTmXibOOYk",
+            "title_norm": "more benign most benign benigner benignest nice asl"
+          },
+          {
+            "title": "more, most awful,severe,ghastly      ASL",
+            "url": "https://www.youtube.com/watch?v=ducOIdELX9E",
+            "title_norm": "more most awful severe ghastly asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "determined,more determined,most determined-determined to succeed",
+            "url": "https://www.youtube.com/watch?v=G9I_Dx8WBB4",
+            "title_norm": "determined more determined most determined determined to succeed"
+          },
+          {
+            "title": "grave,graver,gravest,serious,more serious,most serious",
+            "url": "https://www.youtube.com/watch?v=eD02ez38_bw",
+            "title_norm": "grave graver gravest serious more serious most serious"
+          },
+          {
+            "title": "fun,funner,funnest,more fun,most fun",
+            "url": "https://www.youtube.com/watch?v=Cd3yXIwJ_JM",
+            "title_norm": "fun funner funnest more fun most fun"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "MOTHER",
+      "clip_count": 1,
+      "worst_duration_seconds": 3.083,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "mother ASL",
+            "url": "https://www.youtube.com/watch?v=mBXGUXPUptA",
+            "title_norm": "mother asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "failure is the mother of success",
+            "url": "https://www.youtube.com/watch?v=RBYI-AGWswA",
+            "title_norm": "failure is the mother of success"
+          },
+          {
+            "title": "face only a mother could love",
+            "url": "https://www.youtube.com/watch?v=xkuvw8rxVxM",
+            "title_norm": "face only a mother could love"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "MY",
+      "clip_count": 3,
+      "worst_duration_seconds": 0.75,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 13
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "frog in my throat",
+            "url": "https://www.youtube.com/watch?v=3qm9AxGYrTo",
+            "title_norm": "frog in my throat"
+          },
+          {
+            "title": "for my money",
+            "url": "https://www.youtube.com/watch?v=DwTczOeK48U",
+            "title_norm": "for my money"
+          },
+          {
+            "title": "fell off my plate-forgot do complete something",
+            "url": "https://www.youtube.com/watch?v=VuXNCL0_Bz4",
+            "title_norm": "fell off my plate forgot do complete something"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "NAME",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "give a dog a bad name and hang him",
+            "url": "https://www.youtube.com/watch?v=bddrg50KL0o",
+            "title_norm": "give a dog a bad name and hang him"
+          },
+          {
+            "title": "dub-name",
+            "url": "https://www.youtube.com/watch?v=zpuJlGGYe18",
+            "title_norm": "dub name"
+          },
+          {
+            "title": "a rose by any other name would smell as sweet",
+            "url": "https://www.youtube.com/watch?v=Tf9ujh_zCw0",
+            "title_norm": "a rose by any other name would smell as sweet"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "NEED",
+      "clip_count": 1,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 1,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [
+          {
+            "title": "need",
+            "url": "https://www.youtube.com/watch?v=uks_VYeKMMk",
+            "title_norm": "need"
+          }
+        ],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "comfortable-rich enough to pay for everything you need ASL",
+            "url": "https://www.youtube.com/watch?v=A8W3WjR17VE",
+            "title_norm": "comfortable rich enough to pay for everything you need asl"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "NEW",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 10
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "new born",
+            "url": "https://www.youtube.com/watch?v=G6D6j97iO0M",
+            "title_norm": "new born"
+          }
+        ],
+        "contains": [
+          {
+            "title": "become familiar-meet a new person and chat",
+            "url": "https://www.youtube.com/watch?v=ZJFVbAYPQGY",
+            "title_norm": "become familiar meet a new person and chat"
+          },
+          {
+            "title": "enterprise-attempt something new",
+            "url": "https://www.youtube.com/watch?v=ttFLDwA6AsQ",
+            "title_norm": "enterprise attempt something new"
+          },
+          {
+            "title": "enterprise-ability to think of new ideas",
+            "url": "https://www.youtube.com/watch?v=6x4mSAiY4ak",
+            "title_norm": "enterprise ability to think of new ideas"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "NO",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 24
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "harden-become mean, show no compassion",
+            "url": "https://www.youtube.com/watch?v=Mrdlxv-Mm1g",
+            "title_norm": "harden become mean show no compassion"
+          },
+          {
+            "title": "half a loaf is better than no bread",
+            "url": "https://www.youtube.com/watch?v=g2jgMPASvKc",
+            "title_norm": "half a loaf is better than no bread"
+          },
+          {
+            "title": "gum-chew with no teeth",
+            "url": "https://www.youtube.com/watch?v=K7j8JYwd_WA",
+            "title_norm": "gum chew with no teeth"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "NOT",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 40
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "not hear of-not accept",
+            "url": "https://www.youtube.com/watch?v=hQrqD3mK7Fs",
+            "title_norm": "not hear of not accept"
+          },
+          {
+            "title": "\"not take it\",\"won't stand for it\"",
+            "url": "https://www.youtube.com/watch?v=kgdOb3H_f2M",
+            "title_norm": "not take it won t stand for it"
+          }
+        ],
+        "contains": [
+          {
+            "title": "heavy-a heavy situation or relationship is serious and often not enjoyable",
+            "url": "https://www.youtube.com/watch?v=UnE8TAroYMM",
+            "title_norm": "heavy a heavy situation or relationship is serious and often not enjoyable"
+          },
+          {
+            "title": "hands off-not interfere",
+            "url": "https://www.youtube.com/watch?v=zIpEDKUlTIU",
+            "title_norm": "hands off not interfere"
+          },
+          {
+            "title": "grasping at straws-not many options left",
+            "url": "https://www.youtube.com/watch?v=GcV_AYousRY",
+            "title_norm": "grasping at straws not many options left"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "NOW",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "\"every now and then\",\"every so often\",\"once in a while\",\"every once in a while\"",
+            "url": "https://www.youtube.com/watch?v=xMfnsdYzFK0",
+            "title_norm": "every now and then every so often once in a while every once in a while"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "OK",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "well done,A-OK",
+            "url": "https://www.youtube.com/watch?v=Nr2Hc2ZaiLI",
+            "title_norm": "well done a ok"
+          },
+          {
+            "title": "a-ok ASL",
+            "url": "https://www.youtube.com/watch?v=d1CykoM0Rfc",
+            "title_norm": "a ok asl"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "OKAY",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "OLD",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 8
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "old age benefit",
+            "url": "https://www.youtube.com/watch?v=zcIXkwv8C5c",
+            "title_norm": "old age benefit"
+          },
+          {
+            "title": "old media",
+            "url": "https://www.youtube.com/watch?v=UgENtaX9mDg",
+            "title_norm": "old media"
+          }
+        ],
+        "contains": [
+          {
+            "title": "granny-old woman",
+            "url": "https://www.youtube.com/watch?v=eaF2oluOOqw",
+            "title_norm": "granny old woman"
+          },
+          {
+            "title": "gramps,grampa-old man",
+            "url": "https://www.youtube.com/watch?v=nVvpl3TosoM",
+            "title_norm": "gramps grampa old man"
+          },
+          {
+            "title": "estate-an old word for  three groups of people governing a country,nobility,clergy,  ordinary people",
+            "url": "https://www.youtube.com/watch?v=E8zs7jak5cw",
+            "title_norm": "estate an old word for three groups of people governing a country nobility clergy ordinary people"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "OTHER",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "Play against many other teams",
+            "url": "https://www.youtube.com/watch?v=Yp7BewbVYOA",
+            "title_norm": "play against many other teams"
+          },
+          {
+            "title": "grass is always greener on the other side",
+            "url": "https://www.youtube.com/watch?v=lF15C0ffsus",
+            "title_norm": "grass is always greener on the other side"
+          },
+          {
+            "title": "float-currency value is allowed to change in relation to other currencies",
+            "url": "https://www.youtube.com/watch?v=UmXgUQxhdO0",
+            "title_norm": "float currency value is allowed to change in relation to other currencies"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "PLAY",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 1,
+        "prefix": 1,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [
+          {
+            "title": "play",
+            "url": "https://www.youtube.com/watch?v=D4bwGYTEa04",
+            "title_norm": "play"
+          }
+        ],
+        "prefix": [
+          {
+            "title": "Play against many other teams",
+            "url": "https://www.youtube.com/watch?v=Yp7BewbVYOA",
+            "title_norm": "play against many other teams"
+          }
+        ],
+        "contains": [
+          {
+            "title": "Double play-baseball,softball",
+            "url": "https://www.youtube.com/watch?v=wzmz1KgVyYc",
+            "title_norm": "double play baseball softball"
+          },
+          {
+            "title": "Winning and advancing in tournament play",
+            "url": "https://www.youtube.com/watch?v=HO_y5fVVvKg",
+            "title_norm": "winning and advancing in tournament play"
+          },
+          {
+            "title": "go ahead,play on, go forward, go on",
+            "url": "https://www.youtube.com/watch?v=NH2cqOYnQYY",
+            "title_norm": "go ahead play on go forward go on"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "PLEASE",
+      "clip_count": 1,
+      "worst_duration_seconds": 2.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "come again-please repeat",
+            "url": "https://www.youtube.com/watch?v=v_fGLijEbjo",
+            "title_norm": "come again please repeat"
+          },
+          {
+            "title": "bend over backwards-try to please",
+            "url": "https://www.youtube.com/watch?v=zVfvS6LzbDc",
+            "title_norm": "bend over backwards try to please"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "REMEMBER",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "RIGHT",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 4,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "Right field Right fielder-baseball,softball",
+            "url": "https://www.youtube.com/watch?v=l1NWZHL2AK8",
+            "title_norm": "right field right fielder baseball softball"
+          },
+          {
+            "title": "Right back-volleyball",
+            "url": "https://www.youtube.com/watch?v=9OILMn_9x20",
+            "title_norm": "right back volleyball"
+          },
+          {
+            "title": "Right front-volleyball",
+            "url": "https://www.youtube.com/watch?v=GKq_sYN6kbM",
+            "title_norm": "right front volleyball"
+          }
+        ],
+        "contains": [
+          {
+            "title": "hit the right note",
+            "url": "https://www.youtube.com/watch?v=ckcQXvR7fJ4",
+            "title_norm": "hit the right note"
+          },
+          {
+            "title": "hit him right between the eyes",
+            "url": "https://www.youtube.com/watch?v=s8ukwdGZlf8",
+            "title_norm": "hit him right between the eyes"
+          },
+          {
+            "title": "give your eye teeth,give your right arm",
+            "url": "https://www.youtube.com/watch?v=9ofeunt2Jbc",
+            "title_norm": "give your eye teeth give your right arm"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SAD",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SAME",
+      "clip_count": 2,
+      "worst_duration_seconds": 2.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hat trick-three successes of the same kind",
+            "url": "https://www.youtube.com/watch?v=8fpdhTatSwI",
+            "title_norm": "hat trick three successes of the same kind"
+          },
+          {
+            "title": "grim-angry and pleased about something at the same time",
+            "url": "https://www.youtube.com/watch?v=mAWaLXIlViU",
+            "title_norm": "grim angry and pleased about something at the same time"
+          },
+          {
+            "title": "countermarch-a march in the reverse direction or back along the same route",
+            "url": "https://www.youtube.com/watch?v=rXL457_sEbQ",
+            "title_norm": "countermarch a march in the reverse direction or back along the same route"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SAY",
+      "clip_count": 4,
+      "worst_duration_seconds": 0.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 8
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hit below the belt-say something personal to hurt someone",
+            "url": "https://www.youtube.com/watch?v=lZS9zZ6cHGo",
+            "title_norm": "hit below the belt say something personal to hurt someone"
+          },
+          {
+            "title": "handwriting is on the wall-used to say that it is clear that something bad will probably happen soon",
+            "url": "https://www.youtube.com/watch?v=MHebrKgFD98",
+            "title_norm": "handwriting is on the wall used to say that it is clear that something bad will probably happen soon"
+          },
+          {
+            "title": "eat my hat-say that something will not happen and be shocked and humbled if it does",
+            "url": "https://www.youtube.com/watch?v=edfJnGQPYBM",
+            "title_norm": "eat my hat say that something will not happen and be shocked and humbled if it does"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SCHOOL",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 4
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "parochial school",
+            "url": "https://www.youtube.com/watch?v=ptAAZaftEeI",
+            "title_norm": "parochial school"
+          },
+          {
+            "title": "pennant school",
+            "url": "https://www.youtube.com/watch?v=PxhzUvysDF8",
+            "title_norm": "pennant school"
+          },
+          {
+            "title": "accept-school",
+            "url": "https://www.youtube.com/watch?v=6L4VKaLg6yI",
+            "title_norm": "accept school"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SEE",
+      "clip_count": 4,
+      "worst_duration_seconds": 1.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 4
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "can't see the forest for the trees",
+            "url": "https://www.youtube.com/watch?v=Ar3mIo_5CU8",
+            "title_norm": "can t see the forest for the trees"
+          },
+          {
+            "title": "heart attack- also see heart attack,coronary,angina",
+            "url": "https://www.youtube.com/watch?v=XpiDARuDOUg",
+            "title_norm": "heart attack also see heart attack coronary angina"
+          },
+          {
+            "title": "can't see the forest for its trees",
+            "url": "https://www.youtube.com/watch?v=-PFQWw0sgns",
+            "title_norm": "can t see the forest for its trees"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SHE",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "he she always gives 110 percent",
+            "url": "https://www.youtube.com/watch?v=Ov0bLQjrVBY",
+            "title_norm": "he she always gives 110 percent"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SIGN",
+      "clip_count": 1,
+      "worst_duration_seconds": 3.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 36
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "clock out,clock out at, punch out, punch out at, check out,sign out- job",
+            "url": "https://www.youtube.com/watch?v=vQhV-DuuNJY",
+            "title_norm": "clock out clock out at punch out punch out at check out sign out job"
+          },
+          {
+            "title": "clock in,clock in at, punch in, punch in at job,check in sign in",
+            "url": "https://www.youtube.com/watch?v=JpWYg_iV4B8",
+            "title_norm": "clock in clock in at punch in punch in at job check in sign in"
+          },
+          {
+            "title": "check out, sign out-object",
+            "url": "https://www.youtube.com/watch?v=OeD5xt2fuFo",
+            "title_norm": "check out sign out object"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SIGNWORD",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SLOW",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "deliberate-slow speech or movement",
+            "url": "https://www.youtube.com/watch?v=78Ab3Rz_JhE",
+            "title_norm": "deliberate slow speech or movement"
+          },
+          {
+            "title": "advanced in a slow sideways manner",
+            "url": "https://www.youtube.com/watch?v=i4JPFXC-EvU",
+            "title_norm": "advanced in a slow sideways manner"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SOME",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "give it some stick-put a lot of effort in a task",
+            "url": "https://www.youtube.com/watch?v=GI0VECzUcuM",
+            "title_norm": "give it some stick put a lot of effort in a task"
+          },
+          {
+            "title": "catch some z's",
+            "url": "https://www.youtube.com/watch?v=6PL4kSo85n0",
+            "title_norm": "catch some z s"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "SORRY",
+      "clip_count": 4,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "STAY",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "stay on the line, be on hold",
+            "url": "https://www.youtube.com/watch?v=f6IWGR680Ag",
+            "title_norm": "stay on the line be on hold"
+          },
+          {
+            "title": "stay off-don't touch",
+            "url": "https://www.youtube.com/watch?v=ID_0KUOkcrc",
+            "title_norm": "stay off don t touch"
+          }
+        ],
+        "contains": [
+          {
+            "title": "hospitalization-stay in hospital",
+            "url": "https://www.youtube.com/watch?v=w5ftC4AE214",
+            "title_norm": "hospitalization stay in hospital"
+          },
+          {
+            "title": "cover-to stay very close to an opposing player",
+            "url": "https://www.youtube.com/watch?v=3QA3Cf-MjTQ",
+            "title_norm": "cover to stay very close to an opposing player"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TAKE",
+      "clip_count": 7,
+      "worst_duration_seconds": 2.083,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 14
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "take off shoes    ASL",
+            "url": "https://www.youtube.com/watch?v=DWWiw0vogAo",
+            "title_norm": "take off shoes asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "groom-someone employed in a stable to take care of the horses",
+            "url": "https://www.youtube.com/watch?v=O9U_Dt-ARjg",
+            "title_norm": "groom someone employed in a stable to take care of the horses"
+          },
+          {
+            "title": "give them an inch, and they'll take a mile",
+            "url": "https://www.youtube.com/watch?v=tPYwdDbuiYQ",
+            "title_norm": "give them an inch and they ll take a mile"
+          },
+          {
+            "title": "give and take",
+            "url": "https://www.youtube.com/watch?v=rUSVNaDqc_M",
+            "title_norm": "give and take"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TALK",
+      "clip_count": 6,
+      "worst_duration_seconds": 1.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "double-talk,gibberish",
+            "url": "https://www.youtube.com/watch?v=NzPyOm1u0ic",
+            "title_norm": "double talk gibberish"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TELL",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 4
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "give it away-tell a secret",
+            "url": "https://www.youtube.com/watch?v=KmIfNX61dXo",
+            "title_norm": "give it away tell a secret"
+          },
+          {
+            "title": "ask me no questions and I'll tell you no lies",
+            "url": "https://www.youtube.com/watch?v=P8vCmvSzTHw",
+            "title_norm": "ask me no questions and i ll tell you no lies"
+          },
+          {
+            "title": "\"can't tell\", \"no tellin\"   ASL",
+            "url": "https://www.youtube.com/watch?v=2F7BcGTbkWs",
+            "title_norm": "can t tell no tellin asl"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "THANK_YOU",
+      "clip_count": 4,
+      "worst_duration_seconds": 4.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "THEIR",
+      "clip_count": 7,
+      "worst_duration_seconds": 2.5,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "gratuity,parachute-a large amount of money given to someone when they leave their job",
+            "url": "https://www.youtube.com/watch?v=aDCy_N4tIRA",
+            "title_norm": "gratuity parachute a large amount of money given to someone when they leave their job"
+          },
+          {
+            "title": "fuel-something that someone can use to support their argument",
+            "url": "https://www.youtube.com/watch?v=wqJmKoUprfA",
+            "title_norm": "fuel something that someone can use to support their argument"
+          },
+          {
+            "title": "flack,flak-a slick spokesperson who can turn any criticism to the advantage of their employer",
+            "url": "https://www.youtube.com/watch?v=BWvYMfBeDYQ",
+            "title_norm": "flack flak a slick spokesperson who can turn any criticism to the advantage of their employer"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "THEY",
+      "clip_count": 8,
+      "worst_duration_seconds": 2.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 5
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hang together-work together to solve  problem over time. they hung together to solve the problem",
+            "url": "https://www.youtube.com/watch?v=EnmjO8NxSkM",
+            "title_norm": "hang together work together to solve problem over time they hung together to solve the problem"
+          },
+          {
+            "title": "gratuity,parachute-a large amount of money given to someone when they leave their job",
+            "url": "https://www.youtube.com/watch?v=aDCy_N4tIRA",
+            "title_norm": "gratuity parachute a large amount of money given to someone when they leave their job"
+          },
+          {
+            "title": "give them an inch, and they'll take a mile",
+            "url": "https://www.youtube.com/watch?v=tPYwdDbuiYQ",
+            "title_norm": "give them an inch and they ll take a mile"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "THING",
+      "clip_count": 7,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "undated-thing has no date on it",
+            "url": "https://www.youtube.com/watch?v=qSnabknDCWQ",
+            "title_norm": "undated thing has no date on it"
+          },
+          {
+            "title": "a little learning is a dangerous thing",
+            "url": "https://www.youtube.com/watch?v=I6YNPHKvmJA",
+            "title_norm": "a little learning is a dangerous thing"
+          },
+          {
+            "title": "best thing since sliced bread",
+            "url": "https://www.youtube.com/watch?v=xCjwgMRqm2k",
+            "title_norm": "best thing since sliced bread"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "THINK",
+      "clip_count": 6,
+      "worst_duration_seconds": 1.333,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "great minds think alike",
+            "url": "https://www.youtube.com/watch?v=VueTPiXpLMk",
+            "title_norm": "great minds think alike"
+          },
+          {
+            "title": "get above yourself-to start to think or act like you are better than others",
+            "url": "https://www.youtube.com/watch?v=p6IQm-W8xv0",
+            "title_norm": "get above yourself to start to think or act like you are better than others"
+          },
+          {
+            "title": "enterprise-ability to think of new ideas",
+            "url": "https://www.youtube.com/watch?v=6x4mSAiY4ak",
+            "title_norm": "enterprise ability to think of new ideas"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TIME",
+      "clip_count": 3,
+      "worst_duration_seconds": 4.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 36
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "Time out",
+            "url": "https://www.youtube.com/watch?v=Pt95nnLEFfY",
+            "title_norm": "time out"
+          }
+        ],
+        "contains": [
+          {
+            "title": "Half time-basketball",
+            "url": "https://www.youtube.com/watch?v=eLm2RXe2rUE",
+            "title_norm": "half time basketball"
+          },
+          {
+            "title": "Half time",
+            "url": "https://www.youtube.com/watch?v=xFlFc2B-dwA",
+            "title_norm": "half time"
+          },
+          {
+            "title": "hang together-work together to solve  problem over time. they hung together to solve the problem",
+            "url": "https://www.youtube.com/watch?v=EnmjO8NxSkM",
+            "title_norm": "hang together work together to solve problem over time they hung together to solve the problem"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TIRED",
+      "clip_count": 7,
+      "worst_duration_seconds": 2.167,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "dog tired",
+            "url": "https://www.youtube.com/watch?v=cVaCZUWQRLA",
+            "title_norm": "dog tired"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TODAY",
+      "clip_count": 4,
+      "worst_duration_seconds": 1.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "feast today, famine tomorrow",
+            "url": "https://www.youtube.com/watch?v=QJ4Y3svCrXs",
+            "title_norm": "feast today famine tomorrow"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TOMORROW",
+      "clip_count": 1,
+      "worst_duration_seconds": 1.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "feast today, famine tomorrow",
+            "url": "https://www.youtube.com/watch?v=QJ4Y3svCrXs",
+            "title_norm": "feast today famine tomorrow"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "TRY",
+      "clip_count": 8,
+      "worst_duration_seconds": 1.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 4
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "go for-try to get",
+            "url": "https://www.youtube.com/watch?v=dVZzB0M6zzg",
+            "title_norm": "go for try to get"
+          },
+          {
+            "title": "co-opt - try to control someone by bringing them into your own group or",
+            "url": "https://www.youtube.com/watch?v=-DMd7Mttdb4",
+            "title_norm": "co opt try to control someone by bringing them into your own group or"
+          },
+          {
+            "title": "chance-try to do something risky",
+            "url": "https://www.youtube.com/watch?v=Zy9Crz5p-Qk",
+            "title_norm": "chance try to do something risky"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "UNDERSTAND",
+      "clip_count": 3,
+      "worst_duration_seconds": 2.083,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 6
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hammer in-repeat endlessly to make someone understand",
+            "url": "https://www.youtube.com/watch?v=xecrSqJ53cU",
+            "title_norm": "hammer in repeat endlessly to make someone understand"
+          },
+          {
+            "title": "glimpse-a short experience that helps you understand a situation",
+            "url": "https://www.youtube.com/watch?v=tOpzbYxwPQw",
+            "title_norm": "glimpse a short experience that helps you understand a situation"
+          },
+          {
+            "title": "get through to-to help someone understand",
+            "url": "https://www.youtube.com/watch?v=0bl5Bp3F244",
+            "title_norm": "get through to to help someone understand"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "USE",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 10
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "get out,take out to use",
+            "url": "https://www.youtube.com/watch?v=8o6QdKLEZGc",
+            "title_norm": "get out take out to use"
+          },
+          {
+            "title": "fuel-something that someone can use to support their argument",
+            "url": "https://www.youtube.com/watch?v=wqJmKoUprfA",
+            "title_norm": "fuel something that someone can use to support their argument"
+          },
+          {
+            "title": "free up-make available for use",
+            "url": "https://www.youtube.com/watch?v=G4Xgg5niY2E",
+            "title_norm": "free up make available for use"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "UTILIZE",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WAIT",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "WANT",
+      "clip_count": 3,
+      "worst_duration_seconds": 4.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "WATER",
+      "clip_count": 3,
+      "worst_duration_seconds": 5.083,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 2,
+        "contains": 14
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "water cycle",
+            "url": "https://www.youtube.com/watch?v=hYRB5FFYZ1w",
+            "title_norm": "water cycle"
+          },
+          {
+            "title": "water ASL",
+            "url": "https://www.youtube.com/watch?v=TUU24j_UJrk",
+            "title_norm": "water asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "fish out of water",
+            "url": "https://www.youtube.com/watch?v=C4N0stiNGDs",
+            "title_norm": "fish out of water"
+          },
+          {
+            "title": "like a duck to water",
+            "url": "https://www.youtube.com/watch?v=QtZ10YuzWXw",
+            "title_norm": "like a duck to water"
+          },
+          {
+            "title": "desiccate-remove water",
+            "url": "https://www.youtube.com/watch?v=iSGD3JOxCPc",
+            "title_norm": "desiccate remove water"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WE",
+      "clip_count": 2,
+      "worst_duration_seconds": 1.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 1
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "three of,we,us,them",
+            "url": "https://www.youtube.com/watch?v=QHovZ8MXlm4",
+            "title_norm": "three of we us them"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WHAT",
+      "clip_count": 3,
+      "worst_duration_seconds": 3.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "gone fishing-to be unaware of what's going on",
+            "url": "https://www.youtube.com/watch?v=OcB3lI297Gc",
+            "title_norm": "gone fishing to be unaware of what s going on"
+          },
+          {
+            "title": "gloss-a short explanation of what something means",
+            "url": "https://www.youtube.com/watch?v=l6ErSBBknjQ",
+            "title_norm": "gloss a short explanation of what something means"
+          },
+          {
+            "title": "flavor-an idea of what something is like",
+            "url": "https://www.youtube.com/watch?v=FR0tNzNjkkc",
+            "title_norm": "flavor an idea of what something is like"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WHEN",
+      "clip_count": 10,
+      "worst_duration_seconds": 1.667,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 12
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hardly-used for saying that something had only just happened when something else happened",
+            "url": "https://www.youtube.com/watch?v=Zgkm-8aZaV4",
+            "title_norm": "hardly used for saying that something had only just happened when something else happened"
+          },
+          {
+            "title": "handy,forthcoming-provided or available when needed or asked for",
+            "url": "https://www.youtube.com/watch?v=q2x5ipv-tQ0",
+            "title_norm": "handy forthcoming provided or available when needed or asked for"
+          },
+          {
+            "title": "gratuity,parachute-a large amount of money given to someone when they leave their job",
+            "url": "https://www.youtube.com/watch?v=aDCy_N4tIRA",
+            "title_norm": "gratuity parachute a large amount of money given to someone when they leave their job"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WHERE",
+      "clip_count": 6,
+      "worst_duration_seconds": 1.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 7
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "fools rush in where angels fear to tread",
+            "url": "https://www.youtube.com/watch?v=j3YXJNbsT5s",
+            "title_norm": "fools rush in where angels fear to tread"
+          },
+          {
+            "title": "field- an area where a particular force has an effect",
+            "url": "https://www.youtube.com/watch?v=W-__NjVYjtE",
+            "title_norm": "field an area where a particular force has an effect"
+          },
+          {
+            "title": "fall on our feet,land on our feet-succeed in doing something where there was a risk of failure",
+            "url": "https://www.youtube.com/watch?v=D5aAVABiwyI",
+            "title_norm": "fall on our feet land on our feet succeed in doing something where there was a risk of failure"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WHICH",
+      "clip_count": 7,
+      "worst_duration_seconds": 1.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 3
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "environment-the place in which people live and work, and the physical conditions that affect them",
+            "url": "https://www.youtube.com/watch?v=Wj2ZyGOpQSY",
+            "title_norm": "environment the place in which people live and work and the physical conditions that affect them"
+          },
+          {
+            "title": "consistency-degree to which a substance is thick, smooth, or firm",
+            "url": "https://www.youtube.com/watch?v=GYaaTBUJv_M",
+            "title_norm": "consistency degree to which a substance is thick smooth or firm"
+          },
+          {
+            "title": "ceiling-greatest height at which an aircraft can fly and be safe",
+            "url": "https://www.youtube.com/watch?v=iFkP6-w2W0Y",
+            "title_norm": "ceiling greatest height at which an aircraft can fly and be safe"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WHO",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.75,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 24
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "he who laughs last laughs longest, best",
+            "url": "https://www.youtube.com/watch?v=lda08LXEEP4",
+            "title_norm": "he who laughs last laughs longest best"
+          },
+          {
+            "title": "he who lives by the sword, shall die by the sword",
+            "url": "https://www.youtube.com/watch?v=dMtfz_bO9UY",
+            "title_norm": "he who lives by the sword shall die by the sword"
+          },
+          {
+            "title": "he who hesitates is lost",
+            "url": "https://www.youtube.com/watch?v=DKpYYV7phSw",
+            "title_norm": "he who hesitates is lost"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WHY",
+      "clip_count": 6,
+      "worst_duration_seconds": 1.833,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "WILL",
+      "clip_count": 2,
+      "worst_duration_seconds": 1.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "heads will roll",
+            "url": "https://www.youtube.com/watch?v=Gbm9Pmxdd64",
+            "title_norm": "heads will roll"
+          },
+          {
+            "title": "handwriting is on the wall-used to say that it is clear that something bad will probably happen soon",
+            "url": "https://www.youtube.com/watch?v=MHebrKgFD98",
+            "title_norm": "handwriting is on the wall used to say that it is clear that something bad will probably happen soon"
+          },
+          {
+            "title": "good will,goodwill",
+            "url": "https://www.youtube.com/watch?v=tjxsOzyMv_w",
+            "title_norm": "good will goodwill"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WITH",
+      "clip_count": 9,
+      "worst_duration_seconds": 2.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 57
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hit with-surprise",
+            "url": "https://www.youtube.com/watch?v=eQHa51dOCrg",
+            "title_norm": "hit with surprise"
+          },
+          {
+            "title": "hit me with your best shot",
+            "url": "https://www.youtube.com/watch?v=-zYj9-99b7Q",
+            "title_norm": "hit me with your best shot"
+          },
+          {
+            "title": "heavy,rough-a heavy ocean is rough with big waves",
+            "url": "https://www.youtube.com/watch?v=NQTRWhrJCeg",
+            "title_norm": "heavy rough a heavy ocean is rough with big waves"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WOMAN",
+      "clip_count": 1,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 9
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "woman ASL",
+            "url": "https://www.youtube.com/watch?v=iH3b8bNuKpE",
+            "title_norm": "woman asl"
+          }
+        ],
+        "contains": [
+          {
+            "title": "hen-gossiping woman",
+            "url": "https://www.youtube.com/watch?v=b1jqGHzODeY",
+            "title_norm": "hen gossiping woman"
+          },
+          {
+            "title": "granny-old woman",
+            "url": "https://www.youtube.com/watch?v=eaF2oluOOqw",
+            "title_norm": "granny old woman"
+          },
+          {
+            "title": "gold digger,jezebel-woman marrying wealthy person for money not love",
+            "url": "https://www.youtube.com/watch?v=BOv_igDl7N0",
+            "title_norm": "gold digger jezebel woman marrying wealthy person for money not love"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WORK",
+      "clip_count": 4,
+      "worst_duration_seconds": 3.917,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 3,
+        "contains": 21
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "work hand in hand-work together",
+            "url": "https://www.youtube.com/watch?v=gQowPyb3PZU",
+            "title_norm": "work hand in hand work together"
+          },
+          {
+            "title": "work therapy",
+            "url": "https://www.youtube.com/watch?v=onj6ECXO4X4",
+            "title_norm": "work therapy"
+          },
+          {
+            "title": "work therapy single sign",
+            "url": "https://www.youtube.com/watch?v=HVtrGofiVac",
+            "title_norm": "work therapy single sign"
+          }
+        ],
+        "contains": [
+          {
+            "title": "have your work cut out for you",
+            "url": "https://www.youtube.com/watch?v=uMHOT5HCgBU",
+            "title_norm": "have your work cut out for you"
+          },
+          {
+            "title": "done hard miles-done difficult work that makes you eligible to comment or participate in something",
+            "url": "https://www.youtube.com/watch?v=pJkq4YUX7Xg",
+            "title_norm": "done hard miles done difficult work that makes you eligible to comment or participate in something"
+          },
+          {
+            "title": "hang together-work together to solve  problem over time. they hung together to solve the problem",
+            "url": "https://www.youtube.com/watch?v=EnmjO8NxSkM",
+            "title_norm": "hang together work together to solve problem over time they hung together to solve the problem"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WRITE",
+      "clip_count": 6,
+      "worst_duration_seconds": 1.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 2
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "dash off-write",
+            "url": "https://www.youtube.com/watch?v=TXjHzJEnUBk",
+            "title_norm": "dash off write"
+          },
+          {
+            "title": "date-write the date on something ASL",
+            "url": "https://www.youtube.com/watch?v=y1puAysPZuw",
+            "title_norm": "date write the date on something asl"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "WRONG",
+      "clip_count": 0,
+      "worst_duration_seconds": 0.0,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 6
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "got off on the wrong foot",
+            "url": "https://www.youtube.com/watch?v=AUsKYVXr_tQ",
+            "title_norm": "got off on the wrong foot"
+          },
+          {
+            "title": "clear-nothing wrong on medical test",
+            "url": "https://www.youtube.com/watch?v=eIjhq8vyhSE",
+            "title_norm": "clear nothing wrong on medical test"
+          },
+          {
+            "title": "born on the wrong side of the tracks",
+            "url": "https://www.youtube.com/watch?v=Z5XY5SrzmpA",
+            "title_norm": "born on the wrong side of the tracks"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "YEAR",
+      "clip_count": 3,
+      "worst_duration_seconds": 4.25,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "YES",
+      "clip_count": 2,
+      "worst_duration_seconds": 3.417,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 0
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": []
+      },
+      "status": "suspicious",
+      "reasons": [
+        "no_reference_match"
+      ]
+    },
+    {
+      "token": "YOU",
+      "clip_count": 5,
+      "worst_duration_seconds": 1.583,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 1,
+        "contains": 55
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [
+          {
+            "title": "you,us,them-two",
+            "url": "https://www.youtube.com/watch?v=0gFV9_XLEl0",
+            "title_norm": "you us them two"
+          }
+        ],
+        "contains": [
+          {
+            "title": "have your work cut out for you",
+            "url": "https://www.youtube.com/watch?v=uMHOT5HCgBU",
+            "title_norm": "have your work cut out for you"
+          },
+          {
+            "title": "have your lunch handed to you",
+            "url": "https://www.youtube.com/watch?v=kzQ-tNqHoQA",
+            "title_norm": "have your lunch handed to you"
+          },
+          {
+            "title": "done hard miles-done difficult work that makes you eligible to comment or participate in something",
+            "url": "https://www.youtube.com/watch?v=pJkq4YUX7Xg",
+            "title_norm": "done hard miles done difficult work that makes you eligible to comment or participate in something"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    },
+    {
+      "token": "YOUR",
+      "clip_count": 3,
+      "worst_duration_seconds": 1.083,
+      "long_clips": [],
+      "reference_counts": {
+        "exact": 0,
+        "prefix": 0,
+        "contains": 100
+      },
+      "reference_examples": {
+        "exact": [],
+        "prefix": [],
+        "contains": [
+          {
+            "title": "hit your stride",
+            "url": "https://www.youtube.com/watch?v=HWzgCDggCcA",
+            "title_norm": "hit your stride"
+          },
+          {
+            "title": "hit me with your best shot",
+            "url": "https://www.youtube.com/watch?v=-zYj9-99b7Q",
+            "title_norm": "hit me with your best shot"
+          },
+          {
+            "title": "here's mud in your eye",
+            "url": "https://www.youtube.com/watch?v=aRUYijTPLAs",
+            "title_norm": "here s mud in your eye"
+          }
+        ]
+      },
+      "status": "ok",
+      "reasons": []
+    }
+  ]
+}

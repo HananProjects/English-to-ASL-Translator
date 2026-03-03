@@ -1,0 +1,187 @@
+{
+  "count": 26,
+  "items": [
+    {
+      "word": "doctor",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=Mti880uuUZ8",
+      "target_clip_name": "doctor",
+      "target_json": "ui/animation/clips/doctor.json"
+    },
+    {
+      "word": "nurse",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=obSpztJnkaQ",
+      "target_clip_name": "nurse",
+      "target_json": "ui/animation/clips/nurse.json"
+    },
+    {
+      "word": "clinic",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=D8YCaMxMCkY",
+      "target_clip_name": "clinic",
+      "target_json": "ui/animation/clips/clinic.json"
+    },
+    {
+      "word": "appointment",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=Yn_Krim_UGI",
+      "target_clip_name": "appointment",
+      "target_json": "ui/animation/clips/appointment.json"
+    },
+    {
+      "word": "medicine bottle",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=vOJmY0ZilmE",
+      "target_clip_name": "medicine_bottle",
+      "target_json": "ui/animation/clips/medicine_bottle.json"
+    },
+    {
+      "word": "medicine cabinet",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=bRkFcboQikg",
+      "target_clip_name": "medicine_cabinet",
+      "target_json": "ui/animation/clips/medicine_cabinet.json"
+    },
+    {
+      "word": "family doctor",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=tQdihN7K6cM",
+      "target_clip_name": "family_doctor",
+      "target_json": "ui/animation/clips/family_doctor.json"
+    },
+    {
+      "word": "doctor s round",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=YScshc9yHUo",
+      "target_clip_name": "doctor_s_round",
+      "target_json": "ui/animation/clips/doctor_s_round.json"
+    },
+    {
+      "word": "hospitalization stay in hospital",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=w5ftC4AE214",
+      "target_clip_name": "hospitalization_stay_in_hospital",
+      "target_json": "ui/animation/clips/hospitalization_stay_in_hospital.json"
+    },
+    {
+      "word": "nursing hospital",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=Xlpulnj6fiA",
+      "target_clip_name": "nursing_hospital",
+      "target_json": "ui/animation/clips/nursing_hospital.json"
+    },
+    {
+      "word": "maternity hospital",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=8Yw0507i5TQ",
+      "target_clip_name": "maternity_hospital",
+      "target_json": "ui/animation/clips/maternity_hospital.json"
+    },
+    {
+      "word": "painkiller",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=-1A37hZHZTU",
+      "target_clip_name": "painkiller",
+      "target_json": "ui/animation/clips/painkiller.json"
+    },
+    {
+      "word": "surgery",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=gY3JiiVSEGo",
+      "target_clip_name": "surgery",
+      "target_json": "ui/animation/clips/surgery.json"
+    },
+    {
+      "word": "brain surgery",
+      "category": "hospital",
+      "url": "https://www.youtube.com/watch?v=od8TgOaP-tc",
+      "target_clip_name": "brain_surgery",
+      "target_json": "ui/animation/clips/brain_surgery.json"
+    },
+    {
+      "word": "teacher",
+      "category": "school",
+      "url": "https://www.youtube.com/watch?v=c3WqY3MmM9o",
+      "target_clip_name": "teacher",
+      "target_json": "ui/animation/clips/teacher.json"
+    },
+    {
+      "word": "parent teacher meeting",
+      "category": "school",
+      "url": "https://www.youtube.com/watch?v=DO2AwOFkWjc",
+      "target_clip_name": "parent_teacher_meeting",
+      "target_json": "ui/animation/clips/parent_teacher_meeting.json"
+    },
+    {
+      "word": "principal s office",
+      "category": "school",
+      "url": "https://www.youtube.com/watch?v=gqpC_uoJJrQ",
+      "target_clip_name": "principal_s_office",
+      "target_json": "ui/animation/clips/principal_s_office.json"
+    },
+    {
+      "word": "parochial school",
+      "category": "school",
+      "url": "https://www.youtube.com/watch?v=ptAAZaftEeI",
+      "target_clip_name": "parochial_school",
+      "target_json": "ui/animation/clips/parochial_school.json"
+    },
+    {
+      "word": "physical examination",
+      "category": "school",
+      "url": "https://www.youtube.com/watch?v=4T1R88yEXaA",
+      "target_clip_name": "physical_examination",
+      "target_json": "ui/animation/clips/physical_examination.json"
+    },
+    {
+      "word": "class act",
+      "category": "school",
+      "url": "https://www.youtube.com/watch?v=nHo51qVXJ7Q",
+      "target_clip_name": "class_act",
+      "target_json": "ui/animation/clips/class_act.json"
+    },
+    {
+      "word": "waiter",
+      "category": "restaurant",
+      "url": "https://www.youtube.com/watch?v=x_hAi_901cI",
+      "target_clip_name": "waiter",
+      "target_json": "ui/animation/clips/waiter.json"
+    },
+    {
+      "word": "waitress",
+      "category": "restaurant",
+      "url": "https://www.youtube.com/watch?v=Dh0LuYkGqDo",
+      "target_clip_name": "waitress",
+      "target_json": "ui/animation/clips/waitress.json"
+    },
+    {
+      "word": "table",
+      "category": "restaurant",
+      "url": "https://www.youtube.com/watch?v=q16SyM_un9Q",
+      "target_clip_name": "table",
+      "target_json": "ui/animation/clips/table.json"
+    },
+    {
+      "word": "allergy",
+      "category": "restaurant",
+      "url": "https://www.youtube.com/watch?v=RRCx_5uPEBM",
+      "target_clip_name": "allergy",
+      "target_json": "ui/animation/clips/allergy.json"
+    },
+    {
+      "word": "allergy sufferer",
+      "category": "restaurant",
+      "url": "https://www.youtube.com/watch?v=wZ7kQjv9kFY",
+      "target_clip_name": "allergy_sufferer",
+      "target_json": "ui/animation/clips/allergy_sufferer.json"
+    },
+    {
+      "word": "diner small local restaurant",
+      "category": "restaurant",
+      "url": "https://www.youtube.com/watch?v=VXeXbA9jb4o",
+      "target_clip_name": "diner_small_local_restaurant",
+      "target_json": "ui/animation/clips/diner_small_local_restaurant.json"
+    }
+  ]
+}

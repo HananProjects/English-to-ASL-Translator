@@ -1,0 +1,13 @@
+{
+  "saved": [
+    {
+      "source": "data\\external\\general_videos_reactions\\go_ahead.mp4",
+      "label": "GO_AHEAD",
+      "clip": "go_ahead_1",
+      "frame_count": 25,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.84
+    }
+  ],
+  "skipped": []
+}

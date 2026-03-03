@@ -1,0 +1,1130 @@
+{
+  "labels_checked": 114,
+  "playable_count": 100,
+  "unplayable_count": 14,
+  "playable": [
+    {
+      "label": "ABOUT",
+      "configured": [
+        "about"
+      ],
+      "existing": [
+        "about"
+      ]
+    },
+    {
+      "label": "AGAIN",
+      "configured": [
+        "again"
+      ],
+      "existing": [
+        "again"
+      ]
+    },
+    {
+      "label": "AND",
+      "configured": [
+        "and_3",
+        "and_4",
+        "and_5"
+      ],
+      "existing": [
+        "and_3",
+        "and_4",
+        "and_5"
+      ]
+    },
+    {
+      "label": "ASK",
+      "configured": [
+        "ask"
+      ],
+      "existing": [
+        "ask"
+      ]
+    },
+    {
+      "label": "BAD",
+      "configured": [
+        "bad"
+      ],
+      "existing": [
+        "bad"
+      ]
+    },
+    {
+      "label": "BOY",
+      "configured": [
+        "boy"
+      ],
+      "existing": [
+        "boy"
+      ]
+    },
+    {
+      "label": "BROTHER",
+      "configured": [
+        "brother_1",
+        "brother_2",
+        "brother_3"
+      ],
+      "existing": [
+        "brother_1",
+        "brother_2",
+        "brother_3"
+      ]
+    },
+    {
+      "label": "BUT",
+      "configured": [
+        "but"
+      ],
+      "existing": [
+        "but"
+      ]
+    },
+    {
+      "label": "BUY",
+      "configured": [
+        "buy"
+      ],
+      "existing": [
+        "buy"
+      ]
+    },
+    {
+      "label": "CAN",
+      "configured": [
+        "can"
+      ],
+      "existing": [
+        "can"
+      ]
+    },
+    {
+      "label": "COME",
+      "configured": [
+        "come"
+      ],
+      "existing": [
+        "come"
+      ]
+    },
+    {
+      "label": "DIFFERENT",
+      "configured": [
+        "different"
+      ],
+      "existing": [
+        "different"
+      ]
+    },
+    {
+      "label": "DRINK",
+      "configured": [
+        "drink_1",
+        "drink_2",
+        "drink_3"
+      ],
+      "existing": [
+        "drink_1",
+        "drink_2",
+        "drink_3"
+      ]
+    },
+    {
+      "label": "EASY",
+      "configured": [
+        "easy"
+      ],
+      "existing": [
+        "easy"
+      ]
+    },
+    {
+      "label": "EAT",
+      "configured": [
+        "eat_1",
+        "eat_2",
+        "eat_3"
+      ],
+      "existing": [
+        "eat_1",
+        "eat_2"
+      ]
+    },
+    {
+      "label": "FAMILY",
+      "configured": [
+        "family_1",
+        "family_2",
+        "family_3"
+      ],
+      "existing": [
+        "family_1",
+        "family_2",
+        "family_3"
+      ]
+    },
+    {
+      "label": "FEEL",
+      "configured": [
+        "feel"
+      ],
+      "existing": [
+        "feel"
+      ]
+    },
+    {
+      "label": "FEW",
+      "configured": [
+        "few"
+      ],
+      "existing": [
+        "few"
+      ]
+    },
+    {
+      "label": "FIND",
+      "configured": [
+        "find"
+      ],
+      "existing": [
+        "find"
+      ]
+    },
+    {
+      "label": "FINE",
+      "configured": [
+        "fine"
+      ],
+      "existing": [
+        "fine"
+      ]
+    },
+    {
+      "label": "FINISH",
+      "configured": [
+        "finish_1",
+        "finish_2",
+        "finish_3"
+      ],
+      "existing": [
+        "finish_1",
+        "finish_3"
+      ]
+    },
+    {
+      "label": "FOR",
+      "configured": [
+        "for"
+      ],
+      "existing": [
+        "for"
+      ]
+    },
+    {
+      "label": "FORGET",
+      "configured": [
+        "forget_1",
+        "forget_2",
+        "forget_3"
+      ],
+      "existing": [
+        "forget_1",
+        "forget_2",
+        "forget_3"
+      ]
+    },
+    {
+      "label": "FRIEND",
+      "configured": [
+        "friend"
+      ],
+      "existing": [
+        "friend"
+      ]
+    },
+    {
+      "label": "GET",
+      "configured": [
+        "get"
+      ],
+      "existing": [
+        "get"
+      ]
+    },
+    {
+      "label": "GIRL",
+      "configured": [
+        "girl"
+      ],
+      "existing": [
+        "girl"
+      ]
+    },
+    {
+      "label": "GIVE",
+      "configured": [
+        "give_1",
+        "give_2",
+        "give_3"
+      ],
+      "existing": [
+        "give_1",
+        "give_3"
+      ]
+    },
+    {
+      "label": "GO",
+      "configured": [
+        "go_1",
+        "go_2",
+        "go_3"
+      ],
+      "existing": [
+        "go_1",
+        "go_2",
+        "go_3"
+      ]
+    },
+    {
+      "label": "GOOD",
+      "configured": [
+        "good"
+      ],
+      "existing": [
+        "good"
+      ]
+    },
+    {
+      "label": "HAPPY",
+      "configured": [
+        "happy"
+      ],
+      "existing": [
+        "happy"
+      ]
+    },
+    {
+      "label": "HARD",
+      "configured": [
+        "hard"
+      ],
+      "existing": [
+        "hard"
+      ]
+    },
+    {
+      "label": "HAVE",
+      "configured": [
+        "have"
+      ],
+      "existing": [
+        "have"
+      ]
+    },
+    {
+      "label": "HE",
+      "configured": [
+        "he"
+      ],
+      "existing": [
+        "he"
+      ]
+    },
+    {
+      "label": "HELLO",
+      "configured": [
+        "hello"
+      ],
+      "existing": [
+        "hello"
+      ]
+    },
+    {
+      "label": "HELP",
+      "configured": [
+        "help_1",
+        "help_2",
+        "help_3"
+      ],
+      "existing": [
+        "help_1",
+        "help_2",
+        "help_3"
+      ]
+    },
+    {
+      "label": "HERE",
+      "configured": [
+        "here_2",
+        "here_3"
+      ],
+      "existing": [
+        "here_2",
+        "here_3"
+      ]
+    },
+    {
+      "label": "HOME",
+      "configured": [
+        "home_1"
+      ],
+      "existing": [
+        "home_1"
+      ]
+    },
+    {
+      "label": "HOW",
+      "configured": [
+        "how",
+        "how_2",
+        "how_3"
+      ],
+      "existing": [
+        "how",
+        "how_2",
+        "how_3"
+      ]
+    },
+    {
+      "label": "KNOW",
+      "configured": [
+        "know"
+      ],
+      "existing": [
+        "know"
+      ]
+    },
+    {
+      "label": "LATER",
+      "configured": [
+        "later_1",
+        "later_2",
+        "later_3"
+      ],
+      "existing": [
+        "later_1",
+        "later_3"
+      ]
+    },
+    {
+      "label": "LIKE",
+      "configured": [
+        "like_1",
+        "like_2",
+        "like_3"
+      ],
+      "existing": [
+        "like_1"
+      ]
+    },
+    {
+      "label": "LITTLE",
+      "configured": [
+        "little"
+      ],
+      "existing": [
+        "little"
+      ]
+    },
+    {
+      "label": "LIVE",
+      "configured": [
+        "live"
+      ],
+      "existing": [
+        "live"
+      ]
+    },
+    {
+      "label": "LOOK",
+      "configured": [
+        "look"
+      ],
+      "existing": [
+        "look"
+      ]
+    },
+    {
+      "label": "MAKE",
+      "configured": [
+        "make"
+      ],
+      "existing": [
+        "make"
+      ]
+    },
+    {
+      "label": "MAN",
+      "configured": [
+        "man_1",
+        "man_2",
+        "man_3"
+      ],
+      "existing": [
+        "man_1",
+        "man_2"
+      ]
+    },
+    {
+      "label": "MANY",
+      "configured": [
+        "many_1",
+        "many_2",
+        "many_3"
+      ],
+      "existing": [
+        "many_2",
+        "many_3"
+      ]
+    },
+    {
+      "label": "ME",
+      "configured": [
+        "me"
+      ],
+      "existing": [
+        "me"
+      ]
+    },
+    {
+      "label": "MEET",
+      "configured": [
+        "meet"
+      ],
+      "existing": [
+        "meet"
+      ]
+    },
+    {
+      "label": "MORE",
+      "configured": [
+        "more"
+      ],
+      "existing": [
+        "more"
+      ]
+    },
+    {
+      "label": "MOTHER",
+      "configured": [
+        "mother_1",
+        "mother_2",
+        "mother_3"
+      ],
+      "existing": [
+        "mother_1"
+      ]
+    },
+    {
+      "label": "MY",
+      "configured": [
+        "my_3"
+      ],
+      "existing": [
+        "my_3"
+      ]
+    },
+    {
+      "label": "NEED",
+      "configured": [
+        "need_1",
+        "need_2",
+        "need_3"
+      ],
+      "existing": [
+        "need_1"
+      ]
+    },
+    {
+      "label": "NO",
+      "configured": [
+        "no"
+      ],
+      "existing": [
+        "no"
+      ]
+    },
+    {
+      "label": "NOW",
+      "configured": [
+        "now_1",
+        "now_3"
+      ],
+      "existing": [
+        "now_1",
+        "now_3"
+      ]
+    },
+    {
+      "label": "OK",
+      "configured": [
+        "a_ok_1"
+      ],
+      "existing": [
+        "a_ok_1"
+      ]
+    },
+    {
+      "label": "OKAY",
+      "configured": [
+        "a_ok_1"
+      ],
+      "existing": [
+        "a_ok_1"
+      ]
+    },
+    {
+      "label": "PLAY",
+      "configured": [
+        "play_1",
+        "play_2",
+        "play_3"
+      ],
+      "existing": [
+        "play_1",
+        "play_2",
+        "play_3"
+      ]
+    },
+    {
+      "label": "PLEASE",
+      "configured": [
+        "please_2"
+      ],
+      "existing": [
+        "please_2"
+      ]
+    },
+    {
+      "label": "RIGHT",
+      "configured": [
+        "right_1",
+        "right_2",
+        "right_3"
+      ],
+      "existing": [
+        "right_2",
+        "right_3"
+      ]
+    },
+    {
+      "label": "SAME",
+      "configured": [
+        "same_1",
+        "same_2",
+        "same_3"
+      ],
+      "existing": [
+        "same_3"
+      ]
+    },
+    {
+      "label": "SAY",
+      "configured": [
+        "say_1"
+      ],
+      "existing": [
+        "say_1"
+      ]
+    },
+    {
+      "label": "SCHOOL",
+      "configured": [
+        "school_1",
+        "school_2",
+        "school_3"
+      ],
+      "existing": [
+        "school_1",
+        "school_2",
+        "school_3"
+      ]
+    },
+    {
+      "label": "SEE",
+      "configured": [
+        "see_1"
+      ],
+      "existing": [
+        "see_1"
+      ]
+    },
+    {
+      "label": "SIGN",
+      "configured": [
+        "sign"
+      ],
+      "existing": [
+        "sign"
+      ]
+    },
+    {
+      "label": "SIGNWORD",
+      "configured": [
+        "sign"
+      ],
+      "existing": [
+        "sign"
+      ]
+    },
+    {
+      "label": "SORRY",
+      "configured": [
+        "sorry_1"
+      ],
+      "existing": [
+        "sorry_1"
+      ]
+    },
+    {
+      "label": "TAKE",
+      "configured": [
+        "take_1"
+      ],
+      "existing": [
+        "take_1"
+      ]
+    },
+    {
+      "label": "TALK",
+      "configured": [
+        "talk_1"
+      ],
+      "existing": [
+        "talk_1"
+      ]
+    },
+    {
+      "label": "TELL",
+      "configured": [
+        "tell_1",
+        "tell_2",
+        "tell_3"
+      ],
+      "existing": [
+        "tell_3"
+      ]
+    },
+    {
+      "label": "THANK_YOU",
+      "configured": [
+        "thank_you"
+      ],
+      "existing": [
+        "thank_you"
+      ]
+    },
+    {
+      "label": "THEIR",
+      "configured": [
+        "their_1"
+      ],
+      "existing": [
+        "their_1"
+      ]
+    },
+    {
+      "label": "THEY",
+      "configured": [
+        "they_1"
+      ],
+      "existing": [
+        "they_1"
+      ]
+    },
+    {
+      "label": "THING",
+      "configured": [
+        "thing_1"
+      ],
+      "existing": [
+        "thing_1"
+      ]
+    },
+    {
+      "label": "THINK",
+      "configured": [
+        "think_1"
+      ],
+      "existing": [
+        "think_1"
+      ]
+    },
+    {
+      "label": "TIME",
+      "configured": [
+        "time_1",
+        "time_2",
+        "time_3"
+      ],
+      "existing": [
+        "time_1",
+        "time_2",
+        "time_3"
+      ]
+    },
+    {
+      "label": "TIRED",
+      "configured": [
+        "tired_1"
+      ],
+      "existing": [
+        "tired_1"
+      ]
+    },
+    {
+      "label": "TODAY",
+      "configured": [
+        "today"
+      ],
+      "existing": [
+        "today"
+      ]
+    },
+    {
+      "label": "TOMORROW",
+      "configured": [
+        "tomorrow"
+      ],
+      "existing": [
+        "tomorrow"
+      ]
+    },
+    {
+      "label": "TRY",
+      "configured": [
+        "try_1"
+      ],
+      "existing": [
+        "try_1"
+      ]
+    },
+    {
+      "label": "UNDERSTAND",
+      "configured": [
+        "understand"
+      ],
+      "existing": [
+        "understand"
+      ]
+    },
+    {
+      "label": "WAIT",
+      "configured": [
+        "wait_1",
+        "wait_2",
+        "wait_3"
+      ],
+      "existing": [
+        "wait_1",
+        "wait_2",
+        "wait_3"
+      ]
+    },
+    {
+      "label": "WANT",
+      "configured": [
+        "want_1",
+        "want_2",
+        "want_3"
+      ],
+      "existing": [
+        "want_1",
+        "want_2",
+        "want_3"
+      ]
+    },
+    {
+      "label": "WATER",
+      "configured": [
+        "water_1",
+        "water_2",
+        "water_3"
+      ],
+      "existing": [
+        "water_1",
+        "water_2",
+        "water_3"
+      ]
+    },
+    {
+      "label": "WE",
+      "configured": [
+        "we_3"
+      ],
+      "existing": [
+        "we_3"
+      ]
+    },
+    {
+      "label": "WHAT",
+      "configured": [
+        "what_1",
+        "what_2",
+        "what_3"
+      ],
+      "existing": [
+        "what_1",
+        "what_2",
+        "what_3"
+      ]
+    },
+    {
+      "label": "WHEN",
+      "configured": [
+        "when_1"
+      ],
+      "existing": [
+        "when_1"
+      ]
+    },
+    {
+      "label": "WHERE",
+      "configured": [
+        "where_1"
+      ],
+      "existing": [
+        "where_1"
+      ]
+    },
+    {
+      "label": "WHICH",
+      "configured": [
+        "which_1"
+      ],
+      "existing": [
+        "which_1"
+      ]
+    },
+    {
+      "label": "WHO",
+      "configured": [
+        "who_1",
+        "who_2",
+        "who_3"
+      ],
+      "existing": [
+        "who_1",
+        "who_3"
+      ]
+    },
+    {
+      "label": "WHY",
+      "configured": [
+        "why_2"
+      ],
+      "existing": [
+        "why_2"
+      ]
+    },
+    {
+      "label": "WILL",
+      "configured": [
+        "will_3",
+        "will_4"
+      ],
+      "existing": [
+        "will_3",
+        "will_4"
+      ]
+    },
+    {
+      "label": "WITH",
+      "configured": [
+        "with_1"
+      ],
+      "existing": [
+        "with_1"
+      ]
+    },
+    {
+      "label": "WOMAN",
+      "configured": [
+        "woman_1",
+        "woman_2",
+        "woman_3"
+      ],
+      "existing": [
+        "woman_1"
+      ]
+    },
+    {
+      "label": "WORK",
+      "configured": [
+        "work_1",
+        "work_2",
+        "work_3"
+      ],
+      "existing": [
+        "work_1",
+        "work_2",
+        "work_3"
+      ]
+    },
+    {
+      "label": "WRITE",
+      "configured": [
+        "write_1"
+      ],
+      "existing": [
+        "write_1"
+      ]
+    },
+    {
+      "label": "YEAR",
+      "configured": [
+        "year_1",
+        "year_2",
+        "year_3"
+      ],
+      "existing": [
+        "year_1",
+        "year_2",
+        "year_3"
+      ]
+    },
+    {
+      "label": "YES",
+      "configured": [
+        "yes_1",
+        "yes_2",
+        "yes_3"
+      ],
+      "existing": [
+        "yes_1",
+        "yes_2"
+      ]
+    },
+    {
+      "label": "YOU",
+      "configured": [
+        "you",
+        "you_1",
+        "you_3",
+        "you_4",
+        "you_5"
+      ],
+      "existing": [
+        "you",
+        "you_1",
+        "you_3",
+        "you_4",
+        "you_5"
+      ]
+    },
+    {
+      "label": "YOUR",
+      "configured": [
+        "your_2"
+      ],
+      "existing": [
+        "your_2"
+      ]
+    }
+  ],
+  "unplayable": [
+    {
+      "label": "NAME",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "name"
+      ]
+    },
+    {
+      "label": "NEW",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "new"
+      ]
+    },
+    {
+      "label": "NOT",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "not"
+      ]
+    },
+    {
+      "label": "OLD",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "old"
+      ]
+    },
+    {
+      "label": "OTHER",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "other"
+      ]
+    },
+    {
+      "label": "REMEMBER",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "remember"
+      ]
+    },
+    {
+      "label": "SAD",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "sad"
+      ]
+    },
+    {
+      "label": "SHE",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "she"
+      ]
+    },
+    {
+      "label": "SLOW",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "slow"
+      ]
+    },
+    {
+      "label": "SOME",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "some"
+      ]
+    },
+    {
+      "label": "STAY",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "stay"
+      ]
+    },
+    {
+      "label": "USE",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "use"
+      ]
+    },
+    {
+      "label": "UTILIZE",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "utilize"
+      ]
+    },
+    {
+      "label": "WRONG",
+      "reason": "configured_clips_missing",
+      "candidates": [
+        "wrong_1",
+        "wrong_2",
+        "wrong_3"
+      ]
+    }
+  ]
+}

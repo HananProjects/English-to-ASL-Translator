@@ -1,0 +1,194 @@
+{
+  "saved": [
+    {
+      "source": "data\\external\\general_videos\\appointment.mp4",
+      "label": "APPOINTMENT",
+      "clip": "appointment_1",
+      "frame_count": 24,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.5416666666666666
+    },
+    {
+      "source": "data\\external\\general_videos\\brain_surgery.mp4",
+      "label": "BRAIN_SURGERY",
+      "clip": "brain_surgery_1",
+      "frame_count": 33,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.9393939393939394
+    },
+    {
+      "source": "data\\external\\general_videos\\class_act.mp4",
+      "label": "CLASS_ACT",
+      "clip": "class_act_1",
+      "frame_count": 22,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7727272727272727
+    },
+    {
+      "source": "data\\external\\general_videos\\clinic.mp4",
+      "label": "CLINIC",
+      "clip": "clinic_1",
+      "frame_count": 29,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.4827586206896552
+    },
+    {
+      "source": "data\\external\\general_videos\\diner_small_local_restaurant.mp4",
+      "label": "DINER_SMALL_LOCAL_RESTAURANT",
+      "clip": "diner_small_local_restaurant_1",
+      "frame_count": 21,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8095238095238095
+    },
+    {
+      "source": "data\\external\\general_videos\\doctor.mp4",
+      "label": "DOCTOR",
+      "clip": "doctor_1",
+      "frame_count": 67,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.31343283582089554
+    },
+    {
+      "source": "data\\external\\general_videos\\family_doctor.mp4",
+      "label": "FAMILY_DOCTOR",
+      "clip": "family_doctor_1",
+      "frame_count": 49,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7346938775510204
+    },
+    {
+      "source": "data\\external\\general_videos\\hospitalization_stay_in_hospital.mp4",
+      "label": "HOSPITALIZATION_STAY_IN_HOSPITAL",
+      "clip": "hospitalization_stay_in_hospital_1",
+      "frame_count": 51,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.6666666666666666
+    },
+    {
+      "source": "data\\external\\general_videos\\medicine_bottle.mp4",
+      "label": "MEDICINE_BOTTLE",
+      "clip": "medicine_bottle_1",
+      "frame_count": 30,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.5666666666666667
+    },
+    {
+      "source": "data\\external\\general_videos\\medicine_cabinet.mp4",
+      "label": "MEDICINE_CABINET",
+      "clip": "medicine_cabinet_1",
+      "frame_count": 36,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.5833333333333334
+    },
+    {
+      "source": "data\\external\\general_videos\\nurse.mp4",
+      "label": "NURSE",
+      "clip": "nurse_1",
+      "frame_count": 68,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.17647058823529413
+    },
+    {
+      "source": "data\\external\\general_videos\\nursing_hospital.mp4",
+      "label": "NURSING_HOSPITAL",
+      "clip": "nursing_hospital_1",
+      "frame_count": 95,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8210526315789474
+    },
+    {
+      "source": "data\\external\\general_videos\\painkiller.mp4",
+      "label": "PAINKILLER",
+      "clip": "painkiller_1",
+      "frame_count": 61,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7704918032786885
+    },
+    {
+      "source": "data\\external\\general_videos\\parent_teacher_meeting.mp4",
+      "label": "PARENT_TEACHER_MEETING",
+      "clip": "parent_teacher_meeting_1",
+      "frame_count": 73,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7397260273972602
+    },
+    {
+      "source": "data\\external\\general_videos\\principal_s_office.mp4",
+      "label": "PRINCIPAL_S_OFFICE",
+      "clip": "principal_s_office_1",
+      "frame_count": 72,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7361111111111112
+    },
+    {
+      "source": "data\\external\\general_videos\\table.mp4",
+      "label": "TABLE",
+      "clip": "table_1",
+      "frame_count": 62,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.7580645161290323
+    },
+    {
+      "source": "data\\external\\general_videos\\teacher.mp4",
+      "label": "TEACHER",
+      "clip": "teacher_1",
+      "frame_count": 68,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.19117647058823528
+    },
+    {
+      "source": "data\\external\\general_videos\\waiter.mp4",
+      "label": "WAITER",
+      "clip": "waiter_1",
+      "frame_count": 69,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8260869565217391
+    },
+    {
+      "source": "data\\external\\general_videos\\waitress.mp4",
+      "label": "WAITRESS",
+      "clip": "waitress_1",
+      "frame_count": 63,
+      "pose_ratio": 1.0,
+      "hand_ratio": 0.8253968253968254
+    }
+  ],
+  "skipped": [
+    {
+      "source": "data\\external\\general_videos\\allergy_sufferer.mp4",
+      "label": "ALLERGY_SUFFERER",
+      "reason": "too_long",
+      "frame_count": 202
+    },
+    {
+      "source": "data\\external\\general_videos\\doctor_s_round.mp4",
+      "label": "DOCTOR_S_ROUND",
+      "reason": "too_long",
+      "frame_count": 109
+    },
+    {
+      "source": "data\\external\\general_videos\\maternity_hospital.mp4",
+      "label": "MATERNITY_HOSPITAL",
+      "reason": "too_long",
+      "frame_count": 116
+    },
+    {
+      "source": "data\\external\\general_videos\\parochial_school.mp4",
+      "label": "PAROCHIAL_SCHOOL",
+      "reason": "too_long",
+      "frame_count": 109
+    },
+    {
+      "source": "data\\external\\general_videos\\physical_examination.mp4",
+      "label": "PHYSICAL_EXAMINATION",
+      "reason": "too_long",
+      "frame_count": 157
+    },
+    {
+      "source": "data\\external\\general_videos\\surgery.mp4",
+      "label": "SURGERY",
+      "reason": "too_long",
+      "frame_count": 119
+    }
+  ]
+}

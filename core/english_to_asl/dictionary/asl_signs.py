@@ -14,12 +14,12 @@ ASL_SIGNS = {
     },
     "ME": {
         # Temporary fallback: "me" clip is missing in this branch.
-        "clip": "my_2",
+        "clip": "me",
         "duration": 0.6,
     },
     "THANK_YOU": {
         # Temporary fallback: "thank_you" clip is missing in this branch.
-        "clip": "please_2",
+        "clip": "thank_you",
         "duration": 0.8,
     },
     "GO": {
@@ -27,7 +27,7 @@ ASL_SIGNS = {
         "duration": 0.7,
     },
     "AND": {
-        "clip": "and_2",
+        "clips": ["and_3", "and_4", "and_5"],
         "duration": 0.7,
     },
     "HOME": {
@@ -95,7 +95,7 @@ ASL_SIGNS = {
         "duration": 0.7,
     },
     "MY": {
-        "clip": "my_2",
+        "clip": "my_3",
         "duration": 0.7,
     },
     "NEED": {
@@ -103,11 +103,11 @@ ASL_SIGNS = {
         "duration": 0.7,
     },
     "NO": {
-        "clips": ["no_1", "no_2", "no_3"],
+        "clip": "no",
         "duration": 0.7,
     },
     "NOW": {
-        "clips": ["now_1", "now_2", "now_3"],
+        "clips": ["now_1", "now_3"],
         "duration": 0.7,
     },
     "PLAY": {
@@ -132,7 +132,7 @@ ASL_SIGNS = {
     },
     "TODAY": {
         # Temporary fallback: dedicated "today" clip not available yet.
-        "clip": "now_2",
+        "clip": "today",
         "duration": 0.7,
     },
     "WAIT": {
@@ -148,7 +148,7 @@ ASL_SIGNS = {
         "duration": 0.7,
     },
     "WE": {
-        "clip": "we_2",
+        "clip": "we_3",
         "duration": 0.7,
     },
     "WHAT": {
@@ -214,22 +214,22 @@ ASL_SIGNS = {
     "NAME": {"clip": "name", "duration": 0.7},
     "NEW": {"clip": "new", "duration": 0.7},
     "NOT": {"clip": "not", "duration": 0.7},
-    "OK": {"clip": "ok", "duration": 0.7},
-    "OKAY": {"clip": "okay", "duration": 0.7},
+    "OK": {"clip": "a_ok_1", "duration": 0.7},
+    "OKAY": {"clip": "a_ok_1", "duration": 0.7},
     "OLD": {"clip": "old", "duration": 0.7},
     "OTHER": {"clip": "other", "duration": 0.7},
     "REMEMBER": {"clip": "remember", "duration": 0.7},
     "RIGHT": {"clips": ["right_1", "right_2", "right_3"], "duration": 0.7},
     "SAD": {"clip": "sad", "duration": 0.7},
     "SAME": {"clips": ["same_1", "same_2", "same_3"], "duration": 0.7},
-    "SAY": {"clip": "say", "duration": 0.7},
-    "SEE": {"clip": "see", "duration": 0.7},
+    "SAY": {"clip": "say_1", "duration": 0.7},
+    "SEE": {"clip": "see_1", "duration": 0.7},
     "SHE": {"clip": "she", "duration": 0.7},
-    "SIGN": {"clip": "sign_1", "duration": 0.7},
-    "SIGNWORD": {"clip": "sign_1", "duration": 0.7},
+    "SIGN": {"clip": "sign", "duration": 0.7},
+    "SIGNWORD": {"clip": "sign", "duration": 0.7},
     "SLOW": {"clip": "slow", "duration": 0.7},
     "SOME": {"clip": "some", "duration": 0.7},
-    "SORRY": {"clip": "sorry", "duration": 0.7},
+    "SORRY": {"clip": "sorry_1", "duration": 0.7},
     "STAY": {"clip": "stay", "duration": 0.7},
     "TAKE": {"clip": "take_1", "duration": 0.7},
     "TALK": {"clip": "talk_1", "duration": 0.7},
@@ -240,12 +240,12 @@ ASL_SIGNS = {
     "THINK": {"clip": "think_1", "duration": 0.7},
     "TIRED": {"clip": "tired_1", "duration": 0.7},
     "TRY": {"clip": "try_1", "duration": 0.7},
-    "UNDERSTAND": {"clip": "understand_1", "duration": 0.7},
+    "UNDERSTAND": {"clip": "understand", "duration": 0.7},
     "USE": {"clip": "use", "duration": 0.7},
     "UTILIZE": {"clip": "utilize", "duration": 0.7},
     "WHEN": {"clip": "when_1", "duration": 0.7},
     "WHICH": {"clip": "which_1", "duration": 0.7},
-    "WILL": {"clips": ["will_1", "will_2"], "duration": 0.7},
+    "WILL": {"clips": ["will_3", "will_4"], "duration": 0.7},
     "WITH": {"clip": "with_1", "duration": 0.7},
     "WRITE": {"clip": "write_1", "duration": 0.7},
     "WRONG": {"clips": ["wrong_1", "wrong_2", "wrong_3"], "duration": 0.7},

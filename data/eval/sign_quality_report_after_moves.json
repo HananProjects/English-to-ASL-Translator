@@ -1,0 +1,695 @@
+{
+  "clips_dir": "C:\\Users\\nahia\\English-to-ASL-Translator\\ui\\animation\\clips",
+  "total_clips_scored": 359,
+  "total_labels_scored": 119,
+  "top_signs": [
+    {
+      "label": "SIGN",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9419,
+      "best_clips": [
+        "sign.json"
+      ]
+    },
+    {
+      "label": "TIRED",
+      "num_clips": 7,
+      "quality_score_top3_avg": 0.9295,
+      "best_clips": [
+        "tired_3.json",
+        "tired_2.json",
+        "tired_5.json"
+      ]
+    },
+    {
+      "label": "TRY",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.9286,
+      "best_clips": [
+        "try_1.json",
+        "try_3.json",
+        "try_7.json"
+      ]
+    },
+    {
+      "label": "HAVE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9267,
+      "best_clips": [
+        "have.json"
+      ]
+    },
+    {
+      "label": "MEET",
+      "num_clips": 8,
+      "quality_score_top3_avg": 0.9265,
+      "best_clips": [
+        "meet_7.json",
+        "meet_6.json",
+        "meet_3.json"
+      ]
+    },
+    {
+      "label": "MOTHER",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9264,
+      "best_clips": [
+        "mother_1.json"
+      ]
+    },
+    {
+      "label": "MAKE",
+      "num_clips": 10,
+      "quality_score_top3_avg": 0.9261,
+      "best_clips": [
+        "make_4.json",
+        "make_6.json",
+        "make_9.json"
+      ]
+    },
+    {
+      "label": "NOW",
+      "num_clips": 2,
+      "quality_score_top3_avg": 0.9248,
+      "best_clips": [
+        "now_1.json",
+        "now_3.json"
+      ]
+    },
+    {
+      "label": "LIVE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9233,
+      "best_clips": [
+        "live.json"
+      ]
+    },
+    {
+      "label": "WITH",
+      "num_clips": 9,
+      "quality_score_top3_avg": 0.9189,
+      "best_clips": [
+        "with_4.json",
+        "with_2.json",
+        "with_3.json"
+      ]
+    },
+    {
+      "label": "DIFFERENT",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.917,
+      "best_clips": [
+        "different.json"
+      ]
+    },
+    {
+      "label": "GO",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.9151,
+      "best_clips": [
+        "go_1.json",
+        "go_2.json",
+        "go_3.json"
+      ]
+    },
+    {
+      "label": "FRIEND",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9145,
+      "best_clips": [
+        "friend.json"
+      ]
+    },
+    {
+      "label": "ABOUT",
+      "num_clips": 7,
+      "quality_score_top3_avg": 0.9127,
+      "best_clips": [
+        "about_5.json",
+        "about.json",
+        "about_6.json"
+      ]
+    },
+    {
+      "label": "WRITE",
+      "num_clips": 6,
+      "quality_score_top3_avg": 0.9109,
+      "best_clips": [
+        "write_2.json",
+        "write_3.json",
+        "write_6.json"
+      ]
+    },
+    {
+      "label": "COME",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9099,
+      "best_clips": [
+        "come.json"
+      ]
+    },
+    {
+      "label": "HARD",
+      "num_clips": 13,
+      "quality_score_top3_avg": 0.9092,
+      "best_clips": [
+        "hard_3.json",
+        "hard_12.json",
+        "hard_8.json"
+      ]
+    },
+    {
+      "label": "BUT",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.907,
+      "best_clips": [
+        "but.json"
+      ]
+    },
+    {
+      "label": "WHEN",
+      "num_clips": 10,
+      "quality_score_top3_avg": 0.907,
+      "best_clips": [
+        "when_10.json",
+        "when_4.json",
+        "when_5.json"
+      ]
+    },
+    {
+      "label": "HAPPY",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.9063,
+      "best_clips": [
+        "happy.json"
+      ]
+    }
+  ],
+  "bottom_signs": [
+    {
+      "label": "NURSE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.4143,
+      "best_clips": [
+        "nurse_1.json"
+      ]
+    },
+    {
+      "label": "TEACHER",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.4623,
+      "best_clips": [
+        "teacher_1.json"
+      ]
+    },
+    {
+      "label": "DOCTOR",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5079,
+      "best_clips": [
+        "doctor_1.json"
+      ]
+    },
+    {
+      "label": "CLINIC",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5093,
+      "best_clips": [
+        "clinic_1.json"
+      ]
+    },
+    {
+      "label": "A_OK",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5693,
+      "best_clips": [
+        "a_ok_1.json"
+      ]
+    },
+    {
+      "label": "SAME",
+      "num_clips": 2,
+      "quality_score_top3_avg": 0.5736,
+      "best_clips": [
+        "same.json",
+        "same_3.json"
+      ]
+    },
+    {
+      "label": "PLEASE",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5759,
+      "best_clips": [
+        "please_2.json"
+      ]
+    },
+    {
+      "label": "MY",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.5869,
+      "best_clips": [
+        "my_5.json",
+        "my_3.json",
+        "my_4.json"
+      ]
+    },
+    {
+      "label": "HOSPITALIZATION_STAY_IN_HOSPITAL",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5881,
+      "best_clips": [
+        "hospitalization_stay_in_hospital_1.json"
+      ]
+    },
+    {
+      "label": "SAY",
+      "num_clips": 4,
+      "quality_score_top3_avg": 0.5891,
+      "best_clips": [
+        "say_1.json",
+        "say_2.json",
+        "say_3.json"
+      ]
+    },
+    {
+      "label": "YOUR",
+      "num_clips": 3,
+      "quality_score_top3_avg": 0.5941,
+      "best_clips": [
+        "your_2.json",
+        "your_4.json",
+        "your_3.json"
+      ]
+    },
+    {
+      "label": "THINK",
+      "num_clips": 6,
+      "quality_score_top3_avg": 0.5952,
+      "best_clips": [
+        "think_5.json",
+        "think_6.json",
+        "think_4.json"
+      ]
+    },
+    {
+      "label": "WE",
+      "num_clips": 2,
+      "quality_score_top3_avg": 0.5968,
+      "best_clips": [
+        "we_4.json",
+        "we_3.json"
+      ]
+    },
+    {
+      "label": "WILL",
+      "num_clips": 2,
+      "quality_score_top3_avg": 0.5977,
+      "best_clips": [
+        "will_4.json",
+        "will_3.json"
+      ]
+    },
+    {
+      "label": "TALK",
+      "num_clips": 6,
+      "quality_score_top3_avg": 0.5985,
+      "best_clips": [
+        "talk_2.json",
+        "talk_3.json",
+        "talk_6.json"
+      ]
+    },
+    {
+      "label": "FEEL",
+      "num_clips": 1,
+      "quality_score_top3_avg": 0.5985,
+      "best_clips": [
+        "feel.json"
+      ]
+    },
+    {
+      "label": "HE",
+      "num_clips": 7,
+      "quality_score_top3_avg": 0.5991,
+      "best_clips": [
+        "he_3.json",
+        "he_4.json",
+        "he_5.json"
+      ]
+    },
+    {
+      "label": "YOU",
+      "num_clips": 5,
+      "quality_score_top3_avg": 0.6002,
+      "best_clips": [
+        "you.json",
+        "you_1.json",
+        "you_4.json"
+      ]
+    },
+    {
+      "label": "SEE",
+      "num_clips": 4,
+      "quality_score_top3_avg": 0.6008,
+      "best_clips": [
+        "see_4.json",
+        "see_1.json",
+        "see_2.json"
+      ]
+    },
+    {
+      "label": "KNOW",
+      "num_clips": 5,
+      "quality_score_top3_avg": 0.6008,
+      "best_clips": [
+        "know_1.json",
+        "know_4.json",
+        "know.json"
+      ]
+    }
+  ],
+  "top_clips": [
+    {
+      "clip": "thank_you_1.json",
+      "label": "THANK_YOU",
+      "frames": 51,
+      "score": 0.953,
+      "pose_coverage": 0.9712,
+      "hand_coverage": 0.951
+    },
+    {
+      "clip": "brother_1.json",
+      "label": "BROTHER",
+      "frames": 37,
+      "score": 0.9528,
+      "pose_coverage": 0.9921,
+      "hand_coverage": 0.9865
+    },
+    {
+      "clip": "go_1.json",
+      "label": "GO",
+      "frames": 41,
+      "score": 0.9524,
+      "pose_coverage": 0.9857,
+      "hand_coverage": 0.9756
+    },
+    {
+      "clip": "sign.json",
+      "label": "SIGN",
+      "frames": 36,
+      "score": 0.9419,
+      "pose_coverage": 0.9837,
+      "hand_coverage": 0.9722
+    },
+    {
+      "clip": "tired_3.json",
+      "label": "TIRED",
+      "frames": 23,
+      "score": 0.9383,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "want_1.json",
+      "label": "WANT",
+      "frames": 56,
+      "score": 0.935,
+      "pose_coverage": 0.9475,
+      "hand_coverage": 0.9107
+    },
+    {
+      "clip": "meet_7.json",
+      "label": "MEET",
+      "frames": 20,
+      "score": 0.9333,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "try_1.json",
+      "label": "TRY",
+      "frames": 20,
+      "score": 0.9333,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "how.json",
+      "label": "HOW",
+      "frames": 27,
+      "score": 0.9329,
+      "pose_coverage": 0.9891,
+      "hand_coverage": 0.9815
+    },
+    {
+      "clip": "eat_1.json",
+      "label": "EAT",
+      "frames": 45,
+      "score": 0.9315,
+      "pose_coverage": 0.9608,
+      "hand_coverage": 0.9333
+    },
+    {
+      "clip": "tired_2.json",
+      "label": "TIRED",
+      "frames": 26,
+      "score": 0.9308,
+      "pose_coverage": 0.9887,
+      "hand_coverage": 0.9808
+    },
+    {
+      "clip": "with_4.json",
+      "label": "WITH",
+      "frames": 18,
+      "score": 0.93,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "now_1.json",
+      "label": "NOW",
+      "frames": 47,
+      "score": 0.9297,
+      "pose_coverage": 0.9562,
+      "hand_coverage": 0.9255
+    },
+    {
+      "clip": "make_4.json",
+      "label": "MAKE",
+      "frames": 17,
+      "score": 0.9283,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "try_3.json",
+      "label": "TRY",
+      "frames": 17,
+      "score": 0.9283,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "have.json",
+      "label": "HAVE",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "make_6.json",
+      "label": "MAKE",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "meet_6.json",
+      "label": "MEET",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "with_2.json",
+      "label": "WITH",
+      "frames": 16,
+      "score": 0.9267,
+      "pose_coverage": 1.0,
+      "hand_coverage": 1.0
+    },
+    {
+      "clip": "mother_1.json",
+      "label": "MOTHER",
+      "frames": 37,
+      "score": 0.9264,
+      "pose_coverage": 0.9682,
+      "hand_coverage": 0.9459
+    }
+  ],
+  "bottom_clips": [
+    {
+      "clip": "nurse_1.json",
+      "label": "NURSE",
+      "frames": 68,
+      "score": 0.4143,
+      "pose_coverage": 0.4723,
+      "hand_coverage": 0.1029
+    },
+    {
+      "clip": "drink_3.json",
+      "label": "DRINK",
+      "frames": 33,
+      "score": 0.4307,
+      "pose_coverage": 0.5276,
+      "hand_coverage": 0.197
+    },
+    {
+      "clip": "drink_2.json",
+      "label": "DRINK",
+      "frames": 28,
+      "score": 0.4336,
+      "pose_coverage": 0.5378,
+      "hand_coverage": 0.2143
+    },
+    {
+      "clip": "teacher_1.json",
+      "label": "TEACHER",
+      "frames": 68,
+      "score": 0.4623,
+      "pose_coverage": 0.5156,
+      "hand_coverage": 0.1765
+    },
+    {
+      "clip": "right_3.json",
+      "label": "RIGHT",
+      "frames": 17,
+      "score": 0.5058,
+      "pose_coverage": 0.6194,
+      "hand_coverage": 0.3529
+    },
+    {
+      "clip": "doctor_1.json",
+      "label": "DOCTOR",
+      "frames": 67,
+      "score": 0.5079,
+      "pose_coverage": 0.5566,
+      "hand_coverage": 0.2463
+    },
+    {
+      "clip": "clinic_1.json",
+      "label": "CLINIC",
+      "frames": 29,
+      "score": 0.5093,
+      "pose_coverage": 0.6045,
+      "hand_coverage": 0.3276
+    },
+    {
+      "clip": "man_2.json",
+      "label": "MAN",
+      "frames": 35,
+      "score": 0.5106,
+      "pose_coverage": 0.5966,
+      "hand_coverage": 0.3143
+    },
+    {
+      "clip": "yes_2.json",
+      "label": "YES",
+      "frames": 27,
+      "score": 0.5218,
+      "pose_coverage": 0.6187,
+      "hand_coverage": 0.3519
+    },
+    {
+      "clip": "many_3.json",
+      "label": "MANY",
+      "frames": 34,
+      "score": 0.5246,
+      "pose_coverage": 0.6107,
+      "hand_coverage": 0.3382
+    },
+    {
+      "clip": "same_3.json",
+      "label": "SAME",
+      "frames": 14,
+      "score": 0.5269,
+      "pose_coverage": 0.6429,
+      "hand_coverage": 0.3929
+    },
+    {
+      "clip": "water_3.json",
+      "label": "WATER",
+      "frames": 61,
+      "score": 0.529,
+      "pose_coverage": 0.5757,
+      "hand_coverage": 0.2787
+    },
+    {
+      "clip": "who_3.json",
+      "label": "WHO",
+      "frames": 15,
+      "score": 0.5332,
+      "pose_coverage": 0.6471,
+      "hand_coverage": 0.4
+    },
+    {
+      "clip": "work_2.json",
+      "label": "WORK",
+      "frames": 32,
+      "score": 0.535,
+      "pose_coverage": 0.6232,
+      "hand_coverage": 0.3594
+    },
+    {
+      "clip": "time_3.json",
+      "label": "TIME",
+      "frames": 46,
+      "score": 0.5366,
+      "pose_coverage": 0.6036,
+      "hand_coverage": 0.3261
+    },
+    {
+      "clip": "forget_2.json",
+      "label": "FORGET",
+      "frames": 26,
+      "score": 0.5415,
+      "pose_coverage": 0.638,
+      "hand_coverage": 0.3846
+    },
+    {
+      "clip": "want_2.json",
+      "label": "WANT",
+      "frames": 30,
+      "score": 0.5474,
+      "pose_coverage": 0.6373,
+      "hand_coverage": 0.3833
+    },
+    {
+      "clip": "year_2.json",
+      "label": "YEAR",
+      "frames": 32,
+      "score": 0.5554,
+      "pose_coverage": 0.6415,
+      "hand_coverage": 0.3906
+    },
+    {
+      "clip": "family_2.json",
+      "label": "FAMILY",
+      "frames": 33,
+      "score": 0.5692,
+      "pose_coverage": 0.6524,
+      "hand_coverage": 0.4091
+    },
+    {
+      "clip": "a_ok_1.json",
+      "label": "A_OK",
+      "frames": 43,
+      "score": 0.5693,
+      "pose_coverage": 0.6375,
+      "hand_coverage": 0.3837
+    }
+  ]
+}
