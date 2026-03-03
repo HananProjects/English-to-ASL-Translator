@@ -1,5 +1,4 @@
 from core.engine import english_to_asl, asl_to_english, _get_stt_backend
-from core.mic_utils import record_audio_until_stop
 from core.audio.vosk_listener import VoskListener
 import json
 import threading
@@ -51,6 +50,7 @@ def _env_int(name: str, default: int, min_value: int | None = None, max_value: i
 
 class MainWindow(QWidget):
     speech_text_received = Signal(str)
+    record_live_text_received = Signal(str)
     record_result_received = Signal(dict)
     record_error_received = Signal(str)
     stt_warmup_received = Signal(bool)
@@ -68,6 +68,7 @@ class MainWindow(QWidget):
         self.worker = None
         self.record_stop_event = None
         self.recording_in_progress = False
+        self.record_live_text = ""
         self.stt_ready = False
         self.last_english_sequence = None
         self.last_english_entry = None
@@ -212,6 +213,7 @@ class MainWindow(QWidget):
         self._apply_demo_mode()
 
         self.speech_text_received.connect(self.on_speech)
+        self.record_live_text_received.connect(self.on_record_live_text)
         self.record_result_received.connect(self.on_translation_finished)
         self.record_error_received.connect(self.on_translation_error)
         self.stt_warmup_received.connect(self._on_stt_warmup_complete)
@@ -240,23 +242,29 @@ class MainWindow(QWidget):
         self.record_button.setEnabled(True)
         self.replay_button.setEnabled(False)
         self.recording_in_progress = True
-        self.record_stop_event = threading.Event()
+        self.record_live_text = ""
+        self.record_stop_event = None
         self._refresh_record_toggle_button()
 
-        if getattr(self, "vosk", None) is not None:
-            self.vosk.stop()
-
-        threading.Thread(target=self._run_record_job, daemon=True).start()
+        try:
+            listener = self._ensure_vosk_listener()
+            listener.on_text = self.record_live_text_received.emit
+            listener.latest_text = ""
+            listener.start()
+        except Exception as e:
+            self.recording_in_progress = False
+            self.record_button.setEnabled(True)
+            self._refresh_record_toggle_button()
+            self.record_error_received.emit(str(e))
 
     def on_stop_record_clicked(self):
         if not self.recording_in_progress:
             return
-        self.english_status_label.setText("Status: Stopping recording...")
+        self.english_status_label.setText("Status: Finalizing speech...")
         self.recording_in_progress = False
         self.record_button.setEnabled(False)
         self._refresh_record_toggle_button()
-        if self.record_stop_event is not None:
-            self.record_stop_event.set()
+        threading.Thread(target=self._run_record_job, daemon=True).start()
 
     def on_replay_clicked(self):
         if not self.last_english_sequence:
@@ -366,6 +374,14 @@ class MainWindow(QWidget):
         self._refresh_record_toggle_button()
         self.replay_button.setEnabled(bool(self.last_english_sequence))
         self.english_status_label.setText(f"Error: {message}")
+
+    def on_record_live_text(self, text: str):
+        heard = (text or "").strip()
+        if not heard:
+            return
+        self.record_live_text = heard
+        if self.recording_in_progress:
+            self.english_status_label.setText(f"Status: Recording... Heard: {heard}")
 
     def on_camera_pose(self, pose: dict):
         self.english_animation_view.set_live_pose(pose)
@@ -709,28 +725,34 @@ class MainWindow(QWidget):
 
     def _start_vosk_async(self):
         if self.vosk is not None:
-            if not self.vosk.running:
-                self.vosk.start()
             return
         if self.vosk_init_in_progress:
             return
         self.vosk_init_in_progress = True
         threading.Thread(target=self._init_vosk_listener, daemon=True).start()
 
+    def _ensure_vosk_listener(self):
+        if self.vosk is not None:
+            return self.vosk
+        backend = _get_stt_backend()
+        self.vosk = VoskListener(
+            model=backend.model,
+            on_text=self.record_live_text_received.emit,
+        )
+        return self.vosk
+
     def _run_record_job(self):
         try:
-            print("[Record] capture start")
-            stop_event = self.record_stop_event
-            if stop_event is None:
-                raise RuntimeError("Recording session was not initialized.")
-            audio = record_audio_until_stop(stop_event=stop_event)
-            print(f"[Record] captured bytes={len(audio)}")
-            if not audio:
-                raise RuntimeError("No audio captured. Try recording again.")
-            result = english_to_asl(audio=audio)
+            listener = self._ensure_vosk_listener()
+            text = listener.stop(wait=True).strip()
+            if not text:
+                text = self.record_live_text.strip()
+            if not text:
+                raise RuntimeError("No speech detected. Try recording again.")
+            result = english_to_asl(text=text)
             print(
                 "[Record] stt text=",
-                repr(result.source_text),
+                repr(text),
                 "tokens=",
                 result.asl_tokens,
                 "error=",
@@ -740,7 +762,7 @@ class MainWindow(QWidget):
                 "tokens": result.asl_tokens,
                 "confidence": result.confidence,
                 "latency": result.latency_ms,
-                "text": result.source_text,
+                "text": text,
                 "error": result.error,
             })
         except Exception as e:
@@ -748,14 +770,7 @@ class MainWindow(QWidget):
 
     def _init_vosk_listener(self):
         try:
-            if self.vosk is not None:
-                return
-            listener = VoskListener(
-                model_path="models/vosk-en",
-                on_text=self.speech_text_received.emit,
-            )
-            listener.start()
-            self.vosk = listener
+            self._ensure_vosk_listener()
         except Exception as e:
             self.vosk = None
             print(f"Vosk init error: {e}")
@@ -778,6 +793,7 @@ class MainWindow(QWidget):
         if ok:
             self.english_status_label.setText("Status: Idle")
             self.mic_state_label.setText("Mic: Ready")
+            self._start_vosk_async()
         else:
             self.english_status_label.setText("Status: STT warmup failed")
             self.mic_state_label.setText("Mic: Error")
