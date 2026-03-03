@@ -10,7 +10,7 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 from PySide6.QtCore import QThread, Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve
-from PySide6.QtGui import QPixmap, QGuiApplication
+from PySide6.QtGui import QPixmap, QGuiApplication, QPainter, QPen, QColor, QFontMetrics
 from core.sequencing.sign_sequencer import sequence_signs, SignEvent
 from ui.widgets.animation_view import ASLAnimationView
 from ui.worker_camera import CameraWorker
@@ -87,6 +87,9 @@ class MainWindow(QWidget):
         self.camera_running = False
         self.camera_shutdown_in_progress = False
         self.asl_video_path = None
+        self.latest_camera_pose = None
+        self.latest_camera_debug_token = ""
+        self.latest_camera_debug_confidence = 0.0
         self.pending_camera_tokens = []
         self.camera_error_message = None
         self.demo_mode = True
@@ -387,12 +390,14 @@ class MainWindow(QWidget):
             self.english_status_label.setText(f"Status: Recording... Heard: {heard}")
 
     def on_camera_pose(self, pose: dict):
+        self.latest_camera_pose = pose
         self.english_animation_view.set_live_pose(pose)
 
     def on_camera_frame(self, frame_image):
         if frame_image is None:
             return
         pixmap = QPixmap.fromImage(frame_image)
+        self._draw_camera_overlay(pixmap)
         if self.camera_feed_label.width() > 0 and self.camera_feed_label.height() > 0:
             pixmap = pixmap.scaled(
                 self.camera_feed_label.size(),
@@ -405,17 +410,108 @@ class MainWindow(QWidget):
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
         if self.demo_mode:
-            self.reverse_status_label.setText(f"Status: Detecting sign... {token}")
+            self.reverse_status_label.setText("Status: Capturing signs...")
         else:
             self.reverse_status_label.setText(
-                f"Status: Detecting sign... {token} (conf {confidence:.2f})"
+                f"Status: Capturing signs... ({len(self.pending_camera_tokens)} buffered)"
             )
 
     def on_camera_debug(self, token: str, confidence: float, streak: int):
+        self.latest_camera_debug_token = token or ""
+        self.latest_camera_debug_confidence = float(confidence)
         token_text = token if token else "(none)"
         self.reverse_debug_label.setText(
             f"Debug Match: {token_text} | conf={confidence:.2f} | streak={streak}"
         )
+
+    def _draw_camera_overlay(self, pixmap: QPixmap):
+        pose = self.latest_camera_pose
+        if pose is None or pixmap.isNull():
+            return
+
+        hand_boxes = []
+        for side in ("left", "right"):
+            box = self._hand_overlay_box(pose, side, pixmap.width(), pixmap.height())
+            if box is not None:
+                hand_boxes.append(box)
+        if not hand_boxes:
+            return
+
+        token = self.latest_camera_debug_token.strip()
+        confidence = self.latest_camera_debug_confidence
+        label = ""
+        if token:
+            label = f"{token} {confidence * 100:.0f}%"
+
+        painter = QPainter(pixmap)
+        try:
+            pen = QPen(QColor(57, 210, 122), 3)
+            painter.setPen(pen)
+            painter.setRenderHint(QPainter.Antialiasing)
+            font_metrics = QFontMetrics(painter.font())
+            for x, y, w, h in hand_boxes:
+                painter.drawRect(x, y, w, h)
+                if label:
+                    text_w = font_metrics.horizontalAdvance(label) + 12
+                    text_h = font_metrics.height() + 6
+                    text_x = x
+                    text_y = max(0, y - text_h - 4)
+                    painter.fillRect(text_x, text_y, text_w, text_h, QColor(15, 23, 42, 210))
+                    painter.setPen(QColor(255, 255, 255))
+                    painter.drawText(
+                        text_x + 6,
+                        text_y + text_h - font_metrics.descent() - 3,
+                        label,
+                    )
+                    painter.setPen(pen)
+        finally:
+            painter.end()
+
+    def _hand_overlay_box(self, pose: dict, side: str, width: int, height: int):
+        keys = [
+            f"hand_{side}",
+            f"{side}_thumb_tip",
+            f"{side}_index_tip",
+            f"{side}_middle_tip",
+            f"{side}_ring_tip",
+            f"{side}_pinky_tip",
+        ]
+        points = []
+        for key in keys:
+            pt = pose.get(key)
+            if pt is None:
+                continue
+            try:
+                x = int(float(pt[0]) * width)
+                y = int(float(pt[1]) * height)
+            except Exception:
+                continue
+            points.append((x, y))
+        if not points:
+            return None
+
+        xs = [pt[0] for pt in points]
+        ys = [pt[1] for pt in points]
+        if len(points) == 1:
+            pad = max(24, min(width, height) // 18)
+            min_x = xs[0] - pad
+            max_x = xs[0] + pad
+            min_y = ys[0] - pad
+            max_y = ys[0] + pad
+        else:
+            pad = 18
+            min_x = min(xs) - pad
+            max_x = max(xs) + pad
+            min_y = min(ys) - pad
+            max_y = max(ys) + pad
+
+        min_x = max(0, min_x)
+        min_y = max(0, min_y)
+        max_x = min(width - 1, max_x)
+        max_y = min(height - 1, max_y)
+        box_w = max(12, max_x - min_x)
+        box_h = max(12, max_y - min_y)
+        return min_x, min_y, box_w, box_h
 
     def on_camera_error(self, message: str):
         self.camera_error_message = message
@@ -1141,6 +1237,9 @@ class MainWindow(QWidget):
         if not self.camera_running:
             return
         self.camera_shutdown_in_progress = True
+        self.latest_camera_pose = None
+        self.latest_camera_debug_token = ""
+        self.latest_camera_debug_confidence = 0.0
         translated_on_stop = False
         if finalize_pending and self.pending_camera_tokens:
             self._finalize_camera_translation(list(self.pending_camera_tokens))
@@ -1231,6 +1330,9 @@ class MainWindow(QWidget):
     def on_camera_worker_finished(self, source_is_file: bool):
         if self.camera_shutdown_in_progress or not self.camera_running:
             return
+        self.latest_camera_pose = None
+        self.latest_camera_debug_token = ""
+        self.latest_camera_debug_confidence = 0.0
         if source_is_file and self.pending_camera_tokens:
             self._finalize_camera_translation(list(self.pending_camera_tokens))
         worker = self.camera_worker
@@ -1268,6 +1370,8 @@ class MainWindow(QWidget):
 
     def reset_translation(self):
         self.pending_camera_tokens.clear()
+        self.latest_camera_debug_token = ""
+        self.latest_camera_debug_confidence = 0.0
         self.camera_label.setText("Detected ASL Tokens:")
         self.reverse_label.setText("English Translation:")
         self.latest_translation_text = ""

@@ -54,10 +54,10 @@ class CameraWorker(QObject):
         # Prefer model/hybrid matching; recognizer will use v2 model if available.
         self.recognizer = SignStreamRecognizer(
             prefer_model=True,
-            stable_frames=6,
-            min_confidence=0.60,
-            emit_cooldown_frames=10,
-            pause_frames=18,
+            stable_frames=8,
+            min_confidence=0.72,
+            emit_cooldown_frames=16,
+            pause_frames=24,
         )
         self.source_path = source_path
         self._running = False
