@@ -25,6 +25,7 @@ from PySide6.QtWidgets import (
     QListWidget,
     QListWidgetItem,
     QTabWidget,
+    QFileDialog,
 )
 
 try:
@@ -84,6 +85,8 @@ class MainWindow(QWidget):
         self.camera_thread = None
         self.camera_worker = None
         self.camera_running = False
+        self.camera_shutdown_in_progress = False
+        self.asl_video_path = None
         self.pending_camera_tokens = []
         self.camera_error_message = None
         self.demo_mode = True
@@ -809,12 +812,14 @@ class MainWindow(QWidget):
             if self.camera_running:
                 self.stop_camera(finalize_pending=False)
             else:
-                self.camera_state_label.setText("Camera: Standby")
+                self.camera_state_label.setText(
+                    "Video: Standby" if self.asl_video_path else "Camera: Standby"
+                )
                 if hasattr(self, "camera_toggle_button"):
-                    self.camera_toggle_button.setText("Start Camera")
+                    self.camera_toggle_button.setText("Start Input")
                 if hasattr(self, "reverse_status_label"):
                     self.reverse_status_label.setText(
-                        "Status: Camera idle until ASL mode"
+                        "Status: Input idle until ASL mode"
                     )
                 if hasattr(self, "reverse_debug_label"):
                     self.reverse_debug_label.setText(
@@ -822,11 +827,14 @@ class MainWindow(QWidget):
                     )
                 if hasattr(self, "camera_feed_label"):
                     self.camera_feed_label.setPixmap(QPixmap())
-                    self.camera_feed_label.setText("Camera standby")
+                    self.camera_feed_label.setText(
+                        "Video standby" if self.asl_video_path else "Camera standby"
+                    )
         else:
             self.mode_badge_label.setText("ASL to English active")
             if not self.camera_running:
                 self.start_camera()
+        self._update_asl_source_buttons()
 
     def _refresh_mode_buttons(self):
         english_active = self.mode == "english_to_asl"
@@ -996,6 +1004,14 @@ class MainWindow(QWidget):
         self.camera_toggle_button.setObjectName("secondaryButton")
         self.camera_toggle_button.setMinimumHeight(self.secondary_button_height)
         self.camera_toggle_button.clicked.connect(self.toggle_camera)
+        self.import_video_button = QPushButton("Use Video File")
+        self.import_video_button.setObjectName("secondaryButton")
+        self.import_video_button.setMinimumHeight(self.secondary_button_height)
+        self.import_video_button.clicked.connect(self.import_asl_video_file)
+        self.use_camera_button = QPushButton("Use Live Camera")
+        self.use_camera_button.setObjectName("secondaryButton")
+        self.use_camera_button.setMinimumHeight(self.secondary_button_height)
+        self.use_camera_button.clicked.connect(self.use_live_camera_input)
         self.reset_translation_button = QPushButton("Reset Translation")
         self.reset_translation_button.setObjectName("secondaryButton")
         self.reset_translation_button.setMinimumHeight(self.secondary_button_height)
@@ -1041,6 +1057,8 @@ class MainWindow(QWidget):
         actions_row.setSpacing(6 if self.compact_ui else 10)
         actions_row.addStretch(1)
         actions_row.addWidget(self.camera_toggle_button)
+        actions_row.addWidget(self.import_video_button)
+        actions_row.addWidget(self.use_camera_button)
         actions_row.addWidget(self.reset_translation_button)
         actions_row.addStretch(1)
         controls_layout.addLayout(actions_row)
@@ -1064,9 +1082,20 @@ class MainWindow(QWidget):
         page.setLayout(page_layout)
         return page
 
-    def start_camera(self):
+    def _current_asl_source_label(self) -> str:
+        if self.asl_video_path:
+            return Path(self.asl_video_path).name
+        return "Live Camera"
+
+    def _update_asl_source_buttons(self):
+        if hasattr(self, "use_camera_button"):
+            self.use_camera_button.setEnabled(self.asl_video_path is not None)
+
+    def start_camera(self, source_path: str | None = None):
         if self.camera_running:
             return
+        if source_path is not None:
+            self.asl_video_path = source_path
         self.camera_error_message = None
         self.pending_camera_tokens.clear()
         if hasattr(self, "camera_label"):
@@ -1074,7 +1103,7 @@ class MainWindow(QWidget):
         if hasattr(self, "reverse_label"):
             self.reverse_label.setText("English Translation:")
         self.camera_thread = QThread(self)
-        self.camera_worker = CameraWorker()
+        self.camera_worker = CameraWorker(source_path=self.asl_video_path)
         self.camera_worker.moveToThread(self.camera_thread)
         self.camera_thread.started.connect(self.camera_worker.run)
         self.camera_worker.pose_ready.connect(self.on_camera_pose)
@@ -1083,24 +1112,35 @@ class MainWindow(QWidget):
         self.camera_worker.debug_ready.connect(self.camera_debug_received.emit)
         self.camera_worker.error_ready.connect(self.camera_error_received.emit)
         self.camera_worker.sequence_ready.connect(self.camera_sequence_received.emit)
+        self.camera_worker.finished.connect(self.on_camera_worker_finished)
         self.camera_reset_requested.connect(self.camera_worker.reset_recognition_state)
         self.camera_stop_requested.connect(self.camera_worker.stop)
         self.camera_thread.start()
         self.camera_running = True
-        self.camera_state_label.setText("Camera: Ready")
+        self.camera_shutdown_in_progress = False
+        source_name = self._current_asl_source_label()
+        if self.asl_video_path:
+            self.camera_state_label.setText(f"Video: Playing ({source_name})")
+        else:
+            self.camera_state_label.setText("Camera: Ready")
         if hasattr(self, "camera_toggle_button"):
-            self.camera_toggle_button.setText("Stop Camera")
+            self.camera_toggle_button.setText("Stop Input")
         if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText("Status: Camera listening...")
+            if self.asl_video_path:
+                self.reverse_status_label.setText(f"Status: Processing video {source_name}")
+            else:
+                self.reverse_status_label.setText("Status: Camera listening...")
         if hasattr(self, "reverse_debug_label"):
             self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if hasattr(self, "camera_feed_label"):
-            self.camera_feed_label.setText("Camera feed")
+            self.camera_feed_label.setText("Video preview" if self.asl_video_path else "Camera feed")
             self.camera_feed_label.setPixmap(QPixmap())
+        self._update_asl_source_buttons()
 
     def stop_camera(self, finalize_pending: bool = True):
         if not self.camera_running:
             return
+        self.camera_shutdown_in_progress = True
         translated_on_stop = False
         if finalize_pending and self.pending_camera_tokens:
             self._finalize_camera_translation(list(self.pending_camera_tokens))
@@ -1123,33 +1163,108 @@ class MainWindow(QWidget):
                 self.camera_stop_requested.disconnect(worker.stop)
             except Exception:
                 pass
+            try:
+                worker.finished.disconnect(self.on_camera_worker_finished)
+            except Exception:
+                pass
             thread.requestInterruption()
             thread.quit()
             thread.wait(2500)
         self.camera_thread = None
         self.camera_worker = None
         self.camera_running = False
-        self.camera_state_label.setText("Camera: Stopped")
+        self.camera_shutdown_in_progress = False
+        if self.asl_video_path:
+            self.camera_state_label.setText("Video: Stopped")
+        else:
+            self.camera_state_label.setText("Camera: Stopped")
         if hasattr(self, "camera_toggle_button"):
-            self.camera_toggle_button.setText("Start Camera")
+            self.camera_toggle_button.setText("Start Input")
         if hasattr(self, "reverse_status_label") and not translated_on_stop:
             if self.camera_error_message:
                 self.reverse_status_label.setText(
                     f"Status: Camera error: {self.camera_error_message}"
                 )
             else:
-                self.reverse_status_label.setText("Status: Camera stopped")
+                self.reverse_status_label.setText(
+                    "Status: Video stopped" if self.asl_video_path else "Status: Camera stopped"
+                )
         if hasattr(self, "reverse_debug_label"):
             self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if hasattr(self, "camera_feed_label"):
             self.camera_feed_label.setPixmap(QPixmap())
-            self.camera_feed_label.setText("Camera stopped")
+            self.camera_feed_label.setText("Video stopped" if self.asl_video_path else "Camera stopped")
+        self._update_asl_source_buttons()
 
     def toggle_camera(self):
         if self.camera_running:
             self.stop_camera()
         else:
             self.start_camera()
+
+    def import_asl_video_file(self):
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select ASL Video",
+            "",
+            "Video Files (*.mp4 *.mov *.avi *.mkv *.m4v *.webm);;All Files (*)",
+        )
+        if not file_path:
+            return
+        was_running = self.camera_running
+        if was_running:
+            self.stop_camera(finalize_pending=False)
+        self.reset_translation()
+        self.start_camera(source_path=file_path)
+
+    def use_live_camera_input(self):
+        if self.asl_video_path is None and self.camera_running:
+            return
+        was_running = self.camera_running
+        if was_running:
+            self.stop_camera(finalize_pending=False)
+        self.asl_video_path = None
+        self.reset_translation()
+        if self.mode == "asl_to_english":
+            self.start_camera()
+
+    def on_camera_worker_finished(self, source_is_file: bool):
+        if self.camera_shutdown_in_progress or not self.camera_running:
+            return
+        if source_is_file and self.pending_camera_tokens:
+            self._finalize_camera_translation(list(self.pending_camera_tokens))
+        worker = self.camera_worker
+        thread = self.camera_thread
+        if worker is not None:
+            try:
+                self.camera_reset_requested.disconnect(worker.reset_recognition_state)
+            except Exception:
+                pass
+            try:
+                self.camera_stop_requested.disconnect(worker.stop)
+            except Exception:
+                pass
+            try:
+                worker.finished.disconnect(self.on_camera_worker_finished)
+            except Exception:
+                pass
+        if thread is not None:
+            thread.quit()
+            thread.wait(2500)
+        self.camera_thread = None
+        self.camera_worker = None
+        self.camera_running = False
+        if source_is_file:
+            self.camera_state_label.setText("Video: Complete")
+            self.reverse_status_label.setText("Status: Video processing complete")
+            self.camera_feed_label.setText("Video complete")
+        else:
+            self.camera_state_label.setText("Camera: Stopped")
+            self.reverse_status_label.setText("Status: Camera stopped")
+            self.camera_feed_label.setText("Camera stopped")
+        self.camera_toggle_button.setText("Start Input")
+        self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
+        self._update_asl_source_buttons()
 
     def reset_translation(self):
         self.pending_camera_tokens.clear()
@@ -1158,10 +1273,17 @@ class MainWindow(QWidget):
         self.latest_translation_text = ""
         self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if self.camera_running:
-            self.reverse_status_label.setText("Status: Camera listening...")
+            if self.asl_video_path:
+                self.reverse_status_label.setText(
+                    f"Status: Processing video {self._current_asl_source_label()}"
+                )
+            else:
+                self.reverse_status_label.setText("Status: Camera listening...")
             self.camera_reset_requested.emit()
         else:
-            self.reverse_status_label.setText("Status: Camera stopped")
+            self.reverse_status_label.setText(
+                "Status: Video stopped" if self.asl_video_path else "Status: Camera stopped"
+            )
 
     def add_current_translation_to_history(self):
         text = (self.latest_translation_text or "").strip()

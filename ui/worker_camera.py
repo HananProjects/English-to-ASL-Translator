@@ -47,8 +47,9 @@ class CameraWorker(QObject):
     sequence_ready = Signal(list)
     debug_ready = Signal(str, float, int)
     error_ready = Signal(str)
+    finished = Signal(bool)
 
-    def __init__(self):
+    def __init__(self, source_path: str | None = None):
         super().__init__()
         # Prefer model/hybrid matching; recognizer will use v2 model if available.
         self.recognizer = SignStreamRecognizer(
@@ -58,6 +59,7 @@ class CameraWorker(QObject):
             emit_cooldown_frames=10,
             pause_frames=18,
         )
+        self.source_path = source_path
         self._running = False
         self._cap = None
         print(f"[ASL] recognizer matcher={type(self.recognizer.matcher).__name__}")
@@ -84,33 +86,47 @@ class CameraWorker(QObject):
         proc_height = _env_int("ASL_PROCESS_HEIGHT", 360, min_value=120)
         process_every_n = _env_int("ASL_PROCESS_EVERY_N", 1, min_value=1)
         zoom = _env_float("ASL_CAMERA_ZOOM", 1.0, min_value=1.0)
+        source_is_file = bool(self.source_path)
 
-        cap = cv2.VideoCapture(camera_index)
+        capture_source = self.source_path if source_is_file else camera_index
+        cap = cv2.VideoCapture(capture_source)
         self._cap = cap
         self._running = True
         if not cap.isOpened():
-            self.error_ready.emit(
-                f"Unable to open camera index {camera_index}. "
-                "Set ASL_CAMERA_INDEX to the correct camera."
-            )
+            if source_is_file:
+                self.error_ready.emit(
+                    f"Unable to open video file: {self.source_path}"
+                )
+            else:
+                self.error_ready.emit(
+                    f"Unable to open camera index {camera_index}. "
+                    "Set ASL_CAMERA_INDEX to the correct camera."
+                )
             self._running = False
             cap.release()
             self._cap = None
             return
 
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
-        cap.set(cv2.CAP_PROP_FPS, camera_fps)
-        try:
-            cap.set(cv2.CAP_PROP_BUFFERSIZE, camera_buffer_size)
-        except Exception:
-            pass
-        print(
-            "[Camera] index="
-            f"{camera_index} {camera_width}x{camera_height}@{camera_fps} "
-            f"proc={proc_width}x{proc_height} skip={process_every_n} zoom={zoom:.2f} "
-            f"buffer={camera_buffer_size}"
-        )
+        if not source_is_file:
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
+            cap.set(cv2.CAP_PROP_FPS, camera_fps)
+            try:
+                cap.set(cv2.CAP_PROP_BUFFERSIZE, camera_buffer_size)
+            except Exception:
+                pass
+            print(
+                "[Camera] index="
+                f"{camera_index} {camera_width}x{camera_height}@{camera_fps} "
+                f"proc={proc_width}x{proc_height} skip={process_every_n} zoom={zoom:.2f} "
+                f"buffer={camera_buffer_size}"
+            )
+        else:
+            print(
+                "[Video] file="
+                f"{self.source_path} proc={proc_width}x{proc_height} "
+                f"skip={process_every_n}"
+            )
 
         mp_holistic = mp.solutions.holistic.Holistic(
             model_complexity=0,
@@ -127,6 +143,8 @@ class CameraWorker(QObject):
         while self._running and cap.isOpened() and not thread.isInterruptionRequested():
             ret, frame = cap.read()
             if not ret:
+                if source_is_file:
+                    break
                 failed_reads += 1
                 if failed_reads >= 600:
                     self.error_ready.emit("Camera stream read failed repeatedly.")
@@ -190,6 +208,9 @@ class CameraWorker(QObject):
             if update.sentence_tokens is not None:
                 self.sequence_ready.emit(update.sentence_tokens)
 
+        if source_is_file and self.recognizer.buffered_tokens:
+            self.sequence_ready.emit(list(self.recognizer.buffered_tokens))
+            self.recognizer.buffered_tokens.clear()
         self._running = False
         try:
             mp_holistic.close()
@@ -197,4 +218,5 @@ class CameraWorker(QObject):
             pass
         cap.release()
         self._cap = None
+        self.finished.emit(source_is_file)
         print("Camera thread exiting cleanly")
