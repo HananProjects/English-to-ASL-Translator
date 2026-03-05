@@ -44,6 +44,34 @@ HAND_KEYS = (
     "right_pinky_tip",
 )
 
+LEFT_HAND_KEYS = (
+    "left_thumb_tip",
+    "left_index_tip",
+    "left_middle_tip",
+    "left_ring_tip",
+    "left_pinky_tip",
+)
+
+RIGHT_HAND_KEYS = (
+    "right_thumb_tip",
+    "right_index_tip",
+    "right_middle_tip",
+    "right_ring_tip",
+    "right_pinky_tip",
+)
+
+LEFT_ARM_KEYS = (
+    "shoulder_left",
+    "elbow_left",
+    "hand_left",
+)
+
+RIGHT_ARM_KEYS = (
+    "shoulder_right",
+    "elbow_right",
+    "hand_right",
+)
+
 
 @dataclass
 class PoseTemplate:
@@ -113,6 +141,34 @@ def pose_to_feature_vector(pose: PoseDict) -> np.ndarray:
     vector = np.asarray(feat, dtype=np.float32)
     vector = np.nan_to_num(vector, nan=0.0, posinf=0.0, neginf=0.0)
     return np.clip(vector, -20.0, 20.0)
+
+
+def suppress_inactive_hand_noise(pose: PoseDict) -> PoseDict:
+    """
+    If only one hand has reliable fingertip landmarks in this frame,
+    drop the opposite arm/hand keys to reduce one-hand sign confusion.
+    """
+    if not pose:
+        return pose
+
+    left_count = sum(1 for key in LEFT_HAND_KEYS if key in pose)
+    right_count = sum(1 for key in RIGHT_HAND_KEYS if key in pose)
+    min_hand_points = 2
+
+    # Both hands present (or both absent): leave pose unchanged.
+    if (left_count >= min_hand_points and right_count >= min_hand_points) or (
+        left_count < min_hand_points and right_count < min_hand_points
+    ):
+        return pose
+
+    filtered = dict(pose)
+    if left_count >= min_hand_points and right_count < min_hand_points:
+        for key in RIGHT_HAND_KEYS + RIGHT_ARM_KEYS:
+            filtered.pop(key, None)
+    elif right_count >= min_hand_points and left_count < min_hand_points:
+        for key in LEFT_HAND_KEYS + LEFT_ARM_KEYS:
+            filtered.pop(key, None)
+    return filtered
 
 
 def pose_distance(a: PoseDict, b: PoseDict, min_shared: int = 9) -> float:
@@ -397,8 +453,9 @@ class SignStreamRecognizer:
         self._hello_motion_cooldown = 0
 
     def process(self, pose: PoseDict) -> RecognitionUpdate:
-        token, confidence = self.matcher.match(pose)
-        motion_token, motion_conf = self._match_hello_motion(pose)
+        filtered_pose = suppress_inactive_hand_noise(pose)
+        token, confidence = self.matcher.match(filtered_pose)
+        motion_token, motion_conf = self._match_hello_motion(filtered_pose)
         if motion_token is not None:
             token, confidence = motion_token, motion_conf
         detected_token = None
