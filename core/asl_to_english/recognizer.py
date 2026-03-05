@@ -287,7 +287,10 @@ class ModelMatcher:
         X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0).astype(np.float32)
         X = np.clip(X, -8.0, 8.0)
 
-        logits = X @ self.W + self.b
+        # Use float64 for the matmul to avoid sporadic float32 backend warnings
+        # on some platforms, then clamp back to a stable range.
+        logits = X.astype(np.float64) @ self.W.astype(np.float64)
+        logits = logits + self.b.astype(np.float64)
         logits = np.nan_to_num(logits, nan=0.0, posinf=0.0, neginf=0.0)
         logits = np.clip(logits, -60.0, 60.0)
         logits = logits - logits.max(axis=1, keepdims=True)

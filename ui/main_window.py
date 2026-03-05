@@ -108,15 +108,21 @@ class MainWindow(QWidget):
         if self.portrait_ui:
             self.english_drawer_width = 240 if self.compact_ui else 280
             self.preview_min_height = 420 if self.compact_ui else 560
+            self.asl_preview_min_height = 520 if self.compact_ui else 700
             self.english_preview_min_height = 620 if self.compact_ui else 860
             self.english_controls_max_height = 190 if self.compact_ui else 210
             self.english_saved_drawer_max_height = 86 if self.compact_ui else 104
+            self.reverse_controls_max_height = 220 if self.compact_ui else 280
+            self.reverse_history_max_height = 58 if self.compact_ui else 72
         else:
             self.english_drawer_width = 300 if self.compact_ui else 420
             self.preview_min_height = 360 if self.compact_ui else 520
+            self.asl_preview_min_height = 460 if self.compact_ui else 660
             self.english_preview_min_height = 520 if self.compact_ui else 780
             self.english_controls_max_height = 220 if self.compact_ui else 270
             self.english_saved_drawer_max_height = 96 if self.compact_ui else 128
+            self.reverse_controls_max_height = 230 if self.compact_ui else 300
+            self.reverse_history_max_height = 60 if self.compact_ui else 76
         self.primary_button_height = 48 if self.compact_ui else 60
         self.secondary_button_height = 34 if self.compact_ui else 40
         self.mini_button_height = 30 if self.compact_ui else 36
@@ -1082,7 +1088,7 @@ class MainWindow(QWidget):
 
         self.camera_feed_label = QLabel("Camera feed")
         self.camera_feed_label.setObjectName("previewSurface")
-        self.camera_feed_label.setMinimumHeight(self.preview_min_height)
+        self.camera_feed_label.setMinimumHeight(self.asl_preview_min_height)
         self.camera_feed_label.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Expanding
         )
@@ -1133,7 +1139,7 @@ class MainWindow(QWidget):
         self.history_label.setObjectName("sectionLabel")
         self.history_list = QListWidget()
         self.history_list.setMinimumHeight(52 if self.compact_ui else 70)
-        self.history_list.setMaximumHeight(78 if self.compact_ui else 96)
+        self.history_list.setMaximumHeight(self.reverse_history_max_height)
         self.history_list.itemClicked.connect(self.on_history_item_clicked)
         self.history_list.setStyleSheet(
             "background-color: #ffffff; border: 1px solid #d1d1d6; border-radius: 10px; color: #1c1c1e;"
@@ -1141,9 +1147,10 @@ class MainWindow(QWidget):
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
+        controls_panel.setMaximumHeight(self.reverse_controls_max_height)
         controls_layout = QVBoxLayout()
         controls_layout.setContentsMargins(14, 12, 14, 12)
-        controls_layout.setSpacing(8 if self.compact_ui else 10)
+        controls_layout.setSpacing(6 if self.compact_ui else 8)
         controls_layout.addWidget(self.reverse_status_label)
         controls_layout.addWidget(self.reverse_debug_label)
         controls_layout.addWidget(self.camera_label)
