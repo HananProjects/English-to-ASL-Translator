@@ -154,11 +154,24 @@ def suppress_inactive_hand_noise(pose: PoseDict) -> PoseDict:
     left_count = sum(1 for key in LEFT_HAND_KEYS if key in pose)
     right_count = sum(1 for key in RIGHT_HAND_KEYS if key in pose)
     min_hand_points = 2
+    strong_hand_points = 4
 
     # Both hands present (or both absent): leave pose unchanged.
-    if (left_count >= min_hand_points and right_count >= min_hand_points) or (
-        left_count < min_hand_points and right_count < min_hand_points
-    ):
+    if left_count >= min_hand_points and right_count >= min_hand_points:
+        # If one side has much weaker fingertip evidence, suppress it.
+        if left_count >= strong_hand_points and right_count <= 2:
+            filtered = dict(pose)
+            for key in RIGHT_HAND_KEYS + RIGHT_ARM_KEYS:
+                filtered.pop(key, None)
+            return filtered
+        if right_count >= strong_hand_points and left_count <= 2:
+            filtered = dict(pose)
+            for key in LEFT_HAND_KEYS + LEFT_ARM_KEYS:
+                filtered.pop(key, None)
+            return filtered
+        return pose
+
+    if left_count < min_hand_points and right_count < min_hand_points:
         return pose
 
     filtered = dict(pose)
@@ -169,6 +182,23 @@ def suppress_inactive_hand_noise(pose: PoseDict) -> PoseDict:
         for key in LEFT_HAND_KEYS + LEFT_ARM_KEYS:
             filtered.pop(key, None)
     return filtered
+
+
+def _hand_motion(pose_a: PoseDict, pose_b: PoseDict, side: str) -> float:
+    if side == "left":
+        keys = ("hand_left",) + LEFT_HAND_KEYS
+    else:
+        keys = ("hand_right",) + RIGHT_HAND_KEYS
+    dists = []
+    for key in keys:
+        a = pose_a.get(key)
+        b = pose_b.get(key)
+        if a is None or b is None:
+            continue
+        dists.append(math.dist(a, b))
+    if not dists:
+        return 0.0
+    return float(sum(dists) / len(dists))
 
 
 def pose_distance(a: PoseDict, b: PoseDict, min_shared: int = 9) -> float:
@@ -451,9 +481,18 @@ class SignStreamRecognizer:
         self._low_conf_streak = 0
         self._right_hand_history = deque(maxlen=12)
         self._hello_motion_cooldown = 0
+        self._prev_pose: Optional[PoseDict] = None
+        self._left_motion_history = deque(maxlen=8)
+        self._right_motion_history = deque(maxlen=8)
 
     def process(self, pose: PoseDict) -> RecognitionUpdate:
+        if self._prev_pose is not None:
+            self._left_motion_history.append(_hand_motion(pose, self._prev_pose, "left"))
+            self._right_motion_history.append(_hand_motion(pose, self._prev_pose, "right"))
+        self._prev_pose = pose
+
         filtered_pose = suppress_inactive_hand_noise(pose)
+        filtered_pose = self._suppress_idle_opposite_hand(filtered_pose)
         token, confidence = self.matcher.match(filtered_pose)
         motion_token, motion_conf = self._match_hello_motion(filtered_pose)
         if motion_token is not None:
@@ -523,9 +562,36 @@ class SignStreamRecognizer:
         self._low_conf_streak = 0
         self._right_hand_history.clear()
         self._hello_motion_cooldown = 0
+        self._prev_pose = None
+        self._left_motion_history.clear()
+        self._right_motion_history.clear()
         reset_fn = getattr(self.matcher, "reset", None)
         if callable(reset_fn):
             reset_fn()
+
+    def _suppress_idle_opposite_hand(self, pose: PoseDict) -> PoseDict:
+        left_points = sum(1 for key in LEFT_HAND_KEYS if key in pose)
+        right_points = sum(1 for key in RIGHT_HAND_KEYS if key in pose)
+        if left_points < 2 or right_points < 2:
+            return pose
+        if not self._left_motion_history or not self._right_motion_history:
+            return pose
+
+        left_motion = sum(self._left_motion_history) / len(self._left_motion_history)
+        right_motion = sum(self._right_motion_history) / len(self._right_motion_history)
+
+        active_thresh = 0.010
+        idle_thresh = 0.0035
+        filtered = dict(pose)
+        if left_motion > active_thresh and right_motion < idle_thresh:
+            for key in RIGHT_HAND_KEYS + RIGHT_ARM_KEYS:
+                filtered.pop(key, None)
+            return filtered
+        if right_motion > active_thresh and left_motion < idle_thresh:
+            for key in LEFT_HAND_KEYS + LEFT_ARM_KEYS:
+                filtered.pop(key, None)
+            return filtered
+        return pose
 
     def _match_hello_motion(self, pose: PoseDict) -> Tuple[Optional[str], float]:
         """

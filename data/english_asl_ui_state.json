@@ -1,6 +1,44 @@
 {
   "history": [
     {
+      "stamp": "14:53:41",
+      "created_at": "2026-03-05T14:53:41",
+      "text": "i would like to go to the park today",
+      "tokens": [
+        "TODAY",
+        "ME",
+        "LIKE",
+        "GO",
+        "PARK"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 2.5
+        },
+        {
+          "token": "ME",
+          "clip": "my_2",
+          "start": 2.5,
+          "duration": 2.5
+        },
+        {
+          "token": "LIKE",
+          "clip": "like_1",
+          "start": 5.0,
+          "duration": 2.5
+        },
+        {
+          "token": "GO",
+          "clip": "go_1",
+          "start": 7.5,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
       "stamp": "13:59:01",
       "created_at": "2026-03-05T13:59:01",
       "text": "hello how are you",

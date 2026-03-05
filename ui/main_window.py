@@ -443,6 +443,12 @@ class MainWindow(QWidget):
         if not hand_boxes:
             return
 
+        max_prominence = max(item[4] for item in hand_boxes)
+        min_prominence = max(4.0, max_prominence * 0.65)
+        draw_boxes = [item[:4] for item in hand_boxes if item[4] >= min_prominence]
+        if not draw_boxes:
+            return
+
         token = self.latest_camera_debug_token.strip()
         confidence = self.latest_camera_debug_confidence
         label = ""
@@ -455,7 +461,7 @@ class MainWindow(QWidget):
             painter.setPen(pen)
             painter.setRenderHint(QPainter.Antialiasing)
             font_metrics = QFontMetrics(painter.font())
-            for x, y, w, h in hand_boxes:
+            for x, y, w, h in draw_boxes:
                 painter.drawRect(x, y, w, h)
                 if label:
                     text_w = font_metrics.horizontalAdvance(label) + 12
@@ -493,11 +499,14 @@ class MainWindow(QWidget):
             except Exception:
                 continue
             points.append((x, y))
-        if not points:
+        if len(points) < 3:
             return None
 
         xs = [pt[0] for pt in points]
         ys = [pt[1] for pt in points]
+        span_x = max(xs) - min(xs)
+        span_y = max(ys) - min(ys)
+        prominence = float(len(points)) + 0.04 * float(span_x + span_y)
         if len(points) == 1:
             pad = max(24, min(width, height) // 18)
             min_x = xs[0] - pad
@@ -517,7 +526,7 @@ class MainWindow(QWidget):
         max_y = min(height - 1, max_y)
         box_w = max(12, max_x - min_x)
         box_h = max(12, max_y - min_y)
-        return min_x, min_y, box_w, box_h
+        return min_x, min_y, box_w, box_h, prominence
 
     def on_camera_error(self, message: str):
         self.camera_error_message = message
