@@ -8,6 +8,8 @@ class TranslationResult:
     latency_ms: int
     error: Optional[str] = None
     source_text: str = ""
+    used_fingerspelling: bool = False
+    spelled_words: Optional[List[str]] = None
 
 
 @dataclass

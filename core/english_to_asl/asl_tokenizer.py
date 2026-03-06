@@ -38,7 +38,38 @@ def tokenize_asl(words: list[str], unknown_policy: str = "keep") -> list[str]:
         if sign is not None:
             tokens.append(sign)
             continue
+        upper_word = word.upper()
         if unknown_policy == "drop":
             continue
-        tokens.append(word.upper())
+        if unknown_policy == "spell":
+            for ch in upper_word:
+                if ch.isalpha():
+                    tokens.append(ch)
+            continue
+        tokens.append(upper_word)
     return tokens
+
+
+def tokenize_asl_with_fallback(words: list[str]) -> tuple[list[str], list[str]]:
+    """
+    Tokenize with a spelling fallback for words missing from ASL_SIGNS.
+
+    Returns:
+      - tokens
+      - list of unknown words that were spelled letter-by-letter
+    """
+    tokens: list[str] = []
+    spelled_words: list[str] = []
+    for word in words:
+        sign = _lookup_sign(word)
+        if sign is not None:
+            tokens.append(sign)
+            continue
+        spelled = [ch for ch in word.upper() if ch.isalpha()]
+        if spelled:
+            tokens.extend(spelled)
+            spelled_words.append(word)
+        else:
+            tokens.append(word.upper())
+            spelled_words.append(word)
+    return tokens, spelled_words

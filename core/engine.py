@@ -17,7 +17,7 @@ def _get_stt_backend():
     return _stt_backend
 from core.english_to_asl.text_normalizer import normalize_text
 from core.english_to_asl.grammar_mapper import map_grammar
-from core.english_to_asl.asl_tokenizer import tokenize_asl
+from core.english_to_asl.asl_tokenizer import tokenize_asl_with_fallback
 
 def english_to_asl(audio: Optional[bytes] = None,
                    text: Optional[str] = None):
@@ -38,7 +38,9 @@ def english_to_asl(audio: Optional[bytes] = None,
                 confidence=0.0,
                 latency_ms=elapsed_ms(start_time),
                 error="STT_NOT_AVAILABLE",
-                source_text=""
+                source_text="",
+                used_fingerspelling=False,
+                spelled_words=[],
             )
 
     # Step 1: Speech to Text (if audio)
@@ -51,7 +53,9 @@ def english_to_asl(audio: Optional[bytes] = None,
                 confidence=stt_conf,
                 latency_ms=elapsed_ms(start_time),
                 error="LOW_STT_CONFIDENCE",
-                source_text=text or ""
+                source_text=text or "",
+                used_fingerspelling=False,
+                spelled_words=[],
             )
 
     # Step 2: Normalize text
@@ -62,7 +66,7 @@ def english_to_asl(audio: Optional[bytes] = None,
     grammar_tokens = map_grammar(normalized_text)
 
     # Step 4: ASL tokenization
-    asl_tokens = tokenize_asl(grammar_tokens)
+    asl_tokens, spelled_words = tokenize_asl_with_fallback(grammar_tokens)
 
     confidence = compute_confidence(
     stt_confidence=stt_conf if audio is not None else None,
@@ -76,7 +80,9 @@ def english_to_asl(audio: Optional[bytes] = None,
         asl_tokens=asl_tokens,
         confidence=confidence,
         latency_ms=latency,
-        source_text=text or ""
+        source_text=text or "",
+        used_fingerspelling=bool(spelled_words),
+        spelled_words=spelled_words,
     )
 
 

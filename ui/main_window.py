@@ -350,12 +350,20 @@ class MainWindow(QWidget):
         tokens = data["tokens"]
         heard_text = data.get("text", "")
         error = data.get("error")
+        used_fingerspelling = bool(data.get("used_fingerspelling", False))
+        spelled_words = [str(w) for w in (data.get("spelled_words") or []) if str(w).strip()]
 
         self.english_tokens_label.setText(
             f"Detected ASL Tokens: {' '.join(tokens) if tokens else '(none)'}"
         )
         if error:
             self.english_status_label.setText(f"Status: Error ({error})")
+        elif used_fingerspelling and spelled_words:
+            words = ", ".join(spelled_words[:3])
+            extra = f" (+{len(spelled_words) - 3} more)" if len(spelled_words) > 3 else ""
+            self.english_status_label.setText(
+                f"Status: No sign found for {words}{extra}; spelling letter-by-letter"
+            )
         else:
             if self.demo_mode:
                 self.english_status_label.setText(
@@ -605,6 +613,10 @@ class MainWindow(QWidget):
 
         result = english_to_asl(text=text)
         tokens = result.asl_tokens
+        used_fingerspelling = bool(getattr(result, "used_fingerspelling", False))
+        spelled_words = [
+            str(w) for w in (getattr(result, "spelled_words", None) or []) if str(w).strip()
+        ]
         if not tokens:
             if result.error:
                 self.english_status_label.setText(f"Status: {result.error}")
@@ -613,7 +625,13 @@ class MainWindow(QWidget):
             return
 
         self.english_tokens_label.setText(f"Detected ASL Tokens: {' '.join(tokens)}")
-        if source == "typed":
+        if used_fingerspelling and spelled_words:
+            words = ", ".join(spelled_words[:3])
+            extra = f" (+{len(spelled_words) - 3} more)" if len(spelled_words) > 3 else ""
+            self.english_status_label.setText(
+                f"Status: No sign found for {words}{extra}; spelling letter-by-letter"
+            )
+        elif source == "typed":
             if self.demo_mode:
                 self.english_status_label.setText(f"Status: Typed text translated | {text}")
             else:
@@ -905,6 +923,8 @@ class MainWindow(QWidget):
                 "latency": result.latency_ms,
                 "text": text,
                 "error": result.error,
+                "used_fingerspelling": bool(getattr(result, "used_fingerspelling", False)),
+                "spelled_words": list(getattr(result, "spelled_words", None) or []),
             })
         except Exception as e:
             self.record_error_received.emit(str(e))
