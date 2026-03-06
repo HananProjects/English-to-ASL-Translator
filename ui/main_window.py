@@ -21,6 +21,7 @@ from PySide6.QtWidgets import (
     QStackedWidget,
     QLabel,
     QPushButton,
+    QLineEdit,
     QSizePolicy,
     QListWidget,
     QListWidgetItem,
@@ -110,7 +111,7 @@ class MainWindow(QWidget):
             self.preview_min_height = 420 if self.compact_ui else 560
             self.asl_preview_min_height = 520 if self.compact_ui else 700
             self.english_preview_min_height = 620 if self.compact_ui else 860
-            self.english_controls_max_height = 190 if self.compact_ui else 210
+            self.english_controls_max_height = 250 if self.compact_ui else 290
             self.english_saved_drawer_max_height = 86 if self.compact_ui else 104
             self.reverse_controls_max_height = 220 if self.compact_ui else 280
             self.reverse_history_max_height = 58 if self.compact_ui else 72
@@ -119,7 +120,7 @@ class MainWindow(QWidget):
             self.preview_min_height = 360 if self.compact_ui else 520
             self.asl_preview_min_height = 460 if self.compact_ui else 660
             self.english_preview_min_height = 520 if self.compact_ui else 780
-            self.english_controls_max_height = 220 if self.compact_ui else 270
+            self.english_controls_max_height = 290 if self.compact_ui else 340
             self.english_saved_drawer_max_height = 96 if self.compact_ui else 128
             self.reverse_controls_max_height = 230 if self.compact_ui else 300
             self.reverse_history_max_height = 60 if self.compact_ui else 76
@@ -584,16 +585,42 @@ class MainWindow(QWidget):
 
     def on_speech(self, text: str):
         print("Heard:", text)
+        self._process_english_text(text, source="speech")
+
+    def on_typed_text_submit(self):
+        if not hasattr(self, "english_text_input"):
+            return
+        raw = self.english_text_input.text()
+        text = (raw or "").strip()
+        if not text:
+            self.english_status_label.setText("Status: Type text to translate")
+            return
+        self._process_english_text(text, source="typed")
+        self.english_text_input.selectAll()
+
+    def _process_english_text(self, text: str, source: str):
+        text = (text or "").strip()
+        if not text:
+            return
 
         result = english_to_asl(text=text)
         tokens = result.asl_tokens
         if not tokens:
             if result.error:
                 self.english_status_label.setText(f"Status: {result.error}")
+            else:
+                self.english_status_label.setText("Status: No ASL tokens detected")
             return
 
         self.english_tokens_label.setText(f"Detected ASL Tokens: {' '.join(tokens)}")
-        if self.demo_mode:
+        if source == "typed":
+            if self.demo_mode:
+                self.english_status_label.setText(f"Status: Typed text translated | {text}")
+            else:
+                self.english_status_label.setText(
+                    f"Status: Typed Text | Confidence: {result.confidence:.2f}"
+                )
+        elif self.demo_mode:
             self.english_status_label.setText("Status: Live speech detected")
         else:
             self.english_status_label.setText(
@@ -969,6 +996,13 @@ class MainWindow(QWidget):
         self.english_status_label.setObjectName("statusLine")
         self.english_tokens_label = QLabel("Detected ASL Tokens:")
         self.english_tokens_label.setObjectName("heroValue")
+        self.english_text_input = QLineEdit()
+        self.english_text_input.setPlaceholderText("Type English text instead of speaking")
+        self.english_text_input.returnPressed.connect(self.on_typed_text_submit)
+        self.english_text_submit_button = QPushButton("Translate Text")
+        self.english_text_submit_button.setObjectName("secondaryButton")
+        self.english_text_submit_button.setMinimumHeight(self.mini_button_height)
+        self.english_text_submit_button.clicked.connect(self.on_typed_text_submit)
 
         self.record_button = QPushButton("●")
         self.record_button.setObjectName("recordToggleButton")
@@ -1060,6 +1094,11 @@ class MainWindow(QWidget):
         controls_layout.setSpacing(8 if self.compact_ui else 10)
         controls_layout.addWidget(self.english_status_label)
         controls_layout.addWidget(self.english_tokens_label)
+        typed_row = QHBoxLayout()
+        typed_row.setSpacing(8 if self.compact_ui else 10)
+        typed_row.addWidget(self.english_text_input, 1)
+        typed_row.addWidget(self.english_text_submit_button, 0)
+        controls_layout.addLayout(typed_row)
         controls_row = QHBoxLayout()
         controls_row.setSpacing(8 if self.compact_ui else 10)
         controls_row.addStretch(1)
