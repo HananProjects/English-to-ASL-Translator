@@ -1,6 +1,108 @@
 {
   "history": [
     {
+      "stamp": "19:41:55",
+      "created_at": "2026-03-05T19:41:55",
+      "text": "would you like to come over today",
+      "tokens": [
+        "TODAY",
+        "YOU",
+        "LIKE",
+        "COME",
+        "O",
+        "V",
+        "E",
+        "R"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 2.5
+        },
+        {
+          "token": "YOU",
+          "clip": "you",
+          "start": 2.5,
+          "duration": 1.5833333333333333
+        },
+        {
+          "token": "LIKE",
+          "clip": "like_1",
+          "start": 4.083333333333333,
+          "duration": 2.5
+        },
+        {
+          "token": "COME",
+          "clip": "come",
+          "start": 6.583333333333333,
+          "duration": 1.9166666666666667
+        },
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 8.5,
+          "duration": 1.4166666666666667
+        },
+        {
+          "token": "V",
+          "clip": "v",
+          "start": 9.916666666666666,
+          "duration": 1.4166666666666667
+        },
+        {
+          "token": "E",
+          "clip": "e",
+          "start": 11.333333333333332,
+          "duration": 1.25
+        },
+        {
+          "token": "R",
+          "clip": "r",
+          "start": 12.583333333333332,
+          "duration": 1.3333333333333333
+        }
+      ]
+    },
+    {
+      "stamp": "19:41:36",
+      "created_at": "2026-03-05T19:41:36",
+      "text": "over",
+      "tokens": [
+        "O",
+        "V",
+        "E",
+        "R"
+      ],
+      "sequence": [
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 0.0,
+          "duration": 1.4166666666666667
+        },
+        {
+          "token": "V",
+          "clip": "v",
+          "start": 1.4166666666666667,
+          "duration": 1.4166666666666667
+        },
+        {
+          "token": "E",
+          "clip": "e",
+          "start": 2.8333333333333335,
+          "duration": 1.25
+        },
+        {
+          "token": "R",
+          "clip": "r",
+          "start": 4.083333333333334,
+          "duration": 1.3333333333333333
+        }
+      ]
+    },
+    {
       "stamp": "18:47:36",
       "created_at": "2026-03-05T18:47:36",
       "text": "I want you to come over today and eat some food at my house with my family",

@@ -72,8 +72,20 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
         sign_def = ASL_SIGNS.get(token)
 
         if not sign_def:
-            print(f"[WARN] No ASL sign metadata for token: {token}")
-            continue
+            # Fingerspelling fallback: allow single-letter tokens to play
+            # directly from lowercase clip names (e.g., A -> a.json).
+            token_text = str(token or "").strip()
+            if len(token_text) == 1 and token_text.isalpha():
+                fallback_clip = token_text.lower()
+                clip_path = Path(__file__).resolve().parents[2] / "ui" / "animation" / "clips" / f"{fallback_clip}.json"
+                if clip_path.exists():
+                    sign_def = {"clip": fallback_clip, "duration": DEFAULT_SIGN_DURATION}
+                else:
+                    print(f"[WARN] No ASL sign metadata for token: {token}")
+                    continue
+            else:
+                print(f"[WARN] No ASL sign metadata for token: {token}")
+                continue
 
         clip_name = _select_clip_name(token, sign_def)
         if not clip_name:
