@@ -275,7 +275,7 @@ class MainWindow(QWidget):
             return
         self.english_status_label.setText("Status: Finalizing speech...")
         self.recording_in_progress = False
-        self.record_button.setEnabled(False)
+        self.record_button.setEnabled(True)
         self._refresh_record_toggle_button()
         threading.Thread(target=self._run_record_job, daemon=True).start()
 
@@ -929,15 +929,17 @@ class MainWindow(QWidget):
 
     def _on_stt_warmup_complete(self, ok: bool):
         self.stt_ready = ok
-        self.record_button.setEnabled(ok)
+        # Keep mic control usable even while warmup is slow/fails; fallback
+        # initialization can still occur on-demand when recording starts.
+        self.record_button.setEnabled(True)
         self._refresh_record_toggle_button()
         if ok:
             self.english_status_label.setText("Status: Idle")
             self.mic_state_label.setText("Mic: Ready")
             self._start_vosk_async()
         else:
-            self.english_status_label.setText("Status: STT warmup failed")
-            self.mic_state_label.setText("Mic: Error")
+            self.english_status_label.setText("Status: Mic fallback mode (warmup failed)")
+            self.mic_state_label.setText("Mic: Retry on record")
 
     def set_mode(self, mode: str):
         if mode not in {"english_to_asl", "asl_to_english"}:

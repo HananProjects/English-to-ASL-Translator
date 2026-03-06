@@ -1,6 +1,228 @@
 {
   "history": [
     {
+      "stamp": "18:47:36",
+      "created_at": "2026-03-05T18:47:36",
+      "text": "I want you to come over today and eat some food at my house with my family",
+      "tokens": [
+        "TODAY",
+        "ME",
+        "WANT",
+        "YOU",
+        "COME",
+        "OVER",
+        "AND",
+        "EAT",
+        "SOME",
+        "EAT",
+        "AT",
+        "MY",
+        "HOUSE",
+        "WITH",
+        "MY",
+        "FAMILY"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 2.5
+        },
+        {
+          "token": "ME",
+          "clip": "my_2",
+          "start": 2.5,
+          "duration": 2.5
+        },
+        {
+          "token": "WANT",
+          "clip": "want_1",
+          "start": 5.0,
+          "duration": 2.5
+        },
+        {
+          "token": "YOU",
+          "clip": "you_4",
+          "start": 7.5,
+          "duration": 1.1666666666666667
+        },
+        {
+          "token": "COME",
+          "clip": "come",
+          "start": 8.666666666666666,
+          "duration": 1.9166666666666667
+        },
+        {
+          "token": "AND",
+          "clip": "and_2",
+          "start": 10.583333333333332,
+          "duration": 0.7
+        },
+        {
+          "token": "EAT",
+          "clip": "eat_1",
+          "start": 11.283333333333331,
+          "duration": 2.5
+        },
+        {
+          "token": "SOME",
+          "clip": "some",
+          "start": 13.783333333333331,
+          "duration": 0.7
+        },
+        {
+          "token": "EAT",
+          "clip": "eat_2",
+          "start": 14.48333333333333,
+          "duration": 0.7
+        },
+        {
+          "token": "MY",
+          "clip": "my_2",
+          "start": 15.18333333333333,
+          "duration": 2.5
+        },
+        {
+          "token": "WITH",
+          "clip": "with_1",
+          "start": 17.68333333333333,
+          "duration": 1.1666666666666667
+        },
+        {
+          "token": "MY",
+          "clip": "my_2",
+          "start": 18.849999999999998,
+          "duration": 2.5
+        },
+        {
+          "token": "FAMILY",
+          "clip": "family_1",
+          "start": 21.349999999999998,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "stamp": "18:47:04",
+      "created_at": "2026-03-05T18:47:04",
+      "text": "would you like to come over and play today",
+      "tokens": [
+        "TODAY",
+        "YOU",
+        "LIKE",
+        "COME",
+        "OVER",
+        "AND",
+        "PLAY"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 2.5
+        },
+        {
+          "token": "YOU",
+          "clip": "you_3",
+          "start": 2.5,
+          "duration": 1.0
+        },
+        {
+          "token": "LIKE",
+          "clip": "like_1",
+          "start": 3.5,
+          "duration": 2.5
+        },
+        {
+          "token": "COME",
+          "clip": "come",
+          "start": 6.0,
+          "duration": 1.9166666666666667
+        },
+        {
+          "token": "AND",
+          "clip": "and_2",
+          "start": 7.916666666666667,
+          "duration": 0.7
+        },
+        {
+          "token": "PLAY",
+          "clip": "play_1",
+          "start": 8.616666666666667,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "stamp": "18:46:48",
+      "created_at": "2026-03-05T18:46:48",
+      "text": "where are you going today",
+      "tokens": [
+        "TODAY",
+        "YOU",
+        "GO",
+        "WHERE"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 2.5
+        },
+        {
+          "token": "YOU",
+          "clip": "you_1",
+          "start": 2.5,
+          "duration": 1.25
+        },
+        {
+          "token": "GO",
+          "clip": "go_2",
+          "start": 3.75,
+          "duration": 2.0
+        },
+        {
+          "token": "WHERE",
+          "clip": "where_1",
+          "start": 5.75,
+          "duration": 0.9166666666666666
+        }
+      ]
+    },
+    {
+      "stamp": "18:46:36",
+      "created_at": "2026-03-05T18:46:36",
+      "text": "where are you going",
+      "tokens": [
+        "YOU",
+        "GO",
+        "WHERE"
+      ],
+      "sequence": [
+        {
+          "token": "YOU",
+          "clip": "you",
+          "start": 0.0,
+          "duration": 1.5833333333333333
+        },
+        {
+          "token": "GO",
+          "clip": "go_1",
+          "start": 1.5833333333333333,
+          "duration": 2.5
+        },
+        {
+          "token": "WHERE",
+          "clip": "where_1",
+          "start": 4.083333333333333,
+          "duration": 0.9166666666666666
+        }
+      ]
+    },
+    {
       "stamp": "18:43:58",
       "created_at": "2026-03-05T18:43:58",
       "text": "Hello, how are you",
