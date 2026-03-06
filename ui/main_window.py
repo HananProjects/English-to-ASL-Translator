@@ -11,7 +11,7 @@ import os
 import tempfile
 from datetime import datetime
 from pathlib import Path
-from PySide6.QtCore import QThread, Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve
+from PySide6.QtCore import QThread, Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve, QEvent
 from PySide6.QtGui import QPixmap, QGuiApplication, QPainter, QPen, QColor, QFontMetrics
 from core.sequencing.sign_sequencer import sequence_signs, SignEvent
 from ui.widgets.animation_view import ASLAnimationView
@@ -137,6 +137,13 @@ class MainWindow(QWidget):
             _env_int("ASL_BATTERY_POLL_MS", 30000, min_value=1000)
         )
         self.battery_timer.timeout.connect(self.refresh_battery_status)
+        self.soft_keyboard_process = None
+        self.touch_ui_enabled = os.getenv("ASL_TOUCH_UI", "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
 
         self.setWindowTitle("English <-> ASL Translator")
         if self.portrait_ui:
@@ -178,9 +185,11 @@ class MainWindow(QWidget):
             "ASL -> EN" if self.compact_ui else "ASL -> English"
         )
         self.demo_mode_button = QPushButton("Demo Mode: ON")
+        self.close_window_button = QPushButton("X")
         self.english_mode_button.setObjectName("modeButton")
         self.reverse_mode_button.setObjectName("modeButton")
         self.demo_mode_button.setObjectName("demoButton")
+        self.close_window_button.setObjectName("closeButton")
         self.english_mode_button.clicked.connect(
             lambda: self.set_mode("english_to_asl")
         )
@@ -188,8 +197,13 @@ class MainWindow(QWidget):
             lambda: self.set_mode("asl_to_english")
         )
         self.demo_mode_button.clicked.connect(self.toggle_demo_mode)
+        self.close_window_button.clicked.connect(self.close)
+        self.close_window_button.setToolTip("Exit")
+        close_button_size = 34 if self.compact_ui else 40
+        self.close_window_button.setFixedSize(close_button_size, close_button_size)
         title_row.addWidget(self.mode_badge_label, 0, Qt.AlignTop)
         title_row.addWidget(self.demo_mode_button, 0, Qt.AlignTop)
+        title_row.addWidget(self.close_window_button, 0, Qt.AlignTop)
         header_layout.addLayout(title_row)
 
         mode_shell = QWidget()
@@ -605,7 +619,16 @@ class MainWindow(QWidget):
             self.vosk.stop()
 
         self.stop_camera()
+        self._hide_soft_keyboard()
         event.accept()
+
+    def eventFilter(self, watched, event):
+        if watched is getattr(self, "english_text_input", None):
+            if event.type() == QEvent.FocusIn:
+                self._show_soft_keyboard()
+            elif event.type() == QEvent.FocusOut:
+                self._hide_soft_keyboard()
+        return super().eventFilter(watched, event)
 
     def on_speech(self, text: str):
         print("Heard:", text)
@@ -621,6 +644,77 @@ class MainWindow(QWidget):
             return
         self._process_english_text(text, source="typed")
         self.english_text_input.selectAll()
+        self._hide_soft_keyboard()
+
+    def _resolve_soft_keyboard_command(self) -> list[str] | None:
+        env_cmd = os.getenv("ASL_SOFT_KEYBOARD_CMD", "").strip()
+        if env_cmd:
+            return ["/bin/bash", "-lc", env_cmd]
+        for command in (
+            "squeekboard",
+            "wvkbd-mobintl",
+            "wvkbd",
+            "matchbox-keyboard",
+            "onboard",
+            "florence",
+        ):
+            if shutil.which(command):
+                return [command]
+        return None
+
+    def _set_native_osk_visible(self, visible: bool) -> bool:
+        if not shutil.which("gdbus"):
+            return False
+        try:
+            subprocess.run(
+                [
+                    "gdbus",
+                    "call",
+                    "--session",
+                    "--dest",
+                    "sm.puri.OSK0",
+                    "--object-path",
+                    "/sm/puri/OSK0",
+                    "--method",
+                    "sm.puri.OSK0.SetVisible",
+                    "true" if visible else "false",
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            return True
+        except Exception:
+            return False
+
+    def _show_soft_keyboard(self):
+        if not self.touch_ui_enabled:
+            return
+        if self._set_native_osk_visible(True):
+            return
+        if self.soft_keyboard_process is not None and self.soft_keyboard_process.poll() is None:
+            return
+        command = self._resolve_soft_keyboard_command()
+        if command is None:
+            return
+        try:
+            self.soft_keyboard_process = subprocess.Popen(command)
+        except Exception:
+            self.soft_keyboard_process = None
+
+    def _hide_soft_keyboard(self):
+        self._set_native_osk_visible(False)
+        process = self.soft_keyboard_process
+        if process is None:
+            return
+        if process.poll() is not None:
+            self.soft_keyboard_process = None
+            return
+        try:
+            process.terminate()
+        except Exception:
+            pass
+        self.soft_keyboard_process = None
 
     def _process_english_text(self, text: str, source: str):
         text = (text or "").strip()
@@ -1036,6 +1130,7 @@ class MainWindow(QWidget):
         self.english_tokens_label.setObjectName("heroValue")
         self.english_text_input = QLineEdit()
         self.english_text_input.setPlaceholderText("Type English text instead of speaking")
+        self.english_text_input.installEventFilter(self)
         self.english_text_input.returnPressed.connect(self.on_typed_text_submit)
         self.english_text_submit_button = QPushButton("Translate Text")
         self.english_text_submit_button.setObjectName("secondaryButton")
@@ -1895,6 +1990,25 @@ class MainWindow(QWidget):
                 background-color: #94a3b8;
                 border-color: #7b8aa1;
                 color: #ffffff;
+            }
+            QPushButton#closeButton {
+                background-color: #ffffff;
+                border: 1px solid #d8e0ea;
+                border-radius: 999px;
+                color: #475569;
+                font-size: 16px;
+                font-weight: 800;
+                padding: 0px;
+            }
+            QPushButton#closeButton:hover {
+                background-color: #fee2e2;
+                border-color: #fca5a5;
+                color: #b91c1c;
+            }
+            QPushButton#closeButton:pressed {
+                background-color: #fecaca;
+                border-color: #f87171;
+                color: #991b1b;
             }
             QListWidget {
                 background-color: #ffffff;
