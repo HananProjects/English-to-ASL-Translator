@@ -16,6 +16,11 @@ from PySide6.QtGui import QPixmap, QGuiApplication, QPainter, QPen, QColor, QFon
 from core.sequencing.sign_sequencer import sequence_signs, SignEvent
 from ui.widgets.animation_view import ASLAnimationView
 from ui.worker_camera import CameraWorker
+from ui.animation.clip_loader import (
+    set_demo_mode as set_demo_clip_mode,
+    is_demo_clip_source_active,
+    DEMO_CLIP_DIR,
+)
 from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -1744,13 +1749,24 @@ class MainWindow(QWidget):
         self._apply_demo_mode()
 
     def _apply_demo_mode(self):
+        set_demo_clip_mode(self.demo_mode)
+        using_demo_clips = is_demo_clip_source_active()
         self.demo_mode_button.setProperty("enabledState", self.demo_mode)
         if self.demo_mode:
             self.demo_mode_button.setText("Demo Mode: ON")
             self.reverse_debug_label.hide()
+            if using_demo_clips:
+                self.demo_mode_button.setToolTip(
+                    f"Using curated clips from: {DEMO_CLIP_DIR}"
+                )
+            else:
+                self.demo_mode_button.setToolTip(
+                    f"No curated clips found in: {DEMO_CLIP_DIR}. Using default clips."
+                )
         else:
             self.demo_mode_button.setText("Demo Mode: OFF")
             self.reverse_debug_label.show()
+            self.demo_mode_button.setToolTip("Using default clip library")
         self.demo_mode_button.style().unpolish(self.demo_mode_button)
         self.demo_mode_button.style().polish(self.demo_mode_button)
 

@@ -1,7 +1,7 @@
 import json
-from pathlib import Path
 from typing import List, Dict, Optional
 from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
+from ui.animation.clip_loader import resolve_clip_path
 
 class SignEvent:
     """
@@ -29,11 +29,10 @@ _VARIANT_INDEX: Dict[str, int] = {}
 
 
 def _clip_duration_seconds(clip_name: str) -> Optional[float]:
-    if clip_name in _DURATION_CACHE:
-        return _DURATION_CACHE[clip_name]
-
-    repo_root = Path(__file__).resolve().parents[2]
-    clip_path = repo_root / "ui" / "animation" / "clips" / f"{clip_name}.json"
+    clip_path = resolve_clip_path(clip_name)
+    cache_key = str(clip_path.resolve())
+    if cache_key in _DURATION_CACHE:
+        return _DURATION_CACHE[cache_key]
     if not clip_path.exists():
         return None
 
@@ -46,7 +45,7 @@ def _clip_duration_seconds(clip_name: str) -> Optional[float]:
         if fps <= 0 or frame_count <= 0:
             return None
         duration = frame_count / fps
-        _DURATION_CACHE[clip_name] = duration
+        _DURATION_CACHE[cache_key] = duration
         return duration
     except Exception:
         return None
@@ -77,7 +76,7 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
             token_text = str(token or "").strip()
             if len(token_text) == 1 and token_text.isalpha():
                 fallback_clip = token_text.lower()
-                clip_path = Path(__file__).resolve().parents[2] / "ui" / "animation" / "clips" / f"{fallback_clip}.json"
+                clip_path = resolve_clip_path(fallback_clip)
                 if clip_path.exists():
                     sign_def = {"clip": fallback_clip, "duration": DEFAULT_SIGN_DURATION}
                 else:
