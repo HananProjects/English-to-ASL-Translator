@@ -1335,48 +1335,16 @@ class MainWindow(QWidget):
         self.camera_toggle_button.setObjectName("secondaryButton")
         self.camera_toggle_button.setMinimumHeight(self.secondary_button_height)
         self.camera_toggle_button.clicked.connect(self.toggle_camera)
-<<<<<<< HEAD
-        self.import_video_button = QPushButton("Use Video File")
-        self.import_video_button.setObjectName("secondaryButton")
-        self.import_video_button.setMinimumHeight(self.secondary_button_height)
-        self.import_video_button.clicked.connect(self.import_asl_video_file)
-        self.use_camera_button = QPushButton("Use Live Camera")
-        self.use_camera_button.setObjectName("secondaryButton")
-        self.use_camera_button.setMinimumHeight(self.secondary_button_height)
-        self.use_camera_button.clicked.connect(self.use_live_camera_input)
         self.reset_translation_button = QPushButton("Reset Translation")
         self.reset_translation_button.setObjectName("secondaryButton")
         self.reset_translation_button.setMinimumHeight(self.secondary_button_height)
         self.reset_translation_button.clicked.connect(self.reset_translation)
-        self.fast_mode_button = QPushButton()
-        self.fast_mode_button.setObjectName("secondaryButton")
-        self.fast_mode_button.setMinimumHeight(self.secondary_button_height)
-        self.fast_mode_button.clicked.connect(self.toggle_fast_mode)
-        self._refresh_fast_mode_button()
-        self.add_history_button = QPushButton("Add to History")
-        self.add_history_button.setObjectName("secondaryButton")
-        self.add_history_button.setMinimumHeight(self.mini_button_height)
-        self.add_history_button.clicked.connect(self.add_current_translation_to_history)
-        self.speaker_button = QPushButton(
-            "Speaker: ON" if self.speaker_enabled else "Speaker: OFF"
-        )
-        self.speaker_button.setObjectName("secondaryButton")
-        self.speaker_button.setMinimumHeight(self.mini_button_height)
-        self.speaker_button.clicked.connect(self.toggle_speaker)
-        self.test_speaker_button = QPushButton("Test Speaker")
-        self.test_speaker_button.setObjectName("secondaryButton")
-        self.test_speaker_button.setMinimumHeight(self.mini_button_height)
-        self.test_speaker_button.clicked.connect(self.test_speaker)
-        if self.tts_backend == "none":
-            self.speaker_button.setText("Speaker: OFF")
-=======
         self.asl_settings_button = QPushButton("⚙")
         self.asl_settings_button.setObjectName("secondaryButton")
         gear_size = 34 if self.compact_ui else 40
         self.asl_settings_button.setFixedSize(gear_size, gear_size)
         self.asl_settings_button.setToolTip("ASL settings")
         self.asl_settings_button.clicked.connect(self._show_asl_settings_menu)
->>>>>>> daa0729 (updated the asl mode as well)
 
         self.asl_settings_menu = QMenu(self)
         self.asl_use_video_action = self.asl_settings_menu.addAction("Use Video File")
@@ -1421,14 +1389,8 @@ class MainWindow(QWidget):
         actions_row.setSpacing(6 if self.compact_ui else 10)
         actions_row.addStretch(1)
         actions_row.addWidget(self.camera_toggle_button)
-<<<<<<< HEAD
-        actions_row.addWidget(self.import_video_button)
-        actions_row.addWidget(self.use_camera_button)
         actions_row.addWidget(self.reset_translation_button)
-        actions_row.addWidget(self.fast_mode_button)
-=======
         actions_row.addWidget(self.asl_settings_button)
->>>>>>> daa0729 (updated the asl mode as well)
         actions_row.addStretch(1)
         controls_layout.addLayout(actions_row)
 
