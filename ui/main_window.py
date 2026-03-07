@@ -30,6 +30,7 @@ from PySide6.QtWidgets import (
     QListWidgetItem,
     QTabWidget,
     QFileDialog,
+    QMenu,
 )
 
 try:
@@ -129,20 +130,20 @@ class MainWindow(QWidget):
         if self.portrait_ui:
             self.english_drawer_width = 240 if self.compact_ui else 280
             self.preview_min_height = 420 if self.compact_ui else 560
-            self.asl_preview_min_height = 520 if self.compact_ui else 700
+            self.asl_preview_min_height = 640 if self.compact_ui else 860
             self.english_preview_min_height = 720 if self.compact_ui else 980
             self.english_controls_collapsed_height = 150 if self.compact_ui else 170
             self.english_saved_drawer_max_height = 86 if self.compact_ui else 104
-            self.reverse_controls_max_height = 220 if self.compact_ui else 280
+            self.reverse_controls_max_height = 130 if self.compact_ui else 150
             self.reverse_history_max_height = 58 if self.compact_ui else 72
         else:
             self.english_drawer_width = 300 if self.compact_ui else 420
             self.preview_min_height = 360 if self.compact_ui else 520
-            self.asl_preview_min_height = 460 if self.compact_ui else 660
+            self.asl_preview_min_height = 560 if self.compact_ui else 780
             self.english_preview_min_height = 620 if self.compact_ui else 900
             self.english_controls_collapsed_height = 140 if self.compact_ui else 160
             self.english_saved_drawer_max_height = 96 if self.compact_ui else 128
-            self.reverse_controls_max_height = 230 if self.compact_ui else 300
+            self.reverse_controls_max_height = 120 if self.compact_ui else 140
             self.reverse_history_max_height = 60 if self.compact_ui else 76
         self.english_controls_expanded_height = (
             self.english_controls_collapsed_height + self.english_saved_drawer_max_height + 18
@@ -374,6 +375,23 @@ class MainWindow(QWidget):
         self._refresh_english_collections_ui()
         self._save_english_collections()
         self.english_status_label.setText("Status: History cleared")
+
+    def on_clear_reverse_history_clicked(self):
+        if not hasattr(self, "history_list"):
+            return
+        self.history_list.clear()
+        self.reverse_status_label.setText("Status: ASL history cleared")
+        self._refresh_asl_settings_actions()
+
+    def on_replay_latest_reverse_history_clicked(self):
+        if not hasattr(self, "history_list") or self.history_list.count() == 0:
+            self.reverse_status_label.setText("Status: ASL history is empty")
+            return
+        item = self.history_list.item(0)
+        if item is None:
+            self.reverse_status_label.setText("Status: ASL history is empty")
+            return
+        self.on_history_item_clicked(item)
 
     def on_english_history_item_clicked(self, item: QListWidgetItem):
         row = self.english_history_list.row(item)
@@ -1312,11 +1330,12 @@ class MainWindow(QWidget):
         self.camera_label.setObjectName("statusLine")
         self.reverse_label = QLabel("English Translation:")
         self.reverse_label.setWordWrap(True)
-        self.reverse_label.setObjectName("heroValue")
+        self.reverse_label.setObjectName("sectionLabel")
         self.camera_toggle_button = QPushButton("Stop Camera")
         self.camera_toggle_button.setObjectName("secondaryButton")
         self.camera_toggle_button.setMinimumHeight(self.secondary_button_height)
         self.camera_toggle_button.clicked.connect(self.toggle_camera)
+<<<<<<< HEAD
         self.import_video_button = QPushButton("Use Video File")
         self.import_video_button.setObjectName("secondaryButton")
         self.import_video_button.setMinimumHeight(self.secondary_button_height)
@@ -1350,25 +1369,51 @@ class MainWindow(QWidget):
         self.test_speaker_button.clicked.connect(self.test_speaker)
         if self.tts_backend == "none":
             self.speaker_button.setText("Speaker: OFF")
+=======
+        self.asl_settings_button = QPushButton("⚙")
+        self.asl_settings_button.setObjectName("secondaryButton")
+        gear_size = 34 if self.compact_ui else 40
+        self.asl_settings_button.setFixedSize(gear_size, gear_size)
+        self.asl_settings_button.setToolTip("ASL settings")
+        self.asl_settings_button.clicked.connect(self._show_asl_settings_menu)
+>>>>>>> daa0729 (updated the asl mode as well)
 
-        self.history_label = QLabel("History")
-        self.history_label.setObjectName("sectionLabel")
-        self.history_list = QListWidget()
-        self.history_list.setMinimumHeight(52 if self.compact_ui else 70)
-        self.history_list.setMaximumHeight(self.reverse_history_max_height)
-        self.history_list.itemClicked.connect(self.on_history_item_clicked)
-        self.history_list.setStyleSheet(
-            "background-color: #ffffff; border: 1px solid #d1d1d6; border-radius: 10px; color: #1c1c1e;"
+        self.asl_settings_menu = QMenu(self)
+        self.asl_use_video_action = self.asl_settings_menu.addAction("Use Video File")
+        self.asl_use_video_action.triggered.connect(self.import_asl_video_file)
+        self.asl_use_live_camera_action = self.asl_settings_menu.addAction("Use Live Camera")
+        self.asl_use_live_camera_action.triggered.connect(self.use_live_camera_input)
+        self.asl_settings_menu.addSeparator()
+        self.asl_reset_action = self.asl_settings_menu.addAction("Reset Translation")
+        self.asl_reset_action.triggered.connect(self.reset_translation)
+        self.asl_add_history_action = self.asl_settings_menu.addAction("Add to History")
+        self.asl_add_history_action.triggered.connect(self.add_current_translation_to_history)
+        self.asl_replay_latest_history_action = self.asl_settings_menu.addAction(
+            "Replay Latest History"
         )
+        self.asl_replay_latest_history_action.triggered.connect(
+            self.on_replay_latest_reverse_history_clicked
+        )
+        self.asl_clear_history_action = self.asl_settings_menu.addAction("Clear ASL History")
+        self.asl_clear_history_action.triggered.connect(self.on_clear_reverse_history_clicked)
+        self.asl_settings_menu.addSeparator()
+        self.asl_toggle_speaker_action = self.asl_settings_menu.addAction("")
+        self.asl_toggle_speaker_action.triggered.connect(self.toggle_speaker)
+        self.asl_test_speaker_action = self.asl_settings_menu.addAction("Test Speaker")
+        self.asl_test_speaker_action.triggered.connect(self.test_speaker)
+        self._refresh_asl_settings_actions()
+
+        # Keep this list for existing history functionality, but move controls into gear menu.
+        self.history_list = QListWidget()
+        self.history_list.itemClicked.connect(self.on_history_item_clicked)
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
         controls_panel.setMaximumHeight(self.reverse_controls_max_height)
         controls_layout = QVBoxLayout()
-        controls_layout.setContentsMargins(14, 12, 14, 12)
+        controls_layout.setContentsMargins(12, 8, 12, 8)
         controls_layout.setSpacing(6 if self.compact_ui else 8)
         controls_layout.addWidget(self.reverse_status_label)
-        controls_layout.addWidget(self.reverse_debug_label)
         controls_layout.addWidget(self.camera_label)
         controls_layout.addWidget(self.reverse_label)
 
@@ -1376,22 +1421,16 @@ class MainWindow(QWidget):
         actions_row.setSpacing(6 if self.compact_ui else 10)
         actions_row.addStretch(1)
         actions_row.addWidget(self.camera_toggle_button)
+<<<<<<< HEAD
         actions_row.addWidget(self.import_video_button)
         actions_row.addWidget(self.use_camera_button)
         actions_row.addWidget(self.reset_translation_button)
         actions_row.addWidget(self.fast_mode_button)
+=======
+        actions_row.addWidget(self.asl_settings_button)
+>>>>>>> daa0729 (updated the asl mode as well)
         actions_row.addStretch(1)
         controls_layout.addLayout(actions_row)
-        review_row = QHBoxLayout()
-        review_row.setSpacing(6 if self.compact_ui else 10)
-        review_row.addStretch(1)
-        review_row.addWidget(self.add_history_button)
-        review_row.addWidget(self.speaker_button)
-        review_row.addWidget(self.test_speaker_button)
-        review_row.addStretch(1)
-        controls_layout.addLayout(review_row)
-        controls_layout.addWidget(self.history_label)
-        controls_layout.addWidget(self.history_list)
 
         controls_panel.setLayout(controls_layout)
 
@@ -1408,8 +1447,30 @@ class MainWindow(QWidget):
         return "Live Camera"
 
     def _update_asl_source_buttons(self):
-        if hasattr(self, "use_camera_button"):
-            self.use_camera_button.setEnabled(self.asl_video_path is not None)
+        if hasattr(self, "asl_use_live_camera_action"):
+            self.asl_use_live_camera_action.setEnabled(self.asl_video_path is not None)
+
+    def _show_asl_settings_menu(self):
+        if not hasattr(self, "asl_settings_button") or not hasattr(self, "asl_settings_menu"):
+            return
+        self._refresh_asl_settings_actions()
+        pos = self.asl_settings_button.mapToGlobal(
+            self.asl_settings_button.rect().bottomLeft()
+        )
+        self.asl_settings_menu.exec(pos)
+
+    def _refresh_asl_settings_actions(self):
+        if not hasattr(self, "asl_toggle_speaker_action"):
+            return
+        self.tts_backend = self._resolve_tts_backend()
+        speaker_text = "Disable Speaker" if self.speaker_enabled else "Enable Speaker"
+        self.asl_toggle_speaker_action.setText(speaker_text)
+        speaker_available = self.tts_backend != "none"
+        self.asl_toggle_speaker_action.setEnabled(speaker_available)
+        self.asl_test_speaker_action.setEnabled(speaker_available)
+        has_history = hasattr(self, "history_list") and self.history_list.count() > 0
+        self.asl_replay_latest_history_action.setEnabled(has_history)
+        self.asl_clear_history_action.setEnabled(has_history)
 
     def start_camera(self, source_path: str | None = None):
         if self.camera_running:
@@ -1645,6 +1706,7 @@ class MainWindow(QWidget):
         stamp = datetime.now().strftime("%H:%M:%S")
         self.history_list.insertItem(0, f"[{stamp}] {text}")
         self.reverse_status_label.setText("Status: Added to history")
+        self._refresh_asl_settings_actions()
 
     def on_history_item_clicked(self, item: QListWidgetItem):
         if self.tts_backend == "none":
@@ -1694,17 +1756,17 @@ class MainWindow(QWidget):
         self.tts_backend = self._resolve_tts_backend()
         if self.tts_backend == "none":
             self.reverse_status_label.setText("Status: Speaker unavailable")
+            self._refresh_asl_settings_actions()
             return
         self.speaker_enabled = not self.speaker_enabled
         if self.speaker_enabled:
-            self.speaker_button.setText("Speaker: ON")
             self.reverse_status_label.setText(
                 f"Status: Speaker enabled ({self.tts_backend.upper()})"
             )
             self._speak_text("Speaker enabled")
         else:
-            self.speaker_button.setText("Speaker: OFF")
             self.reverse_status_label.setText("Status: Speaker disabled")
+        self._refresh_asl_settings_actions()
 
     def _speak_translation_if_enabled(self, text: str):
         if not self.speaker_enabled:

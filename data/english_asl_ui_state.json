@@ -1,210 +1,45 @@
 {
   "history": [
     {
-<<<<<<< HEAD
-      "stamp": "14:34:01",
-      "created_at": "2026-03-07T14:34:01",
-      "text": "what's so nice what does your name",
+      "stamp": "15:24:57",
+      "created_at": "2026-03-07T15:24:57",
+      "text": "butt",
       "tokens": [
-        "S",
-        "O",
-        "N",
-        "I",
-        "C",
-        "E",
-        "YOUR",
-        "NAME",
-        "WHAT",
-        "WHAT"
-      ],
-      "sequence": [
-        {
-          "token": "S",
-          "clip": "s",
-          "start": 0.0,
-          "duration": 1.25
-        },
-        {
-          "token": "O",
-          "clip": "o",
-          "start": 1.25,
-          "duration": 1.4166666666666667
-        },
-        {
-          "token": "N",
-          "clip": "n",
-          "start": 2.666666666666667,
-          "duration": 1.25
-        },
-        {
-          "token": "I",
-          "clip": "i",
-          "start": 3.916666666666667,
-          "duration": 1.3333333333333333
-        },
-        {
-          "token": "C",
-          "clip": "c",
-          "start": 5.25,
-          "duration": 1.5
-        },
-        {
-          "token": "E",
-          "clip": "e",
-          "start": 6.75,
-          "duration": 1.25
-        },
-        {
-          "token": "YOUR",
-          "clip": "your_2",
-          "start": 8.0,
-          "duration": 1.0833333333333333
-        },
-        {
-          "token": "NAME",
-          "clip": "name",
-          "start": 9.083333333333334,
-          "duration": 0.7
-        },
-        {
-          "token": "WHAT",
-          "clip": "what_1",
-          "start": 9.783333333333333,
-          "duration": 2.5
-        },
-        {
-          "token": "WHAT",
-          "clip": "what_2",
-          "start": 12.283333333333333,
-          "duration": 1.8333333333333333
-        }
-      ]
-    },
-    {
-      "stamp": "14:33:48",
-      "created_at": "2026-03-07T14:33:48",
-      "text": "hello oh good",
-      "tokens": [
-        "HELLO",
-        "O",
-        "H",
-        "GOOD"
-      ],
-      "sequence": [
-        {
-          "token": "HELLO",
-          "clip": "hello",
-          "start": 0.0,
-          "duration": 1.5
-        },
-        {
-          "token": "O",
-          "clip": "o",
-          "start": 1.5,
-          "duration": 1.4166666666666667
-        },
-        {
-          "token": "H",
-          "clip": "h",
-          "start": 2.916666666666667,
-          "duration": 1.3333333333333333
-        },
-        {
-          "token": "GOOD",
-          "clip": "good",
-          "start": 4.25,
-          "duration": 1.75
-        }
-      ]
-    },
-    {
-      "stamp": "14:24:23",
-      "created_at": "2026-03-07T14:24:23",
-      "text": "what is up my dude",
-      "tokens": [
+        "B",
         "U",
-        "P",
-        "MY",
-        "D",
-        "U",
-        "D",
-        "E",
-        "WHAT"
+        "T",
+        "T"
       ],
       "sequence": [
         {
-          "token": "U",
-          "clip": "u",
+          "token": "B",
+          "clip": "b",
           "start": 0.0,
           "duration": 1.6666666666666667
         },
         {
-          "token": "P",
-          "clip": "p",
+          "token": "U",
+          "clip": "u",
           "start": 1.6666666666666667,
           "duration": 1.6666666666666667
         },
         {
-          "token": "MY",
-          "clip": "my_2",
+          "token": "T",
+          "clip": "t",
           "start": 3.3333333333333335,
-          "duration": 2.5
-        },
-        {
-          "token": "D",
-          "clip": "d",
-          "start": 5.833333333333334,
-          "duration": 1.1666666666666667
-        },
-        {
-          "token": "U",
-          "clip": "u",
-          "start": 7.000000000000001,
-          "duration": 1.6666666666666667
-        },
-        {
-          "token": "D",
-          "clip": "d",
-          "start": 8.666666666666668,
-          "duration": 1.1666666666666667
-        },
-        {
-          "token": "E",
-          "clip": "e",
-          "start": 9.833333333333334,
           "duration": 1.25
         },
         {
-          "token": "WHAT",
-          "clip": "what_1",
-          "start": 11.083333333333334,
-          "duration": 2.5
+          "token": "T",
+          "clip": "t",
+          "start": 4.583333333333334,
+          "duration": 1.25
         }
       ]
     },
     {
-      "stamp": "14:24:11",
-      "created_at": "2026-03-07T14:24:11",
-      "text": "hello",
-      "tokens": [
-        "HELLO"
-      ],
-      "sequence": [
-        {
-          "token": "HELLO",
-          "clip": "hello",
-          "start": 0.0,
-          "duration": 1.5
-        }
-      ]
-    },
-    {
-      "stamp": "00:10:48",
-      "created_at": "2026-03-07T00:10:48",
-=======
       "stamp": "15:20:42",
       "created_at": "2026-03-07T15:20:42",
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
       "text": "how are you",
       "tokens": [
         "HOW",
@@ -213,17 +48,6 @@
       "sequence": [
         {
           "token": "HOW",
-<<<<<<< HEAD
-          "clip": "how_3",
-          "start": 0.0,
-          "duration": 0.7
-        },
-        {
-          "token": "YOU",
-          "clip": "you_3",
-          "start": 0.7,
-          "duration": 1.0
-=======
           "clip": "how",
           "start": 0.0,
           "duration": 2.25
@@ -233,18 +57,12 @@
           "clip": "you",
           "start": 2.25,
           "duration": 1.5833333333333333
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
         }
       ]
     },
     {
-<<<<<<< HEAD
-      "stamp": "00:10:04",
-      "created_at": "2026-03-07T00:10:04",
-=======
       "stamp": "15:17:45",
       "created_at": "2026-03-07T15:17:45",
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
       "text": "hello how are you",
       "tokens": [
         "HELLO",
@@ -260,17 +78,6 @@
         },
         {
           "token": "HOW",
-<<<<<<< HEAD
-          "clip": "how_2",
-          "start": 1.5,
-          "duration": 0.7
-        },
-        {
-          "token": "YOU",
-          "clip": "you_1",
-          "start": 2.2,
-          "duration": 1.25
-=======
           "clip": "how",
           "start": 1.5,
           "duration": 2.25
@@ -280,16 +87,10 @@
           "clip": "you",
           "start": 3.75,
           "duration": 1.5833333333333333
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
         }
       ]
     },
     {
-<<<<<<< HEAD
-      "stamp": "00:09:55",
-      "created_at": "2026-03-07T00:09:55",
-      "text": "oh how are you",
-=======
       "stamp": "14:58:57",
       "created_at": "2026-03-07T14:58:57",
       "text": "how are you",
@@ -476,13 +277,10 @@
       "stamp": "14:49:37",
       "created_at": "2026-03-07T14:49:37",
       "text": "oh how do you do get to good stuff like you won't do",
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
       "tokens": [
         "O",
         "H",
         "YOU",
-<<<<<<< HEAD
-=======
         "GET",
         "GOOD",
         "S",
@@ -493,7 +291,6 @@
         "LIKE",
         "YOU",
         "NO",
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
         "HOW"
       ],
       "sequence": [
@@ -516,11 +313,6 @@
           "duration": 1.5833333333333333
         },
         {
-<<<<<<< HEAD
-          "token": "HOW",
-          "clip": "how",
-          "start": 4.333333333333333,
-=======
           "token": "GET",
           "clip": "get",
           "start": 4.333333333333333,
@@ -584,14 +376,11 @@
           "token": "HOW",
           "clip": "how",
           "start": 20.5,
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
           "duration": 2.25
         }
       ]
     },
     {
-<<<<<<< HEAD
-=======
       "stamp": "23:45:26",
       "created_at": "2026-03-05T23:45:26",
       "text": "hello how are you",
@@ -622,7 +411,6 @@
       ]
     },
     {
->>>>>>> 2447e89 (updated the avatar so that it fits nicer in the ui)
       "stamp": "21:10:50",
       "created_at": "2026-03-05T21:10:50",
       "text": "hanan",
