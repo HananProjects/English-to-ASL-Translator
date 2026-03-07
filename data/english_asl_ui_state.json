@@ -1,6 +1,203 @@
 {
   "history": [
     {
+      "stamp": "14:34:01",
+      "created_at": "2026-03-07T14:34:01",
+      "text": "what's so nice what does your name",
+      "tokens": [
+        "S",
+        "O",
+        "N",
+        "I",
+        "C",
+        "E",
+        "YOUR",
+        "NAME",
+        "WHAT",
+        "WHAT"
+      ],
+      "sequence": [
+        {
+          "token": "S",
+          "clip": "s",
+          "start": 0.0,
+          "duration": 1.25
+        },
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 1.25,
+          "duration": 1.4166666666666667
+        },
+        {
+          "token": "N",
+          "clip": "n",
+          "start": 2.666666666666667,
+          "duration": 1.25
+        },
+        {
+          "token": "I",
+          "clip": "i",
+          "start": 3.916666666666667,
+          "duration": 1.3333333333333333
+        },
+        {
+          "token": "C",
+          "clip": "c",
+          "start": 5.25,
+          "duration": 1.5
+        },
+        {
+          "token": "E",
+          "clip": "e",
+          "start": 6.75,
+          "duration": 1.25
+        },
+        {
+          "token": "YOUR",
+          "clip": "your_2",
+          "start": 8.0,
+          "duration": 1.0833333333333333
+        },
+        {
+          "token": "NAME",
+          "clip": "name",
+          "start": 9.083333333333334,
+          "duration": 0.7
+        },
+        {
+          "token": "WHAT",
+          "clip": "what_1",
+          "start": 9.783333333333333,
+          "duration": 2.5
+        },
+        {
+          "token": "WHAT",
+          "clip": "what_2",
+          "start": 12.283333333333333,
+          "duration": 1.8333333333333333
+        }
+      ]
+    },
+    {
+      "stamp": "14:33:48",
+      "created_at": "2026-03-07T14:33:48",
+      "text": "hello oh good",
+      "tokens": [
+        "HELLO",
+        "O",
+        "H",
+        "GOOD"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 1.5
+        },
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 1.5,
+          "duration": 1.4166666666666667
+        },
+        {
+          "token": "H",
+          "clip": "h",
+          "start": 2.916666666666667,
+          "duration": 1.3333333333333333
+        },
+        {
+          "token": "GOOD",
+          "clip": "good",
+          "start": 4.25,
+          "duration": 1.75
+        }
+      ]
+    },
+    {
+      "stamp": "14:24:23",
+      "created_at": "2026-03-07T14:24:23",
+      "text": "what is up my dude",
+      "tokens": [
+        "U",
+        "P",
+        "MY",
+        "D",
+        "U",
+        "D",
+        "E",
+        "WHAT"
+      ],
+      "sequence": [
+        {
+          "token": "U",
+          "clip": "u",
+          "start": 0.0,
+          "duration": 1.6666666666666667
+        },
+        {
+          "token": "P",
+          "clip": "p",
+          "start": 1.6666666666666667,
+          "duration": 1.6666666666666667
+        },
+        {
+          "token": "MY",
+          "clip": "my_2",
+          "start": 3.3333333333333335,
+          "duration": 2.5
+        },
+        {
+          "token": "D",
+          "clip": "d",
+          "start": 5.833333333333334,
+          "duration": 1.1666666666666667
+        },
+        {
+          "token": "U",
+          "clip": "u",
+          "start": 7.000000000000001,
+          "duration": 1.6666666666666667
+        },
+        {
+          "token": "D",
+          "clip": "d",
+          "start": 8.666666666666668,
+          "duration": 1.1666666666666667
+        },
+        {
+          "token": "E",
+          "clip": "e",
+          "start": 9.833333333333334,
+          "duration": 1.25
+        },
+        {
+          "token": "WHAT",
+          "clip": "what_1",
+          "start": 11.083333333333334,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "stamp": "14:24:11",
+      "created_at": "2026-03-07T14:24:11",
+      "text": "hello",
+      "tokens": [
+        "HELLO"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 1.5
+        }
+      ]
+    },
+    {
       "stamp": "00:10:48",
       "created_at": "2026-03-07T00:10:48",
       "text": "how are you",
