@@ -1,0 +1,3 @@
+# Auto-generated labels not present in current model
+# current_model=models/asl_landmark_classifier_v3.npz
+# recommended_file=/Users/upkarsingh/English-to-ASL-Translator/data/labels_recommended_verify.txt

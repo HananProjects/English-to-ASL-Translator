@@ -1,0 +1,17 @@
+# Auto-generated expanded label set for retraining
+# current_model=models/asl_landmark_classifier_v3.npz
+# recommended_file=/Users/upkarsingh/English-to-ASL-Translator/data/labels_recommended_verify.txt
+ABOUT
+GO
+GOOD
+HARD
+HOW
+MAKE
+MEET
+TIRED
+TODAY
+TRY
+WHEN
+WHICH
+WITH
+WRITE
