@@ -1,6 +1,96 @@
 {
   "history": [
     {
+      "stamp": "00:10:48",
+      "created_at": "2026-03-07T00:10:48",
+      "text": "how are you",
+      "tokens": [
+        "HOW",
+        "YOU"
+      ],
+      "sequence": [
+        {
+          "token": "HOW",
+          "clip": "how_3",
+          "start": 0.0,
+          "duration": 0.7
+        },
+        {
+          "token": "YOU",
+          "clip": "you_3",
+          "start": 0.7,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "stamp": "00:10:04",
+      "created_at": "2026-03-07T00:10:04",
+      "text": "hello how are you",
+      "tokens": [
+        "HELLO",
+        "HOW",
+        "YOU"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 1.5
+        },
+        {
+          "token": "HOW",
+          "clip": "how_2",
+          "start": 1.5,
+          "duration": 0.7
+        },
+        {
+          "token": "YOU",
+          "clip": "you_1",
+          "start": 2.2,
+          "duration": 1.25
+        }
+      ]
+    },
+    {
+      "stamp": "00:09:55",
+      "created_at": "2026-03-07T00:09:55",
+      "text": "oh how are you",
+      "tokens": [
+        "O",
+        "H",
+        "YOU",
+        "HOW"
+      ],
+      "sequence": [
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 0.0,
+          "duration": 1.4166666666666667
+        },
+        {
+          "token": "H",
+          "clip": "h",
+          "start": 1.4166666666666667,
+          "duration": 1.3333333333333333
+        },
+        {
+          "token": "YOU",
+          "clip": "you",
+          "start": 2.75,
+          "duration": 1.5833333333333333
+        },
+        {
+          "token": "HOW",
+          "clip": "how",
+          "start": 4.333333333333333,
+          "duration": 2.25
+        }
+      ]
+    },
+    {
       "stamp": "21:10:50",
       "created_at": "2026-03-05T21:10:50",
       "text": "hanan",

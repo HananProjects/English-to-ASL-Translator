@@ -101,6 +101,7 @@ class MainWindow(QWidget):
         self.tts_backend = self._resolve_tts_backend()
         self.espeak_amplitude = _env_int("ASL_TTS_AMPLITUDE", 180, min_value=0, max_value=200)
         self.espeak_speed = _env_int("ASL_TTS_SPEED", 160, min_value=80, max_value=300)
+        self.tts_test_volume = _env_int("ASL_TTS_TEST_VOLUME", 95, min_value=0, max_value=100)
         self.tts_alsa_device = os.getenv(
             "ASL_TTS_ALSA_DEVICE",
             "default:CARD=wm8960soundcard",
@@ -1725,11 +1726,35 @@ class MainWindow(QWidget):
                     pass
         self.reverse_status_label.setText("Status: Speaker error")
 
+    def _boost_linux_playback_volume(self) -> bool:
+        if not sys.platform.startswith("linux"):
+            return False
+        amixer_cmd = shutil.which("amixer")
+        if not amixer_cmd:
+            return False
+        target = f"{self.tts_test_volume}%"
+        controls = ("PCM", "Master", "Speaker", "Headphone")
+        changed = False
+        for control in controls:
+            try:
+                result = subprocess.run(
+                    [amixer_cmd, "sset", control, target],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    check=False,
+                )
+                if result.returncode == 0:
+                    changed = True
+            except Exception:
+                continue
+        return changed
+
     def test_speaker(self):
         self.tts_backend = self._resolve_tts_backend()
         if self.tts_backend == "none":
             self.reverse_status_label.setText("Status: Speaker unavailable")
             return
+        self._boost_linux_playback_volume()
         self._speak_text("This is a speaker test.")
         self.reverse_status_label.setText(
             f"Status: Speaker test sent ({self.tts_backend.upper()})"
