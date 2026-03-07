@@ -52,6 +52,13 @@ def _env_int(name: str, default: int, min_value: int | None = None, max_value: i
     return value
 
 
+def _env_bool(name: str, default: bool = False) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "on"}
+
+
 class MainWindow(QWidget):
     speech_text_received = Signal(str)
     record_live_text_received = Signal(str)
@@ -106,6 +113,7 @@ class MainWindow(QWidget):
             "ASL_TTS_ALSA_DEVICE",
             "default:CARD=wm8960soundcard",
         )
+        self.fast_camera_mode = _env_bool("ASL_CAMERA_FAST_MODE", False)
         self.speaker_enabled = self.tts_backend != "none"
         self.compact_ui = self._detect_compact_ui()
         self.portrait_ui = self._detect_portrait_ui()
@@ -1300,6 +1308,11 @@ class MainWindow(QWidget):
         self.reset_translation_button.setObjectName("secondaryButton")
         self.reset_translation_button.setMinimumHeight(self.secondary_button_height)
         self.reset_translation_button.clicked.connect(self.reset_translation)
+        self.fast_mode_button = QPushButton()
+        self.fast_mode_button.setObjectName("secondaryButton")
+        self.fast_mode_button.setMinimumHeight(self.secondary_button_height)
+        self.fast_mode_button.clicked.connect(self.toggle_fast_mode)
+        self._refresh_fast_mode_button()
         self.add_history_button = QPushButton("Add to History")
         self.add_history_button.setObjectName("secondaryButton")
         self.add_history_button.setMinimumHeight(self.mini_button_height)
@@ -1345,6 +1358,7 @@ class MainWindow(QWidget):
         actions_row.addWidget(self.import_video_button)
         actions_row.addWidget(self.use_camera_button)
         actions_row.addWidget(self.reset_translation_button)
+        actions_row.addWidget(self.fast_mode_button)
         actions_row.addStretch(1)
         controls_layout.addLayout(actions_row)
         review_row = QHBoxLayout()
@@ -1388,7 +1402,10 @@ class MainWindow(QWidget):
         if hasattr(self, "reverse_label"):
             self.reverse_label.setText("English Translation:")
         self.camera_thread = QThread(self)
-        self.camera_worker = CameraWorker(source_path=self.asl_video_path)
+        self.camera_worker = CameraWorker(
+            source_path=self.asl_video_path,
+            fast_mode=self.fast_camera_mode,
+        )
         self.camera_worker.moveToThread(self.camera_thread)
         self.camera_thread.started.connect(self.camera_worker.run)
         self.camera_worker.pose_ready.connect(self.on_camera_pose)
@@ -1404,17 +1421,18 @@ class MainWindow(QWidget):
         self.camera_running = True
         self.camera_shutdown_in_progress = False
         source_name = self._current_asl_source_label()
+        mode_suffix = " (Fast)" if self.fast_camera_mode else ""
         if self.asl_video_path:
-            self.camera_state_label.setText(f"Video: Playing ({source_name})")
+            self.camera_state_label.setText(f"Video: Playing ({source_name}){mode_suffix}")
         else:
-            self.camera_state_label.setText("Camera: Ready")
+            self.camera_state_label.setText(f"Camera: Ready{mode_suffix}")
         if hasattr(self, "camera_toggle_button"):
             self.camera_toggle_button.setText("Stop Input")
         if hasattr(self, "reverse_status_label"):
             if self.asl_video_path:
-                self.reverse_status_label.setText(f"Status: Processing video {source_name}")
+                self.reverse_status_label.setText(f"Status: Processing video {source_name}{mode_suffix}")
             else:
-                self.reverse_status_label.setText("Status: Camera listening...")
+                self.reverse_status_label.setText(f"Status: Camera listening...{mode_suffix}")
         if hasattr(self, "reverse_debug_label"):
             self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if hasattr(self, "camera_feed_label"):
@@ -1489,6 +1507,26 @@ class MainWindow(QWidget):
             self.stop_camera()
         else:
             self.start_camera()
+
+    def _refresh_fast_mode_button(self):
+        if hasattr(self, "fast_mode_button"):
+            self.fast_mode_button.setText(
+                "Fast Mode: ON" if self.fast_camera_mode else "Fast Mode: OFF"
+            )
+
+    def toggle_fast_mode(self):
+        self.fast_camera_mode = not self.fast_camera_mode
+        self._refresh_fast_mode_button()
+        source_name = self._current_asl_source_label()
+        mode_name = "FAST" if self.fast_camera_mode else "NORMAL"
+        self.reverse_status_label.setText(
+            f"Status: Camera mode set to {mode_name} ({source_name})"
+        )
+        if self.camera_running and self.asl_video_path is None:
+            source_path = self.asl_video_path
+            self.stop_camera(finalize_pending=False)
+            self.reset_translation()
+            self.start_camera(source_path=source_path)
 
     def import_asl_video_file(self):
         file_path, _ = QFileDialog.getOpenFileName(

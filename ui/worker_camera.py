@@ -49,20 +49,29 @@ class CameraWorker(QObject):
     error_ready = Signal(str)
     finished = Signal(bool)
 
-    def __init__(self, source_path: str | None = None):
+    def __init__(self, source_path: str | None = None, fast_mode: bool = False):
         super().__init__()
+        self.fast_mode = bool(fast_mode)
+        stable_frames = 4 if self.fast_mode else 8
+        min_confidence = 0.66 if self.fast_mode else 0.72
+        emit_cooldown_frames = 8 if self.fast_mode else 16
+        pause_frames = 12 if self.fast_mode else 24
         # Prefer model/hybrid matching; recognizer will use v2 model if available.
         self.recognizer = SignStreamRecognizer(
             prefer_model=True,
-            stable_frames=8,
-            min_confidence=0.72,
-            emit_cooldown_frames=16,
-            pause_frames=24,
+            stable_frames=stable_frames,
+            min_confidence=min_confidence,
+            emit_cooldown_frames=emit_cooldown_frames,
+            pause_frames=pause_frames,
         )
         self.source_path = source_path
         self._running = False
         self._cap = None
-        print(f"[ASL] recognizer matcher={type(self.recognizer.matcher).__name__}")
+        print(
+            "[ASL] recognizer matcher="
+            f"{type(self.recognizer.matcher).__name__} "
+            f"mode={'FAST' if self.fast_mode else 'NORMAL'}"
+        )
 
     def reset_recognition_state(self):
         self.recognizer.reset()
@@ -77,13 +86,23 @@ class CameraWorker(QObject):
             return
         from core.vision.pose_adapter import mediapipe_to_pose_dict
 
+        default_width = 640 if self.fast_mode else 1280
+        default_height = 480 if self.fast_mode else 720
+        default_proc_width = 384 if self.fast_mode else 640
+        default_proc_height = 216 if self.fast_mode else 360
+        fast_try_mjpg = os.getenv("ASL_CAMERA_FAST_MJPG", "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
         camera_index = _env_int("ASL_CAMERA_INDEX", 0, min_value=0)
-        camera_width = _env_int("ASL_CAMERA_WIDTH", 1280, min_value=160)
-        camera_height = _env_int("ASL_CAMERA_HEIGHT", 720, min_value=120)
+        camera_width = _env_int("ASL_CAMERA_WIDTH", default_width, min_value=160)
+        camera_height = _env_int("ASL_CAMERA_HEIGHT", default_height, min_value=120)
         camera_fps = _env_int("ASL_CAMERA_FPS", 30, min_value=1)
         camera_buffer_size = _env_int("ASL_CAMERA_BUFFER_SIZE", 1, min_value=1)
-        proc_width = _env_int("ASL_PROCESS_WIDTH", 640, min_value=160)
-        proc_height = _env_int("ASL_PROCESS_HEIGHT", 360, min_value=120)
+        proc_width = _env_int("ASL_PROCESS_WIDTH", default_proc_width, min_value=160)
+        proc_height = _env_int("ASL_PROCESS_HEIGHT", default_proc_height, min_value=120)
         process_every_n = _env_int("ASL_PROCESS_EVERY_N", 1, min_value=1)
         zoom = _env_float("ASL_CAMERA_ZOOM", 1.0, min_value=1.0)
         source_is_file = bool(self.source_path)
@@ -108,6 +127,14 @@ class CameraWorker(QObject):
             return
 
         if not source_is_file:
+            if self.fast_mode and fast_try_mjpg:
+                try:
+                    cap.set(
+                        cv2.CAP_PROP_FOURCC,
+                        cv2.VideoWriter_fourcc(*"MJPG"),
+                    )
+                except Exception:
+                    pass
             cap.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
             cap.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
             cap.set(cv2.CAP_PROP_FPS, camera_fps)
@@ -119,7 +146,7 @@ class CameraWorker(QObject):
                 "[Camera] index="
                 f"{camera_index} {camera_width}x{camera_height}@{camera_fps} "
                 f"proc={proc_width}x{proc_height} skip={process_every_n} zoom={zoom:.2f} "
-                f"buffer={camera_buffer_size}"
+                f"buffer={camera_buffer_size} mode={'FAST' if self.fast_mode else 'NORMAL'}"
             )
         else:
             print(
