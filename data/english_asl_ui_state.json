@@ -1,137 +1,18 @@
 {
   "history": [
     {
-      "stamp": "21:10:50",
-      "created_at": "2026-03-05T21:10:50",
-      "text": "hanan",
+      "stamp": "12:46:05",
+      "created_at": "2026-03-07T12:46:05",
+      "text": "tomorrow",
       "tokens": [
-        "H",
-        "A",
-        "N",
-        "A",
-        "N"
+        "TOMORROW"
       ],
       "sequence": [
         {
-          "token": "H",
-          "clip": "h",
+          "token": "TOMORROW",
+          "clip": "tomorrow",
           "start": 0.0,
-          "duration": 1.3333333333333333
-        },
-        {
-          "token": "A",
-          "clip": "a",
-          "start": 1.3333333333333333,
-          "duration": 1.5
-        },
-        {
-          "token": "N",
-          "clip": "n",
-          "start": 2.833333333333333,
-          "duration": 1.25
-        },
-        {
-          "token": "A",
-          "clip": "a",
-          "start": 4.083333333333333,
-          "duration": 1.5
-        },
-        {
-          "token": "N",
-          "clip": "n",
-          "start": 5.583333333333333,
-          "duration": 1.25
-        }
-      ]
-    },
-    {
-      "stamp": "20:06:18",
-      "created_at": "2026-03-05T20:06:18",
-      "text": "how are you doing",
-      "tokens": [
-        "HOW",
-        "YOU"
-      ],
-      "sequence": [
-        {
-          "token": "HOW",
-          "clip": "how",
-          "start": 0.0,
-          "duration": 2.25
-        },
-        {
-          "token": "YOU",
-          "clip": "you",
-          "start": 2.25,
-          "duration": 1.5833333333333333
-        }
-      ]
-    },
-    {
-      "stamp": "14:53:41",
-      "created_at": "2026-03-05T14:53:41",
-      "text": "i would like to go to the park today",
-      "tokens": [
-        "TODAY",
-        "ME",
-        "LIKE",
-        "GO",
-        "PARK"
-      ],
-      "sequence": [
-        {
-          "token": "TODAY",
-          "clip": "now_2",
-          "start": 0.0,
-          "duration": 2.5
-        },
-        {
-          "token": "ME",
-          "clip": "my_2",
-          "start": 2.5,
-          "duration": 2.5
-        },
-        {
-          "token": "LIKE",
-          "clip": "like_1",
-          "start": 5.0,
-          "duration": 2.5
-        },
-        {
-          "token": "GO",
-          "clip": "go_1",
-          "start": 7.5,
-          "duration": 2.5
-        }
-      ]
-    },
-    {
-      "stamp": "13:59:01",
-      "created_at": "2026-03-05T13:59:01",
-      "text": "hello how are you",
-      "tokens": [
-        "HELLO",
-        "HOW",
-        "YOU"
-      ],
-      "sequence": [
-        {
-          "token": "HELLO",
-          "clip": "hello",
-          "start": 0.0,
-          "duration": 1.5
-        },
-        {
-          "token": "HOW",
-          "clip": "how",
-          "start": 1.5,
-          "duration": 2.25
-        },
-        {
-          "token": "YOU",
-          "clip": "you",
-          "start": 3.75,
-          "duration": 1.5833333333333333
+          "duration": 1.4166666666666667
         }
       ]
     }
