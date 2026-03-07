@@ -9,6 +9,7 @@ import sys
 import shutil
 import os
 import tempfile
+import time
 from datetime import datetime
 from pathlib import Path
 from PySide6.QtCore import QThread, Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve, QEvent
@@ -109,6 +110,14 @@ class MainWindow(QWidget):
         self.espeak_amplitude = _env_int("ASL_TTS_AMPLITUDE", 180, min_value=0, max_value=200)
         self.espeak_speed = _env_int("ASL_TTS_SPEED", 160, min_value=80, max_value=300)
         self.tts_test_volume = _env_int("ASL_TTS_TEST_VOLUME", 95, min_value=0, max_value=100)
+        self.tts_output_volume = _env_int(
+            "ASL_TTS_OUTPUT_VOLUME",
+            self.tts_test_volume,
+            min_value=0,
+            max_value=100,
+        )
+        self.tts_mixer_card = os.getenv("ASL_TTS_MIXER_CARD", "wm8960soundcard")
+        self._last_volume_sync = 0.0
         self.tts_alsa_device = os.getenv(
             "ASL_TTS_ALSA_DEVICE",
             "default:CARD=wm8960soundcard",
@@ -261,6 +270,7 @@ class MainWindow(QWidget):
         self._apply_demo_mode()
         self.refresh_battery_status()
         self.battery_timer.start()
+        self._sync_linux_playback_volume(force=True)
 
         self.speech_text_received.connect(self.on_speech)
         self.record_live_text_received.connect(self.on_record_live_text)
@@ -1695,6 +1705,7 @@ class MainWindow(QWidget):
     def _speak_text(self, text: str):
         if not text:
             return
+        self._sync_linux_playback_volume(force=False)
         if self.tts_backend == "qt" and self.tts_engine is not None:
             try:
                 self.tts_engine.stop()
@@ -1764,19 +1775,23 @@ class MainWindow(QWidget):
                     pass
         self.reverse_status_label.setText("Status: Speaker error")
 
-    def _boost_linux_playback_volume(self) -> bool:
+    def _sync_linux_playback_volume(self, force: bool = False) -> bool:
         if not sys.platform.startswith("linux"):
+            return False
+        now = time.monotonic()
+        if not force and (now - self._last_volume_sync) < 8.0:
             return False
         amixer_cmd = shutil.which("amixer")
         if not amixer_cmd:
             return False
-        target = f"{self.tts_test_volume}%"
-        controls = ("PCM", "Master", "Speaker", "Headphone")
+        target = f"{self.tts_output_volume}%"
+        default_controls = ("PCM", "Master", "Speaker", "Headphone", "Playback")
+        card_controls = ("Speaker", "Headphone", "Playback", "PCM")
         changed = False
-        for control in controls:
+        for control in default_controls:
             try:
                 result = subprocess.run(
-                    [amixer_cmd, "sset", control, target],
+                    [amixer_cmd, "sset", control, target, "unmute"],
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,
                     check=False,
@@ -1785,6 +1800,20 @@ class MainWindow(QWidget):
                     changed = True
             except Exception:
                 continue
+        if self.tts_mixer_card:
+            for control in card_controls:
+                try:
+                    result = subprocess.run(
+                        [amixer_cmd, "-c", self.tts_mixer_card, "sset", control, target, "unmute"],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        check=False,
+                    )
+                    if result.returncode == 0:
+                        changed = True
+                except Exception:
+                    continue
+        self._last_volume_sync = now
         return changed
 
     def test_speaker(self):
@@ -1792,7 +1821,7 @@ class MainWindow(QWidget):
         if self.tts_backend == "none":
             self.reverse_status_label.setText("Status: Speaker unavailable")
             return
-        self._boost_linux_playback_volume()
+        self._sync_linux_playback_volume(force=True)
         self._speak_text("This is a speaker test.")
         self.reverse_status_label.setText(
             f"Status: Speaker test sent ({self.tts_backend.upper()})"
