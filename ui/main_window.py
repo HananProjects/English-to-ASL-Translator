@@ -66,6 +66,37 @@ def _env_bool(name: str, default: bool = False) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _env_token_set(name: str) -> set[str]:
+    raw = os.getenv(name, "")
+    if not raw:
+        return set()
+    tokens: set[str] = set()
+    for part in raw.replace(";", ",").split(","):
+        token = part.strip().upper()
+        if token:
+            tokens.add(token)
+    return tokens
+
+
+DEFAULT_DEMO_VOCAB = {
+    "HELLO",
+    "HOW",
+    "ARE",
+    "YOU",
+    "I",
+    "ME",
+    "MY",
+    "NAME",
+    "THANK",
+    "PLEASE",
+    "GOOD",
+    "MORNING",
+    "NICE",
+    "TO",
+    "MEET",
+}
+
+
 class MainWindow(QWidget):
     speech_text_received = Signal(str)
     record_live_text_received = Signal(str)
@@ -110,6 +141,7 @@ class MainWindow(QWidget):
         self.pending_camera_tokens = []
         self.camera_error_message = None
         self.demo_mode = True
+        self.demo_allowed_tokens = _env_token_set("ASL_DEMO_VOCAB") or set(DEFAULT_DEMO_VOCAB)
         self.latest_translation_text = ""
         self.tts_engine = self._init_tts_engine()
         self.tts_backend = self._resolve_tts_backend()
@@ -495,6 +527,9 @@ class MainWindow(QWidget):
         self.camera_feed_label.setPixmap(pixmap)
 
     def on_camera_token(self, token: str, confidence: float):
+        if self.demo_mode and self.demo_allowed_tokens and token not in self.demo_allowed_tokens:
+            self.reverse_status_label.setText(f"Status: Demo mode ignored token: {token}")
+            return
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
         if self.demo_mode:
@@ -619,9 +654,20 @@ class MainWindow(QWidget):
     def on_camera_sequence(self, tokens: list):
         if not tokens:
             return
+        if self.demo_mode and self.demo_allowed_tokens:
+            filtered = [t for t in tokens if t in self.demo_allowed_tokens]
+            if not filtered:
+                self.reverse_status_label.setText("Status: Demo mode ignored out-of-vocabulary signs")
+                return
+            tokens = filtered
         self._finalize_camera_translation(tokens)
 
     def _finalize_camera_translation(self, tokens: list):
+        if self.demo_mode and self.demo_allowed_tokens:
+            tokens = [t for t in tokens if t in self.demo_allowed_tokens]
+            if not tokens:
+                self.reverse_status_label.setText("Status: Demo mode ignored out-of-vocabulary signs")
+                return
         self.camera_label.setText(
             f"Detected ASL Tokens: {' '.join(tokens)}"
         )
@@ -1882,13 +1928,14 @@ class MainWindow(QWidget):
         if self.demo_mode:
             self.demo_mode_button.setText("Demo Mode: ON")
             self.reverse_debug_label.hide()
+            vocab_hint = f"Demo ASL vocab: {len(self.demo_allowed_tokens)} words"
             if using_demo_clips:
                 self.demo_mode_button.setToolTip(
-                    f"Using curated clips from: {DEMO_CLIP_DIR}"
+                    f"{vocab_hint}. Using curated clips from: {DEMO_CLIP_DIR}"
                 )
             else:
                 self.demo_mode_button.setToolTip(
-                    f"No curated clips found in: {DEMO_CLIP_DIR}. Using default clips."
+                    f"{vocab_hint}. No curated clips found in: {DEMO_CLIP_DIR}. Using default clips."
                 )
         else:
             self.demo_mode_button.setText("Demo Mode: OFF")
