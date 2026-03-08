@@ -66,6 +66,26 @@ def _env_bool(name: str, default: bool = False) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _env_float(
+    name: str,
+    default: float,
+    min_value: float | None = None,
+    max_value: float | None = None,
+) -> float:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        value = float(raw)
+    except Exception:
+        return default
+    if min_value is not None and value < min_value:
+        value = min_value
+    if max_value is not None and value > max_value:
+        value = max_value
+    return value
+
+
 def _env_token_set(name: str) -> set[str]:
     raw = os.getenv(name, "")
     if not raw:
@@ -138,6 +158,21 @@ class MainWindow(QWidget):
         self.latest_camera_pose = None
         self.latest_camera_debug_token = ""
         self.latest_camera_debug_confidence = 0.0
+        self.latest_camera_overlay_token = ""
+        self.latest_camera_overlay_confidence = 0.0
+        self.latest_camera_overlay_ts = 0.0
+        self.overlay_label_min_confidence = _env_float(
+            "ASL_OVERLAY_LABEL_MIN_CONF",
+            0.80,
+            min_value=0.0,
+            max_value=1.0,
+        )
+        self.overlay_label_hold_s = _env_float(
+            "ASL_OVERLAY_LABEL_HOLD_S",
+            0.90,
+            min_value=0.1,
+            max_value=5.0,
+        )
         self.pending_camera_tokens = []
         self.camera_error_message = None
         self.demo_mode = True
@@ -528,10 +563,12 @@ class MainWindow(QWidget):
 
     def on_camera_token(self, token: str, confidence: float):
         if self.demo_mode and self.demo_allowed_tokens and token not in self.demo_allowed_tokens:
-            self.reverse_status_label.setText(f"Status: Demo mode ignored token: {token}")
             return
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
+        self.latest_camera_overlay_token = token
+        self.latest_camera_overlay_confidence = float(confidence)
+        self.latest_camera_overlay_ts = time.monotonic()
         if self.demo_mode:
             self.reverse_status_label.setText("Status: Capturing signs...")
         else:
@@ -566,10 +603,15 @@ class MainWindow(QWidget):
         if not draw_boxes:
             return
 
-        token = self.latest_camera_debug_token.strip()
-        confidence = self.latest_camera_debug_confidence
+        token = self.latest_camera_overlay_token.strip()
+        confidence = self.latest_camera_overlay_confidence
+        label_age = time.monotonic() - self.latest_camera_overlay_ts
         label = ""
-        if token:
+        if (
+            token
+            and confidence >= self.overlay_label_min_confidence
+            and label_age <= self.overlay_label_hold_s
+        ):
             label = f"{token} {confidence * 100:.0f}%"
 
         painter = QPainter(pixmap)
@@ -657,7 +699,6 @@ class MainWindow(QWidget):
         if self.demo_mode and self.demo_allowed_tokens:
             filtered = [t for t in tokens if t in self.demo_allowed_tokens]
             if not filtered:
-                self.reverse_status_label.setText("Status: Demo mode ignored out-of-vocabulary signs")
                 return
             tokens = filtered
         self._finalize_camera_translation(tokens)
@@ -666,7 +707,6 @@ class MainWindow(QWidget):
         if self.demo_mode and self.demo_allowed_tokens:
             tokens = [t for t in tokens if t in self.demo_allowed_tokens]
             if not tokens:
-                self.reverse_status_label.setText("Status: Demo mode ignored out-of-vocabulary signs")
                 return
         self.camera_label.setText(
             f"Detected ASL Tokens: {' '.join(tokens)}"
@@ -1492,6 +1532,9 @@ class MainWindow(QWidget):
             self.asl_video_path = source_path
         self.camera_error_message = None
         self.pending_camera_tokens.clear()
+        self.latest_camera_overlay_token = ""
+        self.latest_camera_overlay_confidence = 0.0
+        self.latest_camera_overlay_ts = 0.0
         if hasattr(self, "camera_label"):
             self.camera_label.setText("Detected ASL Tokens:")
         if hasattr(self, "reverse_label"):
@@ -1655,6 +1698,9 @@ class MainWindow(QWidget):
         self.latest_camera_pose = None
         self.latest_camera_debug_token = ""
         self.latest_camera_debug_confidence = 0.0
+        self.latest_camera_overlay_token = ""
+        self.latest_camera_overlay_confidence = 0.0
+        self.latest_camera_overlay_ts = 0.0
         if source_is_file and self.pending_camera_tokens:
             self._finalize_camera_translation(list(self.pending_camera_tokens))
         worker = self.camera_worker
@@ -1694,6 +1740,9 @@ class MainWindow(QWidget):
         self.pending_camera_tokens.clear()
         self.latest_camera_debug_token = ""
         self.latest_camera_debug_confidence = 0.0
+        self.latest_camera_overlay_token = ""
+        self.latest_camera_overlay_confidence = 0.0
+        self.latest_camera_overlay_ts = 0.0
         self.camera_label.setText("Detected ASL Tokens:")
         self.reverse_label.setText("English Translation:")
         self.latest_translation_text = ""
@@ -1928,14 +1977,13 @@ class MainWindow(QWidget):
         if self.demo_mode:
             self.demo_mode_button.setText("Demo Mode: ON")
             self.reverse_debug_label.hide()
-            vocab_hint = f"Demo ASL vocab: {len(self.demo_allowed_tokens)} words"
             if using_demo_clips:
                 self.demo_mode_button.setToolTip(
-                    f"{vocab_hint}. Using curated clips from: {DEMO_CLIP_DIR}"
+                    f"Using curated clips from: {DEMO_CLIP_DIR}"
                 )
             else:
                 self.demo_mode_button.setToolTip(
-                    f"{vocab_hint}. No curated clips found in: {DEMO_CLIP_DIR}. Using default clips."
+                    f"No curated clips found in: {DEMO_CLIP_DIR}. Using default clips."
                 )
         else:
             self.demo_mode_button.setText("Demo Mode: OFF")
