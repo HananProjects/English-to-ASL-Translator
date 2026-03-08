@@ -112,7 +112,11 @@ def load_model(path: Path):
     b = m["b"].astype(np.float32)
     mean = m["mean"].astype(np.float32)
     std = m["std"].astype(np.float32)
+    W = np.clip(np.nan_to_num(W, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+    b = np.clip(np.nan_to_num(b, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+    mean = np.nan_to_num(mean, nan=0.0, posinf=0.0, neginf=0.0)
     std[std < 1e-6] = 1.0
+    std = np.nan_to_num(std, nan=1.0, posinf=1.0, neginf=1.0)
     labels = [str(x).upper() for x in m["labels"].tolist()]
     seq_len = int(m["seq_len"])
     feat_dim = int(m["feature_dim"])
@@ -139,10 +143,14 @@ def main() -> None:
         x = seq.reshape(1, -1).astype(np.float32)
         x = (x - mean) / std
         x = np.clip(np.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0), -8.0, 8.0)
-        logits = x @ W + b
+        with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+            logits = x @ W + b
+        logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
+        logits = np.clip(logits, -60.0, 60.0)
         logits = logits - logits.max(axis=1, keepdims=True)
         probs = np.exp(logits)
         probs = probs / np.maximum(probs.sum(axis=1, keepdims=True), 1e-9)
+        probs = np.nan_to_num(probs, nan=0.0, posinf=0.0, neginf=0.0)
         pred_idx = int(np.argmax(probs[0]))
         pred_label = labels[pred_idx]
         conf = float(probs[0, pred_idx])

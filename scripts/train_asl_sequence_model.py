@@ -213,6 +213,8 @@ def train_val_split(X: np.ndarray, y: np.ndarray, val_split: float, seed: int):
 
 
 def softmax(logits: np.ndarray) -> np.ndarray:
+    logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
+    logits = np.clip(logits, -60.0, 60.0)
     z = logits - logits.max(axis=1, keepdims=True)
     e = np.exp(z)
     return e / np.maximum(e.sum(axis=1, keepdims=True), 1e-9)
@@ -225,6 +227,7 @@ def one_hot(y: np.ndarray, n_classes: int) -> np.ndarray:
 
 
 def accuracy(logits: np.ndarray, y: np.ndarray) -> float:
+    logits = np.nan_to_num(logits, nan=0.0, posinf=0.0, neginf=0.0)
     pred = np.argmax(logits, axis=1)
     return float((pred == y).mean())
 
@@ -249,6 +252,7 @@ def main() -> None:
     std[std < 1e-6] = 1.0
     Xn = (X_flat - mean) / std
     Xn = np.clip(Xn, -8.0, 8.0).astype(np.float32)
+    Xn = np.nan_to_num(Xn, nan=0.0, posinf=0.0, neginf=0.0)
 
     Xtr, ytr, Xva, yva = train_val_split(Xn, y, args.val_split, args.seed)
     Ytr = one_hot(ytr, n_classes)
@@ -258,17 +262,29 @@ def main() -> None:
     b = np.zeros((n_classes,), dtype=np.float32)
 
     for epoch in range(1, args.epochs + 1):
-        logits = Xtr @ W + b
+        with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+            logits = Xtr @ W + b
+        logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
+        logits = np.clip(logits, -60.0, 60.0)
         probs = softmax(logits)
         grad_logits = (probs - Ytr) / max(1, Xtr.shape[0])
-        dW = Xtr.T @ grad_logits + args.l2 * W
+        grad_logits = np.nan_to_num(grad_logits, nan=0.0, posinf=0.0, neginf=0.0)
+        with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+            dW = Xtr.T @ grad_logits + args.l2 * W
         db = grad_logits.sum(axis=0)
+        dW = np.nan_to_num(dW, nan=0.0, posinf=0.0, neginf=0.0)
+        db = np.nan_to_num(db, nan=0.0, posinf=0.0, neginf=0.0)
         W -= args.lr * dW.astype(np.float32)
         b -= args.lr * db.astype(np.float32)
+        W = np.clip(np.nan_to_num(W, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+        b = np.clip(np.nan_to_num(b, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
 
         if epoch % 25 == 0 or epoch == 1 or epoch == args.epochs:
             tr_acc = accuracy(logits, ytr)
-            va_logits = Xva @ W + b if Xva.shape[0] > 0 else logits
+            with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+                va_logits = Xva @ W + b if Xva.shape[0] > 0 else logits
+            va_logits = np.nan_to_num(va_logits, nan=0.0, posinf=60.0, neginf=-60.0)
+            va_logits = np.clip(va_logits, -60.0, 60.0)
             va_acc = accuracy(va_logits, yva) if Xva.shape[0] > 0 else tr_acc
             print(
                 f"[epoch {epoch:03d}] train_acc={tr_acc:.3f} "

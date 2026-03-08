@@ -76,34 +76,34 @@
     "YOU": 33
   },
   "counts": {
-    "train": 54,
-    "val": 30,
-    "test": 10,
-    "total": 94
+    "train": 61,
+    "val": 29,
+    "test": 11,
+    "total": 101
   },
   "per_label_counts": {
-    "BROTHER": 3,
+    "BROTHER": 4,
     "DRINK": 3,
-    "EAT": 3,
+    "EAT": 4,
     "FAMILY": 3,
-    "FINISH": 3,
+    "FINISH": 2,
     "FORGET": 3,
     "GIVE": 3,
-    "GO": 3,
+    "GO": 4,
     "HELLO": 1,
     "HELP": 3,
-    "HOW": 3,
+    "HOW": 2,
     "LATER": 3,
     "LIKE": 3,
     "MAN": 3,
-    "ME": 1,
+    "ME": 4,
     "MOTHER": 3,
     "NEED": 3,
-    "NO": 3,
+    "NO": 2,
     "NOW": 3,
     "PLAY": 3,
     "SCHOOL": 3,
-    "THANK_YOU": 1,
+    "THANK_YOU": 4,
     "TIME": 3,
     "WAIT": 3,
     "WANT": 3,
@@ -115,16 +115,18 @@
     "WORK": 3,
     "YEAR": 3,
     "YES": 3,
-    "YOU": 3
+    "YOU": 4
   },
   "missing_labels": [],
-  "missing_clips": [],
+  "missing_clips": [
+    "NO:no_2"
+  ],
   "samples": [
     {
       "label": "BROTHER",
       "clip": "brother_1",
       "path": "ui/animation/clips/brother_1.json",
-      "num_frames": 31
+      "num_frames": 37
     },
     {
       "label": "BROTHER",
@@ -134,51 +136,63 @@
     },
     {
       "label": "BROTHER",
-      "clip": "brother_3",
-      "path": "ui/animation/clips/brother_3.json",
-      "num_frames": 41
+      "clip": "brother_4",
+      "path": "ui/animation/clips/brother_4.json",
+      "num_frames": 18
+    },
+    {
+      "label": "BROTHER",
+      "clip": "brother_5",
+      "path": "ui/animation/clips/brother_5.json",
+      "num_frames": 16
     },
     {
       "label": "DRINK",
       "clip": "drink_1",
       "path": "ui/animation/clips/drink_1.json",
-      "num_frames": 31
+      "num_frames": 50
     },
     {
       "label": "DRINK",
       "clip": "drink_2",
       "path": "ui/animation/clips/drink_2.json",
-      "num_frames": 28
+      "num_frames": 17
     },
     {
       "label": "DRINK",
       "clip": "drink_3",
       "path": "ui/animation/clips/drink_3.json",
-      "num_frames": 33
-    },
-    {
-      "label": "EAT",
-      "clip": "eat_1",
-      "path": "ui/animation/clips/eat_1.json",
-      "num_frames": 25
+      "num_frames": 16
     },
     {
       "label": "EAT",
       "clip": "eat_2",
       "path": "ui/animation/clips/eat_2.json",
-      "num_frames": 20
+      "num_frames": 9
     },
     {
       "label": "EAT",
       "clip": "eat_3",
       "path": "ui/animation/clips/eat_3.json",
-      "num_frames": 42
+      "num_frames": 9
+    },
+    {
+      "label": "EAT",
+      "clip": "eat_4",
+      "path": "ui/animation/clips/eat_4.json",
+      "num_frames": 8
+    },
+    {
+      "label": "EAT",
+      "clip": "eat_5",
+      "path": "ui/animation/clips/eat_5.json",
+      "num_frames": 8
     },
     {
       "label": "FAMILY",
       "clip": "family_1",
       "path": "ui/animation/clips/family_1.json",
-      "num_frames": 34
+      "num_frames": 41
     },
     {
       "label": "FAMILY",
@@ -194,9 +208,9 @@
     },
     {
       "label": "FINISH",
-      "clip": "finish_1",
-      "path": "ui/animation/clips/finish_1.json",
-      "num_frames": 27
+      "clip": "finish",
+      "path": "ui/animation/clips/finish.json",
+      "num_frames": 15
     },
     {
       "label": "FINISH",
@@ -205,16 +219,10 @@
       "num_frames": 14
     },
     {
-      "label": "FINISH",
-      "clip": "finish_3",
-      "path": "ui/animation/clips/finish_3.json",
-      "num_frames": 13
-    },
-    {
       "label": "FORGET",
       "clip": "forget_1",
       "path": "ui/animation/clips/forget_1.json",
-      "num_frames": 22
+      "num_frames": 50
     },
     {
       "label": "FORGET",
@@ -232,7 +240,7 @@
       "label": "GIVE",
       "clip": "give_1",
       "path": "ui/animation/clips/give_1.json",
-      "num_frames": 37
+      "num_frames": 51
     },
     {
       "label": "GIVE",
@@ -250,19 +258,25 @@
       "label": "GO",
       "clip": "go_1",
       "path": "ui/animation/clips/go_1.json",
-      "num_frames": 27
-    },
-    {
-      "label": "GO",
-      "clip": "go_2",
-      "path": "ui/animation/clips/go_2.json",
-      "num_frames": 24
+      "num_frames": 41
     },
     {
       "label": "GO",
       "clip": "go_3",
       "path": "ui/animation/clips/go_3.json",
-      "num_frames": 18
+      "num_frames": 16
+    },
+    {
+      "label": "GO",
+      "clip": "go_4",
+      "path": "ui/animation/clips/go_4.json",
+      "num_frames": 15
+    },
+    {
+      "label": "GO",
+      "clip": "go_5",
+      "path": "ui/animation/clips/go_5.json",
+      "num_frames": 16
     },
     {
       "label": "HELLO",
@@ -274,19 +288,19 @@
       "label": "HELP",
       "clip": "help_1",
       "path": "ui/animation/clips/help_1.json",
-      "num_frames": 30
+      "num_frames": 14
     },
     {
       "label": "HELP",
       "clip": "help_2",
       "path": "ui/animation/clips/help_2.json",
-      "num_frames": 29
+      "num_frames": 13
     },
     {
       "label": "HELP",
       "clip": "help_3",
       "path": "ui/animation/clips/help_3.json",
-      "num_frames": 23
+      "num_frames": 14
     },
     {
       "label": "HOW",
@@ -296,21 +310,15 @@
     },
     {
       "label": "HOW",
-      "clip": "how_2",
-      "path": "ui/animation/clips/how_2.json",
-      "num_frames": 36
-    },
-    {
-      "label": "HOW",
-      "clip": "how_3",
-      "path": "ui/animation/clips/how_3.json",
-      "num_frames": 26
+      "clip": "how_1",
+      "path": "ui/animation/clips/how_1.json",
+      "num_frames": 43
     },
     {
       "label": "LATER",
       "clip": "later_1",
       "path": "ui/animation/clips/later_1.json",
-      "num_frames": 39
+      "num_frames": 50
     },
     {
       "label": "LATER",
@@ -322,31 +330,31 @@
       "label": "LATER",
       "clip": "later_3",
       "path": "ui/animation/clips/later_3.json",
-      "num_frames": 18
+      "num_frames": 16
     },
     {
       "label": "LIKE",
       "clip": "like_1",
       "path": "ui/animation/clips/like_1.json",
-      "num_frames": 24
+      "num_frames": 43
     },
     {
       "label": "LIKE",
       "clip": "like_2",
       "path": "ui/animation/clips/like_2.json",
-      "num_frames": 31
+      "num_frames": 18
     },
     {
       "label": "LIKE",
       "clip": "like_3",
       "path": "ui/animation/clips/like_3.json",
-      "num_frames": 30
+      "num_frames": 14
     },
     {
       "label": "MAN",
       "clip": "man_1",
       "path": "ui/animation/clips/man_1.json",
-      "num_frames": 31
+      "num_frames": 41
     },
     {
       "label": "MAN",
@@ -367,10 +375,28 @@
       "num_frames": 18
     },
     {
+      "label": "ME",
+      "clip": "me_1",
+      "path": "ui/animation/clips/me_1.json",
+      "num_frames": 50
+    },
+    {
+      "label": "ME",
+      "clip": "me_2",
+      "path": "ui/animation/clips/me_2.json",
+      "num_frames": 12
+    },
+    {
+      "label": "ME",
+      "clip": "me_3",
+      "path": "ui/animation/clips/me_3.json",
+      "num_frames": 9
+    },
+    {
       "label": "MOTHER",
       "clip": "mother_1",
       "path": "ui/animation/clips/mother_1.json",
-      "num_frames": 33
+      "num_frames": 37
     },
     {
       "label": "MOTHER",
@@ -388,31 +414,25 @@
       "label": "NEED",
       "clip": "need_1",
       "path": "ui/animation/clips/need_1.json",
-      "num_frames": 18
+      "num_frames": 50
     },
     {
       "label": "NEED",
       "clip": "need_2",
       "path": "ui/animation/clips/need_2.json",
-      "num_frames": 49
+      "num_frames": 12
     },
     {
       "label": "NEED",
       "clip": "need_3",
       "path": "ui/animation/clips/need_3.json",
-      "num_frames": 33
+      "num_frames": 13
     },
     {
       "label": "NO",
       "clip": "no_1",
       "path": "ui/animation/clips/no_1.json",
-      "num_frames": 27
-    },
-    {
-      "label": "NO",
-      "clip": "no_2",
-      "path": "ui/animation/clips/no_2.json",
-      "num_frames": 26
+      "num_frames": 50
     },
     {
       "label": "NO",
@@ -422,9 +442,15 @@
     },
     {
       "label": "NOW",
+      "clip": "now",
+      "path": "ui/animation/clips/now.json",
+      "num_frames": 14
+    },
+    {
+      "label": "NOW",
       "clip": "now_1",
       "path": "ui/animation/clips/now_1.json",
-      "num_frames": 24
+      "num_frames": 47
     },
     {
       "label": "NOW",
@@ -433,16 +459,10 @@
       "num_frames": 31
     },
     {
-      "label": "NOW",
-      "clip": "now_3",
-      "path": "ui/animation/clips/now_3.json",
-      "num_frames": 12
-    },
-    {
       "label": "PLAY",
       "clip": "play_1",
       "path": "ui/animation/clips/play_1.json",
-      "num_frames": 29
+      "num_frames": 47
     },
     {
       "label": "PLAY",
@@ -460,19 +480,19 @@
       "label": "SCHOOL",
       "clip": "school_1",
       "path": "ui/animation/clips/school_1.json",
-      "num_frames": 28
+      "num_frames": 47
     },
     {
       "label": "SCHOOL",
       "clip": "school_2",
       "path": "ui/animation/clips/school_2.json",
-      "num_frames": 13
+      "num_frames": 12
     },
     {
       "label": "SCHOOL",
       "clip": "school_3",
       "path": "ui/animation/clips/school_3.json",
-      "num_frames": 38
+      "num_frames": 13
     },
     {
       "label": "THANK_YOU",
@@ -481,10 +501,28 @@
       "num_frames": 20
     },
     {
+      "label": "THANK_YOU",
+      "clip": "thank_you_1",
+      "path": "ui/animation/clips/thank_you_1.json",
+      "num_frames": 51
+    },
+    {
+      "label": "THANK_YOU",
+      "clip": "thank_you_3",
+      "path": "ui/animation/clips/thank_you_3.json",
+      "num_frames": 15
+    },
+    {
+      "label": "THANK_YOU",
+      "clip": "thank_you_4",
+      "path": "ui/animation/clips/thank_you_4.json",
+      "num_frames": 16
+    },
+    {
       "label": "TIME",
       "clip": "time_1",
       "path": "ui/animation/clips/time_1.json",
-      "num_frames": 25
+      "num_frames": 50
     },
     {
       "label": "TIME",
@@ -502,25 +540,25 @@
       "label": "WAIT",
       "clip": "wait_1",
       "path": "ui/animation/clips/wait_1.json",
-      "num_frames": 33
+      "num_frames": 47
     },
     {
       "label": "WAIT",
       "clip": "wait_2",
       "path": "ui/animation/clips/wait_2.json",
-      "num_frames": 43
+      "num_frames": 21
     },
     {
       "label": "WAIT",
       "clip": "wait_3",
       "path": "ui/animation/clips/wait_3.json",
-      "num_frames": 16
+      "num_frames": 22
     },
     {
       "label": "WANT",
       "clip": "want_1",
       "path": "ui/animation/clips/want_1.json",
-      "num_frames": 28
+      "num_frames": 56
     },
     {
       "label": "WANT",
@@ -538,7 +576,7 @@
       "label": "WATER",
       "clip": "water_1",
       "path": "ui/animation/clips/water_1.json",
-      "num_frames": 27
+      "num_frames": 51
     },
     {
       "label": "WATER",
@@ -556,7 +594,7 @@
       "label": "WHAT",
       "clip": "what_1",
       "path": "ui/animation/clips/what_1.json",
-      "num_frames": 25
+      "num_frames": 39
     },
     {
       "label": "WHAT",
@@ -572,15 +610,15 @@
     },
     {
       "label": "WHERE",
-      "clip": "where",
-      "path": "ui/animation/clips/where.json",
-      "num_frames": 21
+      "clip": "where_1",
+      "path": "ui/animation/clips/where_1.json",
+      "num_frames": 11
     },
     {
       "label": "WHO",
       "clip": "who_1",
       "path": "ui/animation/clips/who_1.json",
-      "num_frames": 25
+      "num_frames": 13
     },
     {
       "label": "WHO",
@@ -598,7 +636,7 @@
       "label": "WOMAN",
       "clip": "woman_1",
       "path": "ui/animation/clips/woman_1.json",
-      "num_frames": 29
+      "num_frames": 41
     },
     {
       "label": "WOMAN",
@@ -610,13 +648,13 @@
       "label": "WOMAN",
       "clip": "woman_3",
       "path": "ui/animation/clips/woman_3.json",
-      "num_frames": 13
+      "num_frames": 16
     },
     {
       "label": "WORK",
       "clip": "work_1",
       "path": "ui/animation/clips/work_1.json",
-      "num_frames": 31
+      "num_frames": 47
     },
     {
       "label": "WORK",
@@ -634,7 +672,7 @@
       "label": "YEAR",
       "clip": "year_1",
       "path": "ui/animation/clips/year_1.json",
-      "num_frames": 21
+      "num_frames": 51
     },
     {
       "label": "YEAR",
@@ -652,7 +690,7 @@
       "label": "YES",
       "clip": "yes_1",
       "path": "ui/animation/clips/yes_1.json",
-      "num_frames": 29
+      "num_frames": 41
     },
     {
       "label": "YES",
@@ -668,21 +706,27 @@
     },
     {
       "label": "YOU",
-      "clip": "you",
-      "path": "ui/animation/clips/you.json",
-      "num_frames": 19
+      "clip": "you_1",
+      "path": "ui/animation/clips/you_1.json",
+      "num_frames": 15
     },
     {
       "label": "YOU",
-      "clip": "you_v2",
-      "path": "ui/animation/clips/you_v2.json",
-      "num_frames": 16
+      "clip": "you_3",
+      "path": "ui/animation/clips/you_3.json",
+      "num_frames": 12
     },
     {
       "label": "YOU",
-      "clip": "you_v3",
-      "path": "ui/animation/clips/you_v3.json",
-      "num_frames": 17
+      "clip": "you_4",
+      "path": "ui/animation/clips/you_4.json",
+      "num_frames": 14
+    },
+    {
+      "label": "YOU",
+      "clip": "you_5",
+      "path": "ui/animation/clips/you_5.json",
+      "num_frames": 11
     }
   ]
 }
