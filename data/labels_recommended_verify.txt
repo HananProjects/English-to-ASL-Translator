@@ -1,0 +1,17 @@
+# Auto-generated recommended ASL training labels
+# source=/Users/upkarsingh/English-to-ASL-Translator/data/eval/sign_quality_report_full.json
+# min_clips=3 min_quality=0.82 max_labels=40
+TIRED
+TRY
+MEET
+MAKE
+WITH
+GO
+ABOUT
+WRITE
+HARD
+WHEN
+TODAY
+GOOD
+WHICH
+HOW

@@ -1,342 +1,306 @@
 {
-  "model": "/Users/hanan/CapstoneProject/English-to-ASL-Translator/models/asl_landmark_classifier_v2.npz",
-  "clips_dir": "/Users/hanan/CapstoneProject/English-to-ASL-Translator/ui/animation/clips",
-  "total_samples": 390,
-  "correct": 300,
-  "accuracy": 0.7692307692307693,
-  "unknown_true_labels_not_in_model": [
-    "A",
-    "AGAIN",
-    "ASK",
-    "B",
-    "BOY",
-    "BUT",
-    "BUY",
-    "C",
-    "CAN",
-    "COME",
-    "D",
-    "DIFFERENT",
-    "E",
-    "EASY",
-    "F",
-    "FEEL",
-    "FIND",
-    "FINE",
-    "FOR",
-    "FRIEND",
-    "G",
-    "GET",
-    "GIRL",
-    "H",
-    "HAPPY",
-    "HAVE",
-    "I",
-    "J",
-    "K",
-    "L",
-    "LITTLE",
-    "LIVE",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z"
-  ],
+  "model": "models/asl_landmark_classifier_v2.npz",
+  "clips_dir": "/Users/upkarsingh/English-to-ASL-Translator/ui/animation/clips",
+  "total_samples": 345,
+  "correct": 287,
+  "accuracy": 0.8318840579710145,
+  "unknown_true_labels_not_in_model": [],
   "top_errors": [
     {
-      "clip": "tomorrow_2.json",
-      "true_label": "TOMORROW",
-      "pred_label": "TELL",
-      "confidence": 0.8908071517944336,
+      "clip": "more_2.json",
+      "true_label": "MORE",
+      "pred_label": "MANY",
+      "confidence": 0.7949277758598328,
       "correct": false
     },
     {
-      "clip": "happy.json",
-      "true_label": "HAPPY",
-      "pred_label": "MAKE",
-      "confidence": 0.8678992390632629,
+      "clip": "give_3.json",
+      "true_label": "GIVE",
+      "pred_label": "FAMILY",
+      "confidence": 0.7605289816856384,
       "correct": false
     },
     {
-      "clip": "mother_1.json",
-      "true_label": "MOTHER",
-      "pred_label": "TRY",
-      "confidence": 0.8455737233161926,
+      "clip": "wrong_3.json",
+      "true_label": "WRONG",
+      "pred_label": "BAD",
+      "confidence": 0.4575991630554199,
       "correct": false
     },
     {
-      "clip": "no_1_2.json",
-      "true_label": "NO",
-      "pred_label": "WORK",
-      "confidence": 0.7698912620544434,
+      "clip": "meet_1.json",
+      "true_label": "MEET",
+      "pred_label": "WITH",
+      "confidence": 0.3855634033679962,
       "correct": false
     },
     {
-      "clip": "work_3.json",
-      "true_label": "WORK",
+      "clip": "take_2.json",
+      "true_label": "TAKE",
+      "pred_label": "THING",
+      "confidence": 0.34492409229278564,
+      "correct": false
+    },
+    {
+      "clip": "more.json",
+      "true_label": "MORE",
+      "pred_label": "MEET",
+      "confidence": 0.32142698764801025,
+      "correct": false
+    },
+    {
+      "clip": "year_3.json",
+      "true_label": "YEAR",
       "pred_label": "RIGHT",
-      "confidence": 0.619857668876648,
+      "confidence": 0.30698731541633606,
       "correct": false
     },
     {
-      "clip": "have.json",
-      "true_label": "HAVE",
-      "pred_label": "TIRED",
-      "confidence": 0.6170732378959656,
-      "correct": false
-    },
-    {
-      "clip": "get.json",
-      "true_label": "GET",
-      "pred_label": "MAKE",
-      "confidence": 0.6050244569778442,
-      "correct": false
-    },
-    {
-      "clip": "little.json",
-      "true_label": "LITTLE",
-      "pred_label": "WHICH",
-      "confidence": 0.48312658071517944,
-      "correct": false
-    },
-    {
-      "clip": "live.json",
-      "true_label": "LIVE",
-      "pred_label": "TIRED",
-      "confidence": 0.468706339597702,
-      "correct": false
-    },
-    {
-      "clip": "mother_2.json",
-      "true_label": "MOTHER",
-      "pred_label": "NO",
-      "confidence": 0.4614010453224182,
-      "correct": false
-    },
-    {
-      "clip": "v.json",
-      "true_label": "V",
-      "pred_label": "LOOK",
-      "confidence": 0.45111045241355896,
-      "correct": false
-    },
-    {
-      "clip": "try_6.json",
-      "true_label": "TRY",
-      "pred_label": "TIRED",
-      "confidence": 0.4478764533996582,
-      "correct": false
-    },
-    {
-      "clip": "will_2.json",
-      "true_label": "WILL",
-      "pred_label": "TOMORROW",
-      "confidence": 0.44189688563346863,
-      "correct": false
-    },
-    {
-      "clip": "wait_2.json",
-      "true_label": "WAIT",
-      "pred_label": "GIVE",
-      "confidence": 0.42714327573776245,
-      "correct": false
-    },
-    {
-      "clip": "will_1.json",
-      "true_label": "WILL",
-      "pred_label": "WRONG",
-      "confidence": 0.4261578917503357,
-      "correct": false
-    },
-    {
-      "clip": "we_1.json",
-      "true_label": "WE",
-      "pred_label": "WRONG",
-      "confidence": 0.4195818305015564,
+      "clip": "me.json",
+      "true_label": "ME",
+      "pred_label": "YOU",
+      "confidence": 0.2864060401916504,
       "correct": false
     },
     {
       "clip": "for.json",
       "true_label": "FOR",
       "pred_label": "THINK",
-      "confidence": 0.41571125388145447,
+      "confidence": 0.27959731221199036,
+      "correct": false
+    },
+    {
+      "clip": "your_4.json",
+      "true_label": "YOUR",
+      "pred_label": "THEIR",
+      "confidence": 0.2789866328239441,
+      "correct": false
+    },
+    {
+      "clip": "now_1.json",
+      "true_label": "NOW",
+      "pred_label": "WANT",
+      "confidence": 0.2702547609806061,
+      "correct": false
+    },
+    {
+      "clip": "play_2.json",
+      "true_label": "PLAY",
+      "pred_label": "NO",
+      "confidence": 0.23845137655735016,
+      "correct": false
+    },
+    {
+      "clip": "where_1.json",
+      "true_label": "WHERE",
+      "pred_label": "YOU",
+      "confidence": 0.23188719153404236,
+      "correct": false
+    },
+    {
+      "clip": "we_2.json",
+      "true_label": "WE",
+      "pred_label": "PLEASE",
+      "confidence": 0.22477848827838898,
+      "correct": false
+    },
+    {
+      "clip": "sign.json",
+      "true_label": "SIGN",
+      "pred_label": "TRY",
+      "confidence": 0.21386732161045074,
+      "correct": false
+    },
+    {
+      "clip": "me_1.json",
+      "true_label": "ME",
+      "pred_label": "LIKE",
+      "confidence": 0.2084130495786667,
+      "correct": false
+    },
+    {
+      "clip": "can.json",
+      "true_label": "CAN",
+      "pred_label": "TRY",
+      "confidence": 0.19752317667007446,
       "correct": false
     },
     {
       "clip": "easy.json",
       "true_label": "EASY",
       "pred_label": "WRITE",
-      "confidence": 0.41244709491729736,
+      "confidence": 0.1866091787815094,
       "correct": false
     },
     {
-      "clip": "understand_1.json",
-      "true_label": "UNDERSTAND",
-      "pred_label": "MORE",
-      "confidence": 0.3833475410938263,
+      "clip": "many_2.json",
+      "true_label": "MANY",
+      "pred_label": "HERE",
+      "confidence": 0.18575409054756165,
       "correct": false
     },
     {
-      "clip": "help_3.json",
-      "true_label": "HELP",
-      "pred_label": "HARD",
-      "confidence": 0.3752697706222534,
+      "clip": "play_1.json",
+      "true_label": "PLAY",
+      "pred_label": "WANT",
+      "confidence": 0.1773098111152649,
       "correct": false
     },
     {
-      "clip": "different.json",
-      "true_label": "DIFFERENT",
-      "pred_label": "TRY",
-      "confidence": 0.3351994454860687,
+      "clip": "get.json",
+      "true_label": "GET",
+      "pred_label": "MAKE",
+      "confidence": 0.172480508685112,
       "correct": false
     },
     {
       "clip": "q.json",
       "true_label": "Q",
-      "pred_label": "THINK",
-      "confidence": 0.3286053240299225,
+      "pred_label": "KNOW",
+      "confidence": 0.16669146716594696,
       "correct": false
     },
     {
-      "clip": "r.json",
-      "true_label": "R",
-      "pred_label": "LOOK",
-      "confidence": 0.3250933289527893,
+      "clip": "want_2.json",
+      "true_label": "WANT",
+      "pred_label": "WORK",
+      "confidence": 0.16245022416114807,
       "correct": false
     },
     {
-      "clip": "o.json",
-      "true_label": "O",
-      "pred_label": "THINK",
-      "confidence": 0.3174729645252228,
+      "clip": "what_1.json",
+      "true_label": "WHAT",
+      "pred_label": "HERE",
+      "confidence": 0.1536640077829361,
       "correct": false
     },
     {
-      "clip": "j.json",
-      "true_label": "J",
-      "pred_label": "WHY",
-      "confidence": 0.3139166533946991,
+      "clip": "no_1_3.json",
+      "true_label": "NO",
+      "pred_label": "YOU",
+      "confidence": 0.14870737493038177,
       "correct": false
     },
     {
-      "clip": "my_1.json",
-      "true_label": "MY",
-      "pred_label": "MORE",
-      "confidence": 0.3125985860824585,
+      "clip": "work_1.json",
+      "true_label": "WORK",
+      "pred_label": "YEAR",
+      "confidence": 0.1425013244152069,
       "correct": false
     },
     {
-      "clip": "wait_1.json",
-      "true_label": "WAIT",
-      "pred_label": "GO",
-      "confidence": 0.3110257685184479,
+      "clip": "please_3.json",
+      "true_label": "PLEASE",
+      "pred_label": "MY",
+      "confidence": 0.1399385929107666,
       "correct": false
     },
     {
-      "clip": "many_1.json",
-      "true_label": "MANY",
-      "pred_label": "MORE",
-      "confidence": 0.3105961084365845,
+      "clip": "a.json",
+      "true_label": "A",
+      "pred_label": "UNDERSTAND",
+      "confidence": 0.1364934891462326,
       "correct": false
     },
     {
-      "clip": "w.json",
-      "true_label": "W",
-      "pred_label": "THEIR",
-      "confidence": 0.30352458357810974,
+      "clip": "woman_1.json",
+      "true_label": "WOMAN",
+      "pred_label": "YEAR",
+      "confidence": 0.12993833422660828,
       "correct": false
     },
     {
-      "clip": "u.json",
-      "true_label": "U",
-      "pred_label": "LOOK",
-      "confidence": 0.29315677285194397,
+      "clip": "where_2.json",
+      "true_label": "WHERE",
+      "pred_label": "YOU",
+      "confidence": 0.12965461611747742,
       "correct": false
     }
   ],
   "confusion": {
     "A": {
-      "THINK": 1
+      "UNDERSTAND": 1
     },
     "ABOUT": {
-      "TIRED": 1,
-      "ABOUT": 6
+      "ABOUT": 4
     },
     "AGAIN": {
-      "NO": 1
+      "AGAIN": 1
+    },
+    "AND": {
+      "AND": 3
     },
     "ASK": {
-      "TAKE": 1
+      "ASK": 1
     },
     "B": {
-      "THINK": 1
+      "UNDERSTAND": 1
+    },
+    "BAD": {
+      "BAD": 4
     },
     "BOY": {
-      "KNOW": 1
+      "BOY": 1
     },
     "BROTHER": {
-      "BROTHER": 2
+      "BROTHER": 4
+    },
+    "BURGER": {
+      "BURGER": 1
     },
     "BUT": {
-      "TIRED": 1
+      "BUT": 1
     },
     "BUY": {
-      "HOW": 1
+      "BUY": 1
     },
     "C": {
-      "THINK": 1
+      "UNDERSTAND": 1
     },
     "CAN": {
-      "TIRED": 1
+      "TRY": 1
     },
     "COME": {
-      "WRITE": 1
+      "COME": 1
     },
     "D": {
       "THINK": 1
     },
     "DIFFERENT": {
-      "TRY": 1
+      "DIFFERENT": 1
     },
     "DRINK": {
-      "TALK": 1,
-      "DRINK": 2
+      "DRINK": 4
     },
     "E": {
-      "LOOK": 1
+      "UNDERSTAND": 1
     },
     "EASY": {
       "WRITE": 1
     },
     "EAT": {
-      "WITH": 1,
-      "EAT": 1
+      "EAT": 4
     },
     "F": {
-      "THINK": 1
+      "F": 1
     },
     "FAMILY": {
-      "FAMILY": 2,
-      "FINISH": 1
+      "FAMILY": 3
     },
     "FEEL": {
-      "NO": 1
+      "FEEL": 1
+    },
+    "FEW": {
+      "FEW": 4
     },
     "FIND": {
-      "THINK": 1
+      "SAME": 1
     },
     "FINE": {
-      "TALK": 1
+      "MY": 1
+    },
+    "FINISH": {
+      "FINISH": 2
     },
     "FOR": {
       "THINK": 1
@@ -345,163 +309,173 @@
       "FORGET": 3
     },
     "FRIEND": {
-      "WHICH": 1
+      "FRIEND": 1
     },
     "G": {
-      "THINK": 1
+      "UNDERSTAND": 1
     },
     "GET": {
       "MAKE": 1
     },
     "GIRL": {
-      "KNOW": 1
+      "YOU": 1
     },
     "GIVE": {
-      "GIVE": 3
+      "GIVE": 2,
+      "FAMILY": 1
     },
     "GO": {
-      "GO": 2
+      "GO": 4
     },
     "GOOD": {
-      "GOOD": 11
+      "GOOD": 4
     },
     "H": {
-      "WHERE": 1
+      "YOU": 1
     },
     "HAPPY": {
-      "MAKE": 1
+      "HAPPY": 1
     },
     "HARD": {
-      "HARD": 13
+      "HARD": 4
     },
     "HAVE": {
-      "TIRED": 1
+      "HAVE": 1
     },
     "HE": {
-      "HE": 7
+      "HE": 4
     },
     "HELLO": {
-      "HELLO": 7
+      "HELLO": 4
     },
     "HELP": {
-      "HELP": 1,
-      "HARD": 1
+      "HELP": 4
     },
     "HERE": {
       "HERE": 3
     },
     "HOME": {
-      "HOME": 7
+      "HOME": 4
     },
     "HOW": {
       "TIRED": 1,
       "HOW": 1
     },
     "I": {
-      "LOOK": 1
+      "I": 1
     },
     "J": {
-      "WHY": 1
+      "J": 1
     },
     "K": {
-      "LOOK": 1
+      "THINK": 1
     },
     "KNOW": {
       "KNOW": 5
     },
     "L": {
-      "WHERE": 1
+      "L": 1
     },
     "LATER": {
-      "LATER": 1
+      "WRITE": 1,
+      "LATER": 3
     },
     "LIKE": {
-      "YOU": 1,
-      "LIKE": 2
+      "LIKE": 4
     },
     "LITTLE": {
-      "WHICH": 1
+      "LITTLE": 1
     },
     "LIVE": {
-      "TIRED": 1
+      "LIVE": 1
     },
     "LOOK": {
-      "LOOK": 7
+      "THINK": 1,
+      "WHY": 1,
+      "YOU": 1,
+      "LOOK": 1
     },
     "M": {
-      "THEIR": 1
+      "M": 1
     },
     "MAKE": {
-      "MAKE": 9,
-      "HARD": 1
+      "MAKE": 4
     },
     "MAN": {
       "MAN": 4
     },
     "MANY": {
-      "MORE": 1,
-      "MANY": 2
+      "MANY": 2,
+      "HERE": 1
     },
     "ME": {
-      "ME": 2,
+      "YOU": 1,
+      "LIKE": 1,
       "SORRY": 2
     },
     "MEET": {
-      "MEET": 8
+      "MEET": 3,
+      "WITH": 1
+    },
+    "MENU": {
+      "MENU": 4
     },
     "MORE": {
-      "MORE": 3
+      "MEET": 1,
+      "MANY": 1,
+      "MORE": 1
     },
     "MOTHER": {
-      "TRY": 1,
-      "NO": 1,
-      "WATER": 1
+      "MOTHER": 3
     },
     "MY": {
-      "MORE": 1,
       "MY": 4
     },
     "N": {
-      "THINK": 1
+      "N": 1
     },
     "NEED": {
-      "NEED": 2,
-      "YES": 1
+      "NEED": 4
     },
     "NO": {
-      "WHERE": 1,
-      "NO": 3,
-      "WORK": 1
+      "NO": 2,
+      "SAY": 1,
+      "YOU": 1
     },
     "NOW": {
-      "NOW": 3
+      "NOW": 2,
+      "WANT": 1
     },
     "O": {
       "THINK": 1
+    },
+    "ORDER": {
+      "ORDER": 4
     },
     "P": {
       "THINK": 1
     },
     "PLAY": {
-      "PLAY": 2,
-      "WHAT": 1
+      "WANT": 1,
+      "NO": 1,
+      "PLAY": 1
     },
     "PLEASE": {
-      "PLEASE": 3
+      "PLEASE": 3,
+      "MY": 1
     },
     "Q": {
-      "THINK": 1
+      "KNOW": 1
     },
     "R": {
-      "LOOK": 1
+      "V": 1
     },
     "RIGHT": {
-      "MAKE": 1,
-      "TIME": 1,
-      "RIGHT": 2
+      "RIGHT": 3,
+      "WANT": 1
     },
     "S": {
-      "THINK": 1
+      "HELLO": 1
     },
     "SAME": {
       "SAME": 4
@@ -510,162 +484,155 @@
       "SAY": 4
     },
     "SCHOOL": {
-      "HOW": 1,
-      "SCHOOL": 2
+      "SCHOOL": 4
     },
     "SEE": {
       "SEE": 4
     },
     "SIGN": {
-      "TRY": 1,
-      "SIGN": 1
+      "TRY": 1
     },
     "SORRY": {
       "SORRY": 4
     },
     "T": {
-      "HOME": 1
+      "WILL": 1
+    },
+    "TABLE": {
+      "TABLE": 4
     },
     "TAKE": {
-      "TAKE": 7
+      "TAKE": 3,
+      "THING": 1
     },
     "TALK": {
-      "TALK": 6
+      "TALK": 4
     },
     "TELL": {
-      "TELL": 2,
-      "LIKE": 1
+      "TELL": 4
     },
     "THANK_YOU": {
-      "THANK_YOU": 3,
-      "HOME": 1
+      "THANK_YOU": 4
     },
     "THEIR": {
-      "THEIR": 7
+      "THEIR": 4
     },
     "THEY": {
-      "THEY": 8
+      "THEY": 4
     },
     "THING": {
-      "THING": 7
+      "THING": 4
     },
     "THINK": {
-      "THINK": 6
+      "THINK": 4
     },
     "TIME": {
-      "DRINK": 1,
+      "YEAR": 1,
       "TIME": 2
     },
     "TIRED": {
-      "TIRED": 7
+      "TIRED": 4
     },
     "TODAY": {
       "TODAY": 4
     },
     "TOMORROW": {
-      "TALK": 1,
-      "TELL": 1,
-      "TOMORROW": 1
+      "TOMORROW": 4
     },
     "TRY": {
-      "TRY": 7,
-      "TIRED": 1
+      "TRY": 4
     },
     "U": {
-      "LOOK": 1
+      "U": 1
     },
     "UNDERSTAND": {
-      "UNDERSTAND": 3,
-      "MORE": 1
+      "UNDERSTAND": 4
     },
     "V": {
-      "LOOK": 1
+      "V": 1
     },
     "W": {
-      "THEIR": 1
+      "W": 1
     },
     "WAIT": {
-      "GO": 1,
-      "GIVE": 1,
-      "WAIT": 1
+      "WAIT": 4
     },
     "WANT": {
       "WANT": 2,
-      "NO": 1
+      "WORK": 1
     },
     "WATER": {
-      "WATER": 2,
-      "EAT": 1
+      "WATER": 3
     },
     "WE": {
-      "WRONG": 1,
-      "WE": 3
+      "WE": 3,
+      "PLEASE": 1
     },
     "WHAT": {
-      "NO": 1,
+      "HERE": 1,
       "WHAT": 2
     },
     "WHEN": {
-      "WHEN": 10
+      "WHEN": 4
     },
     "WHERE": {
-      "WHERE": 6
-    },
-    "WHICH": {
-      "WHICH": 7
-    },
-    "WHO": {
-      "WITH": 1,
-      "WHO": 1,
-      "WATER": 1
-    },
-    "WHY": {
-      "WHY": 6
-    },
-    "WILL": {
-      "WRONG": 1,
-      "TOMORROW": 1,
-      "WILL": 2
-    },
-    "WITH": {
-      "WITH": 9
-    },
-    "WOMAN": {
-      "HOW": 1,
-      "WOMAN": 2
-    },
-    "WORK": {
-      "TIME": 1,
-      "WORK": 2,
-      "RIGHT": 1
-    },
-    "WRITE": {
-      "WRITE": 6
-    },
-    "WRONG": {
-      "WRONG": 2,
-      "EAT": 1
-    },
-    "X": {
+      "YOU": 3,
       "WHERE": 1
     },
+    "WHICH": {
+      "WHICH": 4
+    },
+    "WHO": {
+      "WHO": 3
+    },
+    "WHY": {
+      "WHY": 4
+    },
+    "WILL": {
+      "WILL": 4
+    },
+    "WITH": {
+      "WITH": 4
+    },
+    "WOMAN": {
+      "YEAR": 1,
+      "WOMAN": 1,
+      "WILL": 1,
+      "SEE": 1
+    },
+    "WORK": {
+      "YEAR": 1,
+      "WORK": 3
+    },
+    "WRITE": {
+      "WRITE": 4
+    },
+    "WRONG": {
+      "WRONG": 1,
+      "BAD": 1
+    },
+    "X": {
+      "X": 1
+    },
     "Y": {
-      "THEIR": 1
+      "Y": 1
     },
     "YEAR": {
-      "YEAR": 3
+      "YEAR": 2,
+      "RIGHT": 1
     },
     "YES": {
       "YES": 3
     },
     "YOU": {
-      "YOU": 5
+      "YOU": 4
     },
     "YOUR": {
-      "YOUR": 4
+      "YOUR": 2,
+      "THEIR": 1
     },
     "Z": {
-      "LOOK": 1
+      "Z": 1
     }
   }
 }
