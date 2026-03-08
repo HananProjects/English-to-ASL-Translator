@@ -9,7 +9,7 @@ from ui.animation.clip_loader import load_clip
 
 
 class ASLAnimationView(QWidget):
-    HAND_VISUAL_SCALE = 0.84
+    HAND_VISUAL_SCALE = 1.02
     # Keep motion smooth but still readable for live demo.
     PLAYBACK_SPEED = 0.62
     PLAYBACK_SMOOTHING_ALPHA = 0.20
@@ -34,8 +34,12 @@ class ASLAnimationView(QWidget):
     VIEWPORT_RIGHT = 0.92
     VIEWPORT_TOP = 0.04
     VIEWPORT_BOTTOM = 0.90
-    FIT_TOP_PADDING = 0.08
-    FIT_BOTTOM_PADDING = 0.24
+    FIT_SIDE_PADDING = 0.12
+    FIT_TOP_PADDING = 0.06
+    FIT_BOTTOM_PADDING = 0.20
+    FIT_SCALE = 0.80
+    FIT_VERTICAL_ANCHOR = 0.05
+    FIT_Y_SHIFT = -0.02
 
     def __init__(self):
         super().__init__()
@@ -123,7 +127,7 @@ class ASLAnimationView(QWidget):
             shadow_off = (2, 2)
             painter.setPen(QPen(self.BODY_SHADOW, 9, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             torso_shoulder_l_s, torso_shoulder_r_s = self._draw_torso(
-                painter, shoulder_l, shoulder_r, h, offset=shadow_off
+                painter, head, shoulder_l, shoulder_r, h, offset=shadow_off
             )
             arm_start_l_s = torso_shoulder_l_s if torso_shoulder_l_s is not None else (
                 (shoulder_l[0] + shadow_off[0], shoulder_l[1] + shadow_off[1]) if shoulder_l else None
@@ -144,7 +148,7 @@ class ASLAnimationView(QWidget):
 
             painter.setPen(QPen(self.BODY_COLOR, 6, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             torso_shoulder_l, torso_shoulder_r = self._draw_torso(
-                painter, shoulder_l, shoulder_r, h
+                painter, head, shoulder_l, shoulder_r, h
             )
             arm_start_l = torso_shoulder_l if torso_shoulder_l is not None else shoulder_l
             arm_start_r = torso_shoulder_r if torso_shoulder_r is not None else shoulder_r
@@ -168,6 +172,7 @@ class ASLAnimationView(QWidget):
                 points.append((float(x), float(y)))
             except Exception:
                 continue
+        points.extend(self._expanded_fit_points(pose))
 
         if not points:
             def _empty_mapper(name):
@@ -186,17 +191,21 @@ class ASLAnimationView(QWidget):
         right = self.VIEWPORT_RIGHT * width
         top = self.VIEWPORT_TOP * height
         bottom = self.VIEWPORT_BOTTOM * height
+        side_pad_px = self.FIT_SIDE_PADDING * width
+        left += side_pad_px
+        right -= side_pad_px
         view_w = max(1.0, right - left)
         view_h = max(1.0, bottom - top)
         top_pad_px = self.FIT_TOP_PADDING * height
         bottom_pad_px = self.FIT_BOTTOM_PADDING * height
         fit_h = max(1.0, view_h - top_pad_px - bottom_pad_px)
 
-        scale = min(view_w / span_x, fit_h / span_y)
+        scale = min(view_w / span_x, fit_h / span_y) * self.FIT_SCALE
         used_w = span_x * scale
         used_h = span_y * scale
         offset_x = left + (view_w - used_w) * 0.5
-        offset_y = top + top_pad_px + (fit_h - used_h) * 0.5
+        offset_y = top + top_pad_px + (fit_h - used_h) * self.FIT_VERTICAL_ANCHOR
+        offset_y += height * self.FIT_Y_SHIFT
 
         def _mapper(name):
             if name not in pose:
@@ -309,13 +318,13 @@ class ASLAnimationView(QWidget):
         hand0 = hp(0)
         if hand0:
             color = self.BODY_SHADOW if shadow else self.BODY_COLOR
-            width = 8 if shadow else 6
+            width = 8 if shadow else 7
             painter.setPen(QPen(color, width, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             self._line(painter, wrist, hand0)
 
         for i, chain in enumerate(self.HAND_CHAINS):
             finger_color = self.BODY_SHADOW if shadow else self.FINGER_COLORS[i]
-            finger_width = 7 if shadow else 5
+            finger_width = 7 if shadow else 6
             painter.setPen(QPen(finger_color, finger_width, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             for j in range(len(chain) - 1):
                 self._line(painter, hp(chain[j]), hp(chain[j + 1]))
@@ -324,18 +333,20 @@ class ASLAnimationView(QWidget):
         painter.setPen(QPen(joint_color, 1))
         painter.setBrush(joint_color)
         for idx in range(21):
-            self._dot(painter, hp(idx), radius=5 if shadow else 4)
+            self._dot(painter, hp(idx), radius=5 if shadow else 5)
 
-    def _draw_torso(self, painter, shoulder_l, shoulder_r, h, offset=(0, 0)):
+    def _draw_torso(self, painter, head, shoulder_l, shoulder_r, h, offset=(0, 0)):
         if shoulder_l is None or shoulder_r is None:
             return None, None
         cx = (shoulder_l[0] + shoulder_r[0]) // 2
         shoulder_span = shoulder_r[0] - shoulder_l[0]
         torso_span = int(shoulder_span * 0.62)
-        top_y = int((shoulder_l[1] + shoulder_r[1]) / 2) + 4
-        # Extend torso close to the lower viewport so full body reads naturally.
-        target_bottom_y = int(h * 0.94)
-        body_height = max(int(shoulder_span * 0.95), target_bottom_y - top_y)
+        top_y = int((shoulder_l[1] + shoulder_r[1]) / 2) + max(2, int(shoulder_span * 0.06))
+        if head is not None:
+            # Never let torso overlap the head/neck region.
+            neck_clearance = max(6, int(h * 0.032))
+            top_y = max(top_y, head[1] + neck_clearance)
+        body_height = max(int(shoulder_span * 1.10), int(h * 0.28))
         top_l = (cx - torso_span // 2 + offset[0], top_y + offset[1])
         top_r = (cx + torso_span // 2 + offset[0], top_y + offset[1])
         hip_l = (cx - int(torso_span * 0.46) + offset[0], top_y + body_height + offset[1])
@@ -347,8 +358,8 @@ class ASLAnimationView(QWidget):
         return top_l, top_r
 
     def _draw_face(self, painter, head, w, h):
-        rw = max(30, int(w * 0.034))
-        rh = max(44, int(h * 0.086))
+        rw = max(20, int(w * 0.024))
+        rh = max(30, int(h * 0.060))
         cx, cy = head
         painter.setBrush(Qt.NoBrush)
         painter.drawEllipse(cx - rw, cy - rh, rw * 2, rh * 2)
@@ -368,8 +379,53 @@ class ASLAnimationView(QWidget):
         if head is None or shoulder_l is None or shoulder_r is None:
             return shoulder_l, shoulder_r
 
-        # Pull shoulder line upward toward a natural head-neck distance.
-        target_y = head[1] + int(h * 0.12)
+        # Keep shoulder line below head with a stable neck gap.
+        target_y = head[1] + int(h * 0.09)
         ly = int(shoulder_l[1] * 0.45 + target_y * 0.55)
         ry = int(shoulder_r[1] * 0.45 + target_y * 0.55)
+        min_y = head[1] + max(5, int(h * 0.03))
+        max_y = head[1] + max(14, int(h * 0.14))
+        ly = max(min_y, min(max_y, ly))
+        ry = max(min_y, min(max_y, ry))
         return (shoulder_l[0], ly), (shoulder_r[0], ry)
+
+    def _expanded_fit_points(self, pose: dict):
+        points = []
+        for side, wrist_key, prefix in (
+            ("left", "hand_left", "left_hand_"),
+            ("right", "hand_right", "right_hand_"),
+        ):
+            wrist = pose.get(wrist_key)
+            if wrist is None:
+                continue
+            try:
+                wx, wy = float(wrist[0]), float(wrist[1])
+            except Exception:
+                continue
+            for idx in range(21):
+                pt = pose.get(f"{prefix}{idx}")
+                if pt is None:
+                    continue
+                try:
+                    px, py = float(pt[0]), float(pt[1])
+                except Exception:
+                    continue
+                ex = wx + (px - wx) * self.HAND_VISUAL_SCALE
+                ey = wy + (py - wy) * self.HAND_VISUAL_SCALE
+                points.append((ex, ey))
+
+        shoulder_l = pose.get("shoulder_left")
+        shoulder_r = pose.get("shoulder_right")
+        if shoulder_l is not None and shoulder_r is not None:
+            try:
+                slx, sly = float(shoulder_l[0]), float(shoulder_l[1])
+                srx, sry = float(shoulder_r[0]), float(shoulder_r[1])
+                span = abs(srx - slx)
+                cx = (slx + srx) * 0.5
+                torso_top = (sly + sry) * 0.5 + span * 0.06
+                torso_bottom = torso_top + span * 1.10
+                points.append((cx, torso_bottom))
+            except Exception:
+                pass
+
+        return points

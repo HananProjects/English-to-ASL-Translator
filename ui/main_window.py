@@ -130,8 +130,8 @@ class MainWindow(QWidget):
             self.english_drawer_width = 240 if self.compact_ui else 280
             self.preview_min_height = 420 if self.compact_ui else 560
             self.asl_preview_min_height = 520 if self.compact_ui else 700
-            self.english_preview_min_height = 620 if self.compact_ui else 860
-            self.english_controls_max_height = 250 if self.compact_ui else 290
+            self.english_preview_min_height = 720 if self.compact_ui else 980
+            self.english_controls_collapsed_height = 150 if self.compact_ui else 170
             self.english_saved_drawer_max_height = 86 if self.compact_ui else 104
             self.reverse_controls_max_height = 220 if self.compact_ui else 280
             self.reverse_history_max_height = 58 if self.compact_ui else 72
@@ -139,11 +139,14 @@ class MainWindow(QWidget):
             self.english_drawer_width = 300 if self.compact_ui else 420
             self.preview_min_height = 360 if self.compact_ui else 520
             self.asl_preview_min_height = 460 if self.compact_ui else 660
-            self.english_preview_min_height = 520 if self.compact_ui else 780
-            self.english_controls_max_height = 290 if self.compact_ui else 340
+            self.english_preview_min_height = 620 if self.compact_ui else 900
+            self.english_controls_collapsed_height = 140 if self.compact_ui else 160
             self.english_saved_drawer_max_height = 96 if self.compact_ui else 128
             self.reverse_controls_max_height = 230 if self.compact_ui else 300
             self.reverse_history_max_height = 60 if self.compact_ui else 76
+        self.english_controls_expanded_height = (
+            self.english_controls_collapsed_height + self.english_saved_drawer_max_height + 18
+        )
         self.primary_button_height = 48 if self.compact_ui else 60
         self.secondary_button_height = 34 if self.compact_ui else 40
         self.mini_button_height = 30 if self.compact_ui else 36
@@ -932,8 +935,10 @@ class MainWindow(QWidget):
     def toggle_english_saved_drawer(self):
         if not hasattr(self, "english_saved_drawer"):
             return
-        if not self.english_drawer_open:
+        opening = not self.english_drawer_open
+        if opening:
             self.english_saved_drawer.setVisible(True)
+        self._set_english_controls_height(drawer_open=opening)
         target_width = self.english_drawer_width if not self.english_drawer_open else 0
         current_width = self.english_saved_drawer.maximumWidth()
         self.english_saved_drawer_anim.stop()
@@ -955,6 +960,17 @@ class MainWindow(QWidget):
     def _on_english_drawer_anim_finished(self):
         if not self.english_drawer_open:
             self.english_saved_drawer.setVisible(False)
+            self._set_english_controls_height(drawer_open=False)
+
+    def _set_english_controls_height(self, drawer_open: bool):
+        if not hasattr(self, "english_controls_panel"):
+            return
+        target = (
+            self.english_controls_expanded_height
+            if drawer_open
+            else self.english_controls_collapsed_height
+        )
+        self.english_controls_panel.setMaximumHeight(target)
 
     def _load_english_collections(self):
         path = self.english_state_path
@@ -1140,13 +1156,14 @@ class MainWindow(QWidget):
         self.english_animation_view = ASLAnimationView()
         self.english_animation_view.setObjectName("previewSurface")
         self.english_animation_view.setMinimumHeight(self.english_preview_min_height)
+        self.english_animation_view.setMaximumHeight(self.english_preview_min_height)
         self.english_animation_view.setSizePolicy(
-            QSizePolicy.Expanding, QSizePolicy.Expanding
+            QSizePolicy.Expanding, QSizePolicy.Fixed
         )
         self.english_status_label = QLabel("Status: Idle")
         self.english_status_label.setObjectName("statusLine")
         self.english_tokens_label = QLabel("Detected ASL Tokens:")
-        self.english_tokens_label.setObjectName("heroValue")
+        self.english_tokens_label.setObjectName("sectionLabel")
         self.english_text_input = QLineEdit()
         self.english_text_input.setPlaceholderText("Type English text instead of speaking")
         self.english_text_input.installEventFilter(self)
@@ -1175,10 +1192,6 @@ class MainWindow(QWidget):
         self.favorite_button.clicked.connect(self.on_add_favorite_clicked)
         self.favorite_button.setEnabled(False)
         self.favorite_button.setToolTip("Add to favorites")
-        self.remove_favorite_button = QPushButton("Remove Favorite")
-        self.remove_favorite_button.setObjectName("secondaryButton")
-        self.remove_favorite_button.setMinimumHeight(self.mini_button_height)
-        self.remove_favorite_button.clicked.connect(self.on_remove_favorite_clicked)
         self.clear_english_history_button = QPushButton("Clear History")
         self.clear_english_history_button.setObjectName("secondaryButton")
         self.clear_english_history_button.setMinimumHeight(self.mini_button_height)
@@ -1240,33 +1253,31 @@ class MainWindow(QWidget):
 
         controls_panel = QWidget()
         controls_panel.setObjectName("bottomPanel")
-        controls_panel.setMaximumHeight(self.english_controls_max_height)
+        controls_panel.setMaximumHeight(self.english_controls_collapsed_height)
+        self.english_controls_panel = controls_panel
         controls_layout = QVBoxLayout()
-        controls_layout.setContentsMargins(14, 12, 14, 12)
-        controls_layout.setSpacing(8 if self.compact_ui else 10)
-        controls_layout.addWidget(self.english_status_label)
-        controls_layout.addWidget(self.english_tokens_label)
+        controls_layout.setContentsMargins(12, 8, 12, 8)
+        controls_layout.setSpacing(6 if self.compact_ui else 8)
+        status_row = QHBoxLayout()
+        status_row.setSpacing(8 if self.compact_ui else 10)
+        status_row.addWidget(self.english_status_label, 0)
+        status_row.addWidget(self.english_tokens_label, 1)
+        controls_layout.addLayout(status_row)
         typed_row = QHBoxLayout()
         typed_row.setSpacing(8 if self.compact_ui else 10)
         typed_row.addWidget(self.english_text_input, 1)
         typed_row.addWidget(self.english_text_submit_button, 0)
         controls_layout.addLayout(typed_row)
         controls_row = QHBoxLayout()
-        controls_row.setSpacing(8 if self.compact_ui else 10)
+        controls_row.setSpacing(6 if self.compact_ui else 8)
         controls_row.addStretch(1)
         controls_row.addWidget(self.record_button, 0, Qt.AlignCenter)
         controls_row.addWidget(self.replay_button, 0, Qt.AlignCenter)
         controls_row.addWidget(self.favorite_button, 0, Qt.AlignCenter)
+        controls_row.addWidget(self.clear_english_history_button)
+        controls_row.addWidget(self.english_saved_drawer_toggle)
         controls_row.addStretch(1)
         controls_layout.addLayout(controls_row)
-        quick_row = QHBoxLayout()
-        quick_row.setSpacing(8 if self.compact_ui else 10)
-        quick_row.addStretch(1)
-        quick_row.addWidget(self.remove_favorite_button)
-        quick_row.addWidget(self.clear_english_history_button)
-        quick_row.addWidget(self.english_saved_drawer_toggle)
-        quick_row.addStretch(1)
-        controls_layout.addLayout(quick_row)
         drawer_row = QHBoxLayout()
         drawer_row.setSpacing(8 if self.compact_ui else 10)
         drawer_row.addStretch(1)
@@ -1897,6 +1908,12 @@ class MainWindow(QWidget):
                 border: 1px solid #d8e0ea;
                 border-radius: 20px;
             }
+            QWidget#bottomPanel {
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
             QWidget#modeShell {
                 background-color: #e9eef5;
                 border: 1px solid #d8e0ea;
@@ -1955,6 +1972,19 @@ class MainWindow(QWidget):
                 border: 1px solid #d8e0ea;
                 border-radius: 24px;
                 color: #94a3b8;
+            }
+            QLineEdit {
+                background-color: #ffffff;
+                border: 1px solid #d8e0ea;
+                border-radius: 10px;
+                color: #0f172a;
+                padding: 6px 10px;
+                selection-background-color: #cfe3ff;
+                selection-color: #0f172a;
+            }
+            QLineEdit:focus {
+                border: 1px solid #93c5fd;
+                background-color: #ffffff;
             }
             QPushButton {
                 background-color: #ffffff;
