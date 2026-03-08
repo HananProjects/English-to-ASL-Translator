@@ -23,7 +23,10 @@ class SignEvent:
 
 # Base duration per sign (seconds)
 DEFAULT_SIGN_DURATION = 0.7
-MAX_PLAYBACK_DURATION = 2.5
+# English->ASL playback uses a slowed visual speed in ASLAnimationView.
+# Compensate schedule duration so clips can complete before switching signs.
+PLAYBACK_SPEED_FACTOR = 0.62
+MAX_PLAYBACK_DURATION = 5.0
 _DURATION_CACHE: Dict[str, float] = {}
 _VARIANT_INDEX: Dict[str, int] = {}
 
@@ -95,9 +98,11 @@ def sequence_signs(tokens: List[str]) -> List[SignEvent]:
         if clip_duration is None:
             duration = configured_duration
         else:
-            # Prefer actual clip timing for natural motion, but cap very long
-            # clips to keep sentence playback responsive.
-            duration = min(clip_duration, max(configured_duration, MAX_PLAYBACK_DURATION))
+            # Ensure clip can fully play at the slowed playback speed.
+            compensated_duration = clip_duration / max(PLAYBACK_SPEED_FACTOR, 1e-6)
+            duration = max(configured_duration, compensated_duration)
+            # Keep very long clips bounded so sentences remain responsive.
+            duration = min(duration, MAX_PLAYBACK_DURATION)
 
         events.append(
             SignEvent(

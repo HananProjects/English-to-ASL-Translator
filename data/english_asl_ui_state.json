@@ -1,8 +1,24 @@
 {
   "history": [
     {
-      "stamp": "12:46:05",
-      "created_at": "2026-03-07T12:46:05",
+      "stamp": "12:21:17",
+      "created_at": "2026-03-08T12:21:17",
+      "text": "about",
+      "tokens": [
+        "ABOUT"
+      ],
+      "sequence": [
+        {
+          "token": "ABOUT",
+          "clip": "about_2",
+          "start": 0.0,
+          "duration": 3.091397849462366
+        }
+      ]
+    },
+    {
+      "stamp": "12:21:08",
+      "created_at": "2026-03-08T12:21:08",
       "text": "tomorrow",
       "tokens": [
         "TOMORROW"
@@ -12,7 +28,120 @@
           "token": "TOMORROW",
           "clip": "tomorrow",
           "start": 0.0,
-          "duration": 1.4166666666666667
+          "duration": 2.28494623655914
+        }
+      ]
+    },
+    {
+      "stamp": "12:19:32",
+      "created_at": "2026-03-08T12:19:32",
+      "text": "hello",
+      "tokens": [
+        "HELLO"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 2.4193548387096775
+        }
+      ]
+    },
+    {
+      "stamp": "12:18:41",
+      "created_at": "2026-03-08T12:18:41",
+      "text": "Tommorow",
+      "tokens": [
+        "T",
+        "O",
+        "M",
+        "M",
+        "O",
+        "R",
+        "O",
+        "W"
+      ],
+      "sequence": [
+        {
+          "token": "T",
+          "clip": "t",
+          "start": 0.0,
+          "duration": 1.7473118279569892
+        },
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 1.7473118279569892,
+          "duration": 2.28494623655914
+        },
+        {
+          "token": "M",
+          "clip": "m",
+          "start": 4.032258064516129,
+          "duration": 2.0161290322580645
+        },
+        {
+          "token": "M",
+          "clip": "m",
+          "start": 6.048387096774194,
+          "duration": 2.0161290322580645
+        },
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 8.064516129032258,
+          "duration": 2.28494623655914
+        },
+        {
+          "token": "R",
+          "clip": "r",
+          "start": 10.349462365591398,
+          "duration": 2.150537634408602
+        },
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 12.5,
+          "duration": 2.28494623655914
+        },
+        {
+          "token": "W",
+          "clip": "w",
+          "start": 14.78494623655914,
+          "duration": 2.150537634408602
+        }
+      ]
+    },
+    {
+      "stamp": "12:18:22",
+      "created_at": "2026-03-08T12:18:22",
+      "text": "Today",
+      "tokens": [
+        "TODAY"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 4.166666666666667
+        }
+      ]
+    },
+    {
+      "stamp": "12:12:22",
+      "created_at": "2026-03-08T12:12:22",
+      "text": "About",
+      "tokens": [
+        "ABOUT"
+      ],
+      "sequence": [
+        {
+          "token": "ABOUT",
+          "clip": "about_2",
+          "start": 0.0,
+          "duration": 1.9166666666666667
         }
       ]
     }
