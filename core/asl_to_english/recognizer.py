@@ -1,5 +1,6 @@
 import json
 import math
+import os
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
@@ -411,6 +412,8 @@ class HybridMatcher:
         self.template_matcher = template_matcher or ClipTemplateMatcher()
         self.strong_model_conf = strong_model_conf
         self.strong_template_conf = strong_template_conf
+        self.disagreement_margin = 0.12
+        self.min_disagreement_conf = 0.62
 
     def match(self, pose: PoseDict) -> Tuple[Optional[str], float]:
         template_token, template_conf = self.template_matcher.match(pose)
@@ -432,6 +435,18 @@ class HybridMatcher:
         if model_conf >= self.strong_model_conf and template_conf < 0.60:
             return model_token, model_conf
         if template_conf >= self.strong_template_conf and model_conf < 0.75:
+            return template_token, template_conf
+
+        # If one matcher is clearly stronger, prefer it instead of dropping frames.
+        if (
+            model_conf >= self.min_disagreement_conf
+            and (model_conf - template_conf) >= self.disagreement_margin
+        ):
+            return model_token, model_conf
+        if (
+            template_conf >= self.min_disagreement_conf
+            and (template_conf - model_conf) >= self.disagreement_margin
+        ):
             return template_token, template_conf
 
         # Ambiguous disagreement: reject this frame to avoid wrong token commits.
@@ -472,6 +487,8 @@ class SignStreamRecognizer:
         self.min_confidence = min_confidence
         self.emit_cooldown_frames = max(0, emit_cooldown_frames)
         self.pause_frames = max(1, pause_frames)
+        # Hard safety gate for token commits during live recognition.
+        self.commit_min_confidence = 0.75
 
         self.buffered_tokens: List[str] = []
         self._candidate_token: Optional[str] = None
@@ -484,6 +501,12 @@ class SignStreamRecognizer:
         self._prev_pose: Optional[PoseDict] = None
         self._left_motion_history = deque(maxlen=8)
         self._right_motion_history = deque(maxlen=8)
+        self._suppress_idle_hand = os.getenv("ASL_SUPPRESS_IDLE_HAND", "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
 
     def process(self, pose: PoseDict) -> RecognitionUpdate:
         if self._prev_pose is not None:
@@ -492,7 +515,9 @@ class SignStreamRecognizer:
         self._prev_pose = pose
 
         filtered_pose = suppress_inactive_hand_noise(pose)
-        filtered_pose = self._suppress_idle_opposite_hand(filtered_pose)
+        # Keep both hands by default; enabling suppression can hurt two-hand signs.
+        if self._suppress_idle_hand:
+            filtered_pose = self._suppress_idle_opposite_hand(filtered_pose)
         token, confidence = self.matcher.match(filtered_pose)
         motion_token, motion_conf = self._match_hello_motion(filtered_pose)
         if motion_token is not None:
@@ -505,7 +530,8 @@ class SignStreamRecognizer:
         if self._hello_motion_cooldown > 0:
             self._hello_motion_cooldown -= 1
 
-        if token is None or confidence < self.min_confidence:
+        effective_min_conf = max(self.min_confidence, self.commit_min_confidence)
+        if token is None or confidence < effective_min_conf:
             self._candidate_token = None
             self._candidate_streak = 0
             self._low_conf_streak += 1

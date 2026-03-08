@@ -52,10 +52,23 @@ class CameraWorker(QObject):
     def __init__(self, source_path: str | None = None, fast_mode: bool = False):
         super().__init__()
         self.fast_mode = bool(fast_mode)
-        stable_frames = 4 if self.fast_mode else 8
-        min_confidence = 0.66 if self.fast_mode else 0.72
-        emit_cooldown_frames = 8 if self.fast_mode else 16
-        pause_frames = 12 if self.fast_mode else 24
+        # Demo-friendly defaults: less strict token gating to reduce dropped signs.
+        stable_frames = _env_int("ASL_STABLE_FRAMES", 4 if self.fast_mode else 5, min_value=1)
+        min_confidence = _env_float(
+            "ASL_MIN_CONFIDENCE",
+            0.60 if self.fast_mode else 0.58,
+            min_value=0.0,
+        )
+        emit_cooldown_frames = _env_int(
+            "ASL_EMIT_COOLDOWN_FRAMES",
+            7 if self.fast_mode else 6,
+            min_value=0,
+        )
+        pause_frames = _env_int(
+            "ASL_PAUSE_FRAMES",
+            10 if self.fast_mode else 10,
+            min_value=1,
+        )
         # Prefer model/hybrid matching; recognizer will use v2 model if available.
         self.recognizer = SignStreamRecognizer(
             prefer_model=True,
