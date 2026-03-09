@@ -584,6 +584,9 @@ class MainWindow(QWidget):
             token = self.demo_token_remap.get(token, token)
         if self.demo_mode and self.demo_allowed_tokens and token not in self.demo_allowed_tokens:
             return
+        # Demo guard: keep "ME" only once per buffered sentence.
+        if self.demo_mode and token == "ME" and "ME" in self.pending_camera_tokens:
+            return
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
         self.latest_camera_overlay_token = token
@@ -718,6 +721,16 @@ class MainWindow(QWidget):
             return
         if self.demo_mode and self.demo_token_remap:
             tokens = [self.demo_token_remap.get(t, t) for t in tokens]
+        if self.demo_mode:
+            seen_me = False
+            filtered_me = []
+            for t in tokens:
+                if t == "ME":
+                    if seen_me:
+                        continue
+                    seen_me = True
+                filtered_me.append(t)
+            tokens = filtered_me
         if self.demo_mode and self.demo_allowed_tokens:
             filtered = [t for t in tokens if t in self.demo_allowed_tokens]
             if not filtered:

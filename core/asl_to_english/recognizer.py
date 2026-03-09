@@ -547,6 +547,12 @@ class SignStreamRecognizer:
         motion_token, motion_conf = self._match_hello_motion(filtered_pose)
         if motion_token is not None:
             token, confidence = motion_token, motion_conf
+        me_token, me_conf = self._match_me_pose(filtered_pose)
+        me_confusion_tokens = {"ABOUT", "WHICH", "HOW"}
+        if me_token is not None and (
+            token is None or token in me_confusion_tokens
+        ) and me_conf >= 0.80:
+            token, confidence = me_token, me_conf
         detected_token = None
         sentence_tokens = None
 
@@ -679,5 +685,45 @@ class SignStreamRecognizer:
             self._hello_motion_cooldown = 20
             self._right_hand_history.clear()
             return "HELLO", 0.92
+
+        return None, 0.0
+
+    def _match_me_pose(self, pose: PoseDict) -> Tuple[Optional[str], float]:
+        """
+        ME is commonly produced as a chest-directed one-hand pose.
+        Add a lightweight geometric detector so ME still emits when
+        template/model confidence is unstable on live camera frames.
+        """
+        shoulder_left = pose.get("shoulder_left")
+        shoulder_right = pose.get("shoulder_right")
+        if shoulder_left is None or shoulder_right is None:
+            return None, 0.0
+
+        torso = pose.get("torso")
+        mid_x = (shoulder_left[0] + shoulder_right[0]) / 2.0
+        mid_y = (shoulder_left[1] + shoulder_right[1]) / 2.0
+        if torso is not None:
+            chest_y = mid_y + 0.35 * max(0.05, (torso[1] - mid_y))
+        else:
+            chest_y = mid_y + 0.12
+        chest = (mid_x, chest_y)
+
+        right_pt = pose.get("right_index_tip") or pose.get("hand_right")
+        left_pt = pose.get("left_index_tip") or pose.get("hand_left")
+        if right_pt is None and left_pt is None:
+            return None, 0.0
+
+        shoulder_width = max(0.08, math.dist(shoulder_left, shoulder_right))
+        max_dist = shoulder_width * 1.20
+        side_limit = shoulder_width * 1.05
+        vertical_limit = shoulder_width * 1.20
+
+        candidates = [pt for pt in (right_pt, left_pt) if pt is not None]
+        for pt in candidates:
+            dist = math.dist(pt, chest)
+            dx = abs(pt[0] - chest[0])
+            dy = abs(pt[1] - chest[1])
+            if dist <= max_dist and dx <= side_limit and dy <= vertical_limit:
+                return "ME", 0.82
 
         return None, 0.0
