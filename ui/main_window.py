@@ -1635,7 +1635,10 @@ class MainWindow(QWidget):
                 pass
             thread.requestInterruption()
             thread.quit()
-            thread.wait(2500)
+            if not thread.wait(12000):
+                print("Camera thread did not stop within 12s; forcing termination.")
+                thread.terminate()
+                thread.wait(2000)
         self.camera_thread = None
         self.camera_worker = None
         self.camera_running = False
@@ -1742,7 +1745,10 @@ class MainWindow(QWidget):
                 pass
         if thread is not None:
             thread.quit()
-            thread.wait(2500)
+            if not thread.wait(12000):
+                print("Camera thread did not stop within 12s; forcing termination.")
+                thread.terminate()
+                thread.wait(2000)
         self.camera_thread = None
         self.camera_worker = None
         self.camera_running = False

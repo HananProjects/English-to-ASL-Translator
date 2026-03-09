@@ -91,6 +91,13 @@ class CameraWorker(QObject):
 
     def stop(self):
         self._running = False
+        # Releasing capture can unblock a pending read() during camera faults.
+        cap = self._cap
+        if cap is not None:
+            try:
+                cap.release()
+            except Exception:
+                pass
 
     def run(self):
         if cv2 is None or mp is None:
@@ -256,7 +263,10 @@ class CameraWorker(QObject):
             mp_holistic.close()
         except Exception:
             pass
-        cap.release()
+        try:
+            cap.release()
+        except Exception:
+            pass
         self._cap = None
         self.finished.emit(source_is_file)
         print("Camera thread exiting cleanly")
