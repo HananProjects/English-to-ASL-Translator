@@ -513,7 +513,7 @@ class SignStreamRecognizer:
             # Template-only matching is noisier and tends to score lower confidence.
             # Use a slightly softer default gate so common signs still commit
             # without over-accepting weak/confused matches.
-            default_commit_conf = 0.66
+            default_commit_conf = 0.60
         self.commit_min_confidence = _env_float(
             "ASL_COMMIT_MIN_CONFIDENCE",
             default_commit_conf,

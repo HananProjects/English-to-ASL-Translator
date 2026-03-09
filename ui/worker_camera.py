@@ -53,15 +53,15 @@ class CameraWorker(QObject):
         super().__init__()
         self.fast_mode = bool(fast_mode)
         # Demo-friendly defaults: less strict token gating to reduce dropped signs.
-        stable_frames = _env_int("ASL_STABLE_FRAMES", 4 if self.fast_mode else 4, min_value=1)
+        stable_frames = _env_int("ASL_STABLE_FRAMES", 4 if self.fast_mode else 3, min_value=1)
         min_confidence = _env_float(
             "ASL_MIN_CONFIDENCE",
-            0.60 if self.fast_mode else 0.58,
+            0.58 if self.fast_mode else 0.52,
             min_value=0.0,
         )
         emit_cooldown_frames = _env_int(
             "ASL_EMIT_COOLDOWN_FRAMES",
-            7 if self.fast_mode else 6,
+            6 if self.fast_mode else 4,
             min_value=0,
         )
         pause_frames = _env_int(
@@ -179,8 +179,8 @@ class CameraWorker(QObject):
             model_complexity=0,
             enable_segmentation=False,
             refine_face_landmarks=False,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5
+            min_detection_confidence=0.40,
+            min_tracking_confidence=0.40
         )
 
         thread = QThread.currentThread()

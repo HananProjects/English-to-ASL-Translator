@@ -123,9 +123,11 @@ DEFAULT_DEMO_VOCAB = {
     "SCHOOL",
 }
 
-# Common recognizer confusions remapped for presentation reliability.
+# Demo remaps to keep presentation phrases usable when recognition drifts.
 DEFAULT_DEMO_TOKEN_REMAP = {
-    # NOTE: PLEASE is handled contextually in _remap_demo_token().
+    "PLEASE": "ME",
+    "NAME": "ME",
+    "MY": "ME",
 }
 
 
@@ -192,6 +194,7 @@ class MainWindow(QWidget):
         self.demo_allowed_tokens = _env_token_set("ASL_DEMO_VOCAB") or set(DEFAULT_DEMO_VOCAB)
         self.demo_token_remap = dict(DEFAULT_DEMO_TOKEN_REMAP)
         self.demo_token_remap.update(_env_token_map("ASL_DEMO_TOKEN_REMAP"))
+        self.demo_phrase_snap = _env_bool("ASL_DEMO_PHRASE_SNAP", False)
         self.latest_translation_text = ""
         self.tts_engine = self._init_tts_engine()
         self.tts_backend = self._resolve_tts_backend()
@@ -581,13 +584,6 @@ class MainWindow(QWidget):
         if not mapped:
             return mapped
 
-        # In live demo use handedness to resolve frequent PLEASE confusion.
-        if mapped == "PLEASE":
-            pose = self.latest_camera_pose or {}
-            has_left = pose.get("hand_left") is not None
-            has_right = pose.get("hand_right") is not None
-            return "WE" if (has_left and has_right) else "ME"
-
         if self.demo_token_remap:
             return self.demo_token_remap.get(mapped, mapped)
         return mapped
@@ -602,11 +598,8 @@ class MainWindow(QWidget):
             return
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
-        # Show buffered phrase progress in the green overlay box.
-        if self.pending_camera_tokens:
-            self.latest_camera_overlay_token = " ".join(self.pending_camera_tokens[-3:])
-        else:
-            self.latest_camera_overlay_token = token
+        # Keep overlay focused on the currently detected sign.
+        self.latest_camera_overlay_token = token
         self.latest_camera_overlay_confidence = float(confidence)
         self.latest_camera_overlay_ts = time.monotonic()
         if self.demo_mode:
@@ -756,7 +749,7 @@ class MainWindow(QWidget):
             if not filtered:
                 return
             tokens = filtered
-        if self.demo_mode:
+        if self.demo_mode and self.demo_phrase_snap:
             tokens = self._snap_demo_phrase(tokens)
         self._finalize_camera_translation(tokens)
 
