@@ -202,6 +202,26 @@ def _hand_motion(pose_a: PoseDict, pose_b: PoseDict, side: str) -> float:
     return float(sum(dists) / len(dists))
 
 
+def _env_float(
+    name: str,
+    default: float,
+    min_value: Optional[float] = None,
+    max_value: Optional[float] = None,
+) -> float:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        value = float(raw)
+    except Exception:
+        return default
+    if min_value is not None and value < min_value:
+        value = min_value
+    if max_value is not None and value > max_value:
+        value = max_value
+    return value
+
+
 def pose_distance(a: PoseDict, b: PoseDict, min_shared: int = 9) -> float:
     shared = [key for key in a if key in b]
     if len(shared) < min_shared:
@@ -487,8 +507,13 @@ class SignStreamRecognizer:
         self.min_confidence = min_confidence
         self.emit_cooldown_frames = max(0, emit_cooldown_frames)
         self.pause_frames = max(1, pause_frames)
-        # Hard safety gate for token commits during live recognition.
-        self.commit_min_confidence = 0.75
+        # Safety gate for token commits during live recognition.
+        self.commit_min_confidence = _env_float(
+            "ASL_COMMIT_MIN_CONFIDENCE",
+            0.75,
+            min_value=0.0,
+            max_value=1.0,
+        )
 
         self.buffered_tokens: List[str] = []
         self._candidate_token: Optional[str] = None

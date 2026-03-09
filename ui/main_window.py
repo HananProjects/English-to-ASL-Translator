@@ -98,6 +98,23 @@ def _env_token_set(name: str) -> set[str]:
     return tokens
 
 
+def _env_token_map(name: str) -> dict[str, str]:
+    raw = os.getenv(name, "")
+    if not raw:
+        return {}
+    mapping: dict[str, str] = {}
+    for part in raw.replace(";", ",").split(","):
+        item = part.strip()
+        if not item or ":" not in item:
+            continue
+        src, dst = item.split(":", 1)
+        src = src.strip().upper()
+        dst = dst.strip().upper()
+        if src and dst:
+            mapping[src] = dst
+    return mapping
+
+
 DEFAULT_DEMO_VOCAB = {
     "HELLO",
     "HOW",
@@ -177,6 +194,7 @@ class MainWindow(QWidget):
         self.camera_error_message = None
         self.demo_mode = True
         self.demo_allowed_tokens = _env_token_set("ASL_DEMO_VOCAB") or set(DEFAULT_DEMO_VOCAB)
+        self.demo_token_remap = _env_token_map("ASL_DEMO_TOKEN_REMAP")
         self.latest_translation_text = ""
         self.tts_engine = self._init_tts_engine()
         self.tts_backend = self._resolve_tts_backend()
@@ -562,6 +580,8 @@ class MainWindow(QWidget):
         self.camera_feed_label.setPixmap(pixmap)
 
     def on_camera_token(self, token: str, confidence: float):
+        if self.demo_mode and self.demo_token_remap:
+            token = self.demo_token_remap.get(token, token)
         if self.demo_mode and self.demo_allowed_tokens and token not in self.demo_allowed_tokens:
             return
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
@@ -696,6 +716,8 @@ class MainWindow(QWidget):
     def on_camera_sequence(self, tokens: list):
         if not tokens:
             return
+        if self.demo_mode and self.demo_token_remap:
+            tokens = [self.demo_token_remap.get(t, t) for t in tokens]
         if self.demo_mode and self.demo_allowed_tokens:
             filtered = [t for t in tokens if t in self.demo_allowed_tokens]
             if not filtered:
