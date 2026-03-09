@@ -1,6 +1,6 @@
 {
-  "started_at": "2026-03-08 12:06:47",
-  "python_bin": "/Users/hanan/CapstoneProject/English-to-ASL-Translator/venv/bin/python",
+  "started_at": "2026-03-09 09:12:23",
+  "python_bin": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/.venv/bin/python",
   "offline_expected": true,
   "checks": {
     "text_to_gesture_eval": {
@@ -8,9 +8,9 @@
       "returncode": 0,
       "stdout": "[eval] file=data/eval/english_to_asl_eval.json\n[eval] samples=30\n[eval] exact_match=1.000 (30/30)\n[eval] token_precision=1.000\n[eval] token_recall=1.000\n[eval] token_f1=1.000\n[eval] failures=0\n",
       "stderr": "",
-      "duration_s": 0.03,
+      "duration_s": 0.134,
       "cmd": [
-        "/Users/hanan/CapstoneProject/English-to-ASL-Translator/venv/bin/python",
+        "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/.venv/bin/python",
         "scripts/eval_english_to_asl.py",
         "--eval-file",
         "data/eval/english_to_asl_eval.json"
@@ -23,52 +23,52 @@
       }
     },
     "gesture_to_text_eval": {
-      "ok": true,
-      "returncode": 0,
-      "stdout": "total=390 correct=300 acc=0.769\nunknown_true_labels_not_in_model: A, AGAIN, ASK, B, BOY, BUT, BUY, C, CAN, COME, D, DIFFERENT, E, EASY, F, FEEL, FIND, FINE, FOR, FRIEND, G, GET, GIRL, H, HAPPY, HAVE, I, J, K, L, LITTLE, LIVE, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z\nreport=/Users/hanan/CapstoneProject/English-to-ASL-Translator/data/eval/asl_to_english_eval.json\n",
-      "stderr": "/Users/hanan/CapstoneProject/English-to-ASL-Translator/scripts/eval_asl_sequence_model.py:142: RuntimeWarning: divide by zero encountered in matmul\n  logits = x @ W + b\n/Users/hanan/CapstoneProject/English-to-ASL-Translator/scripts/eval_asl_sequence_model.py:142: RuntimeWarning: overflow encountered in matmul\n  logits = x @ W + b\n/Users/hanan/CapstoneProject/English-to-ASL-Translator/scripts/eval_asl_sequence_model.py:142: RuntimeWarning: invalid value encountered in matmul\n  logits = x @ W + b\n",
-      "duration_s": 0.773,
+      "ok": false,
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/scripts/eval_asl_sequence_model.py\", line 203, in <module>\n    main()\n  File \"/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/scripts/eval_asl_sequence_model.py\", line 128, in main\n    W, b, mean, std, labels, seq_len, feat_dim = load_model(args.model)\n                                                 ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/scripts/eval_asl_sequence_model.py\", line 110, in load_model\n    m = np.load(path, allow_pickle=True)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/.venv/lib/python3.11/site-packages/numpy/lib/npyio.py\", line 427, in load\n    fid = stack.enter_context(open(os_fspath(file), \"rb\"))\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/models/asl_landmark_classifier_v2.npz'\n",
+      "duration_s": 0.394,
       "cmd": [
-        "/Users/hanan/CapstoneProject/English-to-ASL-Translator/venv/bin/python",
+        "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/.venv/bin/python",
         "scripts/eval_asl_sequence_model.py",
         "--report",
-        "/Users/hanan/CapstoneProject/English-to-ASL-Translator/data/eval/asl_to_english_eval.json"
+        "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/data/eval/asl_to_english_eval.json"
       ],
       "metrics": {
-        "accuracy": 0.7692307692307693,
-        "total_samples": 390,
-        "correct": 300
+        "accuracy": 0.7797101449275362,
+        "total_samples": 345,
+        "correct": 269
       },
-      "report_path": "/Users/hanan/CapstoneProject/English-to-ASL-Translator/data/eval/asl_to_english_eval.json"
+      "report_path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/data/eval/asl_to_english_eval.json"
     },
     "sign_playability": {
       "ok": true,
       "returncode": 0,
-      "stdout": "labels_checked: 114\nplayable: 92\nunplayable: 22\n\nUnplayable labels:\n  AND: configured_clips_missing (configured: and_2)\n  BAD: configured_clips_missing (configured: bad)\n  FEW: configured_clips_missing (configured: few)\n  FINISH: configured_clips_missing (configured: finish_1, finish_2, finish_3)\n  NAME: configured_clips_missing (configured: name)\n  NEW: configured_clips_missing (configured: new)\n  NOT: configured_clips_missing (configured: not)\n  OK: configured_clips_missing (configured: ok)\n  OKAY: configured_clips_missing (configured: okay)\n  OLD: configured_clips_missing (configured: old)\n  OTHER: configured_clips_missing (configured: other)\n  REMEMBER: configured_clips_missing (configured: remember)\n  SAD: configured_clips_missing (configured: sad)\n  SAY: configured_clips_missing (configured: say)\n  SEE: configured_clips_missing (configured: see)\n  SHE: configured_clips_missing (configured: she)\n  SLOW: configured_clips_missing (configured: slow)\n  SOME: configured_clips_missing (configured: some)\n  SORRY: configured_clips_missing (configured: sorry)\n  STAY: configured_clips_missing (configured: stay)\n  USE: configured_clips_missing (configured: use)\n  UTILIZE: configured_clips_missing (configured: utilize)\n\nReport written: /Users/hanan/CapstoneProject/English-to-ASL-Translator/data/eval/sign_playability_report.json\n",
+      "stdout": "labels_checked: 114\nplayable: 114\nunplayable: 0\n\nReport written: /home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/data/eval/sign_playability_report.json\n",
       "stderr": "",
-      "duration_s": 0.021,
+      "duration_s": 0.065,
       "cmd": [
-        "/Users/hanan/CapstoneProject/English-to-ASL-Translator/venv/bin/python",
+        "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/.venv/bin/python",
         "scripts/check_sign_playability.py",
         "--report",
-        "/Users/hanan/CapstoneProject/English-to-ASL-Translator/data/eval/sign_playability_report.json"
+        "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/data/eval/sign_playability_report.json"
       ],
       "metrics": {
         "labels_checked": 114,
-        "playable_count": 92,
-        "unplayable_count": 22,
-        "playable_ratio": 0.8070175438596491
+        "playable_count": 114,
+        "unplayable_count": 0,
+        "playable_ratio": 1.0
       },
-      "report_path": "/Users/hanan/CapstoneProject/English-to-ASL-Translator/data/eval/sign_playability_report.json"
+      "report_path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/data/eval/sign_playability_report.json"
     },
     "speech_to_text_smoke": {
       "ok": true,
       "returncode": 0,
-      "stdout": "..                                                                       [100%]\n2 passed in 0.20s\n",
+      "stdout": "..                                                                       [100%]\n2 passed in 0.71s\n",
       "stderr": "",
-      "duration_s": 0.344,
+      "duration_s": 1.316,
       "cmd": [
-        "/Users/hanan/CapstoneProject/English-to-ASL-Translator/venv/bin/python",
+        "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/.venv/bin/python",
         "-m",
         "pytest",
         "-q",
@@ -77,12 +77,16 @@
       ]
     },
     "text_to_speech_smoke": {
-      "ok": false,
-      "returncode": 127,
+      "ok": true,
+      "returncode": 0,
       "stdout": "",
-      "stderr": "No espeak/espeak-ng executable found on PATH.",
-      "duration_s": 0.0,
-      "cmd": []
+      "stderr": "",
+      "duration_s": 0.021,
+      "cmd": [
+        "/usr/bin/espeak-ng",
+        "-q",
+        "Presentation TTS test."
+      ]
     },
     "battery_stress": {
       "ok": null,
@@ -90,13 +94,13 @@
       "reason": "Use --run-battery-stress to enable this check."
     }
   },
-  "completed_at": "2026-03-08 12:06:48",
+  "completed_at": "2026-03-09 09:12:25",
   "summary": {
     "text_to_gesture_exact_match": 1.0,
-    "gesture_to_text_accuracy": 0.7692307692307693,
-    "playable_sign_ratio": 0.8070175438596491,
+    "gesture_to_text_accuracy": 0.7797101449275362,
+    "playable_sign_ratio": 1.0,
     "stt_smoke_ok": true,
-    "tts_smoke_ok": false,
+    "tts_smoke_ok": true,
     "battery_stress_ok": null
   }
 }

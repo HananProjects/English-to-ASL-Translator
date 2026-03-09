@@ -1,15 +1,21 @@
 {
   "labels_checked": 114,
-  "playable_count": 92,
-  "unplayable_count": 22,
+  "playable_count": 114,
+  "unplayable_count": 0,
   "playable": [
     {
       "label": "ABOUT",
       "configured": [
-        "about"
+        "about_2",
+        "about_3",
+        "about_4",
+        "about_5"
       ],
       "existing": [
-        "about"
+        "about_2",
+        "about_3",
+        "about_4",
+        "about_5"
       ]
     },
     {
@@ -22,12 +28,34 @@
       ]
     },
     {
+      "label": "AND",
+      "configured": [
+        "and_3",
+        "and_4",
+        "and_5"
+      ],
+      "existing": [
+        "and_3",
+        "and_4",
+        "and_5"
+      ]
+    },
+    {
       "label": "ASK",
       "configured": [
         "ask"
       ],
       "existing": [
         "ask"
+      ]
+    },
+    {
+      "label": "BAD",
+      "configured": [
+        "bad"
+      ],
+      "existing": [
+        "bad"
       ]
     },
     {
@@ -44,11 +72,14 @@
       "configured": [
         "brother_1",
         "brother_2",
-        "brother_3"
+        "brother_4",
+        "brother_5"
       ],
       "existing": [
         "brother_1",
-        "brother_2"
+        "brother_2",
+        "brother_4",
+        "brother_5"
       ]
     },
     {
@@ -105,6 +136,7 @@
       ],
       "existing": [
         "drink_1",
+        "drink_2",
         "drink_3"
       ]
     },
@@ -120,13 +152,16 @@
     {
       "label": "EAT",
       "configured": [
-        "eat_1",
         "eat_2",
-        "eat_3"
+        "eat_3",
+        "eat_4",
+        "eat_5"
       ],
       "existing": [
-        "eat_1",
-        "eat_3"
+        "eat_2",
+        "eat_3",
+        "eat_4",
+        "eat_5"
       ]
     },
     {
@@ -152,6 +187,15 @@
       ]
     },
     {
+      "label": "FEW",
+      "configured": [
+        "few"
+      ],
+      "existing": [
+        "few"
+      ]
+    },
+    {
       "label": "FIND",
       "configured": [
         "find"
@@ -167,6 +211,17 @@
       ],
       "existing": [
         "fine"
+      ]
+    },
+    {
+      "label": "FINISH",
+      "configured": [
+        "finish",
+        "finish_2"
+      ],
+      "existing": [
+        "finish",
+        "finish_2"
       ]
     },
     {
@@ -235,12 +290,15 @@
       "label": "GO",
       "configured": [
         "go_1",
-        "go_2",
-        "go_3"
+        "go_3",
+        "go_4",
+        "go_5"
       ],
       "existing": [
         "go_1",
-        "go_2"
+        "go_3",
+        "go_4",
+        "go_5"
       ]
     },
     {
@@ -305,6 +363,7 @@
         "help_3"
       ],
       "existing": [
+        "help_1",
         "help_2",
         "help_3"
       ]
@@ -323,21 +382,27 @@
     {
       "label": "HOME",
       "configured": [
-        "home_1"
+        "home_2",
+        "home_3",
+        "home_5",
+        "home_6"
       ],
       "existing": [
-        "home_1"
+        "home_2",
+        "home_3",
+        "home_5",
+        "home_6"
       ]
     },
     {
       "label": "HOW",
       "configured": [
         "how",
-        "how_2",
-        "how_3"
+        "how_1"
       ],
       "existing": [
-        "how"
+        "how",
+        "how_1"
       ]
     },
     {
@@ -357,7 +422,9 @@
         "later_3"
       ],
       "existing": [
-        "later_1"
+        "later_1",
+        "later_2",
+        "later_3"
       ]
     },
     {
@@ -369,6 +436,7 @@
       ],
       "existing": [
         "like_1",
+        "like_2",
         "like_3"
       ]
     },
@@ -437,10 +505,16 @@
     {
       "label": "ME",
       "configured": [
-        "my_2"
+        "me",
+        "me_1",
+        "me_2",
+        "me_3"
       ],
       "existing": [
-        "my_2"
+        "me",
+        "me_1",
+        "me_2",
+        "me_3"
       ]
     },
     {
@@ -484,6 +558,15 @@
       ]
     },
     {
+      "label": "NAME",
+      "configured": [
+        "me"
+      ],
+      "existing": [
+        "me"
+      ]
+    },
+    {
       "label": "NEED",
       "configured": [
         "need_1",
@@ -497,6 +580,15 @@
       ]
     },
     {
+      "label": "NEW",
+      "configured": [
+        "again"
+      ],
+      "existing": [
+        "again"
+      ]
+    },
+    {
       "label": "NO",
       "configured": [
         "no_1",
@@ -505,21 +597,65 @@
       ],
       "existing": [
         "no_1",
-        "no_2",
         "no_3"
+      ]
+    },
+    {
+      "label": "NOT",
+      "configured": [
+        "no_1"
+      ],
+      "existing": [
+        "no_1"
       ]
     },
     {
       "label": "NOW",
       "configured": [
+        "now",
         "now_1",
-        "now_2",
-        "now_3"
+        "now_2"
       ],
       "existing": [
+        "now",
         "now_1",
-        "now_2",
-        "now_3"
+        "now_2"
+      ]
+    },
+    {
+      "label": "OK",
+      "configured": [
+        "good"
+      ],
+      "existing": [
+        "good"
+      ]
+    },
+    {
+      "label": "OKAY",
+      "configured": [
+        "good"
+      ],
+      "existing": [
+        "good"
+      ]
+    },
+    {
+      "label": "OLD",
+      "configured": [
+        "year_1"
+      ],
+      "existing": [
+        "year_1"
+      ]
+    },
+    {
+      "label": "OTHER",
+      "configured": [
+        "different"
+      ],
+      "existing": [
+        "different"
       ]
     },
     {
@@ -545,6 +681,15 @@
       ]
     },
     {
+      "label": "REMEMBER",
+      "configured": [
+        "know"
+      ],
+      "existing": [
+        "know"
+      ]
+    },
+    {
       "label": "RIGHT",
       "configured": [
         "right_1",
@@ -555,6 +700,15 @@
         "right_1",
         "right_2",
         "right_3"
+      ]
+    },
+    {
+      "label": "SAD",
+      "configured": [
+        "sorry_1"
+      ],
+      "existing": [
+        "sorry_1"
       ]
     },
     {
@@ -571,6 +725,21 @@
       ]
     },
     {
+      "label": "SAY",
+      "configured": [
+        "say_1",
+        "say_2",
+        "say_3",
+        "say_4"
+      ],
+      "existing": [
+        "say_1",
+        "say_2",
+        "say_3",
+        "say_4"
+      ]
+    },
+    {
       "label": "SCHOOL",
       "configured": [
         "school_1",
@@ -584,21 +753,87 @@
       ]
     },
     {
-      "label": "SIGN",
+      "label": "SEE",
       "configured": [
-        "sign_1"
+        "see_1",
+        "see_2",
+        "see_3",
+        "see_4"
       ],
       "existing": [
-        "sign_1"
+        "see_1",
+        "see_2",
+        "see_3",
+        "see_4"
+      ]
+    },
+    {
+      "label": "SHE",
+      "configured": [
+        "woman_1"
+      ],
+      "existing": [
+        "woman_1"
+      ]
+    },
+    {
+      "label": "SIGN",
+      "configured": [
+        "sign"
+      ],
+      "existing": [
+        "sign"
       ]
     },
     {
       "label": "SIGNWORD",
       "configured": [
-        "sign_1"
+        "sign"
       ],
       "existing": [
-        "sign_1"
+        "sign"
+      ]
+    },
+    {
+      "label": "SLOW",
+      "configured": [
+        "wait_1"
+      ],
+      "existing": [
+        "wait_1"
+      ]
+    },
+    {
+      "label": "SOME",
+      "configured": [
+        "few"
+      ],
+      "existing": [
+        "few"
+      ]
+    },
+    {
+      "label": "SORRY",
+      "configured": [
+        "sorry_1",
+        "sorry_2",
+        "sorry_3",
+        "sorry_4"
+      ],
+      "existing": [
+        "sorry_1",
+        "sorry_2",
+        "sorry_3",
+        "sorry_4"
+      ]
+    },
+    {
+      "label": "STAY",
+      "configured": [
+        "wait_1"
+      ],
+      "existing": [
+        "wait_1"
       ]
     },
     {
@@ -635,19 +870,31 @@
     {
       "label": "THANK_YOU",
       "configured": [
-        "please_2"
+        "thank_you",
+        "thank_you_1",
+        "thank_you_3",
+        "thank_you_4"
       ],
       "existing": [
-        "please_2"
+        "thank_you",
+        "thank_you_1",
+        "thank_you_3",
+        "thank_you_4"
       ]
     },
     {
       "label": "THEIR",
       "configured": [
-        "their_1"
+        "their_4",
+        "their_5",
+        "their_6",
+        "their_7"
       ],
       "existing": [
-        "their_1"
+        "their_4",
+        "their_5",
+        "their_6",
+        "their_7"
       ]
     },
     {
@@ -733,6 +980,24 @@
       ],
       "existing": [
         "understand_1"
+      ]
+    },
+    {
+      "label": "USE",
+      "configured": [
+        "work_1"
+      ],
+      "existing": [
+        "work_1"
+      ]
+    },
+    {
+      "label": "UTILIZE",
+      "configured": [
+        "work_1"
+      ],
+      "existing": [
+        "work_1"
       ]
     },
     {
@@ -839,10 +1104,16 @@
     {
       "label": "WHY",
       "configured": [
-        "why_2"
+        "why_3",
+        "why_4",
+        "why_5",
+        "why_6"
       ],
       "existing": [
-        "why_2"
+        "why_3",
+        "why_4",
+        "why_5",
+        "why_6"
       ]
     },
     {
@@ -903,12 +1174,10 @@
     {
       "label": "WRONG",
       "configured": [
-        "wrong_1",
         "wrong_2",
         "wrong_3"
       ],
       "existing": [
-        "wrong_1",
         "wrong_2",
         "wrong_3"
       ]
@@ -942,14 +1211,12 @@
     {
       "label": "YOU",
       "configured": [
-        "you",
         "you_1",
         "you_3",
         "you_4",
         "you_5"
       ],
       "existing": [
-        "you",
         "you_1",
         "you_3",
         "you_4",
@@ -966,162 +1233,5 @@
       ]
     }
   ],
-  "unplayable": [
-    {
-      "label": "AND",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "and_2"
-      ]
-    },
-    {
-      "label": "BAD",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "bad"
-      ]
-    },
-    {
-      "label": "FEW",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "few"
-      ]
-    },
-    {
-      "label": "FINISH",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "finish_1",
-        "finish_2",
-        "finish_3"
-      ]
-    },
-    {
-      "label": "NAME",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "name"
-      ]
-    },
-    {
-      "label": "NEW",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "new"
-      ]
-    },
-    {
-      "label": "NOT",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "not"
-      ]
-    },
-    {
-      "label": "OK",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "ok"
-      ]
-    },
-    {
-      "label": "OKAY",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "okay"
-      ]
-    },
-    {
-      "label": "OLD",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "old"
-      ]
-    },
-    {
-      "label": "OTHER",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "other"
-      ]
-    },
-    {
-      "label": "REMEMBER",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "remember"
-      ]
-    },
-    {
-      "label": "SAD",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "sad"
-      ]
-    },
-    {
-      "label": "SAY",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "say"
-      ]
-    },
-    {
-      "label": "SEE",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "see"
-      ]
-    },
-    {
-      "label": "SHE",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "she"
-      ]
-    },
-    {
-      "label": "SLOW",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "slow"
-      ]
-    },
-    {
-      "label": "SOME",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "some"
-      ]
-    },
-    {
-      "label": "SORRY",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "sorry"
-      ]
-    },
-    {
-      "label": "STAY",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "stay"
-      ]
-    },
-    {
-      "label": "USE",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "use"
-      ]
-    },
-    {
-      "label": "UTILIZE",
-      "reason": "configured_clips_missing",
-      "candidates": [
-        "utilize"
-      ]
-    }
-  ]
+  "unplayable": []
 }

@@ -25,7 +25,7 @@ TTS_ALSA_DEVICE="${ASL_TTS_ALSA_DEVICE:-default:CARD=wm8960soundcard}"
 # Demo-mode ASL recognition defaults (can still be overridden via env):
 # - Remap common confusions for presentation reliability.
 # - Relax commit gates to reduce dropped tokens.
-DEMO_TOKEN_REMAP="${ASL_DEMO_TOKEN_REMAP:-THANK_YOU:GOOD,ABOUT:ME,WHICH:ME}"
+DEMO_TOKEN_REMAP="${ASL_DEMO_TOKEN_REMAP:-THANK_YOU:GOOD,ABOUT:ME,WHICH:ME,HOW:SCHOOL}"
 MIN_CONFIDENCE="${ASL_MIN_CONFIDENCE:-0.60}"
 COMMIT_MIN_CONFIDENCE="${ASL_COMMIT_MIN_CONFIDENCE:-0.60}"
 STABLE_FRAMES="${ASL_STABLE_FRAMES:-3}"

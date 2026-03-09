@@ -131,6 +131,9 @@ DEFAULT_DEMO_VOCAB = {
     "NICE",
     "TO",
     "MEET",
+    "WE",
+    "GO",
+    "SCHOOL",
 }
 
 

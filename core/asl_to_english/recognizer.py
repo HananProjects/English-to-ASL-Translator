@@ -548,7 +548,7 @@ class SignStreamRecognizer:
         if motion_token is not None:
             token, confidence = motion_token, motion_conf
         me_token, me_conf = self._match_me_pose(filtered_pose)
-        me_confusion_tokens = {"ABOUT", "WHICH", "HOW"}
+        me_confusion_tokens = {"ABOUT", "WHICH"}
         if me_token is not None and (
             token is None or token in me_confusion_tokens
         ) and me_conf >= 0.80:
