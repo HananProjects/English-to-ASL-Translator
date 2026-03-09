@@ -508,9 +508,15 @@ class SignStreamRecognizer:
         self.emit_cooldown_frames = max(0, emit_cooldown_frames)
         self.pause_frames = max(1, pause_frames)
         # Safety gate for token commits during live recognition.
+        default_commit_conf = 0.75
+        if isinstance(self.matcher, ClipTemplateMatcher):
+            # Template-only matching is noisier and tends to score lower confidence.
+            # Use a slightly softer default gate so common signs still commit
+            # without over-accepting weak/confused matches.
+            default_commit_conf = 0.66
         self.commit_min_confidence = _env_float(
             "ASL_COMMIT_MIN_CONFIDENCE",
-            0.75,
+            default_commit_conf,
             min_value=0.0,
             max_value=1.0,
         )
@@ -708,22 +714,37 @@ class SignStreamRecognizer:
             chest_y = mid_y + 0.12
         chest = (mid_x, chest_y)
 
-        right_pt = pose.get("right_index_tip") or pose.get("hand_right")
-        left_pt = pose.get("left_index_tip") or pose.get("hand_left")
-        if right_pt is None and left_pt is None:
-            return None, 0.0
-
         shoulder_width = max(0.08, math.dist(shoulder_left, shoulder_right))
         max_dist = shoulder_width * 1.20
         side_limit = shoulder_width * 1.05
         vertical_limit = shoulder_width * 1.20
+        min_finger_extension = shoulder_width * 0.14
+        # "ME" is generally one-handed; avoid overriding likely two-hand signs.
+        if pose.get("hand_left") is not None and pose.get("hand_right") is not None:
+            return None, 0.0
 
-        candidates = [pt for pt in (right_pt, left_pt) if pt is not None]
-        for pt in candidates:
-            dist = math.dist(pt, chest)
-            dx = abs(pt[0] - chest[0])
-            dy = abs(pt[1] - chest[1])
-            if dist <= max_dist and dx <= side_limit and dy <= vertical_limit:
-                return "ME", 0.82
+        # Require a fingertip pose (not just a generic hand point) to avoid
+        # treating neutral/resting chest-level hands as "ME".
+        for side in ("right", "left"):
+            finger_tip = (
+                pose.get(f"{side}_index_tip")
+                or pose.get(f"{side}_thumb_tip")
+                or pose.get(f"{side}_middle_tip")
+            )
+            hand_anchor = pose.get(f"hand_{side}")
+            if finger_tip is None or hand_anchor is None:
+                continue
+
+            dist = math.dist(finger_tip, chest)
+            dx = abs(finger_tip[0] - chest[0])
+            dy = abs(finger_tip[1] - chest[1])
+            if dist > max_dist or dx > side_limit or dy > vertical_limit:
+                continue
+
+            finger_extension = math.dist(finger_tip, hand_anchor)
+            if finger_extension < min_finger_extension:
+                continue
+
+            return "ME", 0.82
 
         return None, 0.0

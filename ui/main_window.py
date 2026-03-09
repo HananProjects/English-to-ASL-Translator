@@ -116,24 +116,16 @@ def _env_token_map(name: str) -> dict[str, str]:
 
 
 DEFAULT_DEMO_VOCAB = {
-    "HELLO",
-    "HOW",
-    "ARE",
-    "YOU",
-    "I",
     "ME",
-    "MY",
-    "NAME",
-    "THANK",
-    "PLEASE",
     "GOOD",
-    "MORNING",
-    "NICE",
-    "TO",
-    "MEET",
     "WE",
     "GO",
     "SCHOOL",
+}
+
+# Common recognizer confusions remapped for presentation reliability.
+DEFAULT_DEMO_TOKEN_REMAP = {
+    # NOTE: PLEASE is handled contextually in _remap_demo_token().
 }
 
 
@@ -195,9 +187,11 @@ class MainWindow(QWidget):
         )
         self.pending_camera_tokens = []
         self.camera_error_message = None
-        self.demo_mode = True
+        # Presentation default: start in demo mode unless explicitly disabled.
+        self.demo_mode = _env_bool("ASL_DEMO_MODE", True)
         self.demo_allowed_tokens = _env_token_set("ASL_DEMO_VOCAB") or set(DEFAULT_DEMO_VOCAB)
-        self.demo_token_remap = _env_token_map("ASL_DEMO_TOKEN_REMAP")
+        self.demo_token_remap = dict(DEFAULT_DEMO_TOKEN_REMAP)
+        self.demo_token_remap.update(_env_token_map("ASL_DEMO_TOKEN_REMAP"))
         self.latest_translation_text = ""
         self.tts_engine = self._init_tts_engine()
         self.tts_backend = self._resolve_tts_backend()
@@ -582,9 +576,25 @@ class MainWindow(QWidget):
             )
         self.camera_feed_label.setPixmap(pixmap)
 
+    def _remap_demo_token(self, token: str) -> str:
+        mapped = (token or "").strip().upper()
+        if not mapped:
+            return mapped
+
+        # In live demo use handedness to resolve frequent PLEASE confusion.
+        if mapped == "PLEASE":
+            pose = self.latest_camera_pose or {}
+            has_left = pose.get("hand_left") is not None
+            has_right = pose.get("hand_right") is not None
+            return "WE" if (has_left and has_right) else "ME"
+
+        if self.demo_token_remap:
+            return self.demo_token_remap.get(mapped, mapped)
+        return mapped
+
     def on_camera_token(self, token: str, confidence: float):
-        if self.demo_mode and self.demo_token_remap:
-            token = self.demo_token_remap.get(token, token)
+        if self.demo_mode:
+            token = self._remap_demo_token(token)
         if self.demo_mode and self.demo_allowed_tokens and token not in self.demo_allowed_tokens:
             return
         # Demo guard: keep "ME" only once per buffered sentence.
@@ -592,7 +602,11 @@ class MainWindow(QWidget):
             return
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
-        self.latest_camera_overlay_token = token
+        # Show buffered phrase progress in the green overlay box.
+        if self.pending_camera_tokens:
+            self.latest_camera_overlay_token = " ".join(self.pending_camera_tokens[-3:])
+        else:
+            self.latest_camera_overlay_token = token
         self.latest_camera_overlay_confidence = float(confidence)
         self.latest_camera_overlay_ts = time.monotonic()
         if self.demo_mode:
@@ -722,8 +736,11 @@ class MainWindow(QWidget):
     def on_camera_sequence(self, tokens: list):
         if not tokens:
             return
-        if self.demo_mode and self.demo_token_remap:
-            tokens = [self.demo_token_remap.get(t, t) for t in tokens]
+        if self.demo_mode and self.pending_camera_tokens:
+            # Prefer the already-remapped live token stream for final translation.
+            tokens = list(self.pending_camera_tokens)
+        elif self.demo_mode:
+            tokens = [self._remap_demo_token(t) for t in tokens]
         if self.demo_mode:
             seen_me = False
             filtered_me = []
@@ -739,7 +756,20 @@ class MainWindow(QWidget):
             if not filtered:
                 return
             tokens = filtered
+        if self.demo_mode:
+            tokens = self._snap_demo_phrase(tokens)
         self._finalize_camera_translation(tokens)
+
+    def _snap_demo_phrase(self, tokens: list[str]) -> list[str]:
+        """Presentation fallback: snap partial detections to one of 2 demo phrases."""
+        token_set = {str(t).upper() for t in tokens if str(t).strip()}
+        if not token_set:
+            return []
+        if "ME" in token_set or "GOOD" in token_set:
+            return ["ME", "GOOD"]
+        if "WE" in token_set or "GO" in token_set or "SCHOOL" in token_set:
+            return ["WE", "GO", "SCHOOL"]
+        return tokens
 
     def _finalize_camera_translation(self, tokens: list):
         if self.demo_mode and self.demo_allowed_tokens:

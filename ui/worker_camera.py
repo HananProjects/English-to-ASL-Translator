@@ -53,7 +53,7 @@ class CameraWorker(QObject):
         super().__init__()
         self.fast_mode = bool(fast_mode)
         # Demo-friendly defaults: less strict token gating to reduce dropped signs.
-        stable_frames = _env_int("ASL_STABLE_FRAMES", 4 if self.fast_mode else 5, min_value=1)
+        stable_frames = _env_int("ASL_STABLE_FRAMES", 4 if self.fast_mode else 4, min_value=1)
         min_confidence = _env_float(
             "ASL_MIN_CONFIDENCE",
             0.60 if self.fast_mode else 0.58,
