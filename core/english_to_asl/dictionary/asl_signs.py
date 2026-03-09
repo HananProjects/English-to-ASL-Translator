@@ -1,7 +1,7 @@
 # ASL sign ID -> animation metadata
 ASL_SIGNS = {
     "HELLO": {
-        "clip": "hello",
+        "clips": ["hello", "hello_1", "hello_2", "hello_3"],
         "duration": 0.6,
     },
     "YOU": {
@@ -9,7 +9,7 @@ ASL_SIGNS = {
         "duration": 0.6,
     },
     "HOW": {
-        "clips": ["how", "how_1"],
+        "clips": ["how", "how_1", "how_2", "how_3"],
         "duration": 0.7,
     },
     "ME": {
@@ -129,8 +129,7 @@ ASL_SIGNS = {
         "duration": 0.7,
     },
     "TODAY": {
-        # Temporary fallback: dedicated "today" clip not available yet.
-        "clip": "now_2",
+        "clips": ["today", "today_2", "today_3", "today_4"],
         "duration": 0.7,
     },
     "WAIT": {
@@ -143,6 +142,10 @@ ASL_SIGNS = {
     },
     "WATER": {
         "clips": ["water_1", "water_2", "water_3"],
+        "duration": 0.7,
+    },
+    "WATCH": {
+        "clips": ["watch", "watch_2", "watch_3", "watch_4"],
         "duration": 0.7,
     },
     "WE": {
@@ -186,9 +189,10 @@ ASL_SIGNS = {
     "BUY": {"clip": "buy", "duration": 0.7},
     "CAN": {"clip": "can", "duration": 0.7},
     "COME": {"clip": "come", "duration": 0.7},
+    "CONFIDENCE": {"clips": ["confidence", "confidence_2", "confidence_3", "confidence_4"], "duration": 0.7},
     "DIFFERENT": {"clip": "different", "duration": 0.7},
     "EASY": {"clip": "easy", "duration": 0.7},
-    "FEEL": {"clip": "feel", "duration": 0.7},
+    "FEEL": {"clips": ["feel", "feel_2", "feel_3", "feel_4"], "duration": 0.7},
     "FEW": {"clip": "few", "duration": 0.7},
     "FIND": {"clip": "find", "duration": 0.7},
     "FINE": {"clip": "fine", "duration": 0.7},
@@ -196,7 +200,7 @@ ASL_SIGNS = {
     "FRIEND": {"clip": "friend", "duration": 0.7},
     "GET": {"clip": "get", "duration": 0.7},
     "GIRL": {"clip": "girl", "duration": 0.7},
-    "GOOD": {"clip": "good", "duration": 0.7},
+    "GOOD": {"clips": ["good", "good_1", "good_2", "good_10"], "duration": 0.7},
     "HAPPY": {"clip": "happy", "duration": 0.7},
     "HARD": {"clip": "hard", "duration": 0.7},
     "HAVE": {"clip": "have", "duration": 0.7},
@@ -207,7 +211,7 @@ ASL_SIGNS = {
     "LOOK": {"clip": "look", "duration": 0.7},
     "MAKE": {"clip": "make", "duration": 0.7},
     "MANY": {"clips": ["many_1", "many_2", "many_3"], "duration": 0.7},
-    "MEET": {"clip": "meet", "duration": 0.7},
+    "MEET": {"clips": ["meet", "meet_1", "meet_2", "meet_4"], "duration": 0.7},
     "MORE": {"clip": "more", "duration": 0.7},
     "NAME": {"clip": "me", "duration": 0.7},
     "NEW": {"clip": "again", "duration": 0.7},
@@ -236,7 +240,7 @@ ASL_SIGNS = {
     "THEY": {"clip": "they_1", "duration": 0.7},
     "THING": {"clip": "thing_1", "duration": 0.7},
     "THINK": {"clip": "think_1", "duration": 0.7},
-    "TIRED": {"clip": "tired_1", "duration": 0.7},
+    "TIRED": {"clips": ["tired", "tired_1", "tired_2", "tired_3", "tired_4"], "duration": 0.7},
     "TRY": {"clip": "try_1", "duration": 0.7},
     "UNDERSTAND": {"clip": "understand_1", "duration": 0.7},
     "USE": {"clip": "work_1", "duration": 0.7},

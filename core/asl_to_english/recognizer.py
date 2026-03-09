@@ -488,7 +488,16 @@ class SignStreamRecognizer:
         self.emit_cooldown_frames = max(0, emit_cooldown_frames)
         self.pause_frames = max(1, pause_frames)
         # Hard safety gate for token commits during live recognition.
-        self.commit_min_confidence = 0.75
+        # Keep this demo-friendly by default; can be overridden via env.
+        self.commit_min_confidence = 0.62
+        try:
+            raw_commit = os.getenv("ASL_COMMIT_MIN_CONF")
+            if raw_commit is not None and str(raw_commit).strip() != "":
+                self.commit_min_confidence = max(
+                    0.0, min(1.0, float(raw_commit))
+                )
+        except Exception:
+            pass
 
         self.buffered_tokens: List[str] = []
         self._candidate_token: Optional[str] = None

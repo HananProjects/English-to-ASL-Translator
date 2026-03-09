@@ -25,6 +25,8 @@ SYNONYM_TO_SIGN = {
     "need": "NEED",
     "want": "WANT",
     "wait": "WAIT",
+    "confidence": "CONFIDENCE",
+    "confident": "CONFIDENCE",
     "family": "FAMILY",
     "mom": "MOTHER",
     "mother": "MOTHER",

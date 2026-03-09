@@ -57,6 +57,8 @@ IRREGULAR_VERBS = {
     "said": "say",
     "saw": "see",
     "forgot": "forget",
+    # Preserve common adjectives that should not be stemmed by the -ed rule.
+    "tired": "tired",
 }
 
 

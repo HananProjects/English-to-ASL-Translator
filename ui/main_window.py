@@ -101,19 +101,15 @@ def _env_token_set(name: str) -> set[str]:
 DEFAULT_DEMO_VOCAB = {
     "HELLO",
     "HOW",
-    "ARE",
     "YOU",
-    "I",
     "ME",
-    "MY",
-    "NAME",
-    "THANK",
-    "PLEASE",
     "GOOD",
-    "MORNING",
-    "NICE",
-    "TO",
-    "MEET",
+    "THANK_YOU",
+    "FEEL",
+    "ABOUT",
+    "CONFIDENCE",
+    "AND",
+    "TIRED",
 }
 
 
@@ -731,6 +727,13 @@ class MainWindow(QWidget):
             )
         self._speak_translation_if_enabled(self.latest_translation_text)
         self.pending_camera_tokens.clear()
+        # Start a fresh recognition segment so repeated single-sign phrases
+        # (e.g., HELLO twice) can be emitted again without needing a restart.
+        if self.camera_running:
+            try:
+                self.camera_reset_requested.emit()
+            except Exception:
+                pass
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
