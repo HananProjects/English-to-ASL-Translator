@@ -12,6 +12,7 @@ except Exception:
 from PySide6.QtCore import QObject, Signal, QThread
 from PySide6.QtGui import QImage
 from core.asl_to_english.recognizer import SignStreamRecognizer
+from core.vision.live_pose import LivePoseFilter
 
 
 def _env_int(name: str, default: int, min_value: int | None = None) -> int:
@@ -80,14 +81,25 @@ class CameraWorker(QObject):
         self.source_path = source_path
         self._running = False
         self._cap = None
+        smoothing_alpha = _env_float("ASL_POSE_SMOOTHING", 0.50, min_value=0.0)
+        hand_hold_frames = _env_int("ASL_HAND_HOLD_FRAMES", 3, min_value=0)
+        body_hold_frames = _env_int("ASL_BODY_HOLD_FRAMES", 1, min_value=0)
+        self.pose_filter = LivePoseFilter(
+            alpha=min(1.0, smoothing_alpha),
+            hand_hold_frames=hand_hold_frames,
+            body_hold_frames=body_hold_frames,
+        )
         print(
             "[ASL] recognizer matcher="
             f"{type(self.recognizer.matcher).__name__} "
-            f"mode={'FAST' if self.fast_mode else 'NORMAL'}"
+            f"mode={'FAST' if self.fast_mode else 'NORMAL'} "
+            f"smoothing={self.pose_filter.alpha:.2f} "
+            f"hand_hold={hand_hold_frames} body_hold={body_hold_frames}"
         )
 
     def reset_recognition_state(self):
         self.recognizer.reset()
+        self.pose_filter.reset()
 
     def stop(self):
         self._running = False
@@ -242,6 +254,7 @@ class CameraWorker(QObject):
                 left_hand_landmarks,
                 right_hand_landmarks
             )
+            pose = self.pose_filter.apply(pose)
             self.pose_ready.emit(pose)
             update = self.recognizer.process(pose)
             raw_token = update.raw_token or ""

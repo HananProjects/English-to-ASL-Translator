@@ -17,6 +17,7 @@ except Exception:
 
 from core.asl_to_english.recognizer import SignStreamRecognizer
 from core.engine import asl_to_english, english_to_asl
+from core.vision.live_pose import LivePoseFilter
 from core.vision.pose_adapter import mediapipe_to_pose_dict
 
 
@@ -198,6 +199,11 @@ def main() -> int:
         pause_frames=18,
     )
     print(f"[stress] recognizer matcher={type(recognizer.matcher).__name__}")
+    pose_filter = LivePoseFilter(
+        alpha=env_float("ASL_POSE_SMOOTHING", 0.50, min_value=0.0),
+        hand_hold_frames=env_int("ASL_HAND_HOLD_FRAMES", 3, min_value=0),
+        body_hold_frames=env_int("ASL_BODY_HOLD_FRAMES", 1, min_value=0),
+    )
 
     holistic = mp.solutions.holistic.Holistic(
         model_complexity=0,
@@ -285,6 +291,7 @@ def main() -> int:
                     left_hand_landmarks,
                     right_hand_landmarks,
                 )
+                pose = pose_filter.apply(pose)
                 update = recognizer.process(pose)
                 if update.detected_token is not None:
                     detected_tokens += 1
