@@ -14,6 +14,14 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from core.asl_to_english.dataset_utils import load_clip_samples, load_clip_sequence, split_samples
+from core.asl_to_english.temporal_model import (
+    normalize_input,
+    save_linear_model,
+    save_temporal_conv_model,
+    softmax,
+    temporal_conv_backward,
+    temporal_conv_forward,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -26,6 +34,24 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--epochs", type=int, default=250)
     p.add_argument("--lr", type=float, default=0.08)
     p.add_argument("--l2", type=float, default=1e-4)
+    p.add_argument(
+        "--model-kind",
+        choices=("temporal_cnn", "linear"),
+        default="temporal_cnn",
+        help="Sequence model architecture to train.",
+    )
+    p.add_argument(
+        "--hidden-dim",
+        type=int,
+        default=48,
+        help="Hidden channel count for temporal_cnn.",
+    )
+    p.add_argument(
+        "--kernel-size",
+        type=int,
+        default=3,
+        help="Temporal convolution kernel size for temporal_cnn.",
+    )
     p.add_argument("--val-split", type=float, default=0.2)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument(
@@ -111,14 +137,6 @@ def build_dataset(
     return X, y, labels, kept_counts, dropped, sample_keep
 
 
-def softmax(logits: np.ndarray) -> np.ndarray:
-    logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
-    logits = np.clip(logits, -60.0, 60.0)
-    z = logits - logits.max(axis=1, keepdims=True)
-    e = np.exp(z)
-    return e / np.maximum(e.sum(axis=1, keepdims=True), 1e-9)
-
-
 def one_hot(y: np.ndarray, n_classes: int) -> np.ndarray:
     out = np.zeros((y.shape[0], n_classes), dtype=np.float32)
     out[np.arange(y.shape[0]), y] = 1.0
@@ -186,9 +204,7 @@ def main() -> None:
     mean = X_flat.mean(axis=0, keepdims=True)
     std = X_flat.std(axis=0, keepdims=True)
     std[std < 1e-6] = 1.0
-    Xn = (X_flat - mean) / std
-    Xn = np.clip(Xn, -8.0, 8.0).astype(np.float32)
-    Xn = np.nan_to_num(Xn, nan=0.0, posinf=0.0, neginf=0.0)
+    Xn = normalize_input(X, mean, std)
 
     train_idx, val_idx = split_samples(
         samples=samples,
@@ -198,7 +214,7 @@ def main() -> None:
     )
     Xtr = Xn[train_idx]
     ytr = y[train_idx]
-    Xva = Xn[val_idx] if val_idx else np.zeros((0, Xn.shape[1]), dtype=np.float32)
+    Xva = Xn[val_idx] if val_idx else np.zeros((0, Xn.shape[1], Xn.shape[2]), dtype=np.float32)
     yva = y[val_idx] if val_idx else np.zeros((0,), dtype=np.int64)
     Ytr = one_hot(ytr, n_classes)
 
@@ -208,31 +224,71 @@ def main() -> None:
     )
 
     rng = np.random.default_rng(args.seed)
-    W = (rng.normal(0, 0.02, size=(flat_dim, n_classes))).astype(np.float32)
-    b = np.zeros((n_classes,), dtype=np.float32)
+    linear_W = None
+    linear_b = None
+    conv_W = None
+    conv_b = None
+    fc_W = None
+    fc_b = None
+    if args.model_kind == "linear":
+        linear_W = (rng.normal(0, 0.02, size=(flat_dim, n_classes))).astype(np.float32)
+        linear_b = np.zeros((n_classes,), dtype=np.float32)
+    else:
+        kernel_size = max(1, int(args.kernel_size))
+        hidden_dim = max(8, int(args.hidden_dim))
+        conv_W = rng.normal(0, 0.02, size=(hidden_dim, kernel_size, feat_dim)).astype(np.float32)
+        conv_b = np.zeros((hidden_dim,), dtype=np.float32)
+        fc_W = rng.normal(0, 0.02, size=(hidden_dim, n_classes)).astype(np.float32)
+        fc_b = np.zeros((n_classes,), dtype=np.float32)
 
     for epoch in range(1, args.epochs + 1):
-        with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
-            logits = Xtr @ W + b
-        logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
-        logits = np.clip(logits, -60.0, 60.0)
+        if args.model_kind == "linear":
+            Xtr_flat = Xtr.reshape(Xtr.shape[0], -1)
+            with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+                logits = Xtr_flat @ linear_W + linear_b
+            logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
+            logits = np.clip(logits, -60.0, 60.0)
+        else:
+            logits, cache = temporal_conv_forward(Xtr, conv_W, conv_b, fc_W, fc_b)
+            logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
+            logits = np.clip(logits, -60.0, 60.0)
         probs = softmax(logits)
         grad_logits = (probs - Ytr) / max(1, Xtr.shape[0])
         grad_logits = np.nan_to_num(grad_logits, nan=0.0, posinf=0.0, neginf=0.0)
-        with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
-            dW = Xtr.T @ grad_logits + args.l2 * W
-        db = grad_logits.sum(axis=0)
-        dW = np.nan_to_num(dW, nan=0.0, posinf=0.0, neginf=0.0)
-        db = np.nan_to_num(db, nan=0.0, posinf=0.0, neginf=0.0)
-        W -= args.lr * dW.astype(np.float32)
-        b -= args.lr * db.astype(np.float32)
-        W = np.clip(np.nan_to_num(W, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
-        b = np.clip(np.nan_to_num(b, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+        if args.model_kind == "linear":
+            Xtr_flat = Xtr.reshape(Xtr.shape[0], -1)
+            with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+                dW = Xtr_flat.T @ grad_logits + args.l2 * linear_W
+            db = grad_logits.sum(axis=0)
+            dW = np.nan_to_num(dW, nan=0.0, posinf=0.0, neginf=0.0)
+            db = np.nan_to_num(db, nan=0.0, posinf=0.0, neginf=0.0)
+            linear_W -= args.lr * dW.astype(np.float32)
+            linear_b -= args.lr * db.astype(np.float32)
+            linear_W = np.clip(np.nan_to_num(linear_W, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+            linear_b = np.clip(np.nan_to_num(linear_b, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+        else:
+            dW1, db1, dW2, db2 = temporal_conv_backward(grad_logits, cache, conv_W, fc_W)
+            dW1 += args.l2 * conv_W
+            dW2 += args.l2 * fc_W
+            conv_W -= args.lr * np.nan_to_num(dW1, nan=0.0, posinf=0.0, neginf=0.0).astype(np.float32)
+            conv_b -= args.lr * np.nan_to_num(db1, nan=0.0, posinf=0.0, neginf=0.0).astype(np.float32)
+            fc_W -= args.lr * np.nan_to_num(dW2, nan=0.0, posinf=0.0, neginf=0.0).astype(np.float32)
+            fc_b -= args.lr * np.nan_to_num(db2, nan=0.0, posinf=0.0, neginf=0.0).astype(np.float32)
+            conv_W = np.clip(np.nan_to_num(conv_W, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+            conv_b = np.clip(np.nan_to_num(conv_b, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+            fc_W = np.clip(np.nan_to_num(fc_W, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
+            fc_b = np.clip(np.nan_to_num(fc_b, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
 
         if epoch % 25 == 0 or epoch == 1 or epoch == args.epochs:
             tr_acc = accuracy(logits, ytr)
-            with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
-                va_logits = Xva @ W + b if Xva.shape[0] > 0 else logits
+            if Xva.shape[0] > 0:
+                if args.model_kind == "linear":
+                    with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+                        va_logits = Xva.reshape(Xva.shape[0], -1) @ linear_W + linear_b
+                else:
+                    va_logits, _ = temporal_conv_forward(Xva, conv_W, conv_b, fc_W, fc_b)
+            else:
+                va_logits = logits
             va_logits = np.nan_to_num(va_logits, nan=0.0, posinf=60.0, neginf=-60.0)
             va_logits = np.clip(va_logits, -60.0, 60.0)
             va_acc = accuracy(va_logits, yva) if Xva.shape[0] > 0 else tr_acc
@@ -242,16 +298,30 @@ def main() -> None:
             )
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(
-        args.out,
-        W=W.astype(np.float32),
-        b=b.astype(np.float32),
-        mean=mean.astype(np.float32),
-        std=std.astype(np.float32),
-        labels=np.asarray(labels),
-        seq_len=np.asarray(seq_len, dtype=np.int32),
-        feature_dim=np.asarray(feat_dim, dtype=np.int32),
-    )
+    if args.model_kind == "linear":
+        save_linear_model(
+            args.out,
+            W=linear_W,
+            b=linear_b,
+            mean=mean,
+            std=std,
+            labels=labels,
+            seq_len=seq_len,
+            feature_dim=feat_dim,
+        )
+    else:
+        save_temporal_conv_model(
+            args.out,
+            W1=conv_W,
+            b1=conv_b,
+            W2=fc_W,
+            b2=fc_b,
+            mean=mean,
+            std=std,
+            labels=labels,
+            seq_len=seq_len,
+            feature_dim=feat_dim,
+        )
     split_manifest = build_split_manifest(
         samples=samples,
         train_idx=train_idx,
@@ -265,7 +335,7 @@ def main() -> None:
     split_manifest_path.write_text(json.dumps(split_manifest, indent=2), encoding="utf-8")
     print(f"Saved model: {args.out}")
     print(f"Saved split manifest: {split_manifest_path}")
-    print(f"labels={len(labels)} seq_len={seq_len} feature_dim={feat_dim}")
+    print(f"model_kind={args.model_kind} labels={len(labels)} seq_len={seq_len} feature_dim={feat_dim}")
     print(f"kept_labels={len(labels)} min_samples_per_label={args.min_samples_per_label}")
     if dropped:
         print("dropped_labels:", ", ".join(f"{t}({c})" for t, c in dropped))

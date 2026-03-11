@@ -15,6 +15,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from core.asl_to_english.dataset_utils import load_clip_samples, load_clip_sequence
+from core.asl_to_english.temporal_model import load_sequence_model, predict_logits
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,23 +44,6 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def load_model(path: Path):
-    model = np.load(path, allow_pickle=True)
-    W = model["W"].astype(np.float32)
-    b = model["b"].astype(np.float32)
-    mean = model["mean"].astype(np.float32)
-    std = model["std"].astype(np.float32)
-    W = np.clip(np.nan_to_num(W, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
-    b = np.clip(np.nan_to_num(b, nan=0.0, posinf=10.0, neginf=-10.0), -10.0, 10.0)
-    mean = np.nan_to_num(mean, nan=0.0, posinf=0.0, neginf=0.0)
-    std[std < 1e-6] = 1.0
-    std = np.nan_to_num(std, nan=1.0, posinf=1.0, neginf=1.0)
-    labels = [str(x).upper() for x in model["labels"].tolist()]
-    seq_len = int(model["seq_len"])
-    feat_dim = int(model["feature_dim"])
-    return W, b, mean, std, labels, seq_len, feat_dim
-
-
 def top_k_indices(probs: np.ndarray, k: int) -> List[int]:
     if probs.ndim != 1 or probs.size == 0:
         return []
@@ -70,8 +54,8 @@ def top_k_indices(probs: np.ndarray, k: int) -> List[int]:
 
 def main() -> None:
     args = parse_args()
-    W, b, mean, std, labels, seq_len, feat_dim = load_model(args.model)
-    label_to_idx = {label: idx for idx, label in enumerate(labels)}
+    model = load_sequence_model(args.model)
+    label_to_idx = {label: idx for idx, label in enumerate(model.labels)}
 
     manifest_path = args.manifest
     if manifest_path is None:
@@ -104,19 +88,13 @@ def main() -> None:
 
     for sample in samples:
         try:
-            seq = load_clip_sequence(sample.path, seq_len=seq_len)
+            seq = load_clip_sequence(sample.path, seq_len=model.seq_len)
         except Exception:
             continue
-        if seq.shape[1] != feat_dim:
+        if seq.shape[1] != model.feature_dim:
             continue
 
-        x = seq.reshape(1, -1).astype(np.float32)
-        x = (x - mean) / std
-        x = np.clip(np.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0), -8.0, 8.0)
-        with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
-            logits = x @ W + b
-        logits = np.nan_to_num(logits, nan=0.0, posinf=60.0, neginf=-60.0)
-        logits = np.clip(logits, -60.0, 60.0)
+        logits = predict_logits(model, seq[None, :, :])
         logits = logits - logits.max(axis=1, keepdims=True)
         probs = np.exp(logits)
         probs = probs / np.maximum(probs.sum(axis=1, keepdims=True), 1e-9)
@@ -124,10 +102,10 @@ def main() -> None:
         prob_row = probs[0]
 
         pred_idx = int(np.argmax(prob_row))
-        pred_label = labels[pred_idx]
+        pred_label = model.labels[pred_idx]
         conf = float(prob_row[pred_idx])
         top3 = top_k_indices(prob_row, 3)
-        top3_labels = [labels[idx] for idx in top3]
+        top3_labels = [model.labels[idx] for idx in top3]
         correct = pred_label == sample.label
         top3_hit = sample.label in top3_labels
 
@@ -205,7 +183,7 @@ def main() -> None:
         "correct": correct,
         "accuracy": acc,
         "top3_accuracy": top3_acc,
-        "label_count": len(labels),
+        "label_count": len(model.labels),
         "unknown_true_labels_not_in_model": unknown_true,
         "top_errors": top_errors,
         "confusion": confusion,

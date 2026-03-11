@@ -9,6 +9,7 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 
 from core.asl_to_english.features import pose_to_feature_vector
+from core.asl_to_english.temporal_model import load_sequence_model, predict_logits
 from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
 PoseDict = Dict[str, Tuple[float, float]]
@@ -320,31 +321,34 @@ class ClipTemplateMatcher:
 
 class ModelMatcher:
     def __init__(self, model_path: Path):
-        model = np.load(model_path, allow_pickle=True)
-        self.W = np.nan_to_num(model["W"].astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
-        self.b = np.nan_to_num(model["b"].astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
-        self.mean = np.nan_to_num(model["mean"].astype(np.float32), nan=0.0, posinf=0.0, neginf=0.0)
-        self.std = np.nan_to_num(model["std"].astype(np.float32), nan=1.0, posinf=1.0, neginf=1.0)
-        self.std[self.std < 1e-6] = 1.0
-        self.W = np.clip(self.W, -10.0, 10.0)
-        self.b = np.clip(self.b, -10.0, 10.0)
-        self.mean = np.clip(self.mean, -20.0, 20.0)
-        self.std = np.clip(self.std, 1e-3, 1000.0)
-        labels_raw = model["labels"]
-        self.labels = [str(v) for v in labels_raw.tolist()]
-        self.seq_len = int(model["seq_len"])
-        self.feature_dim = int(model["feature_dim"])
+        model = load_sequence_model(model_path)
+        self.model = model
+        self.labels = [str(v) for v in model.labels]
+        self.seq_len = int(model.seq_len)
+        self.feature_dim = int(model.feature_dim)
         self._buffer: List[np.ndarray] = []
         self._prev_pose: Optional[PoseDict] = None
 
-        if self.W.ndim != 2 or self.b.ndim != 1:
-            raise ValueError("Invalid model parameter shapes")
-        if self.W.shape[1] != len(self.labels) or self.b.shape[0] != len(self.labels):
-            raise ValueError("Model output dimension does not match labels")
-        if self.mean.shape[1] != self.W.shape[0] or self.std.shape[1] != self.W.shape[0]:
-            raise ValueError("Feature normalization shape mismatch")
-        if self.seq_len * self.feature_dim != self.W.shape[0]:
-            raise ValueError("Model feature size does not match seq_len/feature_dim")
+        if model.model_type == "linear":
+            W = model.params["W"]
+            b = model.params["b"]
+            if W.ndim != 2 or b.ndim != 1:
+                raise ValueError("Invalid model parameter shapes")
+            if W.shape[1] != len(self.labels) or b.shape[0] != len(self.labels):
+                raise ValueError("Model output dimension does not match labels")
+            if model.mean.shape[1] != W.shape[0] or model.std.shape[1] != W.shape[0]:
+                raise ValueError("Feature normalization shape mismatch")
+            if self.seq_len * self.feature_dim != W.shape[0]:
+                raise ValueError("Model feature size does not match seq_len/feature_dim")
+        else:
+            conv_W = model.params["conv_W"]
+            fc_W = model.params["fc_W"]
+            if conv_W.ndim != 3 or fc_W.ndim != 2:
+                raise ValueError("Invalid temporal model parameter shapes")
+            if conv_W.shape[2] != self.feature_dim:
+                raise ValueError("Temporal model feature dimension mismatch")
+            if fc_W.shape[1] != len(self.labels):
+                raise ValueError("Temporal model output dimension mismatch")
 
     @staticmethod
     def default_model_path() -> Path:
@@ -376,17 +380,8 @@ class ModelMatcher:
         if len(self._buffer) < self.seq_len:
             return None, 0.0
 
-        seq = np.stack(self._buffer, axis=0).reshape(1, -1)
-        seq = np.nan_to_num(seq, nan=0.0, posinf=0.0, neginf=0.0)
-        seq = np.clip(seq, -8.0, 8.0)
-        X = (seq - self.mean) / self.std
-        X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0).astype(np.float32)
-        X = np.clip(X, -8.0, 8.0)
-
-        # Use float64 for the matmul to avoid sporadic float32 backend warnings
-        # on some platforms, then clamp back to a stable range.
-        logits = X.astype(np.float64) @ self.W.astype(np.float64)
-        logits = logits + self.b.astype(np.float64)
+        seq = np.stack(self._buffer, axis=0).astype(np.float32)
+        logits = predict_logits(self.model, seq[None, :, :]).astype(np.float64)
         logits = np.nan_to_num(logits, nan=0.0, posinf=0.0, neginf=0.0)
         logits = np.clip(logits, -60.0, 60.0)
         logits = logits - logits.max(axis=1, keepdims=True)
