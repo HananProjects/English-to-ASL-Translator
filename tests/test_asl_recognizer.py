@@ -130,3 +130,37 @@ def test_model_matcher_predicts_from_npz_model(tmp_path):
     token, conf = matcher.match({})
     assert token == "GO"
     assert conf > 0.5
+
+
+def test_model_matcher_rejects_low_confidence_when_threshold_set(tmp_path, monkeypatch):
+    seq_len = 3
+    feature_dim = int(pose_to_feature_vector({}).shape[0])
+    classes = 2
+
+    W = np.zeros((seq_len * feature_dim, classes), dtype=np.float32)
+    b = np.array([0.0, 0.1], dtype=np.float32)
+    mean = np.zeros((1, seq_len * feature_dim), dtype=np.float32)
+    std = np.ones((1, seq_len * feature_dim), dtype=np.float32)
+    labels = np.array(["HELLO", "GO"])
+
+    model_path = tmp_path / "toy_model_reject.npz"
+    np.savez_compressed(
+        model_path,
+        model_type=np.asarray("linear"),
+        W=W,
+        b=b,
+        mean=mean,
+        std=std,
+        labels=labels,
+        seq_len=np.int64(seq_len),
+        feature_dim=np.int64(feature_dim),
+    )
+
+    monkeypatch.setenv("ASL_MODEL_REJECT_CONFIDENCE", "0.6")
+    matcher = ModelMatcher(model_path)
+    matcher.match({})
+    matcher.match({})
+    token, conf = matcher.match({})
+
+    assert token is None
+    assert conf < 0.6

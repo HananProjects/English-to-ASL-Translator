@@ -1,7 +1,7 @@
 {
   "clips_dir": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips",
   "labels_file": "data\\labels_100.txt",
-  "total_clips": 119,
+  "total_clips": 132,
   "total_labels": 34,
   "min_samples_per_label": 2,
   "sparse_labels": [],
@@ -28,7 +28,7 @@
     },
     {
       "label": "FINISH",
-      "count": 2,
+      "count": 9,
       "unique_signers": 0
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "label": "NOW",
-      "count": 3,
+      "count": 9,
       "unique_signers": 0
     },
     {
@@ -312,6 +312,62 @@
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_3.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_4.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_5",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_5.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_5",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_6",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_6.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_6",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_7",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_7.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_7",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_8",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_8.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_8",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_9",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_9.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_9",
       "source": "unknown"
     },
     {
@@ -712,6 +768,54 @@
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_3.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_4.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_5",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_5.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_5",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_6",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_6.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_6",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_7",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_7.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_7",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_8",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_8.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_8",
       "source": "unknown"
     },
     {

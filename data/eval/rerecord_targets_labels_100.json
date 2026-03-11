@@ -1,0 +1,249 @@
+{
+  "eval_report": "data\\eval\\asl_to_english_eval_labels_100_val.json",
+  "manifest": "data\\training_manifest_labels_100.json",
+  "target_count": 16,
+  "targets": [
+    {
+      "label": "THANK_YOU",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 4,
+      "top_confusion": "GIVE",
+      "top_confusion_confidence": 0.9026466012001038,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "WORK",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 4,
+      "top_confusion": "BROTHER",
+      "top_confusion_confidence": 0.8937484622001648,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "NO",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 4,
+      "top_confusion": "ME",
+      "top_confusion_confidence": 0.8764743208885193,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "TIME",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "WORK",
+      "top_confusion_confidence": 0.8614463806152344,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "WAIT",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 4,
+      "top_confusion": "GIVE",
+      "top_confusion_confidence": 0.7530884742736816,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "MAN",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 4,
+      "top_confusion": "WOMAN",
+      "top_confusion_confidence": 0.6441932916641235,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "GIVE",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "NO",
+      "top_confusion_confidence": 0.5449700951576233,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "FORGET",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "GIVE",
+      "top_confusion_confidence": 0.48539745807647705,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "MOTHER",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "WATER",
+      "top_confusion_confidence": 0.45620742440223694,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "WANT",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "WHAT",
+      "top_confusion_confidence": 0.42214372754096985,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "WHO",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "MOTHER",
+      "top_confusion_confidence": 0.39138415455818176,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "PLAY",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "WANT",
+      "top_confusion_confidence": 0.3223368525505066,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "YEAR",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "HOW",
+      "top_confusion_confidence": 0.30336794257164,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "WATER",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "ME",
+      "top_confusion_confidence": 0.24461643397808075,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "YES",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 3,
+      "top_confusion": "LIKE",
+      "top_confusion_confidence": 0.22429870069026947,
+      "recommended_new_clips": 12
+    },
+    {
+      "label": "NOW",
+      "accuracy": 0.5,
+      "total": 2,
+      "correct": 1,
+      "current_clip_count": 9,
+      "top_confusion": "WANT",
+      "top_confusion_confidence": 0.4009353816509247,
+      "recommended_new_clips": 8
+    }
+  ],
+  "confusion_groups": [
+    {
+      "true_label": "THANK_YOU",
+      "pred_label": "GIVE",
+      "count": 1
+    },
+    {
+      "true_label": "WORK",
+      "pred_label": "BROTHER",
+      "count": 1
+    },
+    {
+      "true_label": "NO",
+      "pred_label": "ME",
+      "count": 1
+    },
+    {
+      "true_label": "TIME",
+      "pred_label": "WORK",
+      "count": 1
+    },
+    {
+      "true_label": "WAIT",
+      "pred_label": "GIVE",
+      "count": 1
+    },
+    {
+      "true_label": "MAN",
+      "pred_label": "WOMAN",
+      "count": 1
+    },
+    {
+      "true_label": "GIVE",
+      "pred_label": "NO",
+      "count": 1
+    },
+    {
+      "true_label": "FORGET",
+      "pred_label": "GIVE",
+      "count": 1
+    },
+    {
+      "true_label": "MOTHER",
+      "pred_label": "WATER",
+      "count": 1
+    },
+    {
+      "true_label": "WANT",
+      "pred_label": "WHAT",
+      "count": 1
+    },
+    {
+      "true_label": "NOW",
+      "pred_label": "WANT",
+      "count": 1
+    },
+    {
+      "true_label": "WHO",
+      "pred_label": "MOTHER",
+      "count": 1
+    },
+    {
+      "true_label": "PLAY",
+      "pred_label": "WANT",
+      "count": 1
+    },
+    {
+      "true_label": "YEAR",
+      "pred_label": "HOW",
+      "count": 1
+    },
+    {
+      "true_label": "WATER",
+      "pred_label": "ME",
+      "count": 1
+    },
+    {
+      "true_label": "YES",
+      "pred_label": "LIKE",
+      "count": 1
+    }
+  ]
+}

@@ -328,6 +328,12 @@ class ModelMatcher:
         self.feature_dim = int(model.feature_dim)
         self._buffer: List[np.ndarray] = []
         self._prev_pose: Optional[PoseDict] = None
+        self.reject_below_confidence = _env_float(
+            "ASL_MODEL_REJECT_CONFIDENCE",
+            0.0,
+            min_value=0.0,
+            max_value=1.0,
+        )
 
         if model.model_type == "linear":
             W = model.params["W"]
@@ -392,6 +398,8 @@ class ModelMatcher:
         confidence = float(probs[0, best_idx])
         if best_idx < 0 or best_idx >= len(self.labels):
             return None, 0.0
+        if confidence < self.reject_below_confidence:
+            return None, confidence
 
         token = self.labels[best_idx].upper()
         return token, confidence

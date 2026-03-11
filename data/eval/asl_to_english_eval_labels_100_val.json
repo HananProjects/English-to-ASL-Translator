@@ -3,193 +3,145 @@
   "clips_dir": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips",
   "manifest": "models\\asl_landmark_classifier_v2.manifest.json",
   "evaluated_split": "val",
-  "total_samples": 32,
-  "correct": 14,
-  "accuracy": 0.4375,
-  "top3_accuracy": 0.59375,
+  "total_samples": 35,
+  "correct": 19,
+  "accuracy": 0.5428571428571428,
+  "top3_accuracy": 0.5428571428571428,
+  "reject_below_confidence": 0.0,
+  "rejected": 0,
+  "rejection_rate": 0.0,
   "label_count": 34,
   "unknown_true_labels_not_in_model": [],
   "top_errors": [
     {
-      "clip": "now.json",
-      "true_label": "NOW",
-      "pred_label": "FINISH",
-      "confidence": 0.8476430773735046,
-      "correct": false,
-      "top3_labels": [
-        "FINISH",
-        "PLAY",
-        "WHAT"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "now",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "who_1.json",
-      "true_label": "WHO",
-      "pred_label": "LIKE",
-      "confidence": 0.8120115399360657,
-      "correct": false,
-      "top3_labels": [
-        "LIKE",
-        "ME",
-        "DRINK"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "who_1",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "give_3.json",
-      "true_label": "GIVE",
-      "pred_label": "FAMILY",
-      "confidence": 0.772990345954895,
-      "correct": false,
-      "top3_labels": [
-        "FAMILY",
-        "YEAR",
-        "WANT"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "give_3",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "mother_1.json",
-      "true_label": "MOTHER",
-      "pred_label": "DRINK",
-      "confidence": 0.7276340126991272,
-      "correct": false,
-      "top3_labels": [
-        "DRINK",
-        "BROTHER",
-        "FAMILY"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "mother_1",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "work_1_2.json",
-      "true_label": "WORK",
-      "pred_label": "LIKE",
-      "confidence": 0.6601417660713196,
-      "correct": false,
-      "top3_labels": [
-        "LIKE",
-        "ME",
-        "NO"
-      ],
-      "top3_hit": false,
-      "signer_id": "1",
-      "session_id": "work_1_2",
-      "source": "team",
-      "split": "val"
-    },
-    {
-      "clip": "what_3.json",
-      "true_label": "WHAT",
-      "pred_label": "PLAY",
-      "confidence": 0.6095629334449768,
-      "correct": false,
-      "top3_labels": [
-        "PLAY",
-        "WHAT",
-        "NOW"
-      ],
-      "top3_hit": true,
-      "signer_id": "unknown",
-      "session_id": "what_3",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "no_1_2.json",
-      "true_label": "NO",
-      "pred_label": "NEED",
-      "confidence": 0.46263399720191956,
-      "correct": false,
-      "top3_labels": [
-        "NEED",
-        "NO",
-        "WHERE"
-      ],
-      "top3_hit": true,
-      "signer_id": "1",
-      "session_id": "no_1_2",
-      "source": "team",
-      "split": "val"
-    },
-    {
-      "clip": "water_3.json",
-      "true_label": "WATER",
-      "pred_label": "MAN",
-      "confidence": 0.44677579402923584,
-      "correct": false,
-      "top3_labels": [
-        "MAN",
-        "WOMAN",
-        "WHO"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "water_3",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "yes_2.json",
-      "true_label": "YES",
-      "pred_label": "NO",
-      "confidence": 0.41322386264801025,
-      "correct": false,
-      "top3_labels": [
-        "NO",
-        "NEED",
-        "ME"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "yes_2",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "thank_you.json",
+      "clip": "thank_you_1.json",
       "true_label": "THANK_YOU",
-      "pred_label": "DRINK",
-      "confidence": 0.38762253522872925,
+      "pred_label": "GIVE",
+      "confidence": 0.9026466012001038,
       "correct": false,
       "top3_labels": [
-        "DRINK",
-        "THANK_YOU",
-        "FORGET"
+        "GIVE",
+        "NEED",
+        "LIKE"
       ],
-      "top3_hit": true,
+      "top3_hit": false,
       "signer_id": "unknown",
-      "session_id": "thank_you",
+      "session_id": "thank_you_1",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "work_3.json",
+      "true_label": "WORK",
+      "pred_label": "BROTHER",
+      "confidence": 0.8937484622001648,
+      "correct": false,
+      "top3_labels": [
+        "BROTHER",
+        "HELP",
+        "GO"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "work_3",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "no_1.json",
+      "true_label": "NO",
+      "pred_label": "ME",
+      "confidence": 0.8764743208885193,
+      "correct": false,
+      "top3_labels": [
+        "ME",
+        "DRINK",
+        "MAN"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "no_1",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "time_3.json",
+      "true_label": "TIME",
+      "pred_label": "WORK",
+      "confidence": 0.8614463806152344,
+      "correct": false,
+      "top3_labels": [
+        "WORK",
+        "MAN",
+        "YEAR"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "time_3",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "wait_1.json",
+      "true_label": "WAIT",
+      "pred_label": "GIVE",
+      "confidence": 0.7530884742736816,
+      "correct": false,
+      "top3_labels": [
+        "GIVE",
+        "NO",
+        "HELP"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "wait_1",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "man.json",
+      "true_label": "MAN",
+      "pred_label": "WOMAN",
+      "confidence": 0.6441932916641235,
+      "correct": false,
+      "top3_labels": [
+        "WOMAN",
+        "WATER",
+        "YOU"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "man",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "give_2.json",
+      "true_label": "GIVE",
+      "pred_label": "NO",
+      "confidence": 0.5449700951576233,
+      "correct": false,
+      "top3_labels": [
+        "NO",
+        "WHO",
+        "MAN"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "give_2",
       "source": "unknown",
       "split": "val"
     },
     {
       "clip": "forget_1.json",
       "true_label": "FORGET",
-      "pred_label": "DRINK",
-      "confidence": 0.3865402340888977,
+      "pred_label": "GIVE",
+      "confidence": 0.48539745807647705,
       "correct": false,
       "top3_labels": [
+        "GIVE",
         "DRINK",
-        "THANK_YOU",
-        "NEED"
+        "WOMAN"
       ],
       "top3_hit": false,
       "signer_id": "unknown",
@@ -198,49 +150,100 @@
       "split": "val"
     },
     {
-      "clip": "play_2.json",
-      "true_label": "PLAY",
-      "pred_label": "WHAT",
-      "confidence": 0.3467825949192047,
+      "clip": "mother_3.json",
+      "true_label": "MOTHER",
+      "pred_label": "WATER",
+      "confidence": 0.45620742440223694,
       "correct": false,
       "top3_labels": [
-        "WHAT",
-        "PLAY",
-        "NOW"
+        "WATER",
+        "WHO",
+        "NO"
       ],
-      "top3_hit": true,
+      "top3_hit": false,
       "signer_id": "unknown",
-      "session_id": "play_2",
+      "session_id": "mother_3",
       "source": "unknown",
       "split": "val"
     },
     {
-      "clip": "woman_4.json",
-      "true_label": "WOMAN",
-      "pred_label": "THANK_YOU",
-      "confidence": 0.34070253372192383,
+      "clip": "want_3.json",
+      "true_label": "WANT",
+      "pred_label": "WHAT",
+      "confidence": 0.42214372754096985,
       "correct": false,
       "top3_labels": [
-        "THANK_YOU",
-        "WOMAN",
-        "DRINK"
+        "WHAT",
+        "FAMILY",
+        "GIVE"
       ],
-      "top3_hit": true,
+      "top3_hit": false,
       "signer_id": "unknown",
-      "session_id": "woman_4",
+      "session_id": "want_3",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "now_1.json",
+      "true_label": "NOW",
+      "pred_label": "WANT",
+      "confidence": 0.4009353816509247,
+      "correct": false,
+      "top3_labels": [
+        "WANT",
+        "FAMILY",
+        "GIVE"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "now_1",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "who_2.json",
+      "true_label": "WHO",
+      "pred_label": "MOTHER",
+      "confidence": 0.39138415455818176,
+      "correct": false,
+      "top3_labels": [
+        "MOTHER",
+        "WOMAN",
+        "MAN"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "who_2",
+      "source": "unknown",
+      "split": "val"
+    },
+    {
+      "clip": "play_1.json",
+      "true_label": "PLAY",
+      "pred_label": "WANT",
+      "confidence": 0.3223368525505066,
+      "correct": false,
+      "top3_labels": [
+        "WANT",
+        "WHAT",
+        "GIVE"
+      ],
+      "top3_hit": false,
+      "signer_id": "unknown",
+      "session_id": "play_1",
       "source": "unknown",
       "split": "val"
     },
     {
       "clip": "year_1.json",
       "true_label": "YEAR",
-      "pred_label": "SCHOOL",
-      "confidence": 0.3403104841709137,
+      "pred_label": "HOW",
+      "confidence": 0.30336794257164,
       "correct": false,
       "top3_labels": [
-        "SCHOOL",
-        "WATER",
-        "HOW"
+        "HOW",
+        "LIKE",
+        "LATER"
       ],
       "top3_hit": false,
       "signer_id": "unknown",
@@ -249,70 +252,36 @@
       "split": "val"
     },
     {
-      "clip": "want_2.json",
-      "true_label": "WANT",
-      "pred_label": "NOW",
-      "confidence": 0.3378472626209259,
+      "clip": "water_1.json",
+      "true_label": "WATER",
+      "pred_label": "ME",
+      "confidence": 0.24461643397808075,
       "correct": false,
       "top3_labels": [
-        "NOW",
-        "FAMILY",
-        "WORK"
+        "ME",
+        "LATER",
+        "WOMAN"
       ],
       "top3_hit": false,
       "signer_id": "unknown",
-      "session_id": "want_2",
+      "session_id": "water_1",
       "source": "unknown",
       "split": "val"
     },
     {
-      "clip": "time_1.json",
-      "true_label": "TIME",
-      "pred_label": "SCHOOL",
-      "confidence": 0.22146643698215485,
+      "clip": "yes_1.json",
+      "true_label": "YES",
+      "pred_label": "LIKE",
+      "confidence": 0.22429870069026947,
       "correct": false,
       "top3_labels": [
-        "SCHOOL",
         "LIKE",
-        "DRINK"
+        "DRINK",
+        "NEED"
       ],
       "top3_hit": false,
       "signer_id": "unknown",
-      "session_id": "time_1",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "man_1.json",
-      "true_label": "MAN",
-      "pred_label": "WOMAN",
-      "confidence": 0.18594291806221008,
-      "correct": false,
-      "top3_labels": [
-        "WOMAN",
-        "THANK_YOU",
-        "DRINK"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "man_1",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
-      "clip": "later_1.json",
-      "true_label": "LATER",
-      "pred_label": "THANK_YOU",
-      "confidence": 0.13768988847732544,
-      "correct": false,
-      "top3_labels": [
-        "THANK_YOU",
-        "GIVE",
-        "WANT"
-      ],
-      "top3_hit": false,
-      "signer_id": "unknown",
-      "session_id": "later_1",
+      "session_id": "yes_1",
       "source": "unknown",
       "split": "val"
     }
@@ -330,11 +299,14 @@
     "FAMILY": {
       "FAMILY": 1
     },
+    "FINISH": {
+      "FINISH": 2
+    },
     "FORGET": {
-      "DRINK": 1
+      "GIVE": 1
     },
     "GIVE": {
-      "FAMILY": 1
+      "NO": 1
     },
     "GO": {
       "GO": 1
@@ -346,7 +318,7 @@
       "HELP": 1
     },
     "LATER": {
-      "THANK_YOU": 1
+      "LATER": 1
     },
     "LIKE": {
       "LIKE": 1
@@ -358,58 +330,59 @@
       "ME": 1
     },
     "MOTHER": {
-      "DRINK": 1
+      "WATER": 1
     },
     "NEED": {
       "NEED": 1
     },
     "NO": {
-      "NEED": 1
+      "ME": 1
     },
     "NOW": {
-      "FINISH": 1
+      "WANT": 1,
+      "NOW": 1
     },
     "PLAY": {
-      "WHAT": 1
+      "WANT": 1
     },
     "SCHOOL": {
       "SCHOOL": 1
     },
     "THANK_YOU": {
-      "DRINK": 1
+      "GIVE": 1
     },
     "TIME": {
-      "SCHOOL": 1
+      "WORK": 1
     },
     "WAIT": {
-      "WAIT": 1
+      "GIVE": 1
     },
     "WANT": {
-      "NOW": 1
+      "WHAT": 1
     },
     "WATER": {
-      "MAN": 1
+      "ME": 1
     },
     "WHAT": {
-      "PLAY": 1
+      "WHAT": 1
     },
     "WHERE": {
       "WHERE": 1
     },
     "WHO": {
-      "LIKE": 1
+      "MOTHER": 1
     },
     "WOMAN": {
-      "THANK_YOU": 1
+      "WOMAN": 1
     },
     "WORK": {
-      "LIKE": 1
+      "BROTHER": 1
     },
     "YEAR": {
-      "SCHOOL": 1
+      "HOW": 1
     },
     "YES": {
-      "NO": 1
+      "LIKE": 1
     },
     "YOU": {
       "YOU": 1
@@ -436,6 +409,11 @@
       "correct": 1,
       "accuracy": 1.0
     },
+    "FINISH": {
+      "total": 2,
+      "correct": 2,
+      "accuracy": 1.0
+    },
     "FORGET": {
       "total": 1,
       "correct": 0,
@@ -463,8 +441,8 @@
     },
     "LATER": {
       "total": 1,
-      "correct": 0,
-      "accuracy": 0.0
+      "correct": 1,
+      "accuracy": 1.0
     },
     "LIKE": {
       "total": 1,
@@ -497,9 +475,9 @@
       "accuracy": 0.0
     },
     "NOW": {
-      "total": 1,
-      "correct": 0,
-      "accuracy": 0.0
+      "total": 2,
+      "correct": 1,
+      "accuracy": 0.5
     },
     "PLAY": {
       "total": 1,
@@ -523,8 +501,8 @@
     },
     "WAIT": {
       "total": 1,
-      "correct": 1,
-      "accuracy": 1.0
+      "correct": 0,
+      "accuracy": 0.0
     },
     "WANT": {
       "total": 1,
@@ -538,8 +516,8 @@
     },
     "WHAT": {
       "total": 1,
-      "correct": 0,
-      "accuracy": 0.0
+      "correct": 1,
+      "accuracy": 1.0
     },
     "WHERE": {
       "total": 1,
@@ -553,8 +531,8 @@
     },
     "WOMAN": {
       "total": 1,
-      "correct": 0,
-      "accuracy": 0.0
+      "correct": 1,
+      "accuracy": 1.0
     },
     "WORK": {
       "total": 1,
@@ -578,15 +556,10 @@
     }
   },
   "per_signer_accuracy": {
-    "1": {
-      "total": 2,
-      "correct": 0,
-      "accuracy": 0.0
-    },
     "unknown": {
-      "total": 30,
-      "correct": 14,
-      "accuracy": 0.4666666666666667
+      "total": 35,
+      "correct": 19,
+      "accuracy": 0.5428571428571428
     }
   }
 }

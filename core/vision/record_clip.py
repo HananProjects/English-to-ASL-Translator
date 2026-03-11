@@ -2,6 +2,7 @@ import argparse
 import json
 import re
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import cv2
@@ -27,44 +28,89 @@ def _parse_args():
         action="store_true",
         help="Record frames even when no hand landmarks are detected."
     )
+    parser.add_argument(
+        "--session-id",
+        default="",
+        help="Optional session tag stored in clip metadata, e.g. prof_demo_round1",
+    )
+    parser.add_argument(
+        "--signer-id",
+        default="",
+        help="Optional signer tag stored in clip metadata, e.g. hanan",
+    )
     return parser.parse_args()
 
 
-def _default_clip_path(sign: str) -> Path:
+def _clips_dir() -> Path:
     repo_root = Path(__file__).resolve().parents[2]
-    return repo_root / "ui" / "animation" / "clips" / f"{sign.lower()}.json"
+    return repo_root / "ui" / "animation" / "clips"
 
 
-def _next_numbered_sign_name(sign: str) -> str:
-    """
-    hello_1 -> hello_2
-    hello -> hello_2
-    thank_you_3 -> thank_you_4
-    """
+def _split_sign_name(sign: str) -> tuple[str, int | None]:
     m = re.match(r"^(.*?)(?:_(\d+))?$", sign.strip().lower())
     if not m:
-        return sign.strip().lower()
+        return sign.strip().lower(), None
     base = (m.group(1) or sign).strip("_")
     num = m.group(2)
-    if num is None:
-        return f"{base}_2"
-    return f"{base}_{int(num) + 1}"
+    return base, (int(num) if num is not None else None)
 
 
-def _save_clip(clip_path: Path, fps: int, frames: list) -> bool:
+def _resolve_clip_name(sign: str) -> str:
+    clips_dir = _clips_dir()
+    clips_dir.mkdir(parents=True, exist_ok=True)
+    base, explicit_num = _split_sign_name(sign)
+    if explicit_num is not None:
+        return f"{base}_{explicit_num}"
+
+    pattern = re.compile(rf"^{re.escape(base)}_(\d+)\.json$")
+    highest = 0
+    for path in clips_dir.glob(f"{base}_*.json"):
+        match = pattern.match(path.name)
+        if match:
+            highest = max(highest, int(match.group(1)))
+    return f"{base}_{highest + 1}"
+
+
+def _clip_path_for_name(clip_name: str) -> Path:
+    return _clips_dir() / f"{clip_name.lower()}.json"
+
+
+def _next_clip_name_for_same_sign(current_clip_name: str) -> str:
+    base, num = _split_sign_name(current_clip_name)
+    return f"{base}_{(num or 1) + 1}"
+
+
+def _save_clip(
+    clip_path: Path,
+    fps: int,
+    frames: list,
+    sign_label: str,
+    clip_name: str,
+    session_id: str,
+    signer_id: str,
+) -> bool:
     if not frames:
         print("No frames recorded yet.")
         return False
+    metadata = {
+        "label": sign_label.upper(),
+        "clip_name": clip_name,
+        "session_id": session_id or clip_name,
+        "signer_id": signer_id or "unknown",
+        "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
+        "source": "record_clip",
+    }
     with open(clip_path, "w", encoding="utf-8") as f:
-        json.dump({"fps": fps, "frames": frames}, f, indent=2)
+        json.dump({"fps": fps, "frames": frames, "metadata": metadata}, f, indent=2)
     print(f"Saved {len(frames)} frames to {clip_path}")
     return True
 
 
 def main():
     args = _parse_args()
-    current_sign = args.sign.strip().lower()
-    clip_path = _default_clip_path(current_sign)
+    current_label = args.sign.strip().lower()
+    current_clip_name = _resolve_clip_name(current_label)
+    clip_path = _clip_path_for_name(current_clip_name)
     clip_path.parent.mkdir(parents=True, exist_ok=True)
 
     cap = cv2.VideoCapture(args.camera_index)
@@ -136,7 +182,7 @@ def main():
         status = "RECORDING" if recording else "IDLE"
         cv2.putText(
             frame,
-            f"{current_sign.upper()} | {status} | frames={len(frames)} | fps={args.fps}",
+            f"{current_clip_name.upper()} | {status} | frames={len(frames)} | fps={args.fps}",
             (10, 30),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.65,
@@ -176,14 +222,30 @@ def main():
             frames.clear()
             print("Cleared frames.")
         elif key == ord("s"):
-            _save_clip(clip_path, args.fps, frames)
+            _save_clip(
+                clip_path,
+                args.fps,
+                frames,
+                sign_label=current_label,
+                clip_name=current_clip_name,
+                session_id=args.session_id.strip(),
+                signer_id=args.signer_id.strip(),
+            )
         elif key == ord("i"):
-            if not _save_clip(clip_path, args.fps, frames):
+            if not _save_clip(
+                clip_path,
+                args.fps,
+                frames,
+                sign_label=current_label,
+                clip_name=current_clip_name,
+                session_id=args.session_id.strip(),
+                signer_id=args.signer_id.strip(),
+            ):
                 continue
             frames.clear()
             recording = False
-            current_sign = _next_numbered_sign_name(current_sign)
-            clip_path = _default_clip_path(current_sign)
+            current_clip_name = _next_clip_name_for_same_sign(current_clip_name)
+            clip_path = _clip_path_for_name(current_clip_name)
             clip_path.parent.mkdir(parents=True, exist_ok=True)
             print(f"Auto-incremented target clip: {clip_path}")
         elif key == ord("n"):
@@ -193,10 +255,11 @@ def main():
             frames.clear()
             next_sign = input("Enter next sign name: ").strip().lower()
             if not next_sign:
-                print(f"Sign unchanged: {current_sign}")
+                print(f"Sign unchanged: {current_label}")
                 continue
-            current_sign = next_sign
-            clip_path = _default_clip_path(current_sign)
+            current_label = next_sign
+            current_clip_name = _resolve_clip_name(current_label)
+            clip_path = _clip_path_for_name(current_clip_name)
             clip_path.parent.mkdir(parents=True, exist_ok=True)
             print(f"Target clip switched to: {clip_path}")
         elif key == ord("q"):

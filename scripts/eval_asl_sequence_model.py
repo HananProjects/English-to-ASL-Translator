@@ -41,6 +41,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional newline-separated uppercase label whitelist.",
     )
+    p.add_argument(
+        "--reject-below-confidence",
+        type=float,
+        default=0.0,
+        help="Treat predictions below this confidence as UNKNOWN.",
+    )
     return p.parse_args()
 
 
@@ -85,6 +91,7 @@ def main() -> None:
     per_signer_totals: Dict[str, int] = {}
     per_signer_correct: Dict[str, int] = {}
     top3_correct = 0
+    rejected = 0
 
     for sample in samples:
         try:
@@ -106,6 +113,9 @@ def main() -> None:
         conf = float(prob_row[pred_idx])
         top3 = top_k_indices(prob_row, 3)
         top3_labels = [model.labels[idx] for idx in top3]
+        if conf < args.reject_below_confidence:
+            pred_label = "UNKNOWN"
+            rejected += 1
         correct = pred_label == sample.label
         top3_hit = sample.label in top3_labels
 
@@ -183,6 +193,9 @@ def main() -> None:
         "correct": correct,
         "accuracy": acc,
         "top3_accuracy": top3_acc,
+        "reject_below_confidence": args.reject_below_confidence,
+        "rejected": rejected,
+        "rejection_rate": (rejected / total) if total else 0.0,
         "label_count": len(model.labels),
         "unknown_true_labels_not_in_model": unknown_true,
         "top_errors": top_errors,
@@ -196,7 +209,7 @@ def main() -> None:
 
     print(
         f"total={total} correct={correct} acc={acc:.3f} top3_acc={top3_acc:.3f} "
-        f"split={evaluated_split}"
+        f"rejected={rejected} split={evaluated_split}"
     )
     if unknown_true:
         print("unknown_true_labels_not_in_model:", ", ".join(unknown_true))
