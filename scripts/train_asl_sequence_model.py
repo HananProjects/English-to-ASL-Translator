@@ -1,34 +1,19 @@
 import argparse
 import json
+import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 import numpy as np
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CLIPS_DIR = REPO_ROOT / "ui" / "animation" / "clips"
 DEFAULT_OUT = REPO_ROOT / "models" / "asl_landmark_classifier_v2.npz"
 
-JOINT_KEYS: Tuple[str, ...] = (
-    "head",
-    "shoulder_left",
-    "elbow_left",
-    "hand_left",
-    "shoulder_right",
-    "elbow_right",
-    "hand_right",
-    "left_thumb_tip",
-    "left_index_tip",
-    "left_middle_tip",
-    "left_ring_tip",
-    "left_pinky_tip",
-    "right_thumb_tip",
-    "right_index_tip",
-    "right_middle_tip",
-    "right_ring_tip",
-    "right_pinky_tip",
-)
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from core.asl_to_english.dataset_utils import load_clip_samples, load_clip_sequence, split_samples
 
 
 def parse_args() -> argparse.Namespace:
@@ -55,95 +40,18 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional newline-separated uppercase label whitelist.",
     )
+    p.add_argument(
+        "--manifest",
+        type=Path,
+        default=None,
+        help="Optional manifest/metadata JSON with sample-level split and signer metadata.",
+    )
+    p.add_argument(
+        "--group-by-signer",
+        action="store_true",
+        help="Keep same-signer samples together during train/val splitting when possible.",
+    )
     return p.parse_args()
-
-
-def normalize_pose(pose: Dict[str, Tuple[float, float]]) -> Dict[str, Tuple[float, float]]:
-    shoulder_left = pose.get("shoulder_left")
-    shoulder_right = pose.get("shoulder_right")
-    torso = pose.get("torso")
-    if torso is None:
-        if shoulder_left and shoulder_right:
-            torso = (
-                (shoulder_left[0] + shoulder_right[0]) / 2.0,
-                (shoulder_left[1] + shoulder_right[1]) / 2.0,
-            )
-        elif shoulder_left:
-            torso = shoulder_left
-        elif shoulder_right:
-            torso = shoulder_right
-        else:
-            torso = (0.5, 0.5)
-
-    scale = 0.25
-    if shoulder_left and shoulder_right:
-        scale = float(np.linalg.norm(np.asarray(shoulder_left) - np.asarray(shoulder_right)))
-        if scale < 1e-4:
-            scale = 0.25
-
-    out: Dict[str, Tuple[float, float]] = {}
-    for key in JOINT_KEYS:
-        pt = pose.get(key)
-        if pt is None:
-            continue
-        out[key] = ((pt[0] - torso[0]) / scale, (pt[1] - torso[1]) / scale)
-    return out
-
-
-def pose_to_feature_vector(pose: Dict[str, Tuple[float, float]]) -> np.ndarray:
-    n = normalize_pose(pose)
-    feat: List[float] = []
-    for key in JOINT_KEYS:
-        pt = n.get(key)
-        if pt is None:
-            feat.extend([0.0, 0.0])
-        else:
-            feat.extend([float(pt[0]), float(pt[1])])
-    x = np.asarray(feat, dtype=np.float32)
-    x = np.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0)
-    return np.clip(x, -20.0, 20.0)
-
-
-def sample_frame_indices(frame_count: int, seq_len: int) -> np.ndarray:
-    if frame_count <= 0:
-        return np.zeros((seq_len,), dtype=np.int32)
-    if frame_count == 1:
-        return np.zeros((seq_len,), dtype=np.int32)
-    return np.linspace(0, frame_count - 1, seq_len).round().astype(np.int32)
-
-
-def load_clip_sequence(path: Path, seq_len: int) -> np.ndarray:
-    with open(path, "r", encoding="utf-8") as f:
-        clip = json.load(f)
-    frames = clip.get("frames", [])
-    if not isinstance(frames, list) or not frames:
-        raise ValueError(f"No frames in clip: {path}")
-    idx = sample_frame_indices(len(frames), seq_len)
-    seq = [pose_to_feature_vector(frames[i]) for i in idx]
-    x = np.stack(seq, axis=0)
-    return x
-
-
-def infer_label_from_clip_name(stem: str) -> str:
-    parts = stem.lower().split("_")
-    out = []
-    for p in parts:
-        if p.isdigit():
-            break
-        out.append(p)
-    if not out:
-        out = [parts[0]]
-    return "_".join(out).upper()
-
-
-def load_label_whitelist(path: Path) -> set[str]:
-    labels = set()
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        labels.add(line.upper())
-    return labels
 
 
 def build_dataset(
@@ -151,24 +59,25 @@ def build_dataset(
     seq_len: int,
     labels_file: Path | None,
     min_samples_per_label: int,
+    manifest_path: Path | None,
 ):
-    whitelist = load_label_whitelist(labels_file) if labels_file else None
-
     X_list: List[np.ndarray] = []
     y_tokens: List[str] = []
     counts: Dict[str, int] = {}
-    files = sorted(clips_dir.glob("*.json"))
-    for fp in files:
-        token = infer_label_from_clip_name(fp.stem)
-        if whitelist is not None and token not in whitelist:
-            continue
+    sample_records = []
+    for sample in load_clip_samples(
+        clips_dir=clips_dir,
+        labels_file=labels_file,
+        manifest_path=manifest_path,
+    ):
         try:
-            seq = load_clip_sequence(fp, seq_len=seq_len)
+            seq = load_clip_sequence(sample.path, seq_len=seq_len)
         except Exception:
             continue
         X_list.append(seq)
-        y_tokens.append(token)
-        counts[token] = counts.get(token, 0) + 1
+        y_tokens.append(sample.label)
+        sample_records.append(sample)
+        counts[sample.label] = counts.get(sample.label, 0) + 1
 
     if not X_list:
         raise RuntimeError("No training samples found from clips.")
@@ -184,10 +93,12 @@ def build_dataset(
 
     X_keep: List[np.ndarray] = []
     y_keep_tokens: List[str] = []
-    for x, token in zip(X_list, y_tokens):
+    sample_keep = []
+    for x, token, sample in zip(X_list, y_tokens, sample_records):
         if token in keep_labels:
             X_keep.append(x)
             y_keep_tokens.append(token)
+            sample_keep.append(sample)
 
     if not X_keep:
         raise RuntimeError("No samples left after min-samples-per-label filter.")
@@ -197,19 +108,7 @@ def build_dataset(
     y = np.asarray([label_to_idx[t] for t in y_keep_tokens], dtype=np.int64)
     X = np.stack(X_keep, axis=0).astype(np.float32)
     kept_counts = {lab: counts[lab] for lab in labels}
-    return X, y, labels, kept_counts, dropped
-
-
-def train_val_split(X: np.ndarray, y: np.ndarray, val_split: float, seed: int):
-    n = X.shape[0]
-    rng = np.random.default_rng(seed)
-    idx = np.arange(n)
-    rng.shuffle(idx)
-    n_val = int(max(1, round(n * val_split))) if n >= 5 else 1
-    n_val = min(n_val, n - 1) if n > 1 else 0
-    val_idx = idx[:n_val]
-    tr_idx = idx[n_val:]
-    return X[tr_idx], y[tr_idx], X[val_idx], y[val_idx]
+    return X, y, labels, kept_counts, dropped, sample_keep
 
 
 def softmax(logits: np.ndarray) -> np.ndarray:
@@ -232,15 +131,52 @@ def accuracy(logits: np.ndarray, y: np.ndarray) -> float:
     return float((pred == y).mean())
 
 
+def build_split_manifest(
+    samples,
+    train_idx: List[int],
+    val_idx: List[int],
+    labels: List[str],
+    kept_counts: Dict[str, int],
+    dropped,
+    args: argparse.Namespace,
+):
+    split_by_index = {idx: "train" for idx in train_idx}
+    split_by_index.update({idx: "val" for idx in val_idx})
+    manifest_samples = []
+    for idx, sample in enumerate(samples):
+        manifest_samples.append(
+            {
+                "clip": sample.clip_name,
+                "path": str(sample.path),
+                "label": sample.label,
+                "signer_id": sample.signer_id,
+                "session_id": sample.session_id,
+                "source": sample.source,
+                "split": split_by_index.get(idx, sample.split or "train"),
+            }
+        )
+    return {
+        "clips_dir": str(args.clips_dir),
+        "labels_file": str(args.labels_file) if args.labels_file else None,
+        "source_manifest": str(args.manifest) if args.manifest else None,
+        "seq_len": args.seq_len,
+        "labels": labels,
+        "counts": kept_counts,
+        "dropped_labels": [{"label": label, "count": count} for label, count in dropped],
+        "samples": manifest_samples,
+    }
+
+
 def main() -> None:
     args = parse_args()
     np.random.seed(args.seed)
 
-    X, y, labels, kept_counts, dropped = build_dataset(
+    X, y, labels, kept_counts, dropped, samples = build_dataset(
         args.clips_dir,
         args.seq_len,
         args.labels_file,
         args.min_samples_per_label,
+        args.manifest,
     )
     n, seq_len, feat_dim = X.shape
     n_classes = len(labels)
@@ -254,8 +190,22 @@ def main() -> None:
     Xn = np.clip(Xn, -8.0, 8.0).astype(np.float32)
     Xn = np.nan_to_num(Xn, nan=0.0, posinf=0.0, neginf=0.0)
 
-    Xtr, ytr, Xva, yva = train_val_split(Xn, y, args.val_split, args.seed)
+    train_idx, val_idx = split_samples(
+        samples=samples,
+        val_ratio=args.val_split,
+        seed=args.seed,
+        group_by_signer=args.group_by_signer,
+    )
+    Xtr = Xn[train_idx]
+    ytr = y[train_idx]
+    Xva = Xn[val_idx] if val_idx else np.zeros((0, Xn.shape[1]), dtype=np.float32)
+    yva = y[val_idx] if val_idx else np.zeros((0,), dtype=np.int64)
     Ytr = one_hot(ytr, n_classes)
+
+    print(
+        f"[split] train={len(train_idx)} val={len(val_idx)} "
+        f"group_by_signer={'yes' if args.group_by_signer else 'no'}"
+    )
 
     rng = np.random.default_rng(args.seed)
     W = (rng.normal(0, 0.02, size=(flat_dim, n_classes))).astype(np.float32)
@@ -302,7 +252,19 @@ def main() -> None:
         seq_len=np.asarray(seq_len, dtype=np.int32),
         feature_dim=np.asarray(feat_dim, dtype=np.int32),
     )
+    split_manifest = build_split_manifest(
+        samples=samples,
+        train_idx=train_idx,
+        val_idx=val_idx,
+        labels=labels,
+        kept_counts=kept_counts,
+        dropped=dropped,
+        args=args,
+    )
+    split_manifest_path = args.out.with_suffix(".manifest.json")
+    split_manifest_path.write_text(json.dumps(split_manifest, indent=2), encoding="utf-8")
     print(f"Saved model: {args.out}")
+    print(f"Saved split manifest: {split_manifest_path}")
     print(f"labels={len(labels)} seq_len={seq_len} feature_dim={feat_dim}")
     print(f"kept_labels={len(labels)} min_samples_per_label={args.min_samples_per_label}")
     if dropped:

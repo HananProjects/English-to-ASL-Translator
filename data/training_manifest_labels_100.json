@@ -1,0 +1,1134 @@
+{
+  "clips_dir": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips",
+  "labels_file": "data\\labels_100.txt",
+  "total_clips": 119,
+  "total_labels": 34,
+  "min_samples_per_label": 2,
+  "sparse_labels": [],
+  "coverage": [
+    {
+      "label": "BROTHER",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "DRINK",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "EAT",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "FAMILY",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "FINISH",
+      "count": 2,
+      "unique_signers": 0
+    },
+    {
+      "label": "FORGET",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "GIVE",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "GO",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "HELLO",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "HELP",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "HOW",
+      "count": 2,
+      "unique_signers": 0
+    },
+    {
+      "label": "LATER",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "LIKE",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "MAN",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "ME",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "MOTHER",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "NEED",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "NO",
+      "count": 4,
+      "unique_signers": 1
+    },
+    {
+      "label": "NOW",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "PLAY",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "SCHOOL",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "THANK_YOU",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "TIME",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "WAIT",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "WANT",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "WATER",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "WHAT",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "WHERE",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "WHO",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "WOMAN",
+      "count": 4,
+      "unique_signers": 0
+    },
+    {
+      "label": "WORK",
+      "count": 4,
+      "unique_signers": 1
+    },
+    {
+      "label": "YEAR",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "YES",
+      "count": 3,
+      "unique_signers": 0
+    },
+    {
+      "label": "YOU",
+      "count": 4,
+      "unique_signers": 0
+    }
+  ],
+  "samples": [
+    {
+      "clip": "brother_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_1.json",
+      "label": "BROTHER",
+      "signer_id": "unknown",
+      "session_id": "brother_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "brother_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_2.json",
+      "label": "BROTHER",
+      "signer_id": "unknown",
+      "session_id": "brother_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "brother_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_4.json",
+      "label": "BROTHER",
+      "signer_id": "unknown",
+      "session_id": "brother_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "brother_5",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_5.json",
+      "label": "BROTHER",
+      "signer_id": "unknown",
+      "session_id": "brother_5",
+      "source": "unknown"
+    },
+    {
+      "clip": "drink",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink.json",
+      "label": "DRINK",
+      "signer_id": "unknown",
+      "session_id": "drink",
+      "source": "unknown"
+    },
+    {
+      "clip": "drink_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink_1.json",
+      "label": "DRINK",
+      "signer_id": "unknown",
+      "session_id": "drink_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "drink_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink_2.json",
+      "label": "DRINK",
+      "signer_id": "unknown",
+      "session_id": "drink_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "drink_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink_3.json",
+      "label": "DRINK",
+      "signer_id": "unknown",
+      "session_id": "drink_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "eat_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_2.json",
+      "label": "EAT",
+      "signer_id": "unknown",
+      "session_id": "eat_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "eat_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_3.json",
+      "label": "EAT",
+      "signer_id": "unknown",
+      "session_id": "eat_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "eat_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_4.json",
+      "label": "EAT",
+      "signer_id": "unknown",
+      "session_id": "eat_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "eat_5",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_5.json",
+      "label": "EAT",
+      "signer_id": "unknown",
+      "session_id": "eat_5",
+      "source": "unknown"
+    },
+    {
+      "clip": "family_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\family_1.json",
+      "label": "FAMILY",
+      "signer_id": "unknown",
+      "session_id": "family_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "family_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\family_2.json",
+      "label": "FAMILY",
+      "signer_id": "unknown",
+      "session_id": "family_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "family_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\family_3.json",
+      "label": "FAMILY",
+      "signer_id": "unknown",
+      "session_id": "family_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish",
+      "source": "unknown"
+    },
+    {
+      "clip": "finish_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_2.json",
+      "label": "FINISH",
+      "signer_id": "unknown",
+      "session_id": "finish_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "forget_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_1.json",
+      "label": "FORGET",
+      "signer_id": "unknown",
+      "session_id": "forget_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "forget_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_2.json",
+      "label": "FORGET",
+      "signer_id": "unknown",
+      "session_id": "forget_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "forget_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_3.json",
+      "label": "FORGET",
+      "signer_id": "unknown",
+      "session_id": "forget_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "give_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_1.json",
+      "label": "GIVE",
+      "signer_id": "unknown",
+      "session_id": "give_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "give_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_2.json",
+      "label": "GIVE",
+      "signer_id": "unknown",
+      "session_id": "give_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "give_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_3.json",
+      "label": "GIVE",
+      "signer_id": "unknown",
+      "session_id": "give_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "go_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_1.json",
+      "label": "GO",
+      "signer_id": "unknown",
+      "session_id": "go_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "go_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_3.json",
+      "label": "GO",
+      "signer_id": "unknown",
+      "session_id": "go_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "go_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_4.json",
+      "label": "GO",
+      "signer_id": "unknown",
+      "session_id": "go_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "go_5",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_5.json",
+      "label": "GO",
+      "signer_id": "unknown",
+      "session_id": "go_5",
+      "source": "unknown"
+    },
+    {
+      "clip": "hello",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello.json",
+      "label": "HELLO",
+      "signer_id": "unknown",
+      "session_id": "hello",
+      "source": "unknown"
+    },
+    {
+      "clip": "hello_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello_1.json",
+      "label": "HELLO",
+      "signer_id": "unknown",
+      "session_id": "hello_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "hello_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello_2.json",
+      "label": "HELLO",
+      "signer_id": "unknown",
+      "session_id": "hello_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "hello_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello_3.json",
+      "label": "HELLO",
+      "signer_id": "unknown",
+      "session_id": "hello_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "help_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_1.json",
+      "label": "HELP",
+      "signer_id": "unknown",
+      "session_id": "help_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "help_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_2.json",
+      "label": "HELP",
+      "signer_id": "unknown",
+      "session_id": "help_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "help_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_3.json",
+      "label": "HELP",
+      "signer_id": "unknown",
+      "session_id": "help_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "help_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_4.json",
+      "label": "HELP",
+      "signer_id": "unknown",
+      "session_id": "help_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "how",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\how.json",
+      "label": "HOW",
+      "signer_id": "unknown",
+      "session_id": "how",
+      "source": "unknown"
+    },
+    {
+      "clip": "how_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\how_1.json",
+      "label": "HOW",
+      "signer_id": "unknown",
+      "session_id": "how_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "later_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_1.json",
+      "label": "LATER",
+      "signer_id": "unknown",
+      "session_id": "later_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "later_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_2.json",
+      "label": "LATER",
+      "signer_id": "unknown",
+      "session_id": "later_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "later_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_3.json",
+      "label": "LATER",
+      "signer_id": "unknown",
+      "session_id": "later_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "later_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_4.json",
+      "label": "LATER",
+      "signer_id": "unknown",
+      "session_id": "later_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "like_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_1.json",
+      "label": "LIKE",
+      "signer_id": "unknown",
+      "session_id": "like_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "like_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_2.json",
+      "label": "LIKE",
+      "signer_id": "unknown",
+      "session_id": "like_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "like_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_3.json",
+      "label": "LIKE",
+      "signer_id": "unknown",
+      "session_id": "like_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "like_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_4.json",
+      "label": "LIKE",
+      "signer_id": "unknown",
+      "session_id": "like_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "man",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man.json",
+      "label": "MAN",
+      "signer_id": "unknown",
+      "session_id": "man",
+      "source": "unknown"
+    },
+    {
+      "clip": "man_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_1.json",
+      "label": "MAN",
+      "signer_id": "unknown",
+      "session_id": "man_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "man_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_2.json",
+      "label": "MAN",
+      "signer_id": "unknown",
+      "session_id": "man_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "man_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_3.json",
+      "label": "MAN",
+      "signer_id": "unknown",
+      "session_id": "man_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "me",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me.json",
+      "label": "ME",
+      "signer_id": "unknown",
+      "session_id": "me",
+      "source": "unknown"
+    },
+    {
+      "clip": "me_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_1.json",
+      "label": "ME",
+      "signer_id": "unknown",
+      "session_id": "me_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "me_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_2.json",
+      "label": "ME",
+      "signer_id": "unknown",
+      "session_id": "me_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "me_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_3.json",
+      "label": "ME",
+      "signer_id": "unknown",
+      "session_id": "me_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "mother_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_1.json",
+      "label": "MOTHER",
+      "signer_id": "unknown",
+      "session_id": "mother_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "mother_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_2.json",
+      "label": "MOTHER",
+      "signer_id": "unknown",
+      "session_id": "mother_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "mother_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_3.json",
+      "label": "MOTHER",
+      "signer_id": "unknown",
+      "session_id": "mother_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "need_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_1.json",
+      "label": "NEED",
+      "signer_id": "unknown",
+      "session_id": "need_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "need_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_2.json",
+      "label": "NEED",
+      "signer_id": "unknown",
+      "session_id": "need_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "need_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_3.json",
+      "label": "NEED",
+      "signer_id": "unknown",
+      "session_id": "need_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "need_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_4.json",
+      "label": "NEED",
+      "signer_id": "unknown",
+      "session_id": "need_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "no_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_1.json",
+      "label": "NO",
+      "signer_id": "unknown",
+      "session_id": "no_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "no_1_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_1_2.json",
+      "label": "NO",
+      "signer_id": "1",
+      "session_id": "no_1_2",
+      "source": "team"
+    },
+    {
+      "clip": "no_1_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_1_3.json",
+      "label": "NO",
+      "signer_id": "1",
+      "session_id": "no_1_3",
+      "source": "team"
+    },
+    {
+      "clip": "no_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_3.json",
+      "label": "NO",
+      "signer_id": "unknown",
+      "session_id": "no_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "now",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_1.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "now_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_2.json",
+      "label": "NOW",
+      "signer_id": "unknown",
+      "session_id": "now_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "play_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\play_1.json",
+      "label": "PLAY",
+      "signer_id": "unknown",
+      "session_id": "play_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "play_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\play_2.json",
+      "label": "PLAY",
+      "signer_id": "unknown",
+      "session_id": "play_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "play_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\play_3.json",
+      "label": "PLAY",
+      "signer_id": "unknown",
+      "session_id": "play_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "school_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_1.json",
+      "label": "SCHOOL",
+      "signer_id": "unknown",
+      "session_id": "school_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "school_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_2.json",
+      "label": "SCHOOL",
+      "signer_id": "unknown",
+      "session_id": "school_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "school_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_3.json",
+      "label": "SCHOOL",
+      "signer_id": "unknown",
+      "session_id": "school_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "school_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_4.json",
+      "label": "SCHOOL",
+      "signer_id": "unknown",
+      "session_id": "school_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "thank_you",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you.json",
+      "label": "THANK_YOU",
+      "signer_id": "unknown",
+      "session_id": "thank_you",
+      "source": "unknown"
+    },
+    {
+      "clip": "thank_you_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_1.json",
+      "label": "THANK_YOU",
+      "signer_id": "unknown",
+      "session_id": "thank_you_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "thank_you_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_3.json",
+      "label": "THANK_YOU",
+      "signer_id": "unknown",
+      "session_id": "thank_you_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "thank_you_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_4.json",
+      "label": "THANK_YOU",
+      "signer_id": "unknown",
+      "session_id": "thank_you_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "time_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_1.json",
+      "label": "TIME",
+      "signer_id": "unknown",
+      "session_id": "time_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "time_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_2.json",
+      "label": "TIME",
+      "signer_id": "unknown",
+      "session_id": "time_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "time_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_3.json",
+      "label": "TIME",
+      "signer_id": "unknown",
+      "session_id": "time_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "wait_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_1.json",
+      "label": "WAIT",
+      "signer_id": "unknown",
+      "session_id": "wait_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "wait_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_2.json",
+      "label": "WAIT",
+      "signer_id": "unknown",
+      "session_id": "wait_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "wait_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_3.json",
+      "label": "WAIT",
+      "signer_id": "unknown",
+      "session_id": "wait_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "wait_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_4.json",
+      "label": "WAIT",
+      "signer_id": "unknown",
+      "session_id": "wait_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "want_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_1.json",
+      "label": "WANT",
+      "signer_id": "unknown",
+      "session_id": "want_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "want_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_2.json",
+      "label": "WANT",
+      "signer_id": "unknown",
+      "session_id": "want_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "want_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_3.json",
+      "label": "WANT",
+      "signer_id": "unknown",
+      "session_id": "want_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "water_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_1.json",
+      "label": "WATER",
+      "signer_id": "unknown",
+      "session_id": "water_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "water_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_2.json",
+      "label": "WATER",
+      "signer_id": "unknown",
+      "session_id": "water_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "water_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_3.json",
+      "label": "WATER",
+      "signer_id": "unknown",
+      "session_id": "water_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "what_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_1.json",
+      "label": "WHAT",
+      "signer_id": "unknown",
+      "session_id": "what_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "what_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_2.json",
+      "label": "WHAT",
+      "signer_id": "unknown",
+      "session_id": "what_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "what_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_3.json",
+      "label": "WHAT",
+      "signer_id": "unknown",
+      "session_id": "what_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "where",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where.json",
+      "label": "WHERE",
+      "signer_id": "unknown",
+      "session_id": "where",
+      "source": "unknown"
+    },
+    {
+      "clip": "where_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where_1.json",
+      "label": "WHERE",
+      "signer_id": "unknown",
+      "session_id": "where_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "where_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where_2.json",
+      "label": "WHERE",
+      "signer_id": "unknown",
+      "session_id": "where_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "where_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where_3.json",
+      "label": "WHERE",
+      "signer_id": "unknown",
+      "session_id": "where_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "who_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\who_1.json",
+      "label": "WHO",
+      "signer_id": "unknown",
+      "session_id": "who_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "who_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\who_2.json",
+      "label": "WHO",
+      "signer_id": "unknown",
+      "session_id": "who_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "who_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\who_3.json",
+      "label": "WHO",
+      "signer_id": "unknown",
+      "session_id": "who_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "woman_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_1.json",
+      "label": "WOMAN",
+      "signer_id": "unknown",
+      "session_id": "woman_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "woman_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_2.json",
+      "label": "WOMAN",
+      "signer_id": "unknown",
+      "session_id": "woman_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "woman_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_3.json",
+      "label": "WOMAN",
+      "signer_id": "unknown",
+      "session_id": "woman_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "woman_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_4.json",
+      "label": "WOMAN",
+      "signer_id": "unknown",
+      "session_id": "woman_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "work_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_1.json",
+      "label": "WORK",
+      "signer_id": "unknown",
+      "session_id": "work_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "work_1_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_1_2.json",
+      "label": "WORK",
+      "signer_id": "1",
+      "session_id": "work_1_2",
+      "source": "team"
+    },
+    {
+      "clip": "work_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_2.json",
+      "label": "WORK",
+      "signer_id": "unknown",
+      "session_id": "work_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "work_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_3.json",
+      "label": "WORK",
+      "signer_id": "unknown",
+      "session_id": "work_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "year_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\year_1.json",
+      "label": "YEAR",
+      "signer_id": "unknown",
+      "session_id": "year_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "year_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\year_2.json",
+      "label": "YEAR",
+      "signer_id": "unknown",
+      "session_id": "year_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "year_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\year_3.json",
+      "label": "YEAR",
+      "signer_id": "unknown",
+      "session_id": "year_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "yes_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\yes_1.json",
+      "label": "YES",
+      "signer_id": "unknown",
+      "session_id": "yes_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "yes_2",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\yes_2.json",
+      "label": "YES",
+      "signer_id": "unknown",
+      "session_id": "yes_2",
+      "source": "unknown"
+    },
+    {
+      "clip": "yes_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\yes_3.json",
+      "label": "YES",
+      "signer_id": "unknown",
+      "session_id": "yes_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "you_1",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_1.json",
+      "label": "YOU",
+      "signer_id": "unknown",
+      "session_id": "you_1",
+      "source": "unknown"
+    },
+    {
+      "clip": "you_3",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_3.json",
+      "label": "YOU",
+      "signer_id": "unknown",
+      "session_id": "you_3",
+      "source": "unknown"
+    },
+    {
+      "clip": "you_4",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_4.json",
+      "label": "YOU",
+      "signer_id": "unknown",
+      "session_id": "you_4",
+      "source": "unknown"
+    },
+    {
+      "clip": "you_5",
+      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_5.json",
+      "label": "YOU",
+      "signer_id": "unknown",
+      "session_id": "you_5",
+      "source": "unknown"
+    }
+  ]
+}
