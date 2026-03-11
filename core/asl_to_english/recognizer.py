@@ -8,6 +8,7 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
+from core.asl_to_english.features import pose_to_feature_vector
 from core.english_to_asl.dictionary.asl_signs import ASL_SIGNS
 
 PoseDict = Dict[str, Tuple[float, float]]
@@ -128,20 +129,6 @@ def normalize_pose(pose: PoseDict) -> PoseDict:
             (point[1] - torso[1]) / scale,
         )
     return normalized
-
-
-def pose_to_feature_vector(pose: PoseDict) -> np.ndarray:
-    normalized = normalize_pose(pose)
-    feat: List[float] = []
-    for key in JOINT_KEYS:
-        point = normalized.get(key)
-        if point is None:
-            feat.extend([0.0, 0.0])
-        else:
-            feat.extend([float(point[0]), float(point[1])])
-    vector = np.asarray(feat, dtype=np.float32)
-    vector = np.nan_to_num(vector, nan=0.0, posinf=0.0, neginf=0.0)
-    return np.clip(vector, -20.0, 20.0)
 
 
 def suppress_inactive_hand_noise(pose: PoseDict) -> PoseDict:
@@ -348,6 +335,7 @@ class ModelMatcher:
         self.seq_len = int(model["seq_len"])
         self.feature_dim = int(model["feature_dim"])
         self._buffer: List[np.ndarray] = []
+        self._prev_pose: Optional[PoseDict] = None
 
         if self.W.ndim != 2 or self.b.ndim != 1:
             raise ValueError("Invalid model parameter shapes")
@@ -377,7 +365,8 @@ class ModelMatcher:
             return None
 
     def match(self, pose: PoseDict) -> Tuple[Optional[str], float]:
-        frame_feat = pose_to_feature_vector(pose)
+        frame_feat = pose_to_feature_vector(pose, prev_pose=self._prev_pose)
+        self._prev_pose = pose
         if frame_feat.shape[0] != self.feature_dim:
             return None, 0.0
 
@@ -414,6 +403,7 @@ class ModelMatcher:
 
     def reset(self):
         self._buffer.clear()
+        self._prev_pose = None
 
 
 class HybridMatcher:

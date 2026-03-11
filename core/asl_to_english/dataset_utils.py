@@ -8,6 +8,8 @@ from typing import Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 
+from core.asl_to_english.features import pose_to_feature_vector
+
 PoseDict = Dict[str, Tuple[float, float]]
 
 JOINT_KEYS: Tuple[str, ...] = (
@@ -88,52 +90,6 @@ def load_label_whitelist(path: Path) -> set[str]:
     return labels
 
 
-def normalize_pose(pose: PoseDict) -> PoseDict:
-    shoulder_left = pose.get("shoulder_left")
-    shoulder_right = pose.get("shoulder_right")
-    torso = pose.get("torso")
-    if torso is None:
-        if shoulder_left and shoulder_right:
-            torso = (
-                (shoulder_left[0] + shoulder_right[0]) / 2.0,
-                (shoulder_left[1] + shoulder_right[1]) / 2.0,
-            )
-        elif shoulder_left:
-            torso = shoulder_left
-        elif shoulder_right:
-            torso = shoulder_right
-        else:
-            torso = (0.5, 0.5)
-
-    scale = 0.25
-    if shoulder_left and shoulder_right:
-        scale = float(np.linalg.norm(np.asarray(shoulder_left) - np.asarray(shoulder_right)))
-        if scale < 1e-4:
-            scale = 0.25
-
-    out: PoseDict = {}
-    for key in JOINT_KEYS:
-        pt = pose.get(key)
-        if pt is None:
-            continue
-        out[key] = ((pt[0] - torso[0]) / scale, (pt[1] - torso[1]) / scale)
-    return out
-
-
-def pose_to_feature_vector(pose: PoseDict) -> np.ndarray:
-    normalized = normalize_pose(pose)
-    feat: List[float] = []
-    for key in JOINT_KEYS:
-        pt = normalized.get(key)
-        if pt is None:
-            feat.extend([0.0, 0.0])
-        else:
-            feat.extend([float(pt[0]), float(pt[1])])
-    x = np.asarray(feat, dtype=np.float32)
-    x = np.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0)
-    return np.clip(x, -20.0, 20.0)
-
-
 def sample_frame_indices(frame_count: int, seq_len: int) -> np.ndarray:
     if frame_count <= 0:
         return np.zeros((seq_len,), dtype=np.int32)
@@ -148,7 +104,12 @@ def load_clip_sequence(path: Path, seq_len: int) -> np.ndarray:
     if not isinstance(frames, list) or not frames:
         raise ValueError(f"No frames in clip: {path}")
     idx = sample_frame_indices(len(frames), seq_len)
-    seq = [pose_to_feature_vector(frames[i]) for i in idx]
+    seq = []
+    prev_pose = None
+    for i in idx:
+        pose = frames[i]
+        seq.append(pose_to_feature_vector(pose, prev_pose=prev_pose))
+        prev_pose = pose
     return np.stack(seq, axis=0)
 
 

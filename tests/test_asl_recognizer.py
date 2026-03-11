@@ -1,5 +1,6 @@
 import numpy as np
 
+from core.asl_to_english.features import pose_to_feature_vector
 from core.asl_to_english.recognizer import (
     JOINT_KEYS,
     ModelMatcher,
@@ -95,7 +96,7 @@ def test_sign_stream_recognizer_does_not_repeat_same_token_while_held():
 
 def test_model_matcher_predicts_from_npz_model(tmp_path):
     seq_len = 3
-    feature_dim = len(JOINT_KEYS) * 2
+    feature_dim = int(pose_to_feature_vector({}).shape[0])
     classes = 2
 
     W = np.zeros((seq_len * feature_dim, classes), dtype=np.float32)
