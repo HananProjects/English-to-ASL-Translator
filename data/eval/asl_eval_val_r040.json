@@ -4,12 +4,12 @@
   "manifest": "models\\asl_landmark_classifier_v2.manifest.json",
   "evaluated_split": "val",
   "total_samples": 69,
-  "correct": 52,
-  "accuracy": 0.7536231884057971,
+  "correct": 53,
+  "accuracy": 0.7681159420289855,
   "top3_accuracy": 0.8695652173913043,
-  "reject_below_confidence": 0.55,
-  "rejected": 6,
-  "rejection_rate": 0.08695652173913043,
+  "reject_below_confidence": 0.4,
+  "rejected": 2,
+  "rejection_rate": 0.028985507246376812,
   "label_count": 34,
   "unknown_true_labels_not_in_model": [],
   "top_errors": [
@@ -201,26 +201,9 @@
       "split": "val"
     },
     {
-      "clip": "yes_2.json",
-      "true_label": "YES",
-      "pred_label": "UNKNOWN",
-      "confidence": 0.5181394219398499,
-      "correct": false,
-      "top3_labels": [
-        "YES",
-        "NEED",
-        "NO"
-      ],
-      "top3_hit": true,
-      "signer_id": "unknown",
-      "session_id": "yes_2",
-      "source": "unknown",
-      "split": "val"
-    },
-    {
       "clip": "finish_2.json",
       "true_label": "FINISH",
-      "pred_label": "UNKNOWN",
+      "pred_label": "WAIT",
       "confidence": 0.48432791233062744,
       "correct": false,
       "top3_labels": [
@@ -237,7 +220,7 @@
     {
       "clip": "drink.json",
       "true_label": "DRINK",
-      "pred_label": "UNKNOWN",
+      "pred_label": "WOMAN",
       "confidence": 0.44539856910705566,
       "correct": false,
       "top3_labels": [
@@ -254,7 +237,7 @@
     {
       "clip": "later_1.json",
       "true_label": "LATER",
-      "pred_label": "UNKNOWN",
+      "pred_label": "YOU",
       "confidence": 0.4216422438621521,
       "correct": false,
       "top3_labels": [
@@ -309,7 +292,7 @@
       "YEAR": 1
     },
     "DRINK": {
-      "UNKNOWN": 1
+      "WOMAN": 1
     },
     "EAT": {
       "EAT": 1
@@ -318,8 +301,7 @@
       "FAMILY": 1
     },
     "FINISH": {
-      "WAIT": 1,
-      "UNKNOWN": 1
+      "WAIT": 2
     },
     "FORGET": {
       "FORGET": 3
@@ -337,7 +319,7 @@
       "HELP": 1
     },
     "LATER": {
-      "UNKNOWN": 1
+      "YOU": 1
     },
     "LIKE": {
       "LIKE": 1
@@ -407,7 +389,7 @@
       "WORK": 1
     },
     "YES": {
-      "UNKNOWN": 1
+      "YES": 1
     },
     "YOU": {
       "NO": 1
@@ -571,8 +553,8 @@
     },
     "YES": {
       "total": 1,
-      "correct": 0,
-      "accuracy": 0.0
+      "correct": 1,
+      "accuracy": 1.0
     },
     "YOU": {
       "total": 1,
@@ -583,8 +565,8 @@
   "per_signer_accuracy": {
     "unknown": {
       "total": 69,
-      "correct": 52,
-      "accuracy": 0.7536231884057971
+      "correct": 53,
+      "accuracy": 0.7681159420289855
     }
   }
 }
