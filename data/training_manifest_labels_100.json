@@ -1,6 +1,6 @@
 {
-  "clips_dir": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips",
-  "labels_file": "data\\labels_100.txt",
+  "clips_dir": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips",
+  "labels_file": "data/labels_100.txt",
   "total_clips": 323,
   "total_labels": 34,
   "min_samples_per_label": 2,
@@ -180,7 +180,7 @@
   "samples": [
     {
       "clip": "brother_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_1.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_1",
@@ -188,7 +188,7 @@
     },
     {
       "clip": "brother_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_10.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_10",
@@ -196,7 +196,7 @@
     },
     {
       "clip": "brother_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_11.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_11",
@@ -204,7 +204,7 @@
     },
     {
       "clip": "brother_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_12.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_12",
@@ -212,7 +212,7 @@
     },
     {
       "clip": "brother_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_13.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_13",
@@ -220,7 +220,7 @@
     },
     {
       "clip": "brother_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_14.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_14",
@@ -228,7 +228,7 @@
     },
     {
       "clip": "brother_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_15.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_15",
@@ -236,7 +236,7 @@
     },
     {
       "clip": "brother_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_2.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_2",
@@ -244,7 +244,7 @@
     },
     {
       "clip": "brother_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_4.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_4",
@@ -252,7 +252,7 @@
     },
     {
       "clip": "brother_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_5.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_5",
@@ -260,7 +260,7 @@
     },
     {
       "clip": "brother_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_6.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_6",
@@ -268,7 +268,7 @@
     },
     {
       "clip": "brother_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_7.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_7",
@@ -276,7 +276,7 @@
     },
     {
       "clip": "brother_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_8.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_8",
@@ -284,7 +284,7 @@
     },
     {
       "clip": "brother_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\brother_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/brother_9.json",
       "label": "BROTHER",
       "signer_id": "unknown",
       "session_id": "brother_9",
@@ -292,7 +292,7 @@
     },
     {
       "clip": "drink",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/drink.json",
       "label": "DRINK",
       "signer_id": "unknown",
       "session_id": "drink",
@@ -300,7 +300,7 @@
     },
     {
       "clip": "drink_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/drink_1.json",
       "label": "DRINK",
       "signer_id": "unknown",
       "session_id": "drink_1",
@@ -308,7 +308,7 @@
     },
     {
       "clip": "drink_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/drink_2.json",
       "label": "DRINK",
       "signer_id": "unknown",
       "session_id": "drink_2",
@@ -316,7 +316,7 @@
     },
     {
       "clip": "drink_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\drink_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/drink_3.json",
       "label": "DRINK",
       "signer_id": "unknown",
       "session_id": "drink_3",
@@ -324,7 +324,7 @@
     },
     {
       "clip": "eat_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/eat_2.json",
       "label": "EAT",
       "signer_id": "unknown",
       "session_id": "eat_2",
@@ -332,7 +332,7 @@
     },
     {
       "clip": "eat_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/eat_3.json",
       "label": "EAT",
       "signer_id": "unknown",
       "session_id": "eat_3",
@@ -340,7 +340,7 @@
     },
     {
       "clip": "eat_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/eat_4.json",
       "label": "EAT",
       "signer_id": "unknown",
       "session_id": "eat_4",
@@ -348,7 +348,7 @@
     },
     {
       "clip": "eat_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\eat_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/eat_5.json",
       "label": "EAT",
       "signer_id": "unknown",
       "session_id": "eat_5",
@@ -356,7 +356,7 @@
     },
     {
       "clip": "family_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\family_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/family_1.json",
       "label": "FAMILY",
       "signer_id": "unknown",
       "session_id": "family_1",
@@ -364,7 +364,7 @@
     },
     {
       "clip": "family_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\family_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/family_2.json",
       "label": "FAMILY",
       "signer_id": "unknown",
       "session_id": "family_2",
@@ -372,7 +372,7 @@
     },
     {
       "clip": "family_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\family_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/family_3.json",
       "label": "FAMILY",
       "signer_id": "unknown",
       "session_id": "family_3",
@@ -380,7 +380,7 @@
     },
     {
       "clip": "finish",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish",
@@ -388,7 +388,7 @@
     },
     {
       "clip": "finish_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_2.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_2",
@@ -396,7 +396,7 @@
     },
     {
       "clip": "finish_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_3.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_3",
@@ -404,7 +404,7 @@
     },
     {
       "clip": "finish_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_4.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_4",
@@ -412,7 +412,7 @@
     },
     {
       "clip": "finish_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_5.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_5",
@@ -420,7 +420,7 @@
     },
     {
       "clip": "finish_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_6.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_6",
@@ -428,7 +428,7 @@
     },
     {
       "clip": "finish_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_7.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_7",
@@ -436,7 +436,7 @@
     },
     {
       "clip": "finish_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_8.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_8",
@@ -444,7 +444,7 @@
     },
     {
       "clip": "finish_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\finish_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/finish_9.json",
       "label": "FINISH",
       "signer_id": "unknown",
       "session_id": "finish_9",
@@ -452,7 +452,7 @@
     },
     {
       "clip": "forget_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_1.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_1",
@@ -460,7 +460,7 @@
     },
     {
       "clip": "forget_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_10.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_10",
@@ -468,7 +468,7 @@
     },
     {
       "clip": "forget_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_11.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_11",
@@ -476,7 +476,7 @@
     },
     {
       "clip": "forget_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_12.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_12",
@@ -484,7 +484,7 @@
     },
     {
       "clip": "forget_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_13.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_13",
@@ -492,7 +492,7 @@
     },
     {
       "clip": "forget_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_14.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_14",
@@ -500,7 +500,7 @@
     },
     {
       "clip": "forget_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_15.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_15",
@@ -508,7 +508,7 @@
     },
     {
       "clip": "forget_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_16.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_16",
@@ -516,7 +516,7 @@
     },
     {
       "clip": "forget_17",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_17.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_17.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_17",
@@ -524,7 +524,7 @@
     },
     {
       "clip": "forget_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_2.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_2",
@@ -532,7 +532,7 @@
     },
     {
       "clip": "forget_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_3.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_3",
@@ -540,7 +540,7 @@
     },
     {
       "clip": "forget_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_4.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_4",
@@ -548,7 +548,7 @@
     },
     {
       "clip": "forget_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_5.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_5",
@@ -556,7 +556,7 @@
     },
     {
       "clip": "forget_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_6.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_6",
@@ -564,7 +564,7 @@
     },
     {
       "clip": "forget_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_7.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_7",
@@ -572,7 +572,7 @@
     },
     {
       "clip": "forget_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_8.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_8",
@@ -580,7 +580,7 @@
     },
     {
       "clip": "forget_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\forget_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/forget_9.json",
       "label": "FORGET",
       "signer_id": "unknown",
       "session_id": "forget_9",
@@ -588,7 +588,7 @@
     },
     {
       "clip": "give_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_1.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_1",
@@ -596,7 +596,7 @@
     },
     {
       "clip": "give_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_10.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_10",
@@ -604,7 +604,7 @@
     },
     {
       "clip": "give_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_11.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_11",
@@ -612,7 +612,7 @@
     },
     {
       "clip": "give_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_12.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_12",
@@ -620,7 +620,7 @@
     },
     {
       "clip": "give_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_2.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_2",
@@ -628,7 +628,7 @@
     },
     {
       "clip": "give_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_3.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_3",
@@ -636,7 +636,7 @@
     },
     {
       "clip": "give_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_4.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_4",
@@ -644,7 +644,7 @@
     },
     {
       "clip": "give_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_5.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_5",
@@ -652,7 +652,7 @@
     },
     {
       "clip": "give_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_6.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_6",
@@ -660,7 +660,7 @@
     },
     {
       "clip": "give_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_7.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_7",
@@ -668,7 +668,7 @@
     },
     {
       "clip": "give_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_8.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_8",
@@ -676,7 +676,7 @@
     },
     {
       "clip": "give_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\give_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/give_9.json",
       "label": "GIVE",
       "signer_id": "unknown",
       "session_id": "give_9",
@@ -684,7 +684,7 @@
     },
     {
       "clip": "go_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/go_1.json",
       "label": "GO",
       "signer_id": "unknown",
       "session_id": "go_1",
@@ -692,7 +692,7 @@
     },
     {
       "clip": "go_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/go_3.json",
       "label": "GO",
       "signer_id": "unknown",
       "session_id": "go_3",
@@ -700,7 +700,7 @@
     },
     {
       "clip": "go_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/go_4.json",
       "label": "GO",
       "signer_id": "unknown",
       "session_id": "go_4",
@@ -708,7 +708,7 @@
     },
     {
       "clip": "go_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\go_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/go_5.json",
       "label": "GO",
       "signer_id": "unknown",
       "session_id": "go_5",
@@ -716,7 +716,7 @@
     },
     {
       "clip": "hello",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/hello.json",
       "label": "HELLO",
       "signer_id": "unknown",
       "session_id": "hello",
@@ -724,7 +724,7 @@
     },
     {
       "clip": "hello_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/hello_1.json",
       "label": "HELLO",
       "signer_id": "unknown",
       "session_id": "hello_1",
@@ -732,7 +732,7 @@
     },
     {
       "clip": "hello_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/hello_2.json",
       "label": "HELLO",
       "signer_id": "unknown",
       "session_id": "hello_2",
@@ -740,7 +740,7 @@
     },
     {
       "clip": "hello_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\hello_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/hello_3.json",
       "label": "HELLO",
       "signer_id": "unknown",
       "session_id": "hello_3",
@@ -748,7 +748,7 @@
     },
     {
       "clip": "help_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/help_1.json",
       "label": "HELP",
       "signer_id": "unknown",
       "session_id": "help_1",
@@ -756,7 +756,7 @@
     },
     {
       "clip": "help_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/help_2.json",
       "label": "HELP",
       "signer_id": "unknown",
       "session_id": "help_2",
@@ -764,7 +764,7 @@
     },
     {
       "clip": "help_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/help_3.json",
       "label": "HELP",
       "signer_id": "unknown",
       "session_id": "help_3",
@@ -772,7 +772,7 @@
     },
     {
       "clip": "help_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\help_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/help_4.json",
       "label": "HELP",
       "signer_id": "unknown",
       "session_id": "help_4",
@@ -780,7 +780,7 @@
     },
     {
       "clip": "how",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\how.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/how.json",
       "label": "HOW",
       "signer_id": "unknown",
       "session_id": "how",
@@ -788,7 +788,7 @@
     },
     {
       "clip": "how_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\how_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/how_1.json",
       "label": "HOW",
       "signer_id": "unknown",
       "session_id": "how_1",
@@ -796,7 +796,7 @@
     },
     {
       "clip": "later_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/later_1.json",
       "label": "LATER",
       "signer_id": "unknown",
       "session_id": "later_1",
@@ -804,7 +804,7 @@
     },
     {
       "clip": "later_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/later_2.json",
       "label": "LATER",
       "signer_id": "unknown",
       "session_id": "later_2",
@@ -812,7 +812,7 @@
     },
     {
       "clip": "later_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/later_3.json",
       "label": "LATER",
       "signer_id": "unknown",
       "session_id": "later_3",
@@ -820,7 +820,7 @@
     },
     {
       "clip": "later_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\later_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/later_4.json",
       "label": "LATER",
       "signer_id": "unknown",
       "session_id": "later_4",
@@ -828,7 +828,7 @@
     },
     {
       "clip": "like_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/like_1.json",
       "label": "LIKE",
       "signer_id": "unknown",
       "session_id": "like_1",
@@ -836,7 +836,7 @@
     },
     {
       "clip": "like_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/like_2.json",
       "label": "LIKE",
       "signer_id": "unknown",
       "session_id": "like_2",
@@ -844,7 +844,7 @@
     },
     {
       "clip": "like_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/like_3.json",
       "label": "LIKE",
       "signer_id": "unknown",
       "session_id": "like_3",
@@ -852,7 +852,7 @@
     },
     {
       "clip": "like_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\like_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/like_4.json",
       "label": "LIKE",
       "signer_id": "unknown",
       "session_id": "like_4",
@@ -860,7 +860,7 @@
     },
     {
       "clip": "man",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man",
@@ -868,7 +868,7 @@
     },
     {
       "clip": "man_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_1.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_1",
@@ -876,7 +876,7 @@
     },
     {
       "clip": "man_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_10.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_10",
@@ -884,7 +884,7 @@
     },
     {
       "clip": "man_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_11.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_11",
@@ -892,7 +892,7 @@
     },
     {
       "clip": "man_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_12.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_12",
@@ -900,7 +900,7 @@
     },
     {
       "clip": "man_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_13.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_13",
@@ -908,7 +908,7 @@
     },
     {
       "clip": "man_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_14.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_14",
@@ -916,7 +916,7 @@
     },
     {
       "clip": "man_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_2.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_2",
@@ -924,7 +924,7 @@
     },
     {
       "clip": "man_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_3.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_3",
@@ -932,7 +932,7 @@
     },
     {
       "clip": "man_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_4.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_4",
@@ -940,7 +940,7 @@
     },
     {
       "clip": "man_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_5.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_5",
@@ -948,7 +948,7 @@
     },
     {
       "clip": "man_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_6.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_6",
@@ -956,7 +956,7 @@
     },
     {
       "clip": "man_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_7.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_7",
@@ -964,7 +964,7 @@
     },
     {
       "clip": "man_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_8.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_8",
@@ -972,7 +972,7 @@
     },
     {
       "clip": "man_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\man_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/man_9.json",
       "label": "MAN",
       "signer_id": "unknown",
       "session_id": "man_9",
@@ -980,7 +980,7 @@
     },
     {
       "clip": "me",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me",
@@ -988,7 +988,7 @@
     },
     {
       "clip": "me_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_1.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_1",
@@ -996,7 +996,7 @@
     },
     {
       "clip": "me_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_10.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_10",
@@ -1004,7 +1004,7 @@
     },
     {
       "clip": "me_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_11.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_11",
@@ -1012,7 +1012,7 @@
     },
     {
       "clip": "me_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_12.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_12",
@@ -1020,7 +1020,7 @@
     },
     {
       "clip": "me_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_13.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_13",
@@ -1028,7 +1028,7 @@
     },
     {
       "clip": "me_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_14.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_14",
@@ -1036,7 +1036,7 @@
     },
     {
       "clip": "me_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_15.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_15",
@@ -1044,7 +1044,7 @@
     },
     {
       "clip": "me_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_16.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_16",
@@ -1052,7 +1052,7 @@
     },
     {
       "clip": "me_17",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_17.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_17.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_17",
@@ -1060,7 +1060,7 @@
     },
     {
       "clip": "me_18",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_18.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_18.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_18",
@@ -1068,7 +1068,7 @@
     },
     {
       "clip": "me_19",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_19.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_19.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_19",
@@ -1076,7 +1076,7 @@
     },
     {
       "clip": "me_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_2.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_2",
@@ -1084,7 +1084,7 @@
     },
     {
       "clip": "me_20",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_20.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_20.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_20",
@@ -1092,7 +1092,7 @@
     },
     {
       "clip": "me_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_3.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_3",
@@ -1100,7 +1100,7 @@
     },
     {
       "clip": "me_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_4.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_4",
@@ -1108,7 +1108,7 @@
     },
     {
       "clip": "me_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_5.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_5",
@@ -1116,7 +1116,7 @@
     },
     {
       "clip": "me_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_6.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_6",
@@ -1124,7 +1124,7 @@
     },
     {
       "clip": "me_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_7.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_7",
@@ -1132,7 +1132,7 @@
     },
     {
       "clip": "me_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_8.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_8",
@@ -1140,7 +1140,7 @@
     },
     {
       "clip": "me_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\me_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/me_9.json",
       "label": "ME",
       "signer_id": "unknown",
       "session_id": "me_9",
@@ -1148,7 +1148,7 @@
     },
     {
       "clip": "mother_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_1.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_1",
@@ -1156,7 +1156,7 @@
     },
     {
       "clip": "mother_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_10.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_10",
@@ -1164,7 +1164,7 @@
     },
     {
       "clip": "mother_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_11.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_11",
@@ -1172,7 +1172,7 @@
     },
     {
       "clip": "mother_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_12.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_12",
@@ -1180,7 +1180,7 @@
     },
     {
       "clip": "mother_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_13.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_13",
@@ -1188,7 +1188,7 @@
     },
     {
       "clip": "mother_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_14.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_14",
@@ -1196,7 +1196,7 @@
     },
     {
       "clip": "mother_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_15.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_15",
@@ -1204,7 +1204,7 @@
     },
     {
       "clip": "mother_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_16.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_16",
@@ -1212,7 +1212,7 @@
     },
     {
       "clip": "mother_17",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_17.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_17.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_17",
@@ -1220,7 +1220,7 @@
     },
     {
       "clip": "mother_18",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_18.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_18.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_18",
@@ -1228,7 +1228,7 @@
     },
     {
       "clip": "mother_19",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_19.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_19.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_19",
@@ -1236,7 +1236,7 @@
     },
     {
       "clip": "mother_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_2.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_2",
@@ -1244,7 +1244,7 @@
     },
     {
       "clip": "mother_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_3.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_3",
@@ -1252,7 +1252,7 @@
     },
     {
       "clip": "mother_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_4.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_4",
@@ -1260,7 +1260,7 @@
     },
     {
       "clip": "mother_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_5.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_5",
@@ -1268,7 +1268,7 @@
     },
     {
       "clip": "mother_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_6.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_6",
@@ -1276,7 +1276,7 @@
     },
     {
       "clip": "mother_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_7.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_7",
@@ -1284,7 +1284,7 @@
     },
     {
       "clip": "mother_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_8.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_8",
@@ -1292,7 +1292,7 @@
     },
     {
       "clip": "mother_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\mother_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/mother_9.json",
       "label": "MOTHER",
       "signer_id": "unknown",
       "session_id": "mother_9",
@@ -1300,7 +1300,7 @@
     },
     {
       "clip": "need_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/need_1.json",
       "label": "NEED",
       "signer_id": "unknown",
       "session_id": "need_1",
@@ -1308,7 +1308,7 @@
     },
     {
       "clip": "need_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/need_2.json",
       "label": "NEED",
       "signer_id": "unknown",
       "session_id": "need_2",
@@ -1316,7 +1316,7 @@
     },
     {
       "clip": "need_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/need_3.json",
       "label": "NEED",
       "signer_id": "unknown",
       "session_id": "need_3",
@@ -1324,7 +1324,7 @@
     },
     {
       "clip": "need_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\need_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/need_4.json",
       "label": "NEED",
       "signer_id": "unknown",
       "session_id": "need_4",
@@ -1332,7 +1332,7 @@
     },
     {
       "clip": "no_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_1.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_1",
@@ -1340,7 +1340,7 @@
     },
     {
       "clip": "no_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_10.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_10",
@@ -1348,7 +1348,7 @@
     },
     {
       "clip": "no_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_11.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_11",
@@ -1356,7 +1356,7 @@
     },
     {
       "clip": "no_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_12.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_12",
@@ -1364,7 +1364,7 @@
     },
     {
       "clip": "no_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_13.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_13",
@@ -1372,7 +1372,7 @@
     },
     {
       "clip": "no_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_14.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_14",
@@ -1380,7 +1380,7 @@
     },
     {
       "clip": "no_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_15.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_15",
@@ -1388,7 +1388,7 @@
     },
     {
       "clip": "no_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_16.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_16",
@@ -1396,7 +1396,7 @@
     },
     {
       "clip": "no_17",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_17.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_17.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_17",
@@ -1404,7 +1404,7 @@
     },
     {
       "clip": "no_1_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_1_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_1_2.json",
       "label": "NO",
       "signer_id": "1",
       "session_id": "no_1_2",
@@ -1412,7 +1412,7 @@
     },
     {
       "clip": "no_1_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_1_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_1_3.json",
       "label": "NO",
       "signer_id": "1",
       "session_id": "no_1_3",
@@ -1420,7 +1420,7 @@
     },
     {
       "clip": "no_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_3.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_3",
@@ -1428,7 +1428,7 @@
     },
     {
       "clip": "no_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_4.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_4",
@@ -1436,7 +1436,7 @@
     },
     {
       "clip": "no_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_5.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_5",
@@ -1444,7 +1444,7 @@
     },
     {
       "clip": "no_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_6.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_6",
@@ -1452,7 +1452,7 @@
     },
     {
       "clip": "no_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_7.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_7",
@@ -1460,7 +1460,7 @@
     },
     {
       "clip": "no_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_8.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_8",
@@ -1468,7 +1468,7 @@
     },
     {
       "clip": "no_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\no_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/no_9.json",
       "label": "NO",
       "signer_id": "unknown",
       "session_id": "no_9",
@@ -1476,7 +1476,7 @@
     },
     {
       "clip": "now",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now",
@@ -1484,7 +1484,7 @@
     },
     {
       "clip": "now_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_1.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_1",
@@ -1492,7 +1492,7 @@
     },
     {
       "clip": "now_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_2.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_2",
@@ -1500,7 +1500,7 @@
     },
     {
       "clip": "now_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_3.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_3",
@@ -1508,7 +1508,7 @@
     },
     {
       "clip": "now_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_4.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_4",
@@ -1516,7 +1516,7 @@
     },
     {
       "clip": "now_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_5.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_5",
@@ -1524,7 +1524,7 @@
     },
     {
       "clip": "now_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_6.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_6",
@@ -1532,7 +1532,7 @@
     },
     {
       "clip": "now_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_7.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_7",
@@ -1540,7 +1540,7 @@
     },
     {
       "clip": "now_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\now_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/now_8.json",
       "label": "NOW",
       "signer_id": "unknown",
       "session_id": "now_8",
@@ -1548,7 +1548,7 @@
     },
     {
       "clip": "play_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\play_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/play_1.json",
       "label": "PLAY",
       "signer_id": "unknown",
       "session_id": "play_1",
@@ -1556,7 +1556,7 @@
     },
     {
       "clip": "play_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\play_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/play_2.json",
       "label": "PLAY",
       "signer_id": "unknown",
       "session_id": "play_2",
@@ -1564,7 +1564,7 @@
     },
     {
       "clip": "play_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\play_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/play_3.json",
       "label": "PLAY",
       "signer_id": "unknown",
       "session_id": "play_3",
@@ -1572,7 +1572,7 @@
     },
     {
       "clip": "school_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/school_1.json",
       "label": "SCHOOL",
       "signer_id": "unknown",
       "session_id": "school_1",
@@ -1580,7 +1580,7 @@
     },
     {
       "clip": "school_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/school_2.json",
       "label": "SCHOOL",
       "signer_id": "unknown",
       "session_id": "school_2",
@@ -1588,7 +1588,7 @@
     },
     {
       "clip": "school_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/school_3.json",
       "label": "SCHOOL",
       "signer_id": "unknown",
       "session_id": "school_3",
@@ -1596,7 +1596,7 @@
     },
     {
       "clip": "school_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\school_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/school_4.json",
       "label": "SCHOOL",
       "signer_id": "unknown",
       "session_id": "school_4",
@@ -1604,7 +1604,7 @@
     },
     {
       "clip": "thank_you",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you",
@@ -1612,7 +1612,7 @@
     },
     {
       "clip": "thank_you_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_1.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_1",
@@ -1620,7 +1620,7 @@
     },
     {
       "clip": "thank_you_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_10.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_10",
@@ -1628,7 +1628,7 @@
     },
     {
       "clip": "thank_you_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_11.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_11",
@@ -1636,7 +1636,7 @@
     },
     {
       "clip": "thank_you_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_12.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_12",
@@ -1644,7 +1644,7 @@
     },
     {
       "clip": "thank_you_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_13.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_13",
@@ -1652,7 +1652,7 @@
     },
     {
       "clip": "thank_you_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_3.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_3",
@@ -1660,7 +1660,7 @@
     },
     {
       "clip": "thank_you_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_4.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_4",
@@ -1668,7 +1668,7 @@
     },
     {
       "clip": "thank_you_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_5.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_5",
@@ -1676,7 +1676,7 @@
     },
     {
       "clip": "thank_you_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_6.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_6",
@@ -1684,7 +1684,7 @@
     },
     {
       "clip": "thank_you_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_7.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_7",
@@ -1692,7 +1692,7 @@
     },
     {
       "clip": "thank_you_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_8.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_8",
@@ -1700,7 +1700,7 @@
     },
     {
       "clip": "thank_you_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\thank_you_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/thank_you_9.json",
       "label": "THANK_YOU",
       "signer_id": "unknown",
       "session_id": "thank_you_9",
@@ -1708,7 +1708,7 @@
     },
     {
       "clip": "time_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_1.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_1",
@@ -1716,7 +1716,7 @@
     },
     {
       "clip": "time_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_10.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_10",
@@ -1724,7 +1724,7 @@
     },
     {
       "clip": "time_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_11.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_11",
@@ -1732,7 +1732,7 @@
     },
     {
       "clip": "time_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_12.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_12",
@@ -1740,7 +1740,7 @@
     },
     {
       "clip": "time_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_13.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_13",
@@ -1748,7 +1748,7 @@
     },
     {
       "clip": "time_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_14.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_14",
@@ -1756,7 +1756,7 @@
     },
     {
       "clip": "time_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_15.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_15",
@@ -1764,7 +1764,7 @@
     },
     {
       "clip": "time_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_16.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_16",
@@ -1772,7 +1772,7 @@
     },
     {
       "clip": "time_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_2.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_2",
@@ -1780,7 +1780,7 @@
     },
     {
       "clip": "time_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_3.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_3",
@@ -1788,7 +1788,7 @@
     },
     {
       "clip": "time_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_4.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_4",
@@ -1796,7 +1796,7 @@
     },
     {
       "clip": "time_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_5.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_5",
@@ -1804,7 +1804,7 @@
     },
     {
       "clip": "time_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_6.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_6",
@@ -1812,7 +1812,7 @@
     },
     {
       "clip": "time_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_7.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_7",
@@ -1820,7 +1820,7 @@
     },
     {
       "clip": "time_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_8.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_8",
@@ -1828,7 +1828,7 @@
     },
     {
       "clip": "time_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\time_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/time_9.json",
       "label": "TIME",
       "signer_id": "unknown",
       "session_id": "time_9",
@@ -1836,7 +1836,7 @@
     },
     {
       "clip": "wait_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_1.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_1",
@@ -1844,7 +1844,7 @@
     },
     {
       "clip": "wait_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_10.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_10",
@@ -1852,7 +1852,7 @@
     },
     {
       "clip": "wait_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_11.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_11",
@@ -1860,7 +1860,7 @@
     },
     {
       "clip": "wait_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_12.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_12",
@@ -1868,7 +1868,7 @@
     },
     {
       "clip": "wait_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_13.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_13",
@@ -1876,7 +1876,7 @@
     },
     {
       "clip": "wait_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_2.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_2",
@@ -1884,7 +1884,7 @@
     },
     {
       "clip": "wait_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_3.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_3",
@@ -1892,7 +1892,7 @@
     },
     {
       "clip": "wait_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_4.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_4",
@@ -1900,7 +1900,7 @@
     },
     {
       "clip": "wait_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_5.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_5",
@@ -1908,7 +1908,7 @@
     },
     {
       "clip": "wait_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_6.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_6",
@@ -1916,7 +1916,7 @@
     },
     {
       "clip": "wait_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_7.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_7",
@@ -1924,7 +1924,7 @@
     },
     {
       "clip": "wait_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_8.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_8",
@@ -1932,7 +1932,7 @@
     },
     {
       "clip": "wait_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\wait_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/wait_9.json",
       "label": "WAIT",
       "signer_id": "unknown",
       "session_id": "wait_9",
@@ -1940,7 +1940,7 @@
     },
     {
       "clip": "want_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_1.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_1",
@@ -1948,7 +1948,7 @@
     },
     {
       "clip": "want_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_10.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_10",
@@ -1956,7 +1956,7 @@
     },
     {
       "clip": "want_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_11.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_11",
@@ -1964,7 +1964,7 @@
     },
     {
       "clip": "want_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_12.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_12",
@@ -1972,7 +1972,7 @@
     },
     {
       "clip": "want_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_13.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_13",
@@ -1980,7 +1980,7 @@
     },
     {
       "clip": "want_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_14.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_14",
@@ -1988,7 +1988,7 @@
     },
     {
       "clip": "want_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_15.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_15",
@@ -1996,7 +1996,7 @@
     },
     {
       "clip": "want_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_16.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_16",
@@ -2004,7 +2004,7 @@
     },
     {
       "clip": "want_17",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_17.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_17.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_17",
@@ -2012,7 +2012,7 @@
     },
     {
       "clip": "want_18",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_18.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_18.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_18",
@@ -2020,7 +2020,7 @@
     },
     {
       "clip": "want_19",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_19.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_19.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_19",
@@ -2028,7 +2028,7 @@
     },
     {
       "clip": "want_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_2.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_2",
@@ -2036,7 +2036,7 @@
     },
     {
       "clip": "want_20",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_20.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_20.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_20",
@@ -2044,7 +2044,7 @@
     },
     {
       "clip": "want_21",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_21.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_21.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_21",
@@ -2052,7 +2052,7 @@
     },
     {
       "clip": "want_22",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_22.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_22.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_22",
@@ -2060,7 +2060,7 @@
     },
     {
       "clip": "want_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_3.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_3",
@@ -2068,7 +2068,7 @@
     },
     {
       "clip": "want_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_4.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_4",
@@ -2076,7 +2076,7 @@
     },
     {
       "clip": "want_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_5.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_5",
@@ -2084,7 +2084,7 @@
     },
     {
       "clip": "want_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_6.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_6",
@@ -2092,7 +2092,7 @@
     },
     {
       "clip": "want_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_7.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_7",
@@ -2100,7 +2100,7 @@
     },
     {
       "clip": "want_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_8.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_8",
@@ -2108,7 +2108,7 @@
     },
     {
       "clip": "want_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\want_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/want_9.json",
       "label": "WANT",
       "signer_id": "unknown",
       "session_id": "want_9",
@@ -2116,7 +2116,7 @@
     },
     {
       "clip": "water_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_1.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_1",
@@ -2124,7 +2124,7 @@
     },
     {
       "clip": "water_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_10.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_10",
@@ -2132,7 +2132,7 @@
     },
     {
       "clip": "water_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_11.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_11",
@@ -2140,7 +2140,7 @@
     },
     {
       "clip": "water_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_12.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_12",
@@ -2148,7 +2148,7 @@
     },
     {
       "clip": "water_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_13.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_13",
@@ -2156,7 +2156,7 @@
     },
     {
       "clip": "water_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_14.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_14",
@@ -2164,7 +2164,7 @@
     },
     {
       "clip": "water_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_15.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_15",
@@ -2172,7 +2172,7 @@
     },
     {
       "clip": "water_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_16.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_16",
@@ -2180,7 +2180,7 @@
     },
     {
       "clip": "water_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_2.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_2",
@@ -2188,7 +2188,7 @@
     },
     {
       "clip": "water_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_3.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_3",
@@ -2196,7 +2196,7 @@
     },
     {
       "clip": "water_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_4.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_4",
@@ -2204,7 +2204,7 @@
     },
     {
       "clip": "water_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_5.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_5",
@@ -2212,7 +2212,7 @@
     },
     {
       "clip": "water_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_6.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_6",
@@ -2220,7 +2220,7 @@
     },
     {
       "clip": "water_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_7.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_7",
@@ -2228,7 +2228,7 @@
     },
     {
       "clip": "water_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_8.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_8",
@@ -2236,7 +2236,7 @@
     },
     {
       "clip": "water_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\water_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/water_9.json",
       "label": "WATER",
       "signer_id": "unknown",
       "session_id": "water_9",
@@ -2244,7 +2244,7 @@
     },
     {
       "clip": "what_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_1.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_1",
@@ -2252,7 +2252,7 @@
     },
     {
       "clip": "what_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_10.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_10",
@@ -2260,7 +2260,7 @@
     },
     {
       "clip": "what_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_11.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_11",
@@ -2268,7 +2268,7 @@
     },
     {
       "clip": "what_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_12.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_12",
@@ -2276,7 +2276,7 @@
     },
     {
       "clip": "what_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_13.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_13",
@@ -2284,7 +2284,7 @@
     },
     {
       "clip": "what_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_14.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_14",
@@ -2292,7 +2292,7 @@
     },
     {
       "clip": "what_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_15.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_15",
@@ -2300,7 +2300,7 @@
     },
     {
       "clip": "what_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_16.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_16",
@@ -2308,7 +2308,7 @@
     },
     {
       "clip": "what_17",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_17.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_17.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_17",
@@ -2316,7 +2316,7 @@
     },
     {
       "clip": "what_18",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_18.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_18.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_18",
@@ -2324,7 +2324,7 @@
     },
     {
       "clip": "what_19",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_19.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_19.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_19",
@@ -2332,7 +2332,7 @@
     },
     {
       "clip": "what_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_2.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_2",
@@ -2340,7 +2340,7 @@
     },
     {
       "clip": "what_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_3.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_3",
@@ -2348,7 +2348,7 @@
     },
     {
       "clip": "what_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_4.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_4",
@@ -2356,7 +2356,7 @@
     },
     {
       "clip": "what_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_5.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_5",
@@ -2364,7 +2364,7 @@
     },
     {
       "clip": "what_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_6.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_6",
@@ -2372,7 +2372,7 @@
     },
     {
       "clip": "what_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_7.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_7",
@@ -2380,7 +2380,7 @@
     },
     {
       "clip": "what_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_8.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_8",
@@ -2388,7 +2388,7 @@
     },
     {
       "clip": "what_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\what_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/what_9.json",
       "label": "WHAT",
       "signer_id": "unknown",
       "session_id": "what_9",
@@ -2396,7 +2396,7 @@
     },
     {
       "clip": "where",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/where.json",
       "label": "WHERE",
       "signer_id": "unknown",
       "session_id": "where",
@@ -2404,7 +2404,7 @@
     },
     {
       "clip": "where_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/where_1.json",
       "label": "WHERE",
       "signer_id": "unknown",
       "session_id": "where_1",
@@ -2412,7 +2412,7 @@
     },
     {
       "clip": "where_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/where_2.json",
       "label": "WHERE",
       "signer_id": "unknown",
       "session_id": "where_2",
@@ -2420,7 +2420,7 @@
     },
     {
       "clip": "where_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\where_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/where_3.json",
       "label": "WHERE",
       "signer_id": "unknown",
       "session_id": "where_3",
@@ -2428,7 +2428,7 @@
     },
     {
       "clip": "who_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\who_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/who_1.json",
       "label": "WHO",
       "signer_id": "unknown",
       "session_id": "who_1",
@@ -2436,7 +2436,7 @@
     },
     {
       "clip": "who_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\who_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/who_2.json",
       "label": "WHO",
       "signer_id": "unknown",
       "session_id": "who_2",
@@ -2444,7 +2444,7 @@
     },
     {
       "clip": "who_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\who_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/who_3.json",
       "label": "WHO",
       "signer_id": "unknown",
       "session_id": "who_3",
@@ -2452,7 +2452,7 @@
     },
     {
       "clip": "woman_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_1.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_1",
@@ -2460,7 +2460,7 @@
     },
     {
       "clip": "woman_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_10.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_10",
@@ -2468,7 +2468,7 @@
     },
     {
       "clip": "woman_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_11.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_11",
@@ -2476,7 +2476,7 @@
     },
     {
       "clip": "woman_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_12.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_12",
@@ -2484,7 +2484,7 @@
     },
     {
       "clip": "woman_13",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_13.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_13.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_13",
@@ -2492,7 +2492,7 @@
     },
     {
       "clip": "woman_14",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_14.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_14.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_14",
@@ -2500,7 +2500,7 @@
     },
     {
       "clip": "woman_15",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_15.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_15.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_15",
@@ -2508,7 +2508,7 @@
     },
     {
       "clip": "woman_16",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_16.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_16.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_16",
@@ -2516,7 +2516,7 @@
     },
     {
       "clip": "woman_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_2.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_2",
@@ -2524,7 +2524,7 @@
     },
     {
       "clip": "woman_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_3.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_3",
@@ -2532,7 +2532,7 @@
     },
     {
       "clip": "woman_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_4.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_4",
@@ -2540,7 +2540,7 @@
     },
     {
       "clip": "woman_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_5.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_5",
@@ -2548,7 +2548,7 @@
     },
     {
       "clip": "woman_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_6.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_6",
@@ -2556,7 +2556,7 @@
     },
     {
       "clip": "woman_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_7.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_7",
@@ -2564,7 +2564,7 @@
     },
     {
       "clip": "woman_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_8.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_8",
@@ -2572,7 +2572,7 @@
     },
     {
       "clip": "woman_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\woman_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/woman_9.json",
       "label": "WOMAN",
       "signer_id": "unknown",
       "session_id": "woman_9",
@@ -2580,7 +2580,7 @@
     },
     {
       "clip": "work_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_1.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_1",
@@ -2588,7 +2588,7 @@
     },
     {
       "clip": "work_10",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_10.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_10.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_10",
@@ -2596,7 +2596,7 @@
     },
     {
       "clip": "work_11",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_11.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_11.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_11",
@@ -2604,7 +2604,7 @@
     },
     {
       "clip": "work_12",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_12.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_12.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_12",
@@ -2612,7 +2612,7 @@
     },
     {
       "clip": "work_1_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_1_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_1_2.json",
       "label": "WORK",
       "signer_id": "1",
       "session_id": "work_1_2",
@@ -2620,7 +2620,7 @@
     },
     {
       "clip": "work_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_2.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_2",
@@ -2628,7 +2628,7 @@
     },
     {
       "clip": "work_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_3.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_3",
@@ -2636,7 +2636,7 @@
     },
     {
       "clip": "work_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_4.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_4",
@@ -2644,7 +2644,7 @@
     },
     {
       "clip": "work_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_5.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_5",
@@ -2652,7 +2652,7 @@
     },
     {
       "clip": "work_6",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_6.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_6.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_6",
@@ -2660,7 +2660,7 @@
     },
     {
       "clip": "work_7",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_7.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_7.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_7",
@@ -2668,7 +2668,7 @@
     },
     {
       "clip": "work_8",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_8.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_8.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_8",
@@ -2676,7 +2676,7 @@
     },
     {
       "clip": "work_9",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\work_9.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/work_9.json",
       "label": "WORK",
       "signer_id": "unknown",
       "session_id": "work_9",
@@ -2684,7 +2684,7 @@
     },
     {
       "clip": "year_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\year_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/year_1.json",
       "label": "YEAR",
       "signer_id": "unknown",
       "session_id": "year_1",
@@ -2692,7 +2692,7 @@
     },
     {
       "clip": "year_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\year_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/year_2.json",
       "label": "YEAR",
       "signer_id": "unknown",
       "session_id": "year_2",
@@ -2700,7 +2700,7 @@
     },
     {
       "clip": "year_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\year_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/year_3.json",
       "label": "YEAR",
       "signer_id": "unknown",
       "session_id": "year_3",
@@ -2708,7 +2708,7 @@
     },
     {
       "clip": "yes_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\yes_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/yes_1.json",
       "label": "YES",
       "signer_id": "unknown",
       "session_id": "yes_1",
@@ -2716,7 +2716,7 @@
     },
     {
       "clip": "yes_2",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\yes_2.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/yes_2.json",
       "label": "YES",
       "signer_id": "unknown",
       "session_id": "yes_2",
@@ -2724,7 +2724,7 @@
     },
     {
       "clip": "yes_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\yes_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/yes_3.json",
       "label": "YES",
       "signer_id": "unknown",
       "session_id": "yes_3",
@@ -2732,7 +2732,7 @@
     },
     {
       "clip": "you_1",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_1.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/you_1.json",
       "label": "YOU",
       "signer_id": "unknown",
       "session_id": "you_1",
@@ -2740,7 +2740,7 @@
     },
     {
       "clip": "you_3",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_3.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/you_3.json",
       "label": "YOU",
       "signer_id": "unknown",
       "session_id": "you_3",
@@ -2748,7 +2748,7 @@
     },
     {
       "clip": "you_4",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_4.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/you_4.json",
       "label": "YOU",
       "signer_id": "unknown",
       "session_id": "you_4",
@@ -2756,7 +2756,7 @@
     },
     {
       "clip": "you_5",
-      "path": "A:\\Capstone\\English-to-ASL-Translator\\ui\\animation\\clips\\you_5.json",
+      "path": "/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/ui/animation/clips/you_5.json",
       "label": "YOU",
       "signer_id": "unknown",
       "session_id": "you_5",

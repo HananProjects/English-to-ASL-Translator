@@ -41,6 +41,25 @@ def _env_float(name: str, default: float, min_value: float | None = None) -> flo
     return value
 
 
+def _camera_probe_indices(start_index: int, probe_count: int) -> list[int]:
+    ordered = [start_index]
+    for index in range(probe_count):
+        if index not in ordered:
+            ordered.append(index)
+    return ordered
+
+
+def _open_camera_capture(start_index: int, probe_count: int):
+    attempted: list[int] = []
+    for index in _camera_probe_indices(start_index, probe_count):
+        attempted.append(index)
+        cap = cv2.VideoCapture(index)
+        if cap.isOpened():
+            return cap, index, attempted
+        cap.release()
+    return None, None, attempted
+
+
 class CameraWorker(QObject):
     pose_ready = Signal(dict)
     frame_ready = Signal(object)
@@ -133,28 +152,40 @@ class CameraWorker(QObject):
         camera_height = _env_int("ASL_CAMERA_HEIGHT", default_height, min_value=120)
         camera_fps = _env_int("ASL_CAMERA_FPS", 30, min_value=1)
         camera_buffer_size = _env_int("ASL_CAMERA_BUFFER_SIZE", 1, min_value=1)
+        camera_probe_count = _env_int("ASL_CAMERA_PROBE_COUNT", 4, min_value=1)
         proc_width = _env_int("ASL_PROCESS_WIDTH", default_proc_width, min_value=160)
         proc_height = _env_int("ASL_PROCESS_HEIGHT", default_proc_height, min_value=120)
         process_every_n = _env_int("ASL_PROCESS_EVERY_N", 1, min_value=1)
         zoom = _env_float("ASL_CAMERA_ZOOM", 1.0, min_value=1.0)
         source_is_file = bool(self.source_path)
 
-        capture_source = self.source_path if source_is_file else camera_index
-        cap = cv2.VideoCapture(capture_source)
+        selected_camera_index = camera_index
+        if source_is_file:
+            cap = cv2.VideoCapture(self.source_path)
+            attempted_indices: list[int] = []
+        else:
+            cap, detected_index, attempted_indices = _open_camera_capture(
+                camera_index,
+                camera_probe_count,
+            )
+            if detected_index is not None:
+                selected_camera_index = detected_index
         self._cap = cap
         self._running = True
-        if not cap.isOpened():
+        if cap is None or not cap.isOpened():
             if source_is_file:
                 self.error_ready.emit(
                     f"Unable to open video file: {self.source_path}"
                 )
             else:
+                attempts_text = ", ".join(str(index) for index in attempted_indices)
                 self.error_ready.emit(
-                    f"Unable to open camera index {camera_index}. "
-                    "Set ASL_CAMERA_INDEX to the correct camera."
+                    f"Unable to open camera. Tried indices: {attempts_text}. "
+                    "Set ASL_CAMERA_INDEX or increase ASL_CAMERA_PROBE_COUNT."
                 )
             self._running = False
-            cap.release()
+            if cap is not None:
+                cap.release()
             self._cap = None
             return
 
@@ -176,7 +207,7 @@ class CameraWorker(QObject):
                 pass
             print(
                 "[Camera] index="
-                f"{camera_index} {camera_width}x{camera_height}@{camera_fps} "
+                f"{selected_camera_index} {camera_width}x{camera_height}@{camera_fps} "
                 f"proc={proc_width}x{proc_height} skip={process_every_n} zoom={zoom:.2f} "
                 f"buffer={camera_buffer_size} mode={'FAST' if self.fast_mode else 'NORMAL'}"
             )

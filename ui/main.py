@@ -1,13 +1,31 @@
-import sys
 import os
+import shutil
+import sys
 from PySide6.QtWidgets import QApplication
 from ui.main_window import MainWindow
 
 # KEEP A GLOBAL REFERENCE (IMPORTANT)
 window = None
 
+
+def _maybe_reexec_with_libcamerify() -> None:
+    if os.getenv("ASL_LIBCAMERIFY_ACTIVE", "").strip().lower() in {"1", "true", "yes", "on"}:
+        return
+    if os.getenv("ASL_DISABLE_LIBCAMERIFY", "").strip().lower() in {"1", "true", "yes", "on"}:
+        return
+    if sys.platform != "linux":
+        return
+
+    libcamerify = shutil.which("libcamerify")
+    if not libcamerify:
+        return
+
+    os.environ["ASL_LIBCAMERIFY_ACTIVE"] = "1"
+    os.execvp(libcamerify, [libcamerify, sys.executable, "-m", "ui.main"])
+
 def main():
     global window
+    _maybe_reexec_with_libcamerify()
 
     app = QApplication(sys.argv)
 

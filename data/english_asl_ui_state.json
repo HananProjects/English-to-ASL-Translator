@@ -1,6 +1,309 @@
 {
   "history": [
     {
+      "stamp": "14:30:43",
+      "created_at": "2026-03-09T14:30:43",
+      "text": "the beach",
+      "tokens": [
+        "B",
+        "E",
+        "A",
+        "C",
+        "H"
+      ],
+      "sequence": [
+        {
+          "token": "B",
+          "clip": "b",
+          "start": 0.0,
+          "duration": 2.688172043010753
+        },
+        {
+          "token": "E",
+          "clip": "e",
+          "start": 2.688172043010753,
+          "duration": 2.0161290322580645
+        },
+        {
+          "token": "A",
+          "clip": "a",
+          "start": 4.704301075268818,
+          "duration": 2.4193548387096775
+        },
+        {
+          "token": "C",
+          "clip": "c",
+          "start": 7.123655913978496,
+          "duration": 2.4193548387096775
+        },
+        {
+          "token": "H",
+          "clip": "h",
+          "start": 9.543010752688174,
+          "duration": 2.150537634408602
+        }
+      ]
+    },
+    {
+      "stamp": "14:29:23",
+      "created_at": "2026-03-09T14:29:23",
+      "text": "hello how are you",
+      "tokens": [
+        "HELLO",
+        "HOW",
+        "YOU"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 2.4193548387096775
+        },
+        {
+          "token": "HOW",
+          "clip": "how_1",
+          "start": 2.4193548387096775,
+          "duration": 5.0
+        },
+        {
+          "token": "YOU",
+          "clip": "you_3",
+          "start": 7.419354838709678,
+          "duration": 1.6129032258064517
+        }
+      ]
+    },
+    {
+      "stamp": "14:29:07",
+      "created_at": "2026-03-09T14:29:07",
+      "text": "oh how are you",
+      "tokens": [
+        "O",
+        "H",
+        "YOU",
+        "HOW"
+      ],
+      "sequence": [
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 0.0,
+          "duration": 2.28494623655914
+        },
+        {
+          "token": "H",
+          "clip": "h",
+          "start": 2.28494623655914,
+          "duration": 2.150537634408602
+        },
+        {
+          "token": "YOU",
+          "clip": "you_1",
+          "start": 4.435483870967742,
+          "duration": 2.0161290322580645
+        },
+        {
+          "token": "HOW",
+          "clip": "how",
+          "start": 6.451612903225806,
+          "duration": 3.629032258064516
+        }
+      ]
+    },
+    {
+      "stamp": "14:16:44",
+      "created_at": "2026-03-09T14:16:44",
+      "text": "what are we doing today",
+      "tokens": [
+        "TODAY",
+        "WE",
+        "WHAT"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 4.166666666666667
+        },
+        {
+          "token": "WE",
+          "clip": "we_2",
+          "start": 4.166666666666667,
+          "duration": 4.166666666666667
+        },
+        {
+          "token": "WHAT",
+          "clip": "what_1",
+          "start": 8.333333333333334,
+          "duration": 5.0
+        }
+      ]
+    },
+    {
+      "stamp": "14:16:14",
+      "created_at": "2026-03-09T14:16:14",
+      "text": "hello how are you doing today",
+      "tokens": [
+        "HELLO",
+        "HOW",
+        "YOU"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 2.4193548387096775
+        },
+        {
+          "token": "HOW",
+          "clip": "how",
+          "start": 2.4193548387096775,
+          "duration": 3.629032258064516
+        },
+        {
+          "token": "YOU",
+          "clip": "you_1",
+          "start": 6.048387096774194,
+          "duration": 2.0161290322580645
+        }
+      ]
+    },
+    {
+      "stamp": "13:58:41",
+      "created_at": "2026-03-09T13:58:41",
+      "text": "what are we doing today",
+      "tokens": [
+        "TODAY",
+        "WE",
+        "WHAT"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 4.166666666666667
+        },
+        {
+          "token": "WE",
+          "clip": "we_2",
+          "start": 4.166666666666667,
+          "duration": 4.166666666666667
+        },
+        {
+          "token": "WHAT",
+          "clip": "what_2",
+          "start": 8.333333333333334,
+          "duration": 2.956989247311828
+        }
+      ]
+    },
+    {
+      "stamp": "13:58:26",
+      "created_at": "2026-03-09T13:58:26",
+      "text": "what should we do today",
+      "tokens": [
+        "TODAY",
+        "S",
+        "H",
+        "O",
+        "U",
+        "L",
+        "D",
+        "WE",
+        "WHAT"
+      ],
+      "sequence": [
+        {
+          "token": "TODAY",
+          "clip": "now_2",
+          "start": 0.0,
+          "duration": 4.166666666666667
+        },
+        {
+          "token": "S",
+          "clip": "s",
+          "start": 4.166666666666667,
+          "duration": 2.0161290322580645
+        },
+        {
+          "token": "H",
+          "clip": "h",
+          "start": 6.182795698924732,
+          "duration": 2.150537634408602
+        },
+        {
+          "token": "O",
+          "clip": "o",
+          "start": 8.333333333333334,
+          "duration": 2.28494623655914
+        },
+        {
+          "token": "U",
+          "clip": "u",
+          "start": 10.618279569892474,
+          "duration": 2.688172043010753
+        },
+        {
+          "token": "L",
+          "clip": "l",
+          "start": 13.306451612903228,
+          "duration": 2.28494623655914
+        },
+        {
+          "token": "D",
+          "clip": "d",
+          "start": 15.591397849462368,
+          "duration": 1.881720430107527
+        },
+        {
+          "token": "WE",
+          "clip": "we_2",
+          "start": 17.473118279569896,
+          "duration": 4.166666666666667
+        },
+        {
+          "token": "WHAT",
+          "clip": "what_1",
+          "start": 21.639784946236563,
+          "duration": 5.0
+        }
+      ]
+    },
+    {
+      "stamp": "13:57:58",
+      "created_at": "2026-03-09T13:57:58",
+      "text": "hello how are you",
+      "tokens": [
+        "HELLO",
+        "HOW",
+        "YOU"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 2.4193548387096775
+        },
+        {
+          "token": "HOW",
+          "clip": "how",
+          "start": 2.4193548387096775,
+          "duration": 3.629032258064516
+        },
+        {
+          "token": "YOU",
+          "clip": "you_1",
+          "start": 6.048387096774194,
+          "duration": 2.0161290322580645
+        }
+      ]
+    },
+    {
       "stamp": "13:37:12",
       "created_at": "2026-03-09T13:37:12",
       "text": "hello how are you it that hope",
