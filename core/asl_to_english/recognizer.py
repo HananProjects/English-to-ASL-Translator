@@ -531,6 +531,10 @@ class SignStreamRecognizer:
             "yes",
             "on",
         }
+        self._enable_me_pose_override = os.getenv(
+            "ASL_ENABLE_ME_POSE_OVERRIDE",
+            "",
+        ).strip().lower() in {"1", "true", "yes", "on"}
 
     def process(self, pose: PoseDict) -> RecognitionUpdate:
         if self._prev_pose is not None:
@@ -546,12 +550,13 @@ class SignStreamRecognizer:
         motion_token, motion_conf = self._match_hello_motion(filtered_pose)
         if motion_token is not None:
             token, confidence = motion_token, motion_conf
-        me_token, me_conf = self._match_me_pose(filtered_pose)
-        me_confusion_tokens = {"ABOUT", "WHICH"}
-        if me_token is not None and (
-            token is None or token in me_confusion_tokens
-        ) and me_conf >= 0.80:
-            token, confidence = me_token, me_conf
+        if self._enable_me_pose_override:
+            me_token, me_conf = self._match_me_pose(filtered_pose)
+            me_confusion_tokens = {"ABOUT", "WHICH"}
+            if me_token is not None and (
+                token is None or token in me_confusion_tokens
+            ) and me_conf >= 0.80:
+                token, confidence = me_token, me_conf
         detected_token = None
         sentence_tokens = None
 

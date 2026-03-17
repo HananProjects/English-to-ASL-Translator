@@ -167,6 +167,7 @@ class MainWindow(QWidget):
         self.camera_thread = None
         self.camera_worker = None
         self.camera_running = False
+        self.camera_capture_enabled = False
         self.camera_shutdown_in_progress = False
         self.asl_video_path = None
         self.latest_camera_pose = None
@@ -589,6 +590,8 @@ class MainWindow(QWidget):
         return mapped
 
     def on_camera_token(self, token: str, confidence: float):
+        if not self.camera_capture_enabled and self.asl_video_path is None:
+            return
         if self.demo_mode:
             token = self._remap_demo_token(token)
         if self.demo_mode and self.demo_allowed_tokens and token not in self.demo_allowed_tokens:
@@ -610,6 +613,10 @@ class MainWindow(QWidget):
             )
 
     def on_camera_debug(self, token: str, confidence: float, streak: int):
+        if not self.camera_capture_enabled and self.asl_video_path is None:
+            token = ""
+            confidence = 0.0
+            streak = 0
         self.latest_camera_debug_token = token or ""
         self.latest_camera_debug_confidence = float(confidence)
         token_text = token if token else "(none)"
@@ -727,6 +734,8 @@ class MainWindow(QWidget):
             self.stop_camera()
 
     def on_camera_sequence(self, tokens: list):
+        if not self.camera_capture_enabled and self.asl_video_path is None:
+            return
         if not tokens:
             return
         if self.demo_mode and self.pending_camera_tokens:
@@ -973,6 +982,19 @@ class MainWindow(QWidget):
         )
         self.record_button.style().unpolish(self.record_button)
         self.record_button.style().polish(self.record_button)
+
+    def _refresh_camera_capture_button(self):
+        if not hasattr(self, "camera_capture_button"):
+            return
+        is_capturing = self.camera_capture_enabled
+        self.camera_capture_button.setProperty("recording", is_capturing)
+        self.camera_capture_button.setText("■" if is_capturing else "●")
+        self.camera_capture_button.setToolTip(
+            "Stop sign capture" if is_capturing else "Start sign capture"
+        )
+        self.camera_capture_button.setEnabled(self.camera_running and self.asl_video_path is None)
+        self.camera_capture_button.style().unpolish(self.camera_capture_button)
+        self.camera_capture_button.style().polish(self.camera_capture_button)
 
     def _remember_english_result(self, text: str, tokens: list, sequence: list):
         if not tokens or not sequence:
@@ -1483,6 +1505,11 @@ class MainWindow(QWidget):
         self.reverse_label = QLabel("English Translation:")
         self.reverse_label.setWordWrap(True)
         self.reverse_label.setObjectName("sectionLabel")
+        self.camera_capture_button = QPushButton("●")
+        self.camera_capture_button.setObjectName("recordToggleButton")
+        record_size = 44 if self.compact_ui else 52
+        self.camera_capture_button.setFixedSize(record_size, record_size)
+        self.camera_capture_button.clicked.connect(self.toggle_camera_capture)
         self.camera_toggle_button = QPushButton("Stop Camera")
         self.camera_toggle_button.setObjectName("secondaryButton")
         self.camera_toggle_button.setMinimumHeight(self.secondary_button_height)
@@ -1540,6 +1567,7 @@ class MainWindow(QWidget):
         actions_row = QHBoxLayout()
         actions_row.setSpacing(6 if self.compact_ui else 10)
         actions_row.addStretch(1)
+        actions_row.addWidget(self.camera_capture_button)
         actions_row.addWidget(self.camera_toggle_button)
         actions_row.addWidget(self.reset_translation_button)
         actions_row.addWidget(self.asl_settings_button)
@@ -1553,6 +1581,7 @@ class MainWindow(QWidget):
         page_layout.setContentsMargins(0, 0, 0, 0)
         page_layout.setSpacing(8 if self.compact_ui else 12)
         page.setLayout(page_layout)
+        self._refresh_camera_capture_button()
         return page
 
     def _current_asl_source_label(self) -> str:
@@ -1586,6 +1615,52 @@ class MainWindow(QWidget):
         self.asl_replay_latest_history_action.setEnabled(has_history)
         self.asl_clear_history_action.setEnabled(has_history)
 
+    def start_camera_capture(self):
+        if not self.camera_running or self.asl_video_path is not None:
+            return
+        self.camera_capture_enabled = True
+        self.pending_camera_tokens.clear()
+        self.latest_camera_overlay_token = ""
+        self.latest_camera_overlay_confidence = 0.0
+        self.latest_camera_overlay_ts = 0.0
+        if hasattr(self, "camera_label"):
+            self.camera_label.setText("Detected ASL Tokens:")
+        if hasattr(self, "reverse_label"):
+            self.reverse_label.setText("English Translation:")
+        if hasattr(self, "reverse_status_label"):
+            self.reverse_status_label.setText("Status: Capturing signs... tap again to stop")
+        if hasattr(self, "reverse_debug_label"):
+            self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
+        if self.camera_worker is not None:
+            self.camera_reset_requested.emit()
+        self._refresh_camera_capture_button()
+
+    def stop_camera_capture(self, finalize_pending: bool = True):
+        if not self.camera_capture_enabled:
+            return
+        self.camera_capture_enabled = False
+        self.latest_camera_overlay_token = ""
+        self.latest_camera_overlay_confidence = 0.0
+        self.latest_camera_overlay_ts = 0.0
+        if finalize_pending and self.pending_camera_tokens:
+            self._finalize_camera_translation(list(self.pending_camera_tokens))
+        else:
+            self.pending_camera_tokens.clear()
+            if hasattr(self, "reverse_status_label"):
+                if self.camera_running:
+                    self.reverse_status_label.setText("Status: Camera ready. Tap record to capture")
+                else:
+                    self.reverse_status_label.setText("Status: Camera stopped")
+        if self.camera_worker is not None:
+            self.camera_reset_requested.emit()
+        self._refresh_camera_capture_button()
+
+    def toggle_camera_capture(self):
+        if self.camera_capture_enabled:
+            self.stop_camera_capture()
+        else:
+            self.start_camera_capture()
+
     def start_camera(self, source_path: str | None = None):
         if self.camera_running:
             return
@@ -1618,6 +1693,7 @@ class MainWindow(QWidget):
         self.camera_stop_requested.connect(self.camera_worker.stop)
         self.camera_thread.start()
         self.camera_running = True
+        self.camera_capture_enabled = bool(self.asl_video_path)
         self.camera_shutdown_in_progress = False
         source_name = self._current_asl_source_label()
         mode_suffix = " (Fast)" if self.fast_camera_mode else ""
@@ -1631,18 +1707,20 @@ class MainWindow(QWidget):
             if self.asl_video_path:
                 self.reverse_status_label.setText(f"Status: Processing video {source_name}{mode_suffix}")
             else:
-                self.reverse_status_label.setText(f"Status: Camera listening...{mode_suffix}")
+                self.reverse_status_label.setText(f"Status: Camera ready. Tap record to capture{mode_suffix}")
         if hasattr(self, "reverse_debug_label"):
             self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if hasattr(self, "camera_feed_label"):
             self.camera_feed_label.setText("Video preview" if self.asl_video_path else "Camera feed")
             self.camera_feed_label.setPixmap(QPixmap())
         self._update_asl_source_buttons()
+        self._refresh_camera_capture_button()
 
     def stop_camera(self, finalize_pending: bool = True):
         if not self.camera_running:
             return
         self.camera_shutdown_in_progress = True
+        self.camera_capture_enabled = False
         self.latest_camera_pose = None
         self.latest_camera_debug_token = ""
         self.latest_camera_debug_confidence = 0.0
@@ -1703,6 +1781,7 @@ class MainWindow(QWidget):
             self.camera_feed_label.setPixmap(QPixmap())
             self.camera_feed_label.setText("Video stopped" if self.asl_video_path else "Camera stopped")
         self._update_asl_source_buttons()
+        self._refresh_camera_capture_button()
 
     def toggle_camera(self):
         if self.camera_running:
@@ -1800,6 +1879,8 @@ class MainWindow(QWidget):
             self.reverse_status_label.setText("Status: Camera stopped")
             self.camera_feed_label.setText("Camera stopped")
         self.camera_toggle_button.setText("Start Input")
+        self.camera_capture_enabled = False
+        self._refresh_camera_capture_button()
         self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         self._update_asl_source_buttons()
 
@@ -1819,8 +1900,10 @@ class MainWindow(QWidget):
                 self.reverse_status_label.setText(
                     f"Status: Processing video {self._current_asl_source_label()}"
                 )
+            elif self.camera_capture_enabled:
+                self.reverse_status_label.setText("Status: Capturing signs... tap again to stop")
             else:
-                self.reverse_status_label.setText("Status: Camera listening...")
+                self.reverse_status_label.setText("Status: Camera ready. Tap record to capture")
             self.camera_reset_requested.emit()
         else:
             self.reverse_status_label.setText(
