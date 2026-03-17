@@ -176,6 +176,14 @@ class MainWindow(QWidget):
         self.latest_camera_overlay_token = ""
         self.latest_camera_overlay_confidence = 0.0
         self.latest_camera_overlay_ts = 0.0
+        self.camera_no_hand_streak = 0
+        self.camera_auto_stop_no_hand_frames = _env_int(
+            "ASL_AUTO_STOP_NO_HAND_FRAMES",
+            6,
+            min_value=1,
+            max_value=120,
+        )
+        self.single_sign_capture = _env_bool("ASL_SINGLE_SIGN_CAPTURE", True)
         self.overlay_label_min_confidence = _env_float(
             "ASL_OVERLAY_LABEL_MIN_CONF",
             0.80,
@@ -566,6 +574,15 @@ class MainWindow(QWidget):
     def on_camera_pose(self, pose: dict):
         self.latest_camera_pose = pose
         self.english_animation_view.set_live_pose(pose)
+        if self.camera_capture_enabled and self.asl_video_path is None:
+            if self._pose_has_visible_hands(pose):
+                self.camera_no_hand_streak = 0
+            else:
+                self.camera_no_hand_streak += 1
+                if self.camera_no_hand_streak >= self.camera_auto_stop_no_hand_frames:
+                    self.stop_camera_capture(finalize_pending=True)
+        else:
+            self.camera_no_hand_streak = 0
 
     def on_camera_frame(self, frame_image):
         if frame_image is None:
@@ -589,6 +606,28 @@ class MainWindow(QWidget):
             return self.demo_token_remap.get(mapped, mapped)
         return mapped
 
+    def _pose_has_visible_hands(self, pose: dict) -> bool:
+        if not pose:
+            return False
+        keys = (
+            "hand_left",
+            "hand_right",
+            "left_thumb_tip",
+            "left_index_tip",
+            "left_middle_tip",
+            "left_ring_tip",
+            "left_pinky_tip",
+            "right_thumb_tip",
+            "right_index_tip",
+            "right_middle_tip",
+            "right_ring_tip",
+            "right_pinky_tip",
+        )
+        for key in keys:
+            if pose.get(key) is not None:
+                return True
+        return False
+
     def on_camera_token(self, token: str, confidence: float):
         if not self.camera_capture_enabled and self.asl_video_path is None:
             return
@@ -599,6 +638,13 @@ class MainWindow(QWidget):
         # Demo guard: keep "ME" only once per buffered sentence.
         if self.demo_mode and token == "ME" and "ME" in self.pending_camera_tokens:
             return
+        if (
+            self.single_sign_capture
+            and self.asl_video_path is None
+            and self.pending_camera_tokens
+            and token != self.pending_camera_tokens[0]
+        ):
+            return
         if not self.pending_camera_tokens or self.pending_camera_tokens[-1] != token:
             self.pending_camera_tokens.append(token)
         # Keep overlay focused on the currently detected sign.
@@ -607,6 +653,10 @@ class MainWindow(QWidget):
         self.latest_camera_overlay_ts = time.monotonic()
         if self.demo_mode:
             self.reverse_status_label.setText("Status: Capturing signs...")
+        elif self.single_sign_capture and self.asl_video_path is None and self.pending_camera_tokens:
+            self.reverse_status_label.setText(
+                f"Status: Captured {self.pending_camera_tokens[0]}. Move hands out of frame or tap stop"
+            )
         else:
             self.reverse_status_label.setText(
                 f"Status: Capturing signs... ({len(self.pending_camera_tokens)} buffered)"
@@ -736,6 +786,8 @@ class MainWindow(QWidget):
     def on_camera_sequence(self, tokens: list):
         if not self.camera_capture_enabled and self.asl_video_path is None:
             return
+        if self.single_sign_capture and self.asl_video_path is None:
+            return
         if not tokens:
             return
         if self.demo_mode and self.pending_camera_tokens:
@@ -774,6 +826,8 @@ class MainWindow(QWidget):
         return tokens
 
     def _finalize_camera_translation(self, tokens: list):
+        if self.single_sign_capture and self.asl_video_path is None and tokens:
+            tokens = tokens[:1]
         if self.demo_mode and self.demo_allowed_tokens:
             tokens = [t for t in tokens if t in self.demo_allowed_tokens]
             if not tokens:
@@ -1544,6 +1598,8 @@ class MainWindow(QWidget):
         self.asl_clear_history_action = self.asl_settings_menu.addAction("Clear ASL History")
         self.asl_clear_history_action.triggered.connect(self.on_clear_reverse_history_clicked)
         self.asl_settings_menu.addSeparator()
+        self.asl_toggle_capture_mode_action = self.asl_settings_menu.addAction("")
+        self.asl_toggle_capture_mode_action.triggered.connect(self.toggle_camera_capture_mode)
         self.asl_toggle_speaker_action = self.asl_settings_menu.addAction("")
         self.asl_toggle_speaker_action.triggered.connect(self.toggle_speaker)
         self.asl_test_speaker_action = self.asl_settings_menu.addAction("Test Speaker")
@@ -1605,6 +1661,9 @@ class MainWindow(QWidget):
     def _refresh_asl_settings_actions(self):
         if not hasattr(self, "asl_toggle_speaker_action"):
             return
+        if hasattr(self, "asl_toggle_capture_mode_action"):
+            mode_text = "Switch To Live Mode" if self.single_sign_capture else "Switch To Precise Mode"
+            self.asl_toggle_capture_mode_action.setText(mode_text)
         self.tts_backend = self._resolve_tts_backend()
         speaker_text = "Disable Speaker" if self.speaker_enabled else "Enable Speaker"
         self.asl_toggle_speaker_action.setText(speaker_text)
@@ -1619,6 +1678,7 @@ class MainWindow(QWidget):
         if not self.camera_running or self.asl_video_path is not None:
             return
         self.camera_capture_enabled = True
+        self.camera_no_hand_streak = 0
         self.pending_camera_tokens.clear()
         self.latest_camera_overlay_token = ""
         self.latest_camera_overlay_confidence = 0.0
@@ -1628,7 +1688,14 @@ class MainWindow(QWidget):
         if hasattr(self, "reverse_label"):
             self.reverse_label.setText("English Translation:")
         if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText("Status: Capturing signs... tap again to stop")
+            if self.single_sign_capture:
+                self.reverse_status_label.setText(
+                    "Status: Precise mode. Sign once, then tap stop or move hands out of frame"
+                )
+            else:
+                self.reverse_status_label.setText(
+                    "Status: Live mode. Sign continuously and tap stop when done"
+                )
         if hasattr(self, "reverse_debug_label"):
             self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
         if self.camera_worker is not None:
@@ -1639,6 +1706,7 @@ class MainWindow(QWidget):
         if not self.camera_capture_enabled:
             return
         self.camera_capture_enabled = False
+        self.camera_no_hand_streak = 0
         self.latest_camera_overlay_token = ""
         self.latest_camera_overlay_confidence = 0.0
         self.latest_camera_overlay_ts = 0.0
@@ -1660,6 +1728,17 @@ class MainWindow(QWidget):
             self.stop_camera_capture()
         else:
             self.start_camera_capture()
+
+    def toggle_camera_capture_mode(self):
+        self.single_sign_capture = not self.single_sign_capture
+        mode_name = "Precise" if self.single_sign_capture else "Live"
+        if self.camera_capture_enabled:
+            self.stop_camera_capture(finalize_pending=False)
+        if hasattr(self, "reverse_status_label"):
+            self.reverse_status_label.setText(
+                f"Status: {mode_name} mode enabled"
+            )
+        self._refresh_asl_settings_actions()
 
     def start_camera(self, source_path: str | None = None):
         if self.camera_running:
@@ -1694,6 +1773,7 @@ class MainWindow(QWidget):
         self.camera_thread.start()
         self.camera_running = True
         self.camera_capture_enabled = bool(self.asl_video_path)
+        self.camera_no_hand_streak = 0
         self.camera_shutdown_in_progress = False
         source_name = self._current_asl_source_label()
         mode_suffix = " (Fast)" if self.fast_camera_mode else ""
@@ -1721,6 +1801,7 @@ class MainWindow(QWidget):
             return
         self.camera_shutdown_in_progress = True
         self.camera_capture_enabled = False
+        self.camera_no_hand_streak = 0
         self.latest_camera_pose = None
         self.latest_camera_debug_token = ""
         self.latest_camera_debug_confidence = 0.0
@@ -1885,7 +1966,11 @@ class MainWindow(QWidget):
         self._update_asl_source_buttons()
 
     def reset_translation(self):
+        if self.camera_capture_enabled:
+            self.stop_camera_capture(finalize_pending=False)
         self.pending_camera_tokens.clear()
+        self.camera_no_hand_streak = 0
+        self.latest_camera_pose = None
         self.latest_camera_debug_token = ""
         self.latest_camera_debug_confidence = 0.0
         self.latest_camera_overlay_token = ""
@@ -1895,13 +1980,13 @@ class MainWindow(QWidget):
         self.reverse_label.setText("English Translation:")
         self.latest_translation_text = ""
         self.reverse_debug_label.setText("Debug Match: (none) | conf=0.00 | streak=0")
+        if hasattr(self, "camera_feed_label") and not self.camera_feed_label.pixmap():
+            self.camera_feed_label.setText("Video preview" if self.asl_video_path else "Camera feed")
         if self.camera_running:
             if self.asl_video_path:
                 self.reverse_status_label.setText(
                     f"Status: Processing video {self._current_asl_source_label()}"
                 )
-            elif self.camera_capture_enabled:
-                self.reverse_status_label.setText("Status: Capturing signs... tap again to stop")
             else:
                 self.reverse_status_label.setText("Status: Camera ready. Tap record to capture")
             self.camera_reset_requested.emit()

@@ -4,63 +4,13 @@
   "target_count": 13,
   "targets": [
     {
-      "label": "PLAY",
-      "accuracy": 0.5,
-      "total": 2,
-      "correct": 1,
-      "current_clip_count": 3,
-      "top_confusion": "YES",
-      "top_confusion_confidence": 0.553474485874176,
-      "recommended_new_clips": 8
-    },
-    {
-      "label": "NOW",
-      "accuracy": 0.5,
-      "total": 2,
-      "correct": 1,
-      "current_clip_count": 9,
-      "top_confusion": "WANT",
-      "top_confusion_confidence": 0.4014832675457001,
-      "recommended_new_clips": 8
-    },
-    {
-      "label": "WORK",
-      "accuracy": 0.5714285714285714,
-      "total": 7,
-      "correct": 4,
-      "current_clip_count": 13,
-      "top_confusion": "TIME",
-      "top_confusion_confidence": 0.9281810522079468,
-      "recommended_new_clips": 8
-    },
-    {
-      "label": "TIME",
-      "accuracy": 0.6666666666666666,
-      "total": 3,
-      "correct": 2,
-      "current_clip_count": 16,
-      "top_confusion": "BROTHER",
-      "top_confusion_confidence": 0.6690579056739807,
-      "recommended_new_clips": 8
-    },
-    {
       "label": "FINISH",
       "accuracy": 0.6666666666666666,
       "total": 3,
       "correct": 2,
       "current_clip_count": 9,
       "top_confusion": "WOMAN",
-      "top_confusion_confidence": 0.5537266731262207,
-      "recommended_new_clips": 8
-    },
-    {
-      "label": "THANK_YOU",
-      "accuracy": 0.6666666666666666,
-      "total": 3,
-      "correct": 2,
-      "current_clip_count": 13,
-      "top_confusion": "WOMAN",
-      "top_confusion_confidence": 0.3365066349506378,
+      "top_confusion_confidence": 0.5138037204742432,
       "recommended_new_clips": 8
     },
     {
@@ -69,18 +19,18 @@
       "total": 3,
       "correct": 2,
       "current_clip_count": 15,
-      "top_confusion": "GIVE",
-      "top_confusion_confidence": 0.33312976360321045,
+      "top_confusion": "WANT",
+      "top_confusion_confidence": 0.33797478675842285,
       "recommended_new_clips": 8
     },
     {
-      "label": "YEAR",
-      "accuracy": 0.8333333333333334,
-      "total": 6,
-      "correct": 5,
-      "current_clip_count": 3,
-      "top_confusion": "WORK",
-      "top_confusion_confidence": 0.7444283962249756,
+      "label": "WAIT",
+      "accuracy": 0.8,
+      "total": 5,
+      "correct": 4,
+      "current_clip_count": 13,
+      "top_confusion": "GO",
+      "top_confusion_confidence": 0.5800650119781494,
       "recommended_new_clips": 8
     },
     {
@@ -90,7 +40,17 @@
       "correct": 5,
       "current_clip_count": 4,
       "top_confusion": "WHO",
-      "top_confusion_confidence": 0.42812225222587585,
+      "top_confusion_confidence": 0.6249045729637146,
+      "recommended_new_clips": 8
+    },
+    {
+      "label": "WHO",
+      "accuracy": 0.8333333333333334,
+      "total": 6,
+      "correct": 5,
+      "current_clip_count": 3,
+      "top_confusion": "EAT",
+      "top_confusion_confidence": 0.3860979676246643,
       "recommended_new_clips": 8
     },
     {
@@ -99,8 +59,58 @@
       "total": 7,
       "correct": 6,
       "current_clip_count": 3,
-      "top_confusion": "LATER",
-      "top_confusion_confidence": 0.4888651967048645,
+      "top_confusion": "PLAY",
+      "top_confusion_confidence": 0.4800949692726135,
+      "recommended_new_clips": 8
+    },
+    {
+      "label": "YOU",
+      "accuracy": 0.8571428571428571,
+      "total": 7,
+      "correct": 6,
+      "current_clip_count": 4,
+      "top_confusion": "ME",
+      "top_confusion_confidence": 0.47868359088897705,
+      "recommended_new_clips": 8
+    },
+    {
+      "label": "WOMAN",
+      "accuracy": 0.8666666666666667,
+      "total": 15,
+      "correct": 13,
+      "current_clip_count": 16,
+      "top_confusion": "THANK_YOU",
+      "top_confusion_confidence": 0.36165302991867065,
+      "recommended_new_clips": 8
+    },
+    {
+      "label": "WHAT",
+      "accuracy": 0.875,
+      "total": 8,
+      "correct": 7,
+      "current_clip_count": 19,
+      "top_confusion": "WANT",
+      "top_confusion_confidence": 0.40992364287376404,
+      "recommended_new_clips": 8
+    },
+    {
+      "label": "NO",
+      "accuracy": 0.8888888888888888,
+      "total": 9,
+      "correct": 8,
+      "current_clip_count": 18,
+      "top_confusion": "ME",
+      "top_confusion_confidence": 0.6394796967506409,
+      "recommended_new_clips": 8
+    },
+    {
+      "label": "TIME",
+      "accuracy": 0.9,
+      "total": 10,
+      "correct": 9,
+      "current_clip_count": 16,
+      "top_confusion": "WAIT",
+      "top_confusion_confidence": 0.7523581385612488,
       "recommended_new_clips": 8
     },
     {
@@ -109,8 +119,8 @@
       "total": 11,
       "correct": 10,
       "current_clip_count": 16,
-      "top_confusion": "MOTHER",
-      "top_confusion_confidence": 0.677876353263855,
+      "top_confusion": "WANT",
+      "top_confusion_confidence": 0.5683891773223877,
       "recommended_new_clips": 8
     },
     {
@@ -119,70 +129,20 @@
       "total": 14,
       "correct": 13,
       "current_clip_count": 19,
-      "top_confusion": "WAIT",
-      "top_confusion_confidence": 0.9401188492774963,
-      "recommended_new_clips": 8
-    },
-    {
-      "label": "WOMAN",
-      "accuracy": 0.9333333333333333,
-      "total": 15,
-      "correct": 14,
-      "current_clip_count": 16,
-      "top_confusion": "MAN",
-      "top_confusion_confidence": 0.49783143401145935,
+      "top_confusion": "WATER",
+      "top_confusion_confidence": 0.5056954026222229,
       "recommended_new_clips": 8
     }
   ],
   "confusion_groups": [
     {
-      "true_label": "WORK",
-      "pred_label": "TIME",
-      "count": 2
-    },
-    {
-      "true_label": "MOTHER",
+      "true_label": "TIME",
       "pred_label": "WAIT",
       "count": 1
     },
     {
-      "true_label": "YEAR",
-      "pred_label": "WORK",
-      "count": 1
-    },
-    {
-      "true_label": "WATER",
-      "pred_label": "MOTHER",
-      "count": 1
-    },
-    {
-      "true_label": "TIME",
-      "pred_label": "BROTHER",
-      "count": 1
-    },
-    {
-      "true_label": "WORK",
-      "pred_label": "BROTHER",
-      "count": 1
-    },
-    {
-      "true_label": "FINISH",
-      "pred_label": "WOMAN",
-      "count": 1
-    },
-    {
-      "true_label": "PLAY",
-      "pred_label": "YES",
-      "count": 1
-    },
-    {
-      "true_label": "WOMAN",
-      "pred_label": "MAN",
-      "count": 1
-    },
-    {
-      "true_label": "FAMILY",
-      "pred_label": "LATER",
+      "true_label": "NO",
+      "pred_label": "ME",
       "count": 1
     },
     {
@@ -191,18 +151,58 @@
       "count": 1
     },
     {
-      "true_label": "NOW",
+      "true_label": "WAIT",
+      "pred_label": "GO",
+      "count": 1
+    },
+    {
+      "true_label": "WATER",
       "pred_label": "WANT",
       "count": 1
     },
     {
-      "true_label": "THANK_YOU",
+      "true_label": "FINISH",
       "pred_label": "WOMAN",
       "count": 1
     },
     {
+      "true_label": "MOTHER",
+      "pred_label": "WATER",
+      "count": 1
+    },
+    {
+      "true_label": "FAMILY",
+      "pred_label": "PLAY",
+      "count": 1
+    },
+    {
+      "true_label": "YOU",
+      "pred_label": "ME",
+      "count": 1
+    },
+    {
+      "true_label": "WHAT",
+      "pred_label": "WANT",
+      "count": 1
+    },
+    {
+      "true_label": "WHO",
+      "pred_label": "EAT",
+      "count": 1
+    },
+    {
+      "true_label": "WOMAN",
+      "pred_label": "THANK_YOU",
+      "count": 1
+    },
+    {
       "true_label": "MAN",
-      "pred_label": "GIVE",
+      "pred_label": "WANT",
+      "count": 1
+    },
+    {
+      "true_label": "WOMAN",
+      "pred_label": "MOTHER",
       "count": 1
     }
   ]
