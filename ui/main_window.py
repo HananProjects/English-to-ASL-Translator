@@ -579,7 +579,10 @@ class MainWindow(QWidget):
                 self.camera_no_hand_streak = 0
             else:
                 self.camera_no_hand_streak += 1
-                if self.camera_no_hand_streak >= self.camera_auto_stop_no_hand_frames:
+                if (
+                    self.single_sign_capture
+                    and self.camera_no_hand_streak >= self.camera_auto_stop_no_hand_frames
+                ):
                     self.stop_camera_capture(finalize_pending=True)
         else:
             self.camera_no_hand_streak = 0
