@@ -94,6 +94,39 @@ def test_sign_stream_recognizer_does_not_repeat_same_token_while_held():
     assert emitted == ["YOU"]
 
 
+def test_sign_stream_recognizer_does_not_commit_during_high_motion(monkeypatch):
+    matcher = DummyMatcher([("YOU", 0.95)] * 4)
+    recognizer = SignStreamRecognizer(
+        matcher=matcher,
+        stable_frames=2,
+        min_confidence=0.5,
+        emit_cooldown_frames=0,
+        pause_frames=4,
+    )
+    monkeypatch.setenv("ASL_TRANSITION_MOTION_THRESHOLD", "0.02")
+    monkeypatch.setenv("ASL_COMMIT_MOTION_THRESHOLD", "0.01")
+    monkeypatch.setenv("ASL_MOTION_SETTLE_FRAMES", "2")
+    recognizer.transition_motion_threshold = 0.02
+    recognizer.commit_motion_threshold = 0.01
+    recognizer.motion_settle_frames = 2
+
+    poses = [
+        {"hand_right": (0.20, 0.20), "right_index_tip": (0.22, 0.18)},
+        {"hand_right": (0.50, 0.50), "right_index_tip": (0.52, 0.48)},
+        {"hand_right": (0.80, 0.80), "right_index_tip": (0.82, 0.78)},
+        {"hand_right": (0.805, 0.805), "right_index_tip": (0.825, 0.785)},
+        {"hand_right": (0.806, 0.806), "right_index_tip": (0.826, 0.786)},
+    ]
+
+    emitted = []
+    for pose in poses:
+        update = recognizer.process(pose)
+        if update.detected_token is not None:
+            emitted.append(update.detected_token)
+
+    assert emitted == []
+
+
 def test_model_matcher_predicts_from_npz_model(tmp_path):
     seq_len = 3
     feature_dim = int(pose_to_feature_vector({}).shape[0])

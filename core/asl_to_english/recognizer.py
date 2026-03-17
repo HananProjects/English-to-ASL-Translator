@@ -210,6 +210,26 @@ def _env_float(
     return value
 
 
+def _env_int(
+    name: str,
+    default: int,
+    min_value: Optional[int] = None,
+    max_value: Optional[int] = None,
+) -> int:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        value = int(raw)
+    except Exception:
+        return default
+    if min_value is not None and value < min_value:
+        value = min_value
+    if max_value is not None and value > max_value:
+        value = max_value
+    return value
+
+
 def pose_distance(a: PoseDict, b: PoseDict, min_shared: int = 9) -> float:
     shared = [key for key in a if key in b]
     if len(shared) < min_shared:
@@ -525,6 +545,7 @@ class SignStreamRecognizer:
         self._prev_pose: Optional[PoseDict] = None
         self._left_motion_history = deque(maxlen=8)
         self._right_motion_history = deque(maxlen=8)
+        self._low_motion_streak = 0
         self._suppress_idle_hand = os.getenv("ASL_SUPPRESS_IDLE_HAND", "").strip().lower() in {
             "1",
             "true",
@@ -535,6 +556,24 @@ class SignStreamRecognizer:
             "ASL_ENABLE_ME_POSE_OVERRIDE",
             "",
         ).strip().lower() in {"1", "true", "yes", "on"}
+        self.transition_motion_threshold = _env_float(
+            "ASL_TRANSITION_MOTION_THRESHOLD",
+            0.020,
+            min_value=0.0,
+            max_value=1.0,
+        )
+        self.commit_motion_threshold = _env_float(
+            "ASL_COMMIT_MOTION_THRESHOLD",
+            0.014,
+            min_value=0.0,
+            max_value=1.0,
+        )
+        self.motion_settle_frames = _env_int(
+            "ASL_MOTION_SETTLE_FRAMES",
+            2,
+            min_value=1,
+            max_value=30,
+        )
 
     def process(self, pose: PoseDict) -> RecognitionUpdate:
         if self._prev_pose is not None:
@@ -565,10 +604,16 @@ class SignStreamRecognizer:
         if self._hello_motion_cooldown > 0:
             self._hello_motion_cooldown -= 1
 
+        current_motion = max(
+            (sum(self._left_motion_history) / len(self._left_motion_history)) if self._left_motion_history else 0.0,
+            (sum(self._right_motion_history) / len(self._right_motion_history)) if self._right_motion_history else 0.0,
+        )
+
         effective_min_conf = max(self.min_confidence, self.commit_min_confidence)
         if token is None or confidence < effective_min_conf:
             self._candidate_token = None
             self._candidate_streak = 0
+            self._low_motion_streak = 0
             self._low_conf_streak += 1
 
             if self._low_conf_streak >= self.pause_frames and self.buffered_tokens:
@@ -587,7 +632,25 @@ class SignStreamRecognizer:
                 candidate_streak=self._candidate_streak,
             )
 
+        if current_motion > self.transition_motion_threshold:
+            self._candidate_token = None
+            self._candidate_streak = 0
+            self._low_motion_streak = 0
+            return RecognitionUpdate(
+                detected_token=None,
+                confidence=confidence,
+                sentence_tokens=None,
+                buffered_tokens=list(self.buffered_tokens),
+                raw_token=token,
+                raw_confidence=confidence,
+                candidate_streak=0,
+            )
+
         self._low_conf_streak = 0
+        if current_motion <= self.commit_motion_threshold:
+            self._low_motion_streak += 1
+        else:
+            self._low_motion_streak = 0
         if token == self._candidate_token:
             self._candidate_streak += 1
         else:
@@ -596,6 +659,7 @@ class SignStreamRecognizer:
 
         if (
             self._candidate_streak >= self.stable_frames
+            and self._low_motion_streak >= self.motion_settle_frames
             and self._cooldown_left == 0
             and token != self._last_emitted_token
         ):
@@ -621,6 +685,7 @@ class SignStreamRecognizer:
         self._last_emitted_token = None
         self._cooldown_left = 0
         self._low_conf_streak = 0
+        self._low_motion_streak = 0
         self._right_hand_history.clear()
         self._hello_motion_cooldown = 0
         self._prev_pose = None
