@@ -520,6 +520,8 @@ class MainWindow(QWidget):
         used_fingerspelling = bool(data.get("used_fingerspelling", False))
         spelled_words = [str(w) for w in (data.get("spelled_words") or []) if str(w).strip()]
 
+        self._set_english_text_input_text(heard_text)
+
         self.english_tokens_label.setText(
             f"Detected ASL Tokens: {' '.join(tokens) if tokens else '(none)'}"
         )
@@ -529,18 +531,20 @@ class MainWindow(QWidget):
             words = ", ".join(spelled_words[:3])
             extra = f" (+{len(spelled_words) - 3} more)" if len(spelled_words) > 3 else ""
             self.english_status_label.setText(
-                f"Status: No sign found for {words}{extra}; spelling letter-by-letter"
+                "Status: Review heard text below, then edit and tap Translate Text if needed. "
+                f"No sign found for {words}{extra}; spelling letter-by-letter"
             )
         else:
             if self.demo_mode:
                 self.english_status_label.setText(
-                    f"Heard: {heard_text or '(none)'}"
+                    f"Heard: {heard_text or '(none)'} | Edit below and tap Translate Text if needed"
                 )
             else:
                 self.english_status_label.setText(
                     f"Heard: {heard_text or '(none)'} | "
                     f"Confidence: {data['confidence']:.2f} | "
-                    f"Latency: {data['latency']} ms"
+                    f"Latency: {data['latency']} ms | "
+                    "Edit below and tap Translate Text if needed"
                 )
 
         if not tokens:
@@ -903,6 +907,15 @@ class MainWindow(QWidget):
         self._process_english_text(text, source="typed")
         self.english_text_input.selectAll()
         self._hide_soft_keyboard()
+
+    def _set_english_text_input_text(self, text: str):
+        if not hasattr(self, "english_text_input"):
+            return
+        clean_text = (text or "").strip()
+        if not clean_text:
+            return
+        self.english_text_input.setText(clean_text)
+        self.english_text_input.setCursorPosition(len(clean_text))
 
     def _resolve_soft_keyboard_command(self) -> list[str] | None:
         env_cmd = os.getenv("ASL_SOFT_KEYBOARD_CMD", "").strip()
@@ -1414,10 +1427,12 @@ class MainWindow(QWidget):
         self.english_tokens_label = QLabel("Detected ASL Tokens:")
         self.english_tokens_label.setObjectName("sectionLabel")
         self.english_text_input = QLineEdit()
-        self.english_text_input.setPlaceholderText("Type English text instead of speaking")
+        self.english_text_input.setPlaceholderText(
+            "Type or edit the heard English sentence here before translating"
+        )
         self.english_text_input.installEventFilter(self)
         self.english_text_input.returnPressed.connect(self.on_typed_text_submit)
-        self.english_text_submit_button = QPushButton("Translate Text")
+        self.english_text_submit_button = QPushButton("Translate / Update")
         self.english_text_submit_button.setObjectName("secondaryButton")
         self.english_text_submit_button.setMinimumHeight(self.mini_button_height)
         self.english_text_submit_button.clicked.connect(self.on_typed_text_submit)

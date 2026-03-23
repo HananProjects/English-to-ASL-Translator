@@ -34,3 +34,8 @@ def test_greeting_how_are_you_order():
 def test_how_are_you_order():
     r = english_to_asl(text="how are you")
     assert r.asl_tokens == ["HOW", "YOU"]
+
+
+def test_greeting_how_are_you_preserves_extra_words():
+    r = english_to_asl(text="hello how are you doing my friend")
+    assert r.asl_tokens == ["HELLO", "YOU", "MY", "FRIEND", "HOW"]

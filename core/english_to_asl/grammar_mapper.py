@@ -32,11 +32,22 @@ def map_grammar(text: str) -> list[str]:
 
     # Common conversational phrase handling with copula drop:
     # "hello how are you" -> "hello how you"
+    #
+    # Keep this narrowly scoped to the short greeting form so longer
+    # edited sentences like "hello how are you doing my friend" still
+    # flow through the general mapper instead of losing everything
+    # after "how are you".
     has_how_are_you = "how" in words and "you" in words and "are" in words
     greeting = next((w for w in words if w in GREETING_WORDS), None)
-    if has_how_are_you and greeting is not None:
+    short_greeting_tail = {"hello", "hi", "hey", "how", "are", "you", "doing"}
+    short_how_are_you_tail = {"how", "are", "you", "doing"}
+    if (
+        has_how_are_you
+        and greeting is not None
+        and set(words).issubset(short_greeting_tail)
+    ):
         return [greeting, "how", "you"]
-    if has_how_are_you and words[0] == "how":
+    if has_how_are_you and words[0] == "how" and set(words).issubset(short_how_are_you_tail):
         return ["how", "you"]
 
     # ASL commonly fronts time markers.
