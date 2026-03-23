@@ -30,6 +30,7 @@ export ASL_PROCESS_EVERY_N="${ASL_PROCESS_EVERY_N:-1}"
 export ASL_CAMERA_BUFFER_SIZE="${ASL_CAMERA_BUFFER_SIZE:-1}"
 export ASL_CAMERA_ZOOM="${ASL_CAMERA_ZOOM:-1.0}"
 export ASL_TTS_ALSA_DEVICE="${ASL_TTS_ALSA_DEVICE:-default:CARD=wm8960soundcard}"
+export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-xcb}"
 
 cd "${REPO_ROOT}"
 
@@ -39,4 +40,3 @@ fi
 
 echo "[launcher] libcamerify not found; running UI directly."
 exec "${PYTHON_BIN}" -m ui.main
-

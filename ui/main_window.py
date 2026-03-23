@@ -888,6 +888,10 @@ class MainWindow(QWidget):
         if watched is getattr(self, "english_text_input", None):
             if event.type() == QEvent.FocusIn:
                 self._show_soft_keyboard()
+            elif event.type() in {QEvent.MouseButtonPress, QEvent.TouchBegin}:
+                # Touchscreen taps do not always deliver a fresh FocusIn event if the
+                # field already owns focus, so request the keyboard explicitly here.
+                QTimer.singleShot(0, self._show_soft_keyboard)
             elif event.type() == QEvent.FocusOut:
                 self._hide_soft_keyboard()
         return super().eventFilter(watched, event)
@@ -917,21 +921,41 @@ class MainWindow(QWidget):
         self.english_text_input.setText(clean_text)
         self.english_text_input.setCursorPosition(len(clean_text))
 
-    def _resolve_soft_keyboard_command(self) -> list[str] | None:
+    def _soft_keyboard_candidates(self) -> list[list[str]]:
         env_cmd = os.getenv("ASL_SOFT_KEYBOARD_CMD", "").strip()
         if env_cmd:
-            return ["/bin/bash", "-lc", env_cmd]
-        for command in (
-            "squeekboard",
-            "wvkbd-mobintl",
-            "wvkbd",
-            "matchbox-keyboard",
-            "onboard",
-            "florence",
-        ):
-            if shutil.which(command):
-                return [command]
-        return None
+            return [["/bin/bash", "-lc", env_cmd]]
+
+        session_type = os.getenv("XDG_SESSION_TYPE", "").strip().lower()
+        candidates: list[list[str]] = []
+
+        # On Raspberry Pi desktops, matchbox-keyboard tends to be the most
+        # reliable fallback even under Wayland/XWayland, while squeekboard can
+        # exist on PATH but fail to present a usable keyboard for this app.
+        if shutil.which("matchbox-keyboard"):
+            candidates.append(["matchbox-keyboard"])
+
+        if session_type == "wayland":
+            if shutil.which("wvkbd-mobintl"):
+                candidates.append(["wvkbd-mobintl"])
+            if shutil.which("wvkbd"):
+                candidates.append(["wvkbd"])
+            if shutil.which("squeekboard"):
+                candidates.append(["squeekboard"])
+        else:
+            if shutil.which("squeekboard"):
+                candidates.append(["squeekboard"])
+            if shutil.which("wvkbd-mobintl"):
+                candidates.append(["wvkbd-mobintl"])
+            if shutil.which("wvkbd"):
+                candidates.append(["wvkbd"])
+
+        if shutil.which("onboard"):
+            candidates.append(["onboard"])
+        if shutil.which("florence"):
+            candidates.append(["florence"])
+
+        return candidates
 
     def _set_native_osk_visible(self, visible: bool) -> bool:
         if not shutil.which("gdbus"):
@@ -965,13 +989,18 @@ class MainWindow(QWidget):
             return
         if self.soft_keyboard_process is not None and self.soft_keyboard_process.poll() is None:
             return
-        command = self._resolve_soft_keyboard_command()
-        if command is None:
+        self.soft_keyboard_process = None
+        for command in self._soft_keyboard_candidates():
+            try:
+                process = subprocess.Popen(
+                    command,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
+            except Exception:
+                continue
+            self.soft_keyboard_process = process
             return
-        try:
-            self.soft_keyboard_process = subprocess.Popen(command)
-        except Exception:
-            self.soft_keyboard_process = None
 
     def _hide_soft_keyboard(self):
         self._set_native_osk_visible(False)
