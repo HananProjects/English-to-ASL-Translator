@@ -1,27 +1,27 @@
 {
   "eval_report": "data/eval/asl_to_english_eval_labels_100_val.json",
   "manifest": "data/training_manifest_labels_100.json",
-  "target_count": 13,
+  "target_count": 12,
   "targets": [
     {
-      "label": "FINISH",
-      "accuracy": 0.6666666666666666,
-      "total": 3,
-      "correct": 2,
-      "current_clip_count": 9,
-      "top_confusion": "WOMAN",
-      "top_confusion_confidence": 0.5138037204742432,
-      "recommended_new_clips": 8
+      "label": "GO",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 4,
+      "top_confusion": "LATER",
+      "top_confusion_confidence": 0.5800355672836304,
+      "recommended_new_clips": 12
     },
     {
-      "label": "MAN",
-      "accuracy": 0.6666666666666666,
-      "total": 3,
-      "correct": 2,
-      "current_clip_count": 15,
-      "top_confusion": "WANT",
-      "top_confusion_confidence": 0.33797478675842285,
-      "recommended_new_clips": 8
+      "label": "NEED",
+      "accuracy": 0.0,
+      "total": 1,
+      "correct": 0,
+      "current_clip_count": 4,
+      "top_confusion": "ME",
+      "top_confusion_confidence": 0.3301408290863037,
+      "recommended_new_clips": 12
     },
     {
       "label": "WAIT",
@@ -30,17 +30,17 @@
       "correct": 4,
       "current_clip_count": 13,
       "top_confusion": "GO",
-      "top_confusion_confidence": 0.5800650119781494,
+      "top_confusion_confidence": 0.9068586826324463,
       "recommended_new_clips": 8
     },
     {
-      "label": "DRINK",
-      "accuracy": 0.8333333333333334,
-      "total": 6,
-      "correct": 5,
-      "current_clip_count": 4,
-      "top_confusion": "WHO",
-      "top_confusion_confidence": 0.6249045729637146,
+      "label": "FINISH",
+      "accuracy": 0.8,
+      "total": 5,
+      "correct": 4,
+      "current_clip_count": 9,
+      "top_confusion": "PLAY",
+      "top_confusion_confidence": 0.7610725164413452,
       "recommended_new_clips": 8
     },
     {
@@ -50,17 +50,7 @@
       "correct": 5,
       "current_clip_count": 3,
       "top_confusion": "EAT",
-      "top_confusion_confidence": 0.3860979676246643,
-      "recommended_new_clips": 8
-    },
-    {
-      "label": "FAMILY",
-      "accuracy": 0.8571428571428571,
-      "total": 7,
-      "correct": 6,
-      "current_clip_count": 3,
-      "top_confusion": "PLAY",
-      "top_confusion_confidence": 0.4800949692726135,
+      "top_confusion_confidence": 0.32481467723846436,
       "recommended_new_clips": 8
     },
     {
@@ -70,7 +60,7 @@
       "correct": 6,
       "current_clip_count": 4,
       "top_confusion": "ME",
-      "top_confusion_confidence": 0.47868359088897705,
+      "top_confusion_confidence": 0.4762999415397644,
       "recommended_new_clips": 8
     },
     {
@@ -79,8 +69,8 @@
       "total": 15,
       "correct": 13,
       "current_clip_count": 16,
-      "top_confusion": "THANK_YOU",
-      "top_confusion_confidence": 0.36165302991867065,
+      "top_confusion": "MAN",
+      "top_confusion_confidence": 0.4135841727256775,
       "recommended_new_clips": 8
     },
     {
@@ -90,7 +80,7 @@
       "correct": 7,
       "current_clip_count": 19,
       "top_confusion": "WANT",
-      "top_confusion_confidence": 0.40992364287376404,
+      "top_confusion_confidence": 0.3774397075176239,
       "recommended_new_clips": 8
     },
     {
@@ -100,7 +90,7 @@
       "correct": 8,
       "current_clip_count": 18,
       "top_confusion": "ME",
-      "top_confusion_confidence": 0.6394796967506409,
+      "top_confusion_confidence": 0.5717039108276367,
       "recommended_new_clips": 8
     },
     {
@@ -110,7 +100,7 @@
       "correct": 9,
       "current_clip_count": 16,
       "top_confusion": "WAIT",
-      "top_confusion_confidence": 0.7523581385612488,
+      "top_confusion_confidence": 0.8219434022903442,
       "recommended_new_clips": 8
     },
     {
@@ -120,7 +110,7 @@
       "correct": 10,
       "current_clip_count": 16,
       "top_confusion": "WANT",
-      "top_confusion_confidence": 0.5683891773223877,
+      "top_confusion_confidence": 0.5317319631576538,
       "recommended_new_clips": 8
     },
     {
@@ -130,14 +120,29 @@
       "correct": 13,
       "current_clip_count": 19,
       "top_confusion": "WATER",
-      "top_confusion_confidence": 0.5056954026222229,
+      "top_confusion_confidence": 0.5658559203147888,
       "recommended_new_clips": 8
     }
   ],
   "confusion_groups": [
     {
+      "true_label": "WAIT",
+      "pred_label": "GO",
+      "count": 1
+    },
+    {
       "true_label": "TIME",
       "pred_label": "WAIT",
+      "count": 1
+    },
+    {
+      "true_label": "FINISH",
+      "pred_label": "PLAY",
+      "count": 1
+    },
+    {
+      "true_label": "GO",
+      "pred_label": "LATER",
       "count": 1
     },
     {
@@ -146,13 +151,8 @@
       "count": 1
     },
     {
-      "true_label": "DRINK",
-      "pred_label": "WHO",
-      "count": 1
-    },
-    {
-      "true_label": "WAIT",
-      "pred_label": "GO",
+      "true_label": "MOTHER",
+      "pred_label": "WATER",
       "count": 1
     },
     {
@@ -161,28 +161,23 @@
       "count": 1
     },
     {
-      "true_label": "FINISH",
-      "pred_label": "WOMAN",
-      "count": 1
-    },
-    {
-      "true_label": "MOTHER",
-      "pred_label": "WATER",
-      "count": 1
-    },
-    {
-      "true_label": "FAMILY",
-      "pred_label": "PLAY",
-      "count": 1
-    },
-    {
       "true_label": "YOU",
       "pred_label": "ME",
       "count": 1
     },
     {
+      "true_label": "WOMAN",
+      "pred_label": "MAN",
+      "count": 1
+    },
+    {
       "true_label": "WHAT",
       "pred_label": "WANT",
+      "count": 1
+    },
+    {
+      "true_label": "NEED",
+      "pred_label": "ME",
       "count": 1
     },
     {
@@ -192,17 +187,7 @@
     },
     {
       "true_label": "WOMAN",
-      "pred_label": "THANK_YOU",
-      "count": 1
-    },
-    {
-      "true_label": "MAN",
-      "pred_label": "WANT",
-      "count": 1
-    },
-    {
-      "true_label": "WOMAN",
-      "pred_label": "MOTHER",
+      "pred_label": "DRINK",
       "count": 1
     }
   ]

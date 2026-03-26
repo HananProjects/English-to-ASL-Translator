@@ -130,6 +130,8 @@ DEFAULT_DEMO_TOKEN_REMAP = {
     "MY": "ME",
 }
 
+DEFAULT_DEMO_PHRASE_PRESET = ""
+
 
 class MainWindow(QWidget):
     speech_text_received = Signal(str)
@@ -204,6 +206,10 @@ class MainWindow(QWidget):
         self.demo_token_remap = dict(DEFAULT_DEMO_TOKEN_REMAP)
         self.demo_token_remap.update(_env_token_map("ASL_DEMO_TOKEN_REMAP"))
         self.demo_phrase_snap = _env_bool("ASL_DEMO_PHRASE_SNAP", False)
+        self.demo_phrase_preset = os.getenv(
+            "ASL_DEMO_PHRASE_PRESET",
+            DEFAULT_DEMO_PHRASE_PRESET,
+        ).strip().lower()
         self.latest_translation_text = ""
         self.tts_engine = self._init_tts_engine()
         self.tts_backend = self._resolve_tts_backend()
@@ -826,6 +832,20 @@ class MainWindow(QWidget):
         token_set = {str(t).upper() for t in tokens if str(t).strip()}
         if not token_set:
             return []
+        if self.demo_phrase_preset == "hello_im_good_thanks":
+            assisted_tokens = {"HELLO", "ME", "GOOD", "THANK_YOU"}
+            overlap = token_set & assisted_tokens
+            if len(overlap) >= 2 or "THANK_YOU" in overlap:
+                return ["HELLO", "ME", "GOOD", "THANK_YOU"]
+        if self.demo_phrase_preset == "presentation_dual_phrase":
+            phrase_a = ["HELLO", "ME", "GOOD", "THANK_YOU"]
+            phrase_b = ["ME", "NEED", "DRINK"]
+            overlap_a = len(token_set & set(phrase_a))
+            overlap_b = len(token_set & set(phrase_b))
+            if overlap_a >= 2 and overlap_a >= overlap_b:
+                return phrase_a
+            if overlap_b >= 2:
+                return phrase_b
         if "ME" in token_set or "GOOD" in token_set:
             return ["ME", "GOOD"]
         if "WE" in token_set or "GO" in token_set or "SCHOOL" in token_set:
