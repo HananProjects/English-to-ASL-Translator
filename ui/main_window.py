@@ -1816,7 +1816,7 @@ class MainWindow(QWidget):
         if hasattr(self, "reverse_label"):
             self.reverse_label.setText("English Translation:")
         if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText("Status: Demo preset ready")
+            self.reverse_status_label.setText("Status: Camera ready for capture")
         self._refresh_asl_settings_actions()
 
     def present_demo_phrase(self, sequence: list[str], label: str):
@@ -1826,7 +1826,7 @@ class MainWindow(QWidget):
         self.pending_camera_tokens = list(tokens)
         self._finalize_camera_translation(list(tokens))
         if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText("Status: Demo preset loaded")
+            self.reverse_status_label.setText("Status: Camera ready for capture")
 
     def start_camera_capture(self):
         if not self.camera_running or self.asl_video_path is not None:
