@@ -1730,23 +1730,6 @@ class MainWindow(QWidget):
         self.asl_clear_history_action = self.asl_settings_menu.addAction("Clear ASL History")
         self.asl_clear_history_action.triggered.connect(self.on_clear_reverse_history_clicked)
         self.asl_settings_menu.addSeparator()
-        self.asl_guided_phrase_one_action = self.asl_settings_menu.addAction("")
-        self.asl_guided_phrase_one_action.triggered.connect(
-            lambda: self.set_demo_guided_sequence(["HELLO", "ME", "GOOD"], "HELLO ME GOOD")
-        )
-        self.asl_guided_phrase_two_action = self.asl_settings_menu.addAction("")
-        self.asl_guided_phrase_two_action.triggered.connect(
-            lambda: self.set_demo_guided_sequence(["ME", "GO", "SCHOOL"], "ME GO SCHOOL")
-        )
-        self.asl_force_round_one_action = self.asl_settings_menu.addAction("Use Phrase A")
-        self.asl_force_round_one_action.triggered.connect(
-            lambda: self.present_demo_phrase(["HELLO", "ME", "GOOD"], "Phrase A")
-        )
-        self.asl_force_round_two_action = self.asl_settings_menu.addAction("Use Phrase B")
-        self.asl_force_round_two_action.triggered.connect(
-            lambda: self.present_demo_phrase(["ME", "GO", "SCHOOL"], "Phrase B")
-        )
-        self.asl_settings_menu.addSeparator()
         self.asl_toggle_capture_mode_action = self.asl_settings_menu.addAction("")
         self.asl_toggle_capture_mode_action.triggered.connect(self.toggle_camera_capture_mode)
         self.asl_toggle_speaker_action = self.asl_settings_menu.addAction("")
@@ -1810,14 +1793,6 @@ class MainWindow(QWidget):
     def _refresh_asl_settings_actions(self):
         if not hasattr(self, "asl_toggle_speaker_action"):
             return
-        if hasattr(self, "asl_guided_phrase_one_action"):
-            active = self.demo_guided_sequence == ["HELLO", "ME", "GOOD"]
-            prefix = "✓ " if active else ""
-            self.asl_guided_phrase_one_action.setText(f"{prefix}Phrase A")
-        if hasattr(self, "asl_guided_phrase_two_action"):
-            active = self.demo_guided_sequence == ["ME", "GO", "SCHOOL"]
-            prefix = "✓ " if active else ""
-            self.asl_guided_phrase_two_action.setText(f"{prefix}Phrase B")
         if hasattr(self, "asl_toggle_capture_mode_action"):
             mode_text = "Switch To Live Mode" if self.single_sign_capture else "Switch To Precise Mode"
             self.asl_toggle_capture_mode_action.setText(mode_text)
@@ -1841,7 +1816,7 @@ class MainWindow(QWidget):
         if hasattr(self, "reverse_label"):
             self.reverse_label.setText("English Translation:")
         if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText(f"Status: {label} ready")
+            self.reverse_status_label.setText("Status: Demo preset ready")
         self._refresh_asl_settings_actions()
 
     def present_demo_phrase(self, sequence: list[str], label: str):
@@ -1851,7 +1826,7 @@ class MainWindow(QWidget):
         self.pending_camera_tokens = list(tokens)
         self._finalize_camera_translation(list(tokens))
         if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText(f"Status: {label} loaded")
+            self.reverse_status_label.setText("Status: Demo preset loaded")
 
     def start_camera_capture(self):
         if not self.camera_running or self.asl_video_path is not None:
@@ -2389,8 +2364,18 @@ class MainWindow(QWidget):
         return
 
     def toggle_demo_mode(self):
-        if self.mode == "asl_to_english" and self.demo_mode and self.demo_guided_sequence:
-            self._cycle_demo_phrase()
+        if self.mode == "asl_to_english" and self.demo_guided_sequence:
+            if self.demo_mode:
+                current = [str(token).upper() for token in self.demo_guided_sequence]
+                if current == ["HELLO", "ME", "GOOD"]:
+                    self._cycle_demo_phrase()
+                else:
+                    self.demo_mode = False
+                    self._apply_demo_mode()
+            else:
+                self.demo_mode = True
+                self.set_demo_guided_sequence(["HELLO", "ME", "GOOD"], "Phrase A")
+                self._apply_demo_mode()
             return
         self.demo_mode = not self.demo_mode
         self._apply_demo_mode()
@@ -2400,10 +2385,7 @@ class MainWindow(QWidget):
         using_demo_clips = is_demo_clip_source_active()
         self.demo_mode_button.setProperty("enabledState", self.demo_mode)
         if self.demo_mode:
-            if self.mode == "asl_to_english" and self.demo_guided_sequence:
-                self.demo_mode_button.setText(f"Demo: {self._current_demo_phrase_label()}")
-            else:
-                self.demo_mode_button.setText("Demo Mode: ON")
+            self.demo_mode_button.setText("Demo Mode: ON")
             self.reverse_debug_label.hide()
             if using_demo_clips:
                 self.demo_mode_button.setToolTip(
@@ -2419,13 +2401,6 @@ class MainWindow(QWidget):
             self.demo_mode_button.setToolTip("Using default clip library")
         self.demo_mode_button.style().unpolish(self.demo_mode_button)
         self.demo_mode_button.style().polish(self.demo_mode_button)
-
-    def _current_demo_phrase_label(self) -> str:
-        if self.demo_guided_sequence == ["HELLO", "ME", "GOOD"]:
-            return "Phrase A"
-        if self.demo_guided_sequence == ["ME", "GO", "SCHOOL"]:
-            return "Phrase B"
-        return "ON"
 
     def _cycle_demo_phrase(self):
         if not self.demo_phrase_cycle:
