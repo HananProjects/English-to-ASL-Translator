@@ -10,7 +10,7 @@ from ui.animation.clip_loader import load_clip
 
 class ASLAnimationView(QWidget):
     HAND_VISUAL_SCALE = 1.02
-    # Keep motion smooth but still readable for live demo.
+    # Keep motion smooth while preserving sign readability.
     PLAYBACK_SPEED = 0.62
     PLAYBACK_SMOOTHING_ALPHA = 0.20
     HAND_CHAINS = (

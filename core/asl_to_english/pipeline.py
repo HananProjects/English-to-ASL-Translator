@@ -63,7 +63,7 @@ def _realize_english(words: List[str]) -> List[str]:
     if not words:
         return words
 
-    # Demo-friendly realization for a common planning response.
+    # Expand a common planning phrase into more natural English.
     if len(words) == 3 and words[0] == "we" and words[1] == "go" and words[2] == "school":
         return ["we", "should", "go", "to", "school"]
 

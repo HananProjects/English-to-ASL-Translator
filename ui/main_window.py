@@ -17,11 +17,6 @@ from PySide6.QtGui import QPixmap, QGuiApplication, QPainter, QPen, QColor, QFon
 from core.sequencing.sign_sequencer import sequence_signs, SignEvent
 from ui.widgets.animation_view import ASLAnimationView
 from ui.worker_camera import CameraWorker
-from ui.animation.clip_loader import (
-    set_demo_mode as set_demo_clip_mode,
-    is_demo_clip_source_active,
-    DEMO_CLIP_DIR,
-)
 from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -84,65 +79,6 @@ def _env_float(
     if max_value is not None and value > max_value:
         value = max_value
     return value
-
-
-def _env_token_set(name: str) -> set[str]:
-    raw = os.getenv(name, "")
-    if not raw:
-        return set()
-    tokens: set[str] = set()
-    for part in raw.replace(";", ",").split(","):
-        token = part.strip().upper()
-        if token:
-            tokens.add(token)
-    return tokens
-
-
-def _env_token_list(name: str) -> list[str]:
-    raw = os.getenv(name, "")
-    if not raw:
-        return []
-    tokens: list[str] = []
-    for part in raw.replace(";", ",").split(","):
-        token = part.strip().upper()
-        if token:
-            tokens.append(token)
-    return tokens
-
-
-def _env_token_map(name: str) -> dict[str, str]:
-    raw = os.getenv(name, "")
-    if not raw:
-        return {}
-    mapping: dict[str, str] = {}
-    for part in raw.replace(";", ",").split(","):
-        item = part.strip()
-        if not item or ":" not in item:
-            continue
-        src, dst = item.split(":", 1)
-        src = src.strip().upper()
-        dst = dst.strip().upper()
-        if src and dst:
-            mapping[src] = dst
-    return mapping
-
-
-DEFAULT_DEMO_VOCAB = {
-    "ME",
-    "GOOD",
-    "WE",
-    "GO",
-    "SCHOOL",
-}
-
-# Demo remaps to keep presentation phrases usable when recognition drifts.
-DEFAULT_DEMO_TOKEN_REMAP = {
-    "PLEASE": "ME",
-    "NAME": "ME",
-    "MY": "ME",
-}
-
-DEFAULT_DEMO_PHRASE_PRESET = ""
 
 
 class MainWindow(QWidget):
@@ -212,29 +148,6 @@ class MainWindow(QWidget):
         )
         self.pending_camera_tokens = []
         self.camera_error_message = None
-        # Presentation default: start in demo mode unless explicitly disabled.
-        self.demo_mode = _env_bool("ASL_DEMO_MODE", True)
-        self.demo_allowed_tokens = _env_token_set("ASL_DEMO_VOCAB") or set(DEFAULT_DEMO_VOCAB)
-        self.demo_token_remap = dict(DEFAULT_DEMO_TOKEN_REMAP)
-        self.demo_token_remap.update(_env_token_map("ASL_DEMO_TOKEN_REMAP"))
-        self.demo_phrase_snap = _env_bool("ASL_DEMO_PHRASE_SNAP", False)
-        self.demo_phrase_cycle = [
-            ["HELLO", "ME", "GOOD"],
-            ["ME", "GO", "SCHOOL"],
-        ]
-        self.demo_phrase_preset = os.getenv(
-            "ASL_DEMO_PHRASE_PRESET",
-            DEFAULT_DEMO_PHRASE_PRESET,
-        ).strip().lower()
-        self.demo_guided_sequence = _env_token_list("ASL_DEMO_GUIDED_SEQUENCE")
-        self.demo_guided_step_cooldown_s = _env_float(
-            "ASL_DEMO_GUIDED_STEP_COOLDOWN_S",
-            0.55,
-            min_value=0.1,
-            max_value=3.0,
-        )
-        self.demo_guided_index = 0
-        self.demo_guided_last_accept_ts = 0.0
         self.latest_translation_text = ""
         self.tts_engine = self._init_tts_engine()
         self.tts_backend = self._resolve_tts_backend()
@@ -339,11 +252,9 @@ class MainWindow(QWidget):
         self.reverse_mode_button = QPushButton(
             "ASL -> EN" if self.compact_ui else "ASL -> English"
         )
-        self.demo_mode_button = QPushButton("Demo Mode: ON")
         self.close_window_button = QPushButton("X")
         self.english_mode_button.setObjectName("modeButton")
         self.reverse_mode_button.setObjectName("modeButton")
-        self.demo_mode_button.setObjectName("demoButton")
         self.close_window_button.setObjectName("closeButton")
         self.english_mode_button.clicked.connect(
             lambda: self.set_mode("english_to_asl")
@@ -351,13 +262,11 @@ class MainWindow(QWidget):
         self.reverse_mode_button.clicked.connect(
             lambda: self.set_mode("asl_to_english")
         )
-        self.demo_mode_button.clicked.connect(self.toggle_demo_mode)
         self.close_window_button.clicked.connect(self.close)
         self.close_window_button.setToolTip("Exit")
         close_button_size = 34 if self.compact_ui else 40
         self.close_window_button.setFixedSize(close_button_size, close_button_size)
         title_row.addWidget(self.mode_badge_label, 0, Qt.AlignTop)
-        title_row.addWidget(self.demo_mode_button, 0, Qt.AlignTop)
         title_row.addWidget(self.close_window_button, 0, Qt.AlignTop)
         header_layout.addLayout(title_row)
 
@@ -404,7 +313,6 @@ class MainWindow(QWidget):
         # English -> ASL avatar should not mirror camera pose.
         self.english_animation_view.disable_live_pose()
         self._refresh_mode_buttons()
-        self._apply_demo_mode()
         self.refresh_battery_status()
         self.battery_timer.start()
         self._sync_linux_playback_volume(force=True)
@@ -569,17 +477,12 @@ class MainWindow(QWidget):
                 f"No sign found for {words}{extra}; spelling letter-by-letter"
             )
         else:
-            if self.demo_mode:
-                self.english_status_label.setText(
-                    f"Heard: {heard_text or '(none)'} | Edit below and tap Translate Text if needed"
-                )
-            else:
-                self.english_status_label.setText(
-                    f"Heard: {heard_text or '(none)'} | "
-                    f"Confidence: {data['confidence']:.2f} | "
-                    f"Latency: {data['latency']} ms | "
-                    "Edit below and tap Translate Text if needed"
-                )
+            self.english_status_label.setText(
+                f"Heard: {heard_text or '(none)'} | "
+                f"Confidence: {data['confidence']:.2f} | "
+                f"Latency: {data['latency']} ms | "
+                "Edit below and tap Translate Text if needed"
+            )
 
         if not tokens:
             return
@@ -638,15 +541,6 @@ class MainWindow(QWidget):
             )
         self.camera_feed_label.setPixmap(pixmap)
 
-    def _remap_demo_token(self, token: str) -> str:
-        mapped = (token or "").strip().upper()
-        if not mapped:
-            return mapped
-
-        if self.demo_token_remap:
-            return self.demo_token_remap.get(mapped, mapped)
-        return mapped
-
     def _pose_has_visible_hands(self, pose: dict) -> bool:
         if not pose:
             return False
@@ -672,17 +566,6 @@ class MainWindow(QWidget):
     def on_camera_token(self, token: str, confidence: float):
         if not self.camera_capture_enabled and self.asl_video_path is None:
             return
-        if self.demo_mode:
-            token = self._remap_demo_token(token)
-        if self.demo_mode and self.demo_guided_sequence:
-            token = self._next_guided_demo_token()
-            if not token:
-                return
-        if self.demo_mode and self.demo_allowed_tokens and token not in self.demo_allowed_tokens:
-            return
-        # Demo guard: keep "ME" only once per buffered sentence.
-        if self.demo_mode and token == "ME" and "ME" in self.pending_camera_tokens:
-            return
         if (
             self.single_sign_capture
             and self.asl_video_path is None
@@ -696,11 +579,7 @@ class MainWindow(QWidget):
         self.latest_camera_overlay_token = token
         self.latest_camera_overlay_confidence = float(confidence)
         self.latest_camera_overlay_ts = time.monotonic()
-        if self.demo_mode and (self.demo_phrase_snap or self.demo_guided_sequence):
-            self._update_demo_phrase_preview()
-        if self.demo_mode:
-            self.reverse_status_label.setText("Status: Capturing signs...")
-        elif self.single_sign_capture and self.asl_video_path is None and self.pending_camera_tokens:
+        if self.single_sign_capture and self.asl_video_path is None and self.pending_camera_tokens:
             self.reverse_status_label.setText(
                 f"Status: Captured {self.pending_camera_tokens[0]}. Move hands out of frame or tap stop"
             )
@@ -708,37 +587,6 @@ class MainWindow(QWidget):
             self.reverse_status_label.setText(
                 f"Status: Capturing signs... ({len(self.pending_camera_tokens)} buffered)"
             )
-
-    def _update_demo_phrase_preview(self):
-        if not self.demo_mode:
-            return
-        if self.demo_guided_sequence:
-            preview_tokens = list(self.pending_camera_tokens)
-        elif self.demo_phrase_snap:
-            preview_tokens = self._snap_demo_phrase(list(self.pending_camera_tokens))
-            if not preview_tokens:
-                preview_tokens = list(self.pending_camera_tokens)
-        else:
-            preview_tokens = list(self.pending_camera_tokens)
-        if not preview_tokens:
-            return
-        self.camera_label.setText(f"Detected ASL Tokens: {' '.join(preview_tokens)}")
-        reverse = asl_to_english(tokens=preview_tokens)
-        if not reverse.error and reverse.english_text:
-            self.reverse_label.setText(f"English Translation: {reverse.english_text}")
-
-    def _next_guided_demo_token(self) -> str:
-        if not self.demo_guided_sequence:
-            return ""
-        if self.demo_guided_index >= len(self.demo_guided_sequence):
-            return ""
-        now = time.monotonic()
-        if now - self.demo_guided_last_accept_ts < self.demo_guided_step_cooldown_s:
-            return ""
-        token = self.demo_guided_sequence[self.demo_guided_index]
-        self.demo_guided_index += 1
-        self.demo_guided_last_accept_ts = now
-        return token
 
     def on_camera_debug(self, token: str, confidence: float, streak: int):
         if not self.camera_capture_enabled and self.asl_video_path is None:
@@ -868,62 +716,11 @@ class MainWindow(QWidget):
             return
         if not tokens:
             return
-        if self.demo_mode and self.pending_camera_tokens:
-            # Prefer the already-remapped live token stream for final translation.
-            tokens = list(self.pending_camera_tokens)
-        elif self.demo_mode:
-            tokens = [self._remap_demo_token(t) for t in tokens]
-        if self.demo_mode:
-            seen_me = False
-            filtered_me = []
-            for t in tokens:
-                if t == "ME":
-                    if seen_me:
-                        continue
-                    seen_me = True
-                filtered_me.append(t)
-            tokens = filtered_me
-        if self.demo_mode and self.demo_allowed_tokens:
-            filtered = [t for t in tokens if t in self.demo_allowed_tokens]
-            if not filtered:
-                return
-            tokens = filtered
-        if self.demo_mode and self.demo_phrase_snap:
-            tokens = self._snap_demo_phrase(tokens)
         self._finalize_camera_translation(tokens)
-
-    def _snap_demo_phrase(self, tokens: list[str]) -> list[str]:
-        """Presentation fallback: snap partial detections to one of 2 demo phrases."""
-        token_set = {str(t).upper() for t in tokens if str(t).strip()}
-        if not token_set:
-            return []
-        if self.demo_phrase_preset == "hello_im_good_thanks":
-            assisted_tokens = {"HELLO", "ME", "GOOD", "THANK_YOU"}
-            overlap = token_set & assisted_tokens
-            if len(overlap) >= 2 or "THANK_YOU" in overlap:
-                return ["HELLO", "ME", "GOOD", "THANK_YOU"]
-        if self.demo_phrase_preset == "presentation_dual_phrase":
-            phrase_a = ["HELLO", "ME", "GOOD", "THANK_YOU"]
-            phrase_b = ["ME", "NEED", "DRINK"]
-            overlap_a = len(token_set & set(phrase_a))
-            overlap_b = len(token_set & set(phrase_b))
-            if overlap_a >= 2 and overlap_a >= overlap_b:
-                return phrase_a
-            if overlap_b >= 2:
-                return phrase_b
-        if "ME" in token_set or "GOOD" in token_set:
-            return ["ME", "GOOD"]
-        if "WE" in token_set or "GO" in token_set or "SCHOOL" in token_set:
-            return ["WE", "GO", "SCHOOL"]
-        return tokens
 
     def _finalize_camera_translation(self, tokens: list):
         if self.single_sign_capture and self.asl_video_path is None and tokens:
             tokens = tokens[:1]
-        if self.demo_mode and self.demo_allowed_tokens:
-            tokens = [t for t in tokens if t in self.demo_allowed_tokens]
-            if not tokens:
-                return
         self.camera_label.setText(
             f"Detected ASL Tokens: {' '.join(tokens)}"
         )
@@ -937,14 +734,11 @@ class MainWindow(QWidget):
 
         self.latest_translation_text = reverse.english_text
         self.reverse_label.setText(f"English Translation: {self.latest_translation_text}")
-        if self.demo_mode:
-            self.reverse_status_label.setText("Status: Translation updated")
-        else:
-            self.reverse_status_label.setText(
-                f"Status: Camera ASL -> English | "
-                f"Confidence: {reverse.confidence:.2f} | "
-                f"Latency: {reverse.latency_ms} ms"
-            )
+        self.reverse_status_label.setText(
+            f"Status: Camera ASL -> English | "
+            f"Confidence: {reverse.confidence:.2f} | "
+            f"Latency: {reverse.latency_ms} ms"
+        )
         self._speak_translation_if_enabled(self.latest_translation_text)
         self.pending_camera_tokens.clear()
 
@@ -1127,14 +921,9 @@ class MainWindow(QWidget):
                 f"Status: No sign found for {words}{extra}; spelling letter-by-letter"
             )
         elif source == "typed":
-            if self.demo_mode:
-                self.english_status_label.setText(f"Status: Typed text translated | {text}")
-            else:
-                self.english_status_label.setText(
-                    f"Status: Typed Text | Confidence: {result.confidence:.2f}"
-                )
-        elif self.demo_mode:
-            self.english_status_label.setText("Status: Live speech detected")
+            self.english_status_label.setText(
+                f"Status: Typed Text | Confidence: {result.confidence:.2f}"
+            )
         else:
             self.english_status_label.setText(
                 f"Status: Live Speech | Confidence: {result.confidence:.2f}"
@@ -1806,35 +1595,11 @@ class MainWindow(QWidget):
         self.asl_replay_latest_history_action.setEnabled(has_history)
         self.asl_clear_history_action.setEnabled(has_history)
 
-    def set_demo_guided_sequence(self, sequence: list[str], label: str):
-        self.demo_guided_sequence = [str(token).upper() for token in sequence if str(token).strip()]
-        self.demo_guided_index = 0
-        self.demo_guided_last_accept_ts = 0.0
-        self.pending_camera_tokens.clear()
-        if hasattr(self, "camera_label"):
-            self.camera_label.setText("Detected ASL Tokens:")
-        if hasattr(self, "reverse_label"):
-            self.reverse_label.setText("English Translation:")
-        if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText("Status: Camera ready for capture")
-        self._refresh_asl_settings_actions()
-
-    def present_demo_phrase(self, sequence: list[str], label: str):
-        tokens = [str(token).upper() for token in sequence if str(token).strip()]
-        if not tokens:
-            return
-        self.pending_camera_tokens = list(tokens)
-        self._finalize_camera_translation(list(tokens))
-        if hasattr(self, "reverse_status_label"):
-            self.reverse_status_label.setText("Status: Camera ready for capture")
-
     def start_camera_capture(self):
         if not self.camera_running or self.asl_video_path is not None:
             return
         self.camera_capture_enabled = True
         self.camera_no_hand_streak = 0
-        self.demo_guided_index = 0
-        self.demo_guided_last_accept_ts = 0.0
         self.pending_camera_tokens.clear()
         self.latest_camera_overlay_token = ""
         self.latest_camera_overlay_confidence = 0.0
@@ -1863,8 +1628,6 @@ class MainWindow(QWidget):
             return
         self.camera_capture_enabled = False
         self.camera_no_hand_streak = 0
-        self.demo_guided_index = 0
-        self.demo_guided_last_accept_ts = 0.0
         self.latest_camera_overlay_token = ""
         self.latest_camera_overlay_confidence = 0.0
         self.latest_camera_overlay_ts = 0.0
@@ -1904,8 +1667,6 @@ class MainWindow(QWidget):
         if source_path is not None:
             self.asl_video_path = source_path
         self.camera_error_message = None
-        self.demo_guided_index = 0
-        self.demo_guided_last_accept_ts = 0.0
         self.pending_camera_tokens.clear()
         self.latest_camera_overlay_token = ""
         self.latest_camera_overlay_confidence = 0.0
@@ -2129,8 +1890,6 @@ class MainWindow(QWidget):
         if self.camera_capture_enabled:
             self.stop_camera_capture(finalize_pending=False)
         self.pending_camera_tokens.clear()
-        self.demo_guided_index = 0
-        self.demo_guided_last_accept_ts = 0.0
         self.camera_no_hand_streak = 0
         self.latest_camera_pose = None
         self.latest_camera_debug_token = ""
@@ -2190,7 +1949,7 @@ class MainWindow(QWidget):
             return None
         try:
             engine = QTextToSpeech(self)
-            # Keep output clear and audible for demo use.
+            # Use clear default speech output for translated text.
             engine.setVolume(1.0)
             engine.setRate(-0.1)
             return engine
@@ -2363,58 +2122,6 @@ class MainWindow(QWidget):
         # no-op local slot to keep signal visible and future extensible.
         return
 
-    def toggle_demo_mode(self):
-        if self.mode == "asl_to_english" and self.demo_guided_sequence:
-            if self.demo_mode:
-                current = [str(token).upper() for token in self.demo_guided_sequence]
-                if current == ["HELLO", "ME", "GOOD"]:
-                    self._cycle_demo_phrase()
-                else:
-                    self.demo_mode = False
-                    self._apply_demo_mode()
-            else:
-                self.demo_mode = True
-                self.set_demo_guided_sequence(["HELLO", "ME", "GOOD"], "Phrase A")
-                self._apply_demo_mode()
-            return
-        self.demo_mode = not self.demo_mode
-        self._apply_demo_mode()
-
-    def _apply_demo_mode(self):
-        set_demo_clip_mode(self.demo_mode)
-        using_demo_clips = is_demo_clip_source_active()
-        self.demo_mode_button.setProperty("enabledState", self.demo_mode)
-        if self.demo_mode:
-            self.demo_mode_button.setText("Demo Mode: ON")
-            self.reverse_debug_label.hide()
-            if using_demo_clips:
-                self.demo_mode_button.setToolTip(
-                    f"Using curated clips from: {DEMO_CLIP_DIR}"
-                )
-            else:
-                self.demo_mode_button.setToolTip(
-                    f"No curated clips found in: {DEMO_CLIP_DIR}. Using default clips."
-                )
-        else:
-            self.demo_mode_button.setText("Demo Mode: OFF")
-            self.reverse_debug_label.show()
-            self.demo_mode_button.setToolTip("Using default clip library")
-        self.demo_mode_button.style().unpolish(self.demo_mode_button)
-        self.demo_mode_button.style().polish(self.demo_mode_button)
-
-    def _cycle_demo_phrase(self):
-        if not self.demo_phrase_cycle:
-            return
-        current = [str(token).upper() for token in self.demo_guided_sequence]
-        try:
-            idx = self.demo_phrase_cycle.index(current)
-        except ValueError:
-            idx = -1
-        next_sequence = self.demo_phrase_cycle[(idx + 1) % len(self.demo_phrase_cycle)]
-        label = "Phrase A" if next_sequence == ["HELLO", "ME", "GOOD"] else "Phrase B"
-        self.set_demo_guided_sequence(next_sequence, label)
-        self._apply_demo_mode()
-
     def refresh_battery_status(self):
         status = read_battery_status()
         self.battery_state_label.setText(status.label)
@@ -2444,7 +2151,6 @@ class MainWindow(QWidget):
     def _apply_theme(self):
         mode_font = 14 if self.compact_ui else 16
         mode_height = 36 if self.compact_ui else 44
-        demo_height = self.mini_button_height
         css = """
             QWidget {
                 background-color: #eef2f7;
@@ -2654,23 +2360,6 @@ class MainWindow(QWidget):
             QPushButton#secondaryButton:pressed {
                 background-color: #edf2f7;
             }
-            QPushButton#demoButton {
-                min-height: __DEMO_HEIGHT__px;
-                border-radius: 12px;
-                padding: 6px 12px;
-                font-size: 12px;
-                font-weight: 700;
-            }
-            QPushButton#demoButton[enabledState="true"] {
-                background-color: #34c759;
-                border-color: #2aa44b;
-                color: #ffffff;
-            }
-            QPushButton#demoButton[enabledState="false"] {
-                background-color: #94a3b8;
-                border-color: #7b8aa1;
-                color: #ffffff;
-            }
             QPushButton#closeButton {
                 background-color: #ffffff;
                 border: 1px solid #d8e0ea;
@@ -2726,8 +2415,7 @@ class MainWindow(QWidget):
                 color: #0b63ce;
                 border-color: #d8e0ea;
             }
-            """
+        """
         css = css.replace("__MODE_FONT__", str(mode_font))
         css = css.replace("__MODE_HEIGHT__", str(mode_height))
-        css = css.replace("__DEMO_HEIGHT__", str(demo_height))
         self.setStyleSheet(css)

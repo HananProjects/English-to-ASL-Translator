@@ -2,14 +2,12 @@
 
 CME495 Capstone Project (2025-2026)
 
-This project is an offline English and ASL translation prototype designed for a Raspberry Pi demo environment. It supports two user-facing modes:
+This project is an offline English and ASL translation prototype designed for a Raspberry Pi environment. It supports two user-facing modes:
 
 - English to ASL: converts typed or spoken English into ASL gloss tokens and plays pose-based sign animation clips
 - ASL to English: uses live camera landmarks plus a trained recognizer to classify signs and build English output
 
-## Final Demo Scope
-
-The final presentation branch is `pi_demo`.
+## Scope
 
 The final application entry point is:
 
@@ -17,7 +15,7 @@ The final application entry point is:
 python -m ui.main
 ```
 
-This repository also contains training, import, and evaluation scripts, but those are development utilities and are not required to run the final demo.
+This repository also contains training, import, and evaluation scripts, but those are development utilities and are not required to run the main application.
 
 ## Main Features
 
@@ -32,7 +30,7 @@ This repository also contains training, import, and evaluation scripts, but thos
 
 - `core/`: translation pipelines, recognizers, feature extraction, and shared logic
 - `ui/`: PySide6 application, animation playback, and camera worker code
-- `scripts/`: helper scripts for demos, training, importing clips, and evaluation
+- `scripts/`: helper scripts for running, training, importing clips, and evaluation
 - `tests/`: unit tests for translation logic and recognition components
 - `data/`: labels and development artifacts
 - `models/`: local model files required at runtime but not committed to git
@@ -78,7 +76,7 @@ The UI contains two modes:
 - English -> ASL: record speech or enter text, then view the generated sign sequence
 - ASL -> English: use the live camera recognizer to detect signs and convert them to English
 
-## Useful Demo Scripts
+## Useful Scripts
 
 Run a simple English-to-ASL text example:
 
@@ -103,7 +101,7 @@ pytest -q
 ## Notes For Submission
 
 - Large local models are expected in `models/` but are not tracked in git
-- The repository includes training and import utilities that are not part of the final demo path
+- The repository includes training and import utilities that are not part of the main runtime path
 - Generated UI state, evaluation outputs, backup clips, and raw source videos should not be included in the final cleaned submission
 
 ## Known Limitations
