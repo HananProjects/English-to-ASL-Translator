@@ -222,3 +222,18 @@ data/WLASL/
 data/WLASL/start_kit/raw_videos/
 data/WLASL/start_kit/download_*.log
 data/wlasl_import_report.json
+
+# Project runtime state / generated evaluation artifacts
+data/english_asl_ui_state.json
+data/eval/
+data/clip_backups/
+data/datasets/
+data/videos/
+data/team_import_report*.json
+data/wlasl_import_report*.json
+
+# Raw source media used during clip import
+ui/animation/extra_clips/
+
+# Local helper files not needed for submission
+scripts/commands.txt

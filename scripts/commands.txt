@@ -1,3 +1,0 @@
-.\.venv\Scripts\python.exe scripts/rank_sign_quality.py --report data/eval/sign_quality_report.json --top 500
-.\.venv\Scripts\python.exe scripts/train_asl_sequence_model.py --labels-file data/labels_merged_branch.txt --min-samples-per-label 2 --epochs 150 --lr 0.03 --l2 0.005 --out models/asl_landmark_classifier_v2.npz
-.\.venv\Scripts\python.exe scripts/eval_asl_sequence_model.py --model models/asl_landmark_classifier_v2.npz --report data/eval/asl_to_english_eval.json

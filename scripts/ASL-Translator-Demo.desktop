@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=ASL Translator Demo
-Comment=Launch English-to-ASL touchscreen demo
-Exec=/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator/scripts/launch_touchscreen_demo.sh
-Path=/home/capstone/capstone/English-to-ASL-Translator/English-to-ASL-Translator
-Terminal=false
-Categories=Utility;
-
