@@ -1,6 +1,36 @@
 {
   "history": [
     {
+      "stamp": "10:30:43",
+      "created_at": "2026-04-17T10:30:43",
+      "text": "hello how are you",
+      "tokens": [
+        "HELLO",
+        "HOW",
+        "YOU"
+      ],
+      "sequence": [
+        {
+          "token": "HELLO",
+          "clip": "hello",
+          "start": 0.0,
+          "duration": 2.4193548387096775
+        },
+        {
+          "token": "HOW",
+          "clip": "how",
+          "start": 2.4193548387096775,
+          "duration": 3.629032258064516
+        },
+        {
+          "token": "YOU",
+          "clip": "you_1",
+          "start": 6.048387096774194,
+          "duration": 2.0161290322580645
+        }
+      ]
+    },
+    {
       "stamp": "13:26:12",
       "created_at": "2026-03-23T13:26:12",
       "text": "hi",
